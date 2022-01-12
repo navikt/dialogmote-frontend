@@ -9,23 +9,30 @@ spec:
   image: {{ image }}
   replicas:
     min: 2
-    max: 2
+    max: 4
     cpuThresholdPercentage: 90
   port: 8080
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
   liveness:
-    path: /syk/poc/dialogmote/api/isAlive
+    path: syk/poc/dialogmote/api/isAlive
     initialDelay: 20
     timeout: 5
     periodSeconds: 5
     failureThreshold: 30
   readiness:
-    path: /syk/poc/dialogmote/api/isReady
+    path: syk/poc/dialogmote/api/isReady
     initialDelay: 20
     periodSeconds: 5
     timeout: 5
   prometheus:
     enabled: true
-    path: /actuator/metrics
+    path: actuator/metrics
   resources:
     limits:
       cpu: 500m
@@ -44,7 +51,17 @@ spec:
       value: https://loginservice.dev.nav.no/login
     - name: ISDIALOGMOTE_HOST
       value: https://isdialogmote.dev.nav.no
+    - name: OPPLAERING
+      value: "false"
+    - name: MOCK_BACKEND
+      value: "false"
+    - name: ENVIRONMENT
+      value: "test"
+    - name: ISDIALOGMOTE_AUDIENCE
+      value: "dev-gcp:teamsykefravr:isdialogmote"
   accessPolicy:
     outbound:
+      rules:
+        - application: isdialogmote
       external:
         - host: dekoratoren.dev.nav.no
