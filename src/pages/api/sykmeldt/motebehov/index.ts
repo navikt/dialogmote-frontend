@@ -1,14 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-import tokenX from "@/server/auth/tokenX";
 import { Brev } from "@/common/api/types/brevTypes";
-import serverEnv from "@/server/utils/serverEnv";
 import { ncOptions } from "@/server/utils/ncOptions";
 import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
-import { fetchMotebehov } from "@/server/data/fetchMotebehov";
+import { fetchMotebehov } from "@/server/data/sykmeldt/syfomotebehov/fetchMotebehov";
+import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
-  .use(tokenX(serverEnv.ISDIALOGMOTE_AUDIENCE))
+  .use(loginServiceToken())
   .use(fetchMotebehov)
   .get(
     async (

@@ -1,20 +1,30 @@
-import axios, { AxiosError, ResponseType } from 'axios';
-import { accessDeniedError, ApiErrorException, generalError, loginRequiredError, networkError } from './errors';
+import axios, { AxiosError, ResponseType } from "axios";
+import {
+  accessDeniedError,
+  ApiErrorException,
+  generalError,
+  loginRequiredError,
+  networkError,
+} from "./errors";
 
 interface AxiosOptions {
+  accessToken?: string;
   responseType?: ResponseType;
 }
 
-export const NAV_PERSONIDENT_HEADER = 'nav-personident';
+export const AUTHORIZATION = "Authorization";
 
-const defaultRequestHeaders = (personIdent?: string): Record<string, string> => {
+const defaultRequestHeaders = (
+  options?: AxiosOptions
+): Record<string, string> => {
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
 
-  if (personIdent) {
-    headers[NAV_PERSONIDENT_HEADER] = personIdent;
+  if (options?.accessToken) {
+    headers[AUTHORIZATION] = `Bearer ${options.accessToken}`;
   }
+
   return headers;
 };
 
@@ -22,10 +32,16 @@ function handleAxiosError(error: AxiosError) {
   if (error.response) {
     switch (error.response.status) {
       case 401: {
-        throw new ApiErrorException(loginRequiredError(error), error.response.status);
+        throw new ApiErrorException(
+          loginRequiredError(error),
+          error.response.status
+        );
       }
       case 403: {
-        throw new ApiErrorException(accessDeniedError(error), error.response.status);
+        throw new ApiErrorException(
+          accessDeniedError(error),
+          error.response.status
+        );
       }
       default:
         throw new ApiErrorException(generalError(error), error.response.status);
@@ -37,10 +53,13 @@ function handleAxiosError(error: AxiosError) {
   }
 }
 
-export const get = <ResponseData>(url: string, options?: AxiosOptions): Promise<ResponseData> => {
+export const get = <ResponseData>(
+  url: string,
+  options?: AxiosOptions
+): Promise<ResponseData> => {
   return axios
     .get(url, {
-      headers: defaultRequestHeaders(),
+      headers: defaultRequestHeaders(options),
       responseType: options?.responseType,
       withCredentials: true,
     })
@@ -61,7 +80,7 @@ export const post = <ResponseData>(
 ): Promise<ResponseData> => {
   return axios
     .post(url, data, {
-      headers: defaultRequestHeaders(),
+      headers: defaultRequestHeaders(options),
       responseType: options?.responseType,
       withCredentials: true,
     })

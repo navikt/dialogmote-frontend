@@ -31,7 +31,7 @@ class ProtectedApi {
     const response = await fetch(path, {
       method,
       headers,
-      body,
+      body: body ? JSON.stringify(body) : undefined,
     });
 
     if (!response.ok) {
@@ -47,6 +47,11 @@ class ProtectedApi {
 
   public async get(path: string): Promise<any> {
     const response = await this.do("GET", path);
+    return await response.json();
+  }
+
+  public async post(path: string, body?: string): Promise<any> {
+    const response = await this.do("POST", path, body);
     return await response.json();
   }
 }

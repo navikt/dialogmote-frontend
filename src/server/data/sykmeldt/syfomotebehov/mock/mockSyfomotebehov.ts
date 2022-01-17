@@ -5,7 +5,7 @@ import {
   motebehovStatusMeldBehovSvar,
   motebehovStatusSvarBehov,
   motebehovStatusSvarBehovSvar,
-} from "@/server/data/mock/syfomotebehov/Motebehov/MotebehovStatuser";
+} from "@/server/data/sykmeldt/syfomotebehov/mock/Motebehov/MotebehovStatuser";
 
 export const mockSyfoMotebehov = (
   type: MotebehovSkjemaType,
