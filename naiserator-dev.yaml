@@ -13,12 +13,11 @@ spec:
     cpuThresholdPercentage: 90
   port: 8080
   tokenx:
-    enabled: true
+    enabled: false
   idporten:
-    enabled: true
+    enabled: false
     sidecar:
-      enabled: true
-      autoLogin: true
+      enabled: false
   liveness:
     path: syk/poc/dialogmote/api/isAlive
     initialDelay: 20
