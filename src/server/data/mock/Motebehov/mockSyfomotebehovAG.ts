@@ -3,7 +3,7 @@ import {
   MotebehovStatus,
 } from "@/common/api/types/motebehovTypes";
 
-export const mockSyfomotebehovSM = (
+export const mockSyfomotebehovAG = (
   type: MotebehovSkjemaType,
   harSvart: boolean
 ): MotebehovStatus => {
@@ -14,15 +14,15 @@ export const mockSyfomotebehovSM = (
           visMotebehov: true,
           skjemaType: "MELD_BEHOV",
           motebehov: {
-            aktorId: "123",
-            id: "234",
-            arbeidstakerFnr: "02020212345",
+            aktorId: "222",
+            id: "333",
+            arbeidstakerFnr: "01010112345",
             opprettetAv: "",
             virksomhetsnummer: "000111222",
             motebehovSvar: {
               harMotebehov: true,
               forklaring:
-                "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri). Vondt i hodet",
+                "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri). Vondt i hodet.",
             },
             opprettetDato: "2019-11-08T12:35:37.669+01:00",
           },
@@ -40,9 +40,9 @@ export const mockSyfomotebehovSM = (
           visMotebehov: true,
           skjemaType: "SVAR_BEHOV",
           motebehov: {
-            aktorId: "123",
-            id: "234",
-            arbeidstakerFnr: "02020212345",
+            aktorId: "222",
+            id: "333",
+            arbeidstakerFnr: "01010112345",
             opprettetAv: "",
             virksomhetsnummer: "000111222",
             motebehovSvar: {

@@ -5,23 +5,23 @@ import { isMockBackend } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import { Brev, SvarRespons } from "@/common/api/types/brevTypes";
-import activeMockDataSM from "@/server/data/mock/activeMockDataSM";
+import activeMockDataAG from "@/server/data/mock/activeMockDataAG";
 
-const brevApiSM = (path?: string): string => {
-  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`;
+const brevApiAG = (path?: string): string => {
+  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`;
 
   return path ? `${host}${path}` : host;
 };
 
-export const fetchBrevSM = async (
+export const fetchBrevAG = async (
   req: IAuthenticatedRequest,
   res: NextApiResponse & { brevArray: Brev[] },
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.brevArray = activeMockDataSM.brev;
+    res.brevArray = activeMockDataAG.brev;
   } else {
-    res.brevArray = await get(brevApiSM(), {
+    res.brevArray = await get(brevApiAG(), {
       accessToken: req.loginServiceToken,
     });
   }
@@ -29,7 +29,7 @@ export const fetchBrevSM = async (
   next();
 };
 
-export const fetchBrevPdfSM = async (
+export const fetchBrevPdfAG = async (
   req: IAuthenticatedRequest,
   res: NextApiResponse & { pdf: any }, //todo better typing and response PDF
   next: () => void
@@ -38,7 +38,7 @@ export const fetchBrevPdfSM = async (
     res.pdf = pdfMock;
   } else {
     const { uuid } = req.query;
-    res.pdf = await get(brevApiSM(`/${uuid}/pdf`), {
+    res.pdf = await get(brevApiAG(`/${uuid}/pdf`), {
       accessToken: req.loginServiceToken,
       responseType: "blob",
     }); //hmz, kanskje bare ha pdf-genereringskoden inne her og serve det direkte herfra?
@@ -47,7 +47,7 @@ export const fetchBrevPdfSM = async (
   next();
 };
 
-export const postBrevLestSM = async (
+export const postBrevLestAG = async (
   req: IAuthenticatedRequest,
   res: NextApiResponse,
   next: () => void
@@ -56,7 +56,7 @@ export const postBrevLestSM = async (
     return next();
   } else {
     const { uuid } = req.query;
-    await post(brevApiSM(`/${uuid}/les`), undefined, {
+    await post(brevApiAG(`/${uuid}/les`), undefined, {
       accessToken: req.loginServiceToken,
     });
   }
@@ -64,7 +64,7 @@ export const postBrevLestSM = async (
   next();
 };
 
-export const postBrevSvarSM = async (
+export const postBrevSvarAG = async (
   req: IAuthenticatedRequest,
   res: NextApiResponse,
   next: () => void
@@ -74,7 +74,7 @@ export const postBrevSvarSM = async (
   } else {
     const { uuid } = req.query;
     const svar: SvarRespons = req.body;
-    await post(brevApiSM(`/${uuid}/respons`), svar, {
+    await post(brevApiAG(`/${uuid}/respons`), svar, {
       accessToken: req.loginServiceToken,
     });
   }
