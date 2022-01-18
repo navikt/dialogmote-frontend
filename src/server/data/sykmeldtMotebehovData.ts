@@ -1,19 +1,18 @@
-import { IAuthenticatedRequest } from "../../../api/IAuthenticatedRequest";
+import { IAuthenticatedRequest } from "../api/IAuthenticatedRequest";
 import { NextApiResponse } from "next";
 import { isMockBackend } from "@/common/publicEnv";
 import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
-import { mockSyfoMotebehov } from "@/server/data/sykmeldt/syfomotebehov/mock/mockSyfomotebehov";
 import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
-import serverLogger from "@/server/utils/serverLogger";
+import activeMockDataSM from "@/server/data/mock/activeMockDataSM";
 
-export const fetchMotebehov = async (
+export const fetchMotebehovSM = async (
   req: IAuthenticatedRequest,
   res: NextApiResponse & { motebehovStatus: MotebehovStatus },
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.motebehovStatus = mockSyfoMotebehov("MELD_BEHOV", false);
+    res.motebehovStatus = activeMockDataSM.motebehov;
   } else {
     const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/v2/arbeidstaker/motebehov`;
     res.motebehovStatus = await get(url, {

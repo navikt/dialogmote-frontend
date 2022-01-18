@@ -5,9 +5,9 @@ import {
   motebehovStatusMeldBehovSvar,
   motebehovStatusSvarBehov,
   motebehovStatusSvarBehovSvar,
-} from "@/server/data/sykmeldt/syfomotebehov/mock/Motebehov/MotebehovStatuser";
+} from "@/server/data/mock/Motebehov/components/MotebehovStatuserSM";
 
-export const mockSyfoMotebehov = (
+export const mockSyfomotebehovSM = (
   type: MotebehovSkjemaType,
   harSvart: boolean
 ) => {

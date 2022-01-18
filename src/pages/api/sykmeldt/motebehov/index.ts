@@ -3,12 +3,12 @@ import nc from "next-connect";
 import { Brev } from "@/common/api/types/brevTypes";
 import { ncOptions } from "@/server/utils/ncOptions";
 import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
-import { fetchMotebehov } from "@/server/data/sykmeldt/syfomotebehov/fetchMotebehov";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
+import { fetchMotebehovSM } from "@/server/data/sykmeldtMotebehovData";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
-  .use(fetchMotebehov)
+  .use(fetchMotebehovSM)
   .get(
     async (
       req,

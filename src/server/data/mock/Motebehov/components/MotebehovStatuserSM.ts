@@ -2,7 +2,7 @@ import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
 import {
   motebehovSvar,
   svarMotebehovSvar,
-} from "@/server/data/sykmeldt/syfomotebehov/mock/Motebehov/Motebehov";
+} from "@/server/data/mock/Motebehov/components/MotebehovSM";
 
 export const motebehovStatusMeldBehov: MotebehovStatus = {
   visMotebehov: true,
