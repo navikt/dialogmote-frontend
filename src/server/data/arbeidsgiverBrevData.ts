@@ -3,7 +3,7 @@ import { NextApiResponse } from "next";
 import serverEnv from "../utils/serverEnv";
 import { isMockBackend } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
-import { get, post } from "@/common/api/axios/axios";
+import { get, NAV_PERSONIDENT_HEADER, post } from "@/common/api/axios/axios";
 import { Brev, SvarRespons } from "@/common/api/types/brevTypes";
 import activeMockDataAG from "@/server/data/mock/activeMockDataAG";
 
@@ -21,8 +21,10 @@ export const fetchBrevAG = async (
   if (isMockBackend) {
     res.brevArray = activeMockDataAG.brev;
   } else {
+    const personident = req.headers[NAV_PERSONIDENT_HEADER];
     res.brevArray = await get(brevApiAG(), {
       accessToken: req.loginServiceToken,
+      personIdent: personident as string,
     });
   }
 

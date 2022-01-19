@@ -4,8 +4,12 @@ import { Brev } from "@/common/api/types/brevTypes";
 
 const BREVAG = "brevarbeidsgiver";
 
-export const useBrevAG = () => {
+export const useBrevAG = (personIdent?: string) => {
   const fetchBrev = () =>
-    get<Brev[]>("/syk/poc/dialogmote/api/arbeidsgiver/brev");
-  return useQuery(BREVAG, fetchBrev);
+    get<Brev[]>("/syk/poc/dialogmote/api/arbeidsgiver/brev", {
+      personIdent: personIdent,
+    });
+  return useQuery(BREVAG, fetchBrev, {
+    enabled: !!personIdent,
+  });
 };

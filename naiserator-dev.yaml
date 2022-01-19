@@ -52,6 +52,8 @@ spec:
       value: https://isdialogmote.dev.nav.no
     - name: SYFOMOTEBEHOV_HOST
       value: https://syfoapi.dev.nav.no/syfomotebehov/api
+    - name: SYKMELDINGER_ARBEIDSGIVER_HOST
+      value: https://sykmeldinger-arbeidsgiver.dev.nav.no
     - name: OPPLAERING
       value: "false"
     - name: MOCK_BACKEND

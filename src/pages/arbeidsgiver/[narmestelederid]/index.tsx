@@ -1,15 +1,22 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import styles from "../../styles/Home.module.css";
+import styles from "../../../styles/Home.module.css";
 import { useBrevAG } from "@/common/api/queries/arbeidsgiver/brevQueriesAG";
 import { useMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import { Brev } from "@/common/api/types/brevTypes";
 import { ReactElement } from "react";
 import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
+import { useSykmeldtAG } from "@/common/api/queries/arbeidsgiver/sykmeldtQueriesAG";
+import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
 const Home: NextPage = () => {
-  const brev = useBrevAG();
-  const motebehov = useMotebehovAG();
+  const narmestelederid = useNarmesteLederId();
+  const sykmeldt = useSykmeldtAG(narmestelederid);
+  const brev = useBrevAG(sykmeldt.data?.fnr);
+  const motebehov = useMotebehovAG(
+    sykmeldt.data?.fnr,
+    sykmeldt.data?.orgnummer
+  );
 
   const renderBrev = (brev: Brev[]): ReactElement => {
     return (
