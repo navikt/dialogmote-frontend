@@ -16,17 +16,17 @@ export default class MyDocument extends Document<{ Decorator: Components }> {
   static async getInitialProps(ctx: DocumentContext) {
     const { pathname } = ctx;
     const userTypeContext = getUserTypeContext(pathname);
-    const breadcrumbs = createBreadcrumbs("k");
+    const breadcrumbs = createBreadcrumbs(pathname);
 
     const decoratorParams: Props = {
       env: "dev",
       context: userTypeContext,
       chatbot: true,
+      enforceLogin: true,
+      level: "Level4",
+      redirectToApp: true,
+      breadcrumbs: breadcrumbs,
       urlLookupTable: false,
-      breadcrumbs: [
-        { url: "/tull", title: "Ditt NAV" },
-        { url: "https://www.nav.no/person/kontakt-oss", title: "Kontakt oss" },
-      ],
     };
     const Decorator = await fetchDecoratorReact(decoratorParams);
 
