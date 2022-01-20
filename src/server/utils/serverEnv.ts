@@ -1,6 +1,8 @@
 export interface IServerEnvironmentVariables {
   LOG_LEVEL: "fatal" | "error" | "warn" | "info" | "debug" | "trace";
   ISDIALOGMOTE_HOST: string;
+  SYFOMOTEBEHOV_HOST: string;
+  SYKMELDINGER_ARBEIDSGIVER_HOST: string;
   TOKEN_X_WELL_KNOWN_URL: string;
   TOKEN_X_CLIENT_ID: string;
   TOKEN_X_PRIVATE_JWK: string;

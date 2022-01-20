@@ -4,11 +4,11 @@ import { Brev } from "@/common/api/types/brevTypes";
 import { ncOptions } from "@/server/utils/ncOptions";
 import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
-import { fetchMotebehovSM } from "@/server/data/sykmeldtMotebehovData";
+import { fetchMotebehovAG } from "@/server/data/arbeidsgiverMotebehovData";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
-  .use(fetchMotebehovSM)
+  .use(fetchMotebehovAG)
   .get(
     async (
       req,
