@@ -2,6 +2,13 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: Arial, sans-serif; //får ta en grundig vurdering på hva vi egentlig trenger av globale styles
+  }
+`;
 
 const minutesToMillis = (minutes: number) => {
   return 1000 * 60 * minutes;
@@ -20,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
       <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
