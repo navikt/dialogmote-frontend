@@ -10,9 +10,13 @@ import {
 interface AxiosOptions {
   accessToken?: string;
   responseType?: ResponseType;
+  personIdent?: string;
+  orgnummer?: string;
 }
 
-export const AUTHORIZATION = "Authorization";
+export const AUTHORIZATION_HEADER = "Authorization";
+export const NAV_PERSONIDENT_HEADER = "nav-personident";
+export const ORGNUMMER_HEADER = "orgnummer";
 
 const defaultRequestHeaders = (
   options?: AxiosOptions
@@ -22,7 +26,15 @@ const defaultRequestHeaders = (
   };
 
   if (options?.accessToken) {
-    headers[AUTHORIZATION] = `Bearer ${options.accessToken}`;
+    headers[AUTHORIZATION_HEADER] = `Bearer ${options.accessToken}`;
+  }
+
+  if (options?.personIdent) {
+    headers[NAV_PERSONIDENT_HEADER] = options?.personIdent;
+  }
+
+  if (options?.orgnummer) {
+    headers[ORGNUMMER_HEADER] = options?.orgnummer;
   }
 
   return headers;
