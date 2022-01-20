@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react';
-import styled from 'styled-components';
-import Veileder from 'nav-frontend-veileder';
-import { VeilederAvatarImage } from '@/MVP/images';
+import styled from "styled-components";
+import Veileder from "nav-frontend-veileder";
+import { ReactElement } from "react";
+import Image from "next/image";
+import veilederAvatar from "../../public/images/veileder-avatar.svg";
 
 const VeilederStyled = styled(Veileder)`
   max-width: 576px;
@@ -13,10 +14,21 @@ interface Props {
   content: ReactElement;
 }
 
-function VeilederSpeechBubble({ content }: Props): ReactElement {
+function VeilederSpeechBubble({ content }: Props) {
   return (
-    <VeilederStyled tekst={content} posisjon="høyre" storrelse="S" fargetema="info" hvitSnakkeboble>
-      <img src={VeilederAvatarImage} />
+    <VeilederStyled
+      tekst={content}
+      posisjon="høyre"
+      storrelse="S"
+      fargetema="info"
+      hvitSnakkeboble
+    >
+      <Image
+        src={veilederAvatar}
+        alt="Veileder avatar"
+        width={72}
+        height={72}
+      />
     </VeilederStyled>
   );
 }

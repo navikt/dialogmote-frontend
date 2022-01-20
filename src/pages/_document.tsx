@@ -10,7 +10,7 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import { createBreadcrumbs, getUserTypeContext } from "./utils";
+import { createBreadcrumbs, getUserTypeContext } from "../common/utils";
 
 export default class MyDocument extends Document<{ Decorator: Components }> {
   static async getInitialProps(ctx: DocumentContext) {
@@ -22,11 +22,11 @@ export default class MyDocument extends Document<{ Decorator: Components }> {
       env: "dev",
       context: userTypeContext,
       chatbot: true,
-      enforceLogin: true,
-      level: "Level4",
-      redirectToApp: true,
-      breadcrumbs: breadcrumbs,
+      // enforceLogin: true,
+      // level: "Level4",
+      // redirectToApp: true,
       urlLookupTable: false,
+      breadcrumbs: breadcrumbs,
     };
     const Decorator = await fetchDecoratorReact(decoratorParams);
 

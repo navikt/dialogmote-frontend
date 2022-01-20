@@ -25,12 +25,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <EnforceLoginLoader authCallback={authCallback}>
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </EnforceLoginLoader>
+    // <EnforceLoginLoader authCallback={authCallback}>
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+    //</EnforceLoginLoader>
   );
 }
 

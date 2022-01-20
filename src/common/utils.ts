@@ -14,6 +14,6 @@ export function createBreadcrumbs(pathname: string) {
     case "/arbeidsgiver":
       return dialogmoteAGBreadcrumb();
     default:
-      return undefined;
+      return [];
   }
 }

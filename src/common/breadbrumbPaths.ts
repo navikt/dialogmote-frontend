@@ -22,7 +22,7 @@ export function dialogmoteSMBreadcrumb() {
 export function dineSykemeldteBreadcrumb() {
   return [
     {
-      url: process.env["DINE_SYKEFRAVAER_ROOT"] as string,
+      url: process.env["DINE_SYKMELDTE_ROOT"] as string,
       title: "Dine sykmeldt",
     },
   ];
