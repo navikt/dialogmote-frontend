@@ -6,7 +6,7 @@ const BREVAG = "brevarbeidsgiver";
 
 export const useBrevAG = (personIdent?: string) => {
   const fetchBrev = () =>
-    get<Brev[]>("/syk/poc/dialogmote/api/arbeidsgiver/brev", {
+    get<Brev[]>("/api/arbeidsgiver/brev", {
       personIdent: personIdent,
     });
   return useQuery(BREVAG, fetchBrev, {

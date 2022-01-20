@@ -6,9 +6,7 @@ const SYKMELDTEAG = "sykmeldtearbeidsgiver";
 
 export const useSykmeldtAG = (narmestelederId?: string) => {
   const fetchSykmeldte = () =>
-    get<Sykmeldt>(
-      `/syk/poc/dialogmote/api/arbeidsgiver/sykmeldt/${narmestelederId}`
-    );
+    get<Sykmeldt>(`/api/arbeidsgiver/sykmeldt/${narmestelederId}`);
   return useQuery(SYKMELDTEAG, fetchSykmeldte, {
     enabled: !!narmestelederId,
   });

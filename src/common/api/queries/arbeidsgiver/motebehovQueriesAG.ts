@@ -6,7 +6,7 @@ const MOTEBEHOVAG = "motebehovarbeidsgiver";
 
 export const useMotebehovAG = (personIdent?: string, orgnummer?: string) => {
   const fetchBrev = () =>
-    get<MotebehovStatus>(`/syk/poc/dialogmote/api/arbeidsgiver/motebehov`, {
+    get<MotebehovStatus>(`/api/arbeidsgiver/motebehov`, {
       personIdent: personIdent,
       orgnummer: orgnummer,
     });
