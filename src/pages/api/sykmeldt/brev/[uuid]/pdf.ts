@@ -3,6 +3,7 @@ import nc from "next-connect";
 import { ncOptions } from "@/server/utils/ncOptions";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { fetchBrevPdfSM } from "@/server/data/sykmeldtBrevData";
+import {withSentry} from "@sentry/nextjs";
 
 const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
   .use(loginServiceToken())
@@ -11,4 +12,4 @@ const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
     res.status(200).json(res.pdf);
   });
 
-export default handler;
+export default withSentry(handler);
