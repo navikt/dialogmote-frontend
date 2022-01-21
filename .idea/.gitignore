@@ -1,8 +1,18 @@
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
 # Default ignored files
 /shelf/
 /workspace.xml
+/tasks.xml
+/usage.statistics.xml
+/dictionaries/
+
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
 # Editor-based HTTP Client requests
 /httpRequests/
+
+# Generated files
+/contentModel.xml
