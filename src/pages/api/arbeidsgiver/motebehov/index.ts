@@ -5,6 +5,7 @@ import { ncOptions } from "@/server/utils/ncOptions";
 import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { fetchMotebehovAG } from "@/server/data/arbeidsgiverMotebehovData";
+import {withSentry} from "@sentry/nextjs";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
@@ -18,4 +19,4 @@ const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
     }
   );
 
-export default handler;
+export default withSentry(handler);

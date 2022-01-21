@@ -5,6 +5,7 @@ import { ncOptions } from "@/server/utils/ncOptions";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiverSykmeldtData";
 import { Sykmeldt } from "@/common/api/types/sykmeldteTypes";
+import {withSentry} from "@sentry/nextjs";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
@@ -13,4 +14,4 @@ const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
     res.status(200).json(res.sykmeldt);
   });
 
-export default handler;
+export default withSentry(handler);
