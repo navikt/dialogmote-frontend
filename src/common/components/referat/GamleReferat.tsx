@@ -1,41 +1,43 @@
-import {Events} from "@/common/amplitude/events";
-import {Brev} from "@/common/api/types/brevTypes";
+import { Events } from "@/common/amplitude/events";
+import { Brev } from "@/common/api/types/brevTypes";
 import RouterLenke from "@/common/components/navigation/RouterLenke";
-import {useRouteBasePath} from "@/common/hooks/routeHooks";
-import {getLongDateFormat,} from "@/common/utils/dateUtils";
+import { useRouteBasePath } from "@/common/hooks/routeHooks";
+import { getLongDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
 
 const linkText = (date: string) => {
-    return `Referat fra ${date}`;
-}
+  return `Referat fra ${date}`;
+};
 
 interface Props {
-    referater: Brev[];
+  referater: Brev[];
 }
 
-const GamleReferat = ({referater}: Props) => {
-    const routeBasePath = useRouteBasePath();
+const GamleReferat = ({ referater }: Props) => {
+  const routeBasePath = useRouteBasePath();
 
-    if (referater.length > 0) {
-        return (
-            <ul>
-                {referater.map((brev) => {
-                    const formattedDate = getLongDateFormat(brev.tid);
-                    const referatPath = `${routeBasePath}/referat/${brev.uuid}`
+  if (referater.length > 0) {
+    return (
+      <ul>
+        {referater.map((brev) => {
+          const formattedDate = getLongDateFormat(brev.tid);
+          const referatPath = `${routeBasePath}/referat/${brev.uuid}`;
 
-                    return (
-                        <li key={brev.tid}>
-                            <RouterLenke
-                                href={referatPath}
-                                trackingName={Events.TidligereReferat}
-                            >{linkText(formattedDate)}</RouterLenke>
-                        </li>
-                    );
-                })}
-            </ul>
-        );
-    }
-    return null;
+          return (
+            <li key={brev.tid}>
+              <RouterLenke
+                href={referatPath}
+                trackingName={Events.TidligereReferat}
+              >
+                {linkText(formattedDate)}
+              </RouterLenke>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+  return null;
 };
 
 export default GamleReferat;

@@ -1,8 +1,8 @@
-export type DocumentComponentType = 'HEADER' | 'PARAGRAPH' | 'LINK';
+export type DocumentComponentType = "HEADER" | "PARAGRAPH" | "LINK";
 
-export type SvarType = 'KOMMER' | 'NYTT_TID_STED' | 'KOMMER_IKKE';
+export type SvarType = "KOMMER" | "NYTT_TID_STED" | "KOMMER_IKKE";
 
-export type BrevType = 'INNKALT' | 'AVLYST'| 'NYTT_TID_STED' |'REFERAT';
+export type BrevType = "INNKALT" | "AVLYST" | "NYTT_TID_STED" | "REFERAT";
 
 export interface Brev {
   uuid: string;
