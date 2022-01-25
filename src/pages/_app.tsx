@@ -3,6 +3,8 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { createGlobalStyle } from "styled-components";
+import {initAmplitude} from "@/common/amplitude/amplitude";
+import {useEffect} from "react";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,6 +21,11 @@ const minutesToMillis = (minutes: number) => {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  useEffect(() => {
+    initAmplitude();
+  }, []);
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

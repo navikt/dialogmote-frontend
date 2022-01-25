@@ -1,6 +1,8 @@
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { getAsset } from "@/common/utils/getAssetPath";
+import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { Events } from "@/common/amplitude/events";
 
 const texts = {
   title: "Om dialogmøter",
@@ -9,11 +11,14 @@ const texts = {
 };
 
 const VideoPanel = () => {
+  const { trackEvent } = useAmplitude();
+
   return (
     <DialogmotePanel title={texts.title}>
       <video
         width="100%"
         height="auto"
+        onPlay={() => trackEvent(Events.SpillerAvDialogmotefilm)}
         controls
         poster={getAsset("/video/poster.jpg")}
       >
