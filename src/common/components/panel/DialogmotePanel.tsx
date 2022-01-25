@@ -1,20 +1,18 @@
 import CircledIcon from "@/common/components/icon/CircledIcon";
-import { Heading } from "@navikt/ds-react";
+import { Heading, Panel } from "@navikt/ds-react";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-const PanelStyled = styled.div`
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
-  background-color: white;
-  border-radius: 0.25rem;
+const PanelStyled = styled(Panel)`
   margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const HeaderStyled = styled(Heading)`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;
