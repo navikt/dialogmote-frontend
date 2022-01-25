@@ -22,3 +22,15 @@ export const useAudience = (): IUseAudience => {
         isAudienceSykmeldt: false,
       };
 };
+
+export const useRouteBasePath = (): string => {
+  const router = useRouter();
+  const { isAudienceSykmeldt } = useAudience();
+  const { narmestelederid } = router.query;
+
+  if (isAudienceSykmeldt) {
+    return `${router.basePath}/sykmeldt`;
+  } else {
+    return `${router.basePath}/arbeidsgiver/${narmestelederid}`;
+  }
+};
