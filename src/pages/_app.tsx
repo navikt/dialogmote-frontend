@@ -9,10 +9,6 @@ import {useEffect} from "react";
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #efefef;
-    color: #3e3832;
-    font-family: Arial, sans-serif;
-    line-height: 1.42857143;
-    margin: 0; //får ta en grundig vurdering på hva vi egentlig trenger av globale styles
   }
 `;
 
