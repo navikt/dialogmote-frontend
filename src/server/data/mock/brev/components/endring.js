@@ -1,61 +1,67 @@
 const innkallelse = {
-  uuid: 'mock-uuid',
-  deltakerUuid: 'mock-deltaker-uuid',
-  createdAt: '2019-11-08T12:35:37.669+01:00',
-  brevType: 'NYTT_TID_STED',
+  uuid: "mock-uuid",
+  deltakerUuid: "mock-deltaker-uuid",
+  createdAt: "2019-11-08T12:35:37.669+01:00",
+  brevType: "NYTT_TID_STED",
   digitalt: true,
   lestDato: null,
-  fritekst: 'Fri tekst',
-  sted: 'Videomøte på Teams',
-  tid: '2040-11-08T12:35:37.669+01:00',
-  videoLink: 'https://teams.microsoft.com/l/osv.osv.osv',
+  fritekst: "Fri tekst",
+  sted: "Videomøte på Teams",
+  tid: "2040-11-08T12:35:37.669+01:00",
+  videoLink: "https://teams.microsoft.com/l/osv.osv.osv",
   document: [
     {
-      type: 'PARAGRAPH',
-      title: 'Møtetidspunkt',
-      texts: ['08. desember 2040, Storgata 4'],
+      type: "PARAGRAPH",
+      title: "Møtetidspunkt",
+      texts: ["08. desember 2040, Storgata 4"],
     },
     {
-      type: 'PARAGRAPH',
-      title: 'Møtested',
-      texts: ['Videomøte på Teams'],
+      type: "PARAGRAPH",
+      title: "Møtested",
+      texts: ["Videomøte på Teams"],
     },
     {
-      type: 'LINK',
-      title: 'Lenke til videomøte',
-      texts: ['https://teams.microsoft.com/l/osv.osv.osv'],
+      type: "LINK",
+      title: "Lenke til videomøte",
+      texts: ["https://teams.microsoft.com/l/osv.osv.osv"],
     },
     {
-      type: 'PARAGRAPH',
+      type: "PARAGRAPH",
       texts: [
-        'Velkommen til dialogmøte mellom deg, arbeidsgiveren din og en veileder fra NAV. I møtet skal vi snakke om situasjonen din og bli enige om en plan som kan hjelpe deg videre.',
+        "Velkommen til dialogmøte mellom deg, arbeidsgiveren din og en veileder fra NAV. I møtet skal vi snakke om situasjonen din og bli enige om en plan som kan hjelpe deg videre.",
       ],
     },
     {
-      type: 'PARAGRAPH',
+      type: "PARAGRAPH",
       texts: [
-        'Hvis vårt forslag til møtetidspunkt, møtested eller møteform ikke passer, ber vi om at du tar kontakt for å diskutere alternativer. I så fall kan du sende epost eller ringe undertegnede på telefon. Vi minner om at det ikke må sendes sensitive personopplysninger over e-post eller SMS.',
+        "Hvis vårt forslag til møtetidspunkt, møtested eller møteform ikke passer, ber vi om at du tar kontakt for å diskutere alternativer. I så fall kan du sende epost eller ringe undertegnede på telefon. Vi minner om at det ikke må sendes sensitive personopplysninger over e-post eller SMS.",
       ],
     },
     {
-      type: 'PARAGRAPH',
+      type: "PARAGRAPH",
       texts: [
-        'Etter reglene kan NAV be sykmelder eller annet helsepersonell om å delta i møtet. Til dette møtet har vi ikke sett behov for det.',
+        "Etter reglene kan NAV be sykmelder eller annet helsepersonell om å delta i møtet. Til dette møtet har vi ikke sett behov for det.",
       ],
     },
     {
-      type: 'PARAGRAPH',
-      title: 'Før møtet',
+      type: "PARAGRAPH",
+      title: "Før møtet",
       texts: [
-        'Det er viktig at dere fyller ut oppfølgingsplanen sammen og deler den med NAV. Det gir oss et godt utgangspunkt for å snakke om hva som fungerer, hva som har blitt forsøkt, og hvilke muligheter som finnes framover.',
+        "Det er viktig at dere fyller ut oppfølgingsplanen sammen og deler den med NAV. Det gir oss et godt utgangspunkt for å snakke om hva som fungerer, hva som har blitt forsøkt, og hvilke muligheter som finnes framover.",
       ],
     },
     {
-      type: 'PARAGRAPH',
-      texts: ['Med hilsen', 'NAV Staden', 'Kari Saksbehandler', 'kari@nav.no', '99998888'],
+      type: "PARAGRAPH",
+      texts: [
+        "Med hilsen",
+        "NAV Staden",
+        "Kari Saksbehandler",
+        "kari@nav.no",
+        "99998888",
+      ],
     },
   ],
-  virksomhetsnummer: '1234',
+  virksomhetsnummer: "1234",
 };
 
 module.exports = innkallelse;

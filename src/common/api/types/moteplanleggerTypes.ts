@@ -1,4 +1,8 @@
-export type MoteplanleggerStatus = 'OPPRETTET' | 'BEKREFTET' | 'AVBRUTT' | 'FLERE_TIDSPUNKT';
+export type MoteplanleggerStatus =
+  | "OPPRETTET"
+  | "BEKREFTET"
+  | "AVBRUTT"
+  | "FLERE_TIDSPUNKT";
 
 export interface MoteplanleggerAlternativ {
   id: number;

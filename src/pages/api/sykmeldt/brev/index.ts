@@ -4,7 +4,7 @@ import { Brev } from "@/common/api/types/brevTypes";
 import { ncOptions } from "@/server/utils/ncOptions";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { fetchBrevSM } from "@/server/data/sykmeldtBrevData";
-import {withSentry} from "@sentry/nextjs";
+import { withSentry } from "@sentry/nextjs";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())

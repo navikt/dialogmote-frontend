@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Circle = styled.span`
   height: 3rem;
   width: 3rem;
-  background-color: #BCF3FF;
+  background-color: #bcf3ff;
   border-radius: 50%;
   font-size: 1.5rem;
   display: flex;

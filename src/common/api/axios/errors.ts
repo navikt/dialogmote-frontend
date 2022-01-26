@@ -1,15 +1,15 @@
 export const defaultErrorTexts = {
-  accessDenied: 'Du har ikke tilgang til å utføre denne handlingen.',
-  generalError: 'Det skjedde en uventet feil. Vennligst prøv igjen senere.',
-  networkError: 'Vi har problemer med nettet, prøv igjen senere.',
-  loginRequired: 'Handlingen krever at du logger på.',
+  accessDenied: "Du har ikke tilgang til å utføre denne handlingen.",
+  generalError: "Det skjedde en uventet feil. Vennligst prøv igjen senere.",
+  networkError: "Vi har problemer med nettet, prøv igjen senere.",
+  loginRequired: "Handlingen krever at du logger på.",
 };
 
 export enum ErrorType {
-  ACCESS_DENIED = 'ACCESS_DENIED',
-  GENERAL_ERROR = 'GENERAL_ERROR',
-  NETWORK_ERROR = 'NETWORK_ERROR',
-  LOGIN_REQUIRED = 'LOGIN_REQUIRED',
+  ACCESS_DENIED = "ACCESS_DENIED",
+  GENERAL_ERROR = "GENERAL_ERROR",
+  NETWORK_ERROR = "NETWORK_ERROR",
+  LOGIN_REQUIRED = "LOGIN_REQUIRED",
 }
 
 export class ApiErrorException extends Error {
