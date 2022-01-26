@@ -3,6 +3,7 @@ import { useMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueri
 import { useSykmeldtAG } from "@/common/api/queries/arbeidsgiver/sykmeldtQueriesAG";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
+import AppSpinner from "@/common/components/spinner/AppSpinner";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import type { NextPage } from "next";
@@ -41,7 +42,7 @@ const Home: NextPage = () => {
       </div>
     );
   }
-  return <div>Vis en loading-animasjon her..</div>;
+  return <AppSpinner/>;
 };
 
 export default Home;

@@ -1,6 +1,7 @@
 import { useBrevSM } from "@/common/api/queries/sykmeldt/brevQueriesSM";
 import { useMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
+import AppSpinner from "@/common/components/spinner/AppSpinner";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
     );
   }
 
-  return <div>Vis en loading-animasjon her..</div>;
+  return <AppSpinner/>;
 };
 
 export default Home;
