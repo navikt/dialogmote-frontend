@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 import { ncOptions } from "@/server/utils/ncOptions";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
-import { postBrevLestSM } from "@/server/data/sykmeldtBrevData";
 import { withSentry } from "@sentry/nextjs";
+import { postBrevLestSM } from "@/server/data/sykmeldt/isDialogmoteApiSM";
 
 const handler = nc<NextApiRequest, NextApiResponse<void>>(ncOptions)
   .use(loginServiceToken())

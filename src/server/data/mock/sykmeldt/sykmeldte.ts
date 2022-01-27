@@ -1,4 +1,4 @@
-import { Sykmeldt } from "@/common/api/types/sykmeldteTypes";
+import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
 
 export const sykmeldtMock: Sykmeldt = {
   narmestelederId: "123",

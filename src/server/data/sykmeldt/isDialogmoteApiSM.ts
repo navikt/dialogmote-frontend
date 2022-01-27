@@ -1,32 +1,15 @@
-import { IAuthenticatedRequest } from "../api/IAuthenticatedRequest";
+import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { NextApiResponse } from "next";
-import serverEnv from "../utils/serverEnv";
+import serverEnv from "../../utils/serverEnv";
 import { isMockBackend } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
-import { Brev, SvarRespons } from "@/common/api/types/brevTypes";
-import activeMockDataSM from "@/server/data/mock/activeMockDataSM";
+import { SvarRespons } from "@/server/data/types/external/BrevTypes";
 
 const brevApiSM = (path?: string): string => {
   const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`;
 
   return path ? `${host}${path}` : host;
-};
-
-export const fetchBrevSM = async (
-  req: IAuthenticatedRequest,
-  res: NextApiResponse & { brevArray: Brev[] },
-  next: () => void
-) => {
-  if (isMockBackend) {
-    res.brevArray = activeMockDataSM.brev;
-  } else {
-    res.brevArray = await get(brevApiSM(), {
-      accessToken: req.loginServiceToken,
-    });
-  }
-
-  next();
 };
 
 export const fetchBrevPdfSM = async (

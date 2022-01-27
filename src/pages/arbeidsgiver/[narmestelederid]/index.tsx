@@ -1,6 +1,3 @@
-import { useBrevAG } from "@/common/api/queries/arbeidsgiver/brevQueriesAG";
-import { useMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
-import { useSykmeldtAG } from "@/common/api/queries/arbeidsgiver/sykmeldtQueriesAG";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
@@ -9,24 +6,17 @@ import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../../../styles/Home.module.css";
+import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 
 const Home: NextPage = () => {
   const narmestelederid = useNarmesteLederId();
-  const sykmeldt = useSykmeldtAG(narmestelederid);
-  const brev = useBrevAG(sykmeldt.data?.fnr);
-  const motebehov = useMotebehovAG(
-    sykmeldt.data?.fnr,
-    sykmeldt.data?.orgnummer
-  );
+  const dialogmoteData = useDialogmoteDataAG(narmestelederid);
 
-  if (brev.isError) {
+  if (dialogmoteData.isError) {
     return <div>Her ble det noe feil</div>;
   }
 
-  if (brev.isSuccess) {
-    const referater = brev.data.filter(
-      (hendelse) => hendelse.brevType === "REFERAT"
-    );
+  if (dialogmoteData.isSuccess) {
     return (
       <div className={styles.container}>
         <Head>
@@ -34,7 +24,7 @@ const Home: NextPage = () => {
         </Head>
 
         <main className={styles.main}>
-          <ReferaterPanel referater={referater}>
+          <ReferaterPanel referater={dialogmoteData.data.referater}>
             <InfoTilArbeidsgiver />
           </ReferaterPanel>
           <VideoPanel />
@@ -42,7 +32,7 @@ const Home: NextPage = () => {
       </div>
     );
   }
-  return <AppSpinner/>;
+  return <AppSpinner />;
 };
 
 export default Home;

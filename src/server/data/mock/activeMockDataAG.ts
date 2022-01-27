@@ -1,8 +1,9 @@
-import { Brev } from "@/common/api/types/brevTypes";
-import { MotebehovStatus } from "@/common/api/types/motebehovTypes";
-import { mockSyfomotebehovAG } from "@/server/data/mock/Motebehov/mockSyfomotebehovAG";
-import { Sykmeldt } from "@/common/api/types/sykmeldteTypes";
 import { sykmeldtMock } from "@/server/data/mock/sykmeldt/sykmeldte";
+import isDialogmoteMockSetup1AG from "@/server/data/mock/brev/isDialogmoteMockSetup1AG";
+import { Brev } from "@/server/data/types/external/BrevTypes";
+import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
+import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
+import { mockSyfomotebehovAG } from "@/server/data/mock/motebehov/mockSyfomotebehovAG";
 
 interface IActiveMockDataAG {
   brev: Brev[];
@@ -34,4 +35,10 @@ const svarBehovHarSvartSetup: IActiveMockDataAG = {
   sykmeldt: sykmeldtMock,
 };
 
-export default meldBehovIkkeSvartSetup;
+const moteInnkallingSetup: IActiveMockDataAG = {
+  brev: isDialogmoteMockSetup1AG,
+  motebehov: mockSyfomotebehovAG("MELD_BEHOV", false),
+  sykmeldt: sykmeldtMock,
+};
+
+export default moteInnkallingSetup;

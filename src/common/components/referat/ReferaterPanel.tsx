@@ -1,9 +1,9 @@
-import { Brev } from "@/common/api/types/brevTypes";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import GamleReferat from "@/common/components/referat/GamleReferat";
 import SisteReferat from "@/common/components/referat/SisteReferat";
 import { FileContent } from "@navikt/ds-icons";
 import React, { ReactNode } from "react";
+import { Brev } from "@/server/data/types/external/BrevTypes";
 
 const texts = {
   title: "Referat fra dialogmøte",

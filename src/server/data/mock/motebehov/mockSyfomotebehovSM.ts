@@ -1,7 +1,7 @@
 import {
   MotebehovSkjemaType,
   MotebehovStatus,
-} from "@/common/api/types/motebehovTypes";
+} from "@/server/data/types/external/MotebehovTypes";
 
 export const mockSyfomotebehovSM = (
   type: MotebehovSkjemaType,

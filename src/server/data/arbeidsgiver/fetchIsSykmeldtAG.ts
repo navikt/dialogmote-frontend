@@ -1,14 +1,13 @@
-import { IAuthenticatedRequest } from "../api/IAuthenticatedRequest";
-import { NextApiResponse } from "next";
+import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { isMockBackend } from "@/common/publicEnv";
 import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
 import activeMockDataAG from "@/server/data/mock/activeMockDataAG";
-import { Sykmeldt } from "@/common/api/types/sykmeldteTypes";
+import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 
-export const fetchSykmeldtAG = async (
+export const fetchIsSykmeldtAG = async (
   req: IAuthenticatedRequest,
-  res: NextApiResponse & { sykmeldt: Sykmeldt },
+  res: NextApiResponseAG,
   next: () => void
 ) => {
   if (isMockBackend) {
