@@ -1,2 +1,2 @@
-export { validateAuthorizationHeader } from "./validateAuthorizationHeader"
-export { validateAccessToken } from "./validateAccessToken"
+export { validateAuthorizationHeader } from "./validateAuthorizationHeader";
+export { validateAccessToken } from "./validateAccessToken";
