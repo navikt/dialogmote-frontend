@@ -8,19 +8,24 @@ import { useEffect } from "react";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: var(--navds-global-color-gray-100);
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  #__next {
+    display: flex;
+    flex-grow: 1;
     justify-content: center;
     padding: 2rem;
-    min-height: 100vh;
+    background-color: var(--navds-global-color-gray-100);
   }
 `;
 
-const WrapperStyled = styled.div`
+const ContentWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 40rem;
-  height: 100%;
 `;
 
 const minutesToMillis = (minutes: number) => {
@@ -45,9 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-      <WrapperStyled>
+      <ContentWrapperStyled>
         <Component {...pageProps} />
-      </WrapperStyled>
+      </ContentWrapperStyled>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
