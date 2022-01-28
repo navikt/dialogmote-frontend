@@ -1,9 +1,9 @@
 import { Events } from "@/common/amplitude/events";
-import { Brev } from "@/common/api/types/brevTypes";
 import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { useRouteBasePath } from "@/common/hooks/routeHooks";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
+import { Brev } from "@/server/data/types/external/BrevTypes";
 
 const linkText = (date: string) => {
   return `Referat fra ${date}`;
