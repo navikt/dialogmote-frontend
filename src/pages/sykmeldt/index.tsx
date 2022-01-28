@@ -1,12 +1,13 @@
 import { useBrevSM } from "@/common/api/queries/sykmeldt/brevQueriesSM";
 import { useMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
+import PageHeader from "@/common/components/PageHeader";
+import PersonvernInfo from "@/common/components/PersonvernInfo";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
-import styles from "../../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const brev = useBrevSM();
@@ -22,16 +23,16 @@ const Home: NextPage = () => {
     );
 
     return (
-      <div className={styles.container}>
+      <>
         <Head>
           <title>Dialogmøte SM</title>
         </Head>
 
-        <main className={styles.main}>
-          <ReferaterPanel referater={referater} />
-          <VideoPanel />
-        </main>
-      </div>
+        <PageHeader title="Dialogmøter" />
+        <ReferaterPanel referater={referater} />
+        <VideoPanel />
+        <PersonvernInfo />
+      </>
     );
   }
 

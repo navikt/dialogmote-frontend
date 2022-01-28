@@ -1,6 +1,8 @@
 import { useBrevAG } from "@/common/api/queries/arbeidsgiver/brevQueriesAG";
 import { useMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import { useSykmeldtAG } from "@/common/api/queries/arbeidsgiver/sykmeldtQueriesAG";
+import PageHeader from "@/common/components/PageHeader";
+import PersonvernInfo from "@/common/components/PersonvernInfo";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
@@ -8,7 +10,6 @@ import VideoPanel from "@/common/components/video/VideoPanel";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import type { NextPage } from "next";
 import Head from "next/head";
-import styles from "../../../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const narmestelederid = useNarmesteLederId();
@@ -28,18 +29,18 @@ const Home: NextPage = () => {
       (hendelse) => hendelse.brevType === "REFERAT"
     );
     return (
-      <div className={styles.container}>
+      <>
         <Head>
           <title>Dialogmøte AG</title>
         </Head>
 
-        <main className={styles.main}>
-          <ReferaterPanel referater={referater}>
-            <InfoTilArbeidsgiver />
-          </ReferaterPanel>
-          <VideoPanel />
-        </main>
-      </div>
+        <PageHeader title="Dialogmøter" />
+        <ReferaterPanel referater={referater}>
+          <InfoTilArbeidsgiver />
+        </ReferaterPanel>
+        <VideoPanel />
+        <PersonvernInfo />
+      </>
     );
   }
   return <AppSpinner/>;
