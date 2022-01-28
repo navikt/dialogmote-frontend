@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: dialogmote-poc
+  name: dialogmote-frontend
   namespace: team-esyfo
   labels:
     team: team-esyfo

@@ -1,5 +1,5 @@
 {
-  "name": "dialogmote-poc",
+  "name": "dialogmote-frontend",
   "private": true,
   "scripts": {
     "dev": "next dev",
