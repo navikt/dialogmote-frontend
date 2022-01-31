@@ -9,6 +9,7 @@ const BottomInfoStyled = styled.section`
   align-items: center;
   flex-direction: column;
   margin-top: auto;
+  text-align: center;
 `;
 
 const texts = {
