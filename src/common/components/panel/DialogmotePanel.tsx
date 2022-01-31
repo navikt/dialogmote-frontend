@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 const PanelStyled = styled(Panel)`
   margin-bottom: 2rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;

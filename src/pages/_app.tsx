@@ -2,14 +2,30 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { initAmplitude } from "@/common/amplitude/amplitude";
 import { useEffect } from "react";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: #efefef;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
+
+  #__next {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--navds-global-color-gray-100);
+  }
+`;
+
+const ContentWrapperStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 40rem;
 `;
 
 const minutesToMillis = (minutes: number) => {
@@ -34,7 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <ContentWrapperStyled>
+        <Component {...pageProps} />
+      </ContentWrapperStyled>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
