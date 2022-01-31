@@ -39,4 +39,8 @@ export const infoUrls: InfoUrls = {
         text: 'Se etter stillinger på arbeidsplassen.nav.no',
         url: 'https://arbeidsplassen.nav.no/',
     },
+    ARBEIDSRETTET_REHABILITERING: {
+        text: 'Les mer om arbeidsrettet rehabilitering',
+        url: 'https://www.nav.no/no/person/arbeid/oppfolging-og-tiltak-for-a-komme-i-jobb/tiltak-for-a-komme-i-jobb/arbeidsrettet-rehabilitering',
+    },
 };
