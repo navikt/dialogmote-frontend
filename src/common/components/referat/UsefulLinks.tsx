@@ -1,7 +1,7 @@
 import { Events } from "@/common/amplitude/events";
 import { infoUrls } from "@/common/constants/InfoUrls";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Alert, BodyLong, Heading, Link } from "@navikt/ds-react";
+import { Alert, Heading, Link } from "@navikt/ds-react";
 
 const texts = {
   title: "Du kan finne mer informasjon på nav.no:",
@@ -19,7 +19,7 @@ const ListUrls = ({ documentKeys }: { documentKeys: string[] }) => {
   }
 
   return (
-    <>
+    <section>
       {validDocumentKeys.map((key) => {
         const { text, url } = infoUrls[key];
 
@@ -36,7 +36,7 @@ const ListUrls = ({ documentKeys }: { documentKeys: string[] }) => {
           </li>
         );
       })}
-    </>
+    </section>
   );
 };
 
@@ -50,9 +50,7 @@ const UsefulLinks = ({ documentKeys = [] }: Props) => {
       <Heading spacing size="small" level="2">
         {texts.title}
       </Heading>
-      <BodyLong>
-        <ListUrls documentKeys={documentKeys}/>
-      </BodyLong>
+      <ListUrls documentKeys={documentKeys} />
     </Alert>
   );
 };
