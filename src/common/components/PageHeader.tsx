@@ -1,9 +1,4 @@
-import styled from "styled-components";
-
-const HeaderStyled = styled.h1`
-  text-align: center;
-  margin: 2rem;
-`;
+import { Heading } from "@navikt/ds-react";
 
 interface Props {
   title: string;
@@ -11,9 +6,9 @@ interface Props {
 
 const PageHeader = ({ title }: Props) => {
   return (
-    <HeaderStyled className="navds-heading navds-heading--2xlarge">
+    <Heading spacing size="2xlarge" level="1">
       {title}
-    </HeaderStyled>
+    </Heading>
   );
 };
 

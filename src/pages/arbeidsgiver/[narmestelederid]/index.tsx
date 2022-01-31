@@ -9,6 +9,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 
+const texts = {
+  title: "Dialogmøter",
+};
+
 const Home: NextPage = () => {
   const narmestelederid = useNarmesteLederId();
   const dialogmoteData = useDialogmoteDataAG(narmestelederid);
@@ -24,7 +28,7 @@ const Home: NextPage = () => {
           <title>Dialogmøte AG</title>
         </Head>
 
-        <PageHeader title="Dialogmøter" />
+        <PageHeader title={texts.title} />
         <ReferaterPanel referater={dialogmoteData.data.referater}>
           <InfoTilArbeidsgiver />
         </ReferaterPanel>

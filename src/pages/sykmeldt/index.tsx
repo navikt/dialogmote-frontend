@@ -8,6 +8,10 @@ import Head from "next/head";
 import React from "react";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 
+const texts = {
+  title: "Dialogmøter",
+};
+
 const Home: NextPage = () => {
   const dialogmoteData = useDialogmoteDataSM();
 
@@ -22,7 +26,7 @@ const Home: NextPage = () => {
           <title>Dialogmøte SM</title>
         </Head>
 
-        <PageHeader title="Dialogmøter" />
+        <PageHeader title={texts.title} />
         <ReferaterPanel referater={dialogmoteData.data.referater} />
         <VideoPanel />
         <PersonvernInfo />
