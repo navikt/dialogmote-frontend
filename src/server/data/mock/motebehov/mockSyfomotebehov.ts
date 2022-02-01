@@ -3,7 +3,7 @@ import {
   MotebehovStatus,
 } from "@/server/data/types/external/MotebehovTypes";
 
-export const mockSyfomotebehovSM = (
+export const mockSyfomotebehov = (
   type: MotebehovSkjemaType,
   harSvart: boolean
 ): MotebehovStatus => {

@@ -2,8 +2,8 @@ import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { isMockBackend } from "@/common/publicEnv";
 import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
-import activeMockDataAG from "@/server/data/mock/activeMockDataAG";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
+import activeMockAG from "@/server/data/mock/activeMockAG";
 
 export const fetchIsSykmeldtAG = async (
   req: IAuthenticatedRequest,
@@ -11,7 +11,7 @@ export const fetchIsSykmeldtAG = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.sykmeldt = activeMockDataAG.sykmeldt;
+    res.sykmeldt = activeMockAG.sykmeldt!!;
   } else {
     const { narmestelederid } = req.query;
     const url = `${serverEnv.SYKMELDINGER_ARBEIDSGIVER_HOST}/api/dinesykmeldte/${narmestelederid}`;

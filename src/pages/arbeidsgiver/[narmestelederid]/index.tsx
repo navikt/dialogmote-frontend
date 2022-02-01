@@ -1,3 +1,4 @@
+import React from "react";
 import PageHeader from "@/common/components/PageHeader";
 import PersonvernInfo from "@/common/components/PersonvernInfo";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
@@ -8,6 +9,7 @@ import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 
 const texts = {
   title: "Dialogmøter",
@@ -29,6 +31,9 @@ const Home: NextPage = () => {
         </Head>
 
         <PageHeader title={texts.title} />
+        <MoteinnkallingPanel
+          moteinnkalling={dialogmoteData.data.moteinnkalling}
+        />
         <ReferaterPanel referater={dialogmoteData.data.referater}>
           <InfoTilArbeidsgiver />
         </ReferaterPanel>

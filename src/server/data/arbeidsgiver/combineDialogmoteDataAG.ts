@@ -8,9 +8,9 @@ export const combineDialogmoteDataAG = async (
   next: () => void
 ) => {
   res.dialogmoteData = mapDialogmoteData(
-    res.brevArray,
+    !!res.sykmeldt.aktivSykmelding,
     res.motebehovStatus,
-    res.sykmeldt.aktivSykmelding!!
+    res.brevArray
   );
 
   next();
