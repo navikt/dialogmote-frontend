@@ -2,11 +2,11 @@ import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { isMockBackend } from "@/common/publicEnv";
 import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
-import activeMockDataSM from "@/server/data/mock/activeMockDataSM";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
 import { Sykmelding } from "@/server/data/types/external/SykmeldingerTypes";
+import activeMockSM from "@/server/data/mock/activeMockSM";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -14,9 +14,9 @@ export const fetchConcurrentDataSM = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.isSykmeldt = activeMockDataSM.isSykmeldt;
-    res.motebehovStatus = activeMockDataSM.motebehov;
-    res.brevArray = activeMockDataSM.brev;
+    res.isSykmeldt = activeMockSM.isSykmeldt;
+    res.motebehovStatus = activeMockSM.motebehov;
+    res.brevArray = activeMockSM.brev;
   } else {
     const isSykmeldtPromise = get<Sykmelding[]>(
       `${serverEnv.SYFOOPPFOLGINGSPLANSERVICE_HOST}/arbeidstaker/sykmeldinger?today=true`,

@@ -7,6 +7,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 
 const texts = {
   title: "Dialogmøter",
@@ -27,6 +28,9 @@ const Home: NextPage = () => {
         </Head>
 
         <PageHeader title={texts.title} />
+        <MoteinnkallingPanel
+          moteinnkalling={dialogmoteData.data.moteinnkalling}
+        />
         <ReferaterPanel referater={dialogmoteData.data.referater} />
         <VideoPanel />
         <PersonvernInfo />

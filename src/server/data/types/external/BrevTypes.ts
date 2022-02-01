@@ -22,6 +22,7 @@ export interface Brev {
 
 export type DocumentComponent = {
   type: DocumentComponentType;
+  key?: string;
   title?: string;
   texts: string[];
 };
