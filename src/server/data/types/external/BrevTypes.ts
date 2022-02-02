@@ -4,6 +4,9 @@ export type SvarType = "KOMMER" | "NYTT_TID_STED" | "KOMMER_IKKE";
 
 export type BrevType = "INNKALT" | "AVLYST" | "NYTT_TID_STED" | "REFERAT";
 
+export type DocumentComponentKey =
+    "IKKE_BEHOV" | "FRISKMELDING_ARBEIDSFORMIDLING"|  "AVKLARING_ARBEIDSEVNE" | "OPPFOLGINGSTILTAK" | "ARBEIDSRETTET_REHABILITERING" | "OPPLAERING_UTDANNING" | "UNNTAK_ARBEIDSGIVERPERIODE" | "REISETILSKUDD" | "HJELPEMIDLER_TILRETTELEGGING" | "MIDLERTIDIG_LONNSTILSKUDD" | "OKONOMISK_STOTTE" | "INGEN_RETTIGHETER" ;
+
 export interface Brev {
   uuid: string;
   deltakerUuid: string;
@@ -22,7 +25,7 @@ export interface Brev {
 
 export type DocumentComponent = {
   type: DocumentComponentType;
-  key?: string;
+  key?: DocumentComponentKey;
   title?: string;
   texts: string[];
 };
