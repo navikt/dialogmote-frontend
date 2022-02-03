@@ -9,7 +9,8 @@ const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
   .use(loginServiceToken())
   .use(fetchBrevPdfSM)
   .get(async (req, res: NextApiResponse & { pdf: any }) => {
-    res.setHeader("content-type", "application/pdf");
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition","inline; filename=\"brev.pdf\"")
     res.end(res.pdf);
   });
 
