@@ -24,7 +24,7 @@ interface Props {
 const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
   const { trackEvent } = useAmplitude();
   return (
-    <Link href={pdfUrl}>
+    <Link href={pdfUrl} passHref={true}>
       <ButtonStyled
         onClick={() => {
           trackEvent(trackingName);
