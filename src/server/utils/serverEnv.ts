@@ -11,6 +11,8 @@ export interface IServerEnvironmentVariables {
   IDPORTEN_WELL_KNOWN_URL: string;
   INGRESS: string;
   ISDIALOGMOTE_AUDIENCE: string;
+  DITT_SYKEFRAVAER_ROOT: string;
+  DINE_SYKMELDTE_ROOT: string;
 }
 
 // TODO: Add assertions on required env variables

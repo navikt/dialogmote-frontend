@@ -45,3 +45,13 @@ export const useApiBasePath = (): string => {
     return `${router.basePath}/api/arbeidsgiver`;
   }
 };
+
+export const useSykefravaerBasePath = (): string => {
+    const { isAudienceSykmeldt } = useAudience();
+
+    if (isAudienceSykmeldt) {
+        return process.env.DITT_SYKEFRAVAER_ROOT ?? '';
+    } else {
+        return process.env.DINE_SYKMELDTE_ROOT ?? '';
+    }
+};
