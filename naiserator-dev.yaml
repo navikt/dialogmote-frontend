@@ -6,7 +6,7 @@ metadata:
   labels:
     team: team-esyfo
 spec:
-  image: { { image } }
+  image: {{ image }}
   replicas:
     min: 2
     max: 4
