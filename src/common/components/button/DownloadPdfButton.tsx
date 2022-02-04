@@ -1,8 +1,7 @@
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Download } from "@navikt/ds-icons";
-import React from "react";
 import Link from "next/link";
+import React from "react";
 import styled from "styled-components";
 
 const texts = {
@@ -11,9 +10,6 @@ const texts = {
 
 const ButtonStyled = styled.a`
   width: fit-content;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
 `;
 
 interface Props {
@@ -31,7 +27,6 @@ const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
         }}
         className="navds-button navds-button--secondary navds-button--medium"
       >
-        <Download />
         {texts.button}
       </ButtonStyled>
     </Link>
