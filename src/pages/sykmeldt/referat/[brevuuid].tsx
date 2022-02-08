@@ -11,7 +11,7 @@ import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
-import VeilederInfo from "@/common/components/referat/VeilederInfo";
+import HvaSkjerISykefravaeret from "@/common/components/referat/HvaSkjerISykefravaeret";
 import { GuidePanel } from "@navikt/ds-react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -66,7 +66,7 @@ const ReferatPage: NextPage = () => {
         />
         <UsefulLinks infoUrls={infoUrls(referat)} />
         <GuidePanel>
-          <VeilederInfo />
+            <HvaSkjerISykefravaeret />
         </GuidePanel>
         <PersonvernInfo />
       </>
