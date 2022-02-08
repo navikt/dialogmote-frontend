@@ -17,7 +17,7 @@
     "@sentry/nextjs": "^6.16.1",
     "@sentry/react": "^6.16.1",
     "@sentry/tracing": "^6.16.1",
-    "@types/jsonwebtoken": "^8.5.7",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/jwk-to-pem": "^2.0.1",
     "amplitude-js": "^8.15.0",
     "axios": "^0.24.0",
