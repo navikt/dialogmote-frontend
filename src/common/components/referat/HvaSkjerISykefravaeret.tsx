@@ -12,7 +12,7 @@ const texts = {
   kontaktOssLink: "kontakte oss.",
 };
 
-const VeilederReferatContent = () => {
+const HvaSkjerISykefravaeret = () => {
   const { trackEvent } = useAmplitude();
   const sykefravaerPath = useSykefravaerBasePath();
   const tidslinjeURL = sykefravaerPath + TIDSLINJE_URL;
@@ -45,4 +45,4 @@ const VeilederReferatContent = () => {
   );
 };
 
-export default VeilederReferatContent;
+export default HvaSkjerISykefravaeret;
