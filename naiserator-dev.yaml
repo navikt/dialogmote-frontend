@@ -64,9 +64,9 @@ spec:
       value: "test"
     - name: ISDIALOGMOTE_AUDIENCE
       value: "dev-gcp:teamsykefravr:isdialogmote"
-    - name: DITT_SYKEFRAVAER_ROOT
+    - name: NEXT_PUBLIC_DITT_SYKEFRAVAER_ROOT
       value: "/syk/sykefravaer"
-    - name: DINE_SYKMELDTE_ROOT
+    - name: NEXT_PUBLIC_DINE_SYKMELDTE_ROOT
       value: "/sykefravaerarbeidsgiver"
   accessPolicy:
     outbound:
