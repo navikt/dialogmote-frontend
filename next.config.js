@@ -4,6 +4,11 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const moduleExports = {
   reactStrictMode: true,
   basePath: "/syk/poc/dialogmote",
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    dittSykefravaerUrl: process.env.NEXT_PUBLIC_DITT_SYKEFRAVAER_ROOT,
+    dineSykmeldteUrl: process.env.NEXT_PUBLIC_DINE_SYKMELDTE_ROOT,
+  },
 };
 
 const sentryWebpackPluginOptions = {
