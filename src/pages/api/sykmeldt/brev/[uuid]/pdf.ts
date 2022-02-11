@@ -9,7 +9,9 @@ const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
   .use(loginServiceToken())
   .use(fetchBrevPdfSM)
   .get(async (req, res: NextApiResponse & { pdf: any }) => {
-    res.status(200).json(res.pdf);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition","inline; filename=\"brev.pdf\"")
+    res.end(res.pdf);
   });
 
 export default withSentry(handler);
