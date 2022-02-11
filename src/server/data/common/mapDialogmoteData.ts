@@ -37,20 +37,17 @@ export const mapDialogmoteData = (
     referater:
       brevArraySorted
         ?.filter((brev) => brev.brevType === "REFERAT")
-        .map((brev) => {
-          return {
-            uuid: brev.uuid,
-            brevType: brev.brevType,
-            tid: brev.tid,
-            document: brev.document.map((component) => {
-              return {
-                type: component.type,
-                infoUrl: component.key ? infoUrls[component.key] : undefined,
-                title: component.title,
-                texts: component.texts,
-              };
-            }),
-          };
-        }) || [],
+        .map((brev) => ({
+          uuid: brev.uuid,
+          brevType: brev.brevType,
+          tid: brev.tid,
+          document: brev.document.map((component) => ({
+            type: component.type,
+            infoUrl: component.key ? infoUrls[component.key] : undefined,
+            title: component.title,
+            texts: component.texts,
+          })),
+        })) || [],
   };
 };
+
