@@ -1,5 +1,5 @@
 import { Events } from "@/common/amplitude/events";
-import { Brev } from "@/server/data/types/external/BrevTypes";
+import { Brev } from "@/server/data/types/internal/BrevTypes";
 import { useRouteBasePath } from "@/common/hooks/routeHooks";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { getLongDateFormat } from "@/common/utils/dateUtils";

@@ -1,5 +1,5 @@
 import { DocumentComponentKey } from "@/server/data/types/external/BrevTypes";
-import {InfoUrl} from "@/server/data/types/internal/BrevTypes";
+import { InfoUrl } from "@/server/data/types/internal/BrevTypes";
 
 export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   FRISKMELDING_ARBEIDSFORMIDLING: {
@@ -52,6 +52,6 @@ export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
     text: "Les mer om arbeidsrettet rehabilitering",
     url: "https://www.nav.no/no/person/arbeid/oppfolging-og-tiltak-for-a-komme-i-jobb/tiltak-for-a-komme-i-jobb/arbeidsrettet-rehabilitering",
   },
-  IKKE_BEHOV : undefined,
-  OKONOMISK_STOTTE : undefined,
+  IKKE_BEHOV: undefined,
+  OKONOMISK_STOTTE: undefined,
 };

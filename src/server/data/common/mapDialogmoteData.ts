@@ -41,6 +41,7 @@ export const mapDialogmoteData = (
           return {
             uuid: brev.uuid,
             brevType: brev.brevType,
+            tid: brev.tid,
             document: brev.document.map((component) => {
               return {
                 type: component.type,
