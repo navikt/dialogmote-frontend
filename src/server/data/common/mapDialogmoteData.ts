@@ -1,3 +1,4 @@
+import { infoUrls } from "@/common/constants/InfoUrls";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
@@ -34,6 +35,19 @@ export const mapDialogmoteData = (
       : undefined,
     moteinnkalling: !isLastestBrevReferat ? latestBrev : undefined,
     referater:
-      brevArraySorted?.filter((brev) => brev.brevType === "REFERAT") || [],
+      brevArraySorted
+        ?.filter((brev) => brev.brevType === "REFERAT")
+        .map((brev) => ({
+          uuid: brev.uuid,
+          brevType: brev.brevType,
+          tid: brev.tid,
+          document: brev.document.map((component) => ({
+            type: component.type,
+            infoUrl: component.key ? infoUrls[component.key] : undefined,
+            title: component.title,
+            texts: component.texts,
+          })),
+        })) || [],
   };
 };
+

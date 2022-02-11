@@ -3,7 +3,7 @@ import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { useRouteBasePath } from "@/common/hooks/routeHooks";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
-import { Brev } from "@/server/data/types/external/BrevTypes";
+import { Brev } from "@/server/data/types/internal/BrevTypes";
 
 const linkText = (date: string) => {
   return `Referat fra ${date}`;

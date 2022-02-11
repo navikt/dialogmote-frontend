@@ -1,5 +1,6 @@
 import {
   DocumentComponent,
+  DocumentComponentKey,
   DocumentComponentType,
 } from "@/server/data/types/external/BrevTypes";
 
@@ -18,7 +19,7 @@ export class DocumentComponentBuilder {
     return this;
   }
 
-  withKey(key: string): DocumentComponentBuilder {
+  withKey(key: DocumentComponentKey): DocumentComponentBuilder {
     this.documentComponent.key = key;
     return this;
   }
