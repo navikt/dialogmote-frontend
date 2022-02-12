@@ -19,7 +19,7 @@
     "@sentry/tracing": "^6.17.6",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/jwk-to-pem": "^2.0.1",
-    "amplitude-js": "^8.15.1",
+    "amplitude-js": "^8.16.0",
     "axios": "^0.25.0",
     "cookie": "^0.4.1",
     "http-errors": "^2.0.0",
