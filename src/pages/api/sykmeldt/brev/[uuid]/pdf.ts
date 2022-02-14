@@ -8,9 +8,9 @@ import { fetchBrevPdfSM } from "@/server/data/sykmeldt/isDialogmoteApiSM";
 const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
   .use(loginServiceToken())
   .use(fetchBrevPdfSM)
-  .get(async (req, res: NextApiResponse & { pdf: any }) => {
+  .get(async (req: NextApiRequest, res: NextApiResponse & { pdf: any }) => {
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition","inline; filename=\"brev.pdf\"")
+    res.setHeader("Content-Disposition", 'inline; filename="brev.pdf"');
     res.end(res.pdf);
   });
 

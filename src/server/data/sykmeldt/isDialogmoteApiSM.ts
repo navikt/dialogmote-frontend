@@ -5,6 +5,7 @@ import { isMockBackend } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import { SvarRespons } from "@/server/data/types/external/BrevTypes";
+import activeMockSM from "@/server/data/mock/activeMockSM";
 
 const brevApiSM = (path?: string): string => {
   const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`;
@@ -36,6 +37,9 @@ export const postBrevLestSM = async (
   next: () => void
 ) => {
   if (isMockBackend) {
+    const { uuid } = req.query;
+    const brevToUpdate = activeMockSM.brev.find((b) => b.uuid === uuid);
+    brevToUpdate!!.lestDato = new Date().toISOString();
     return next();
   } else {
     const { uuid } = req.query;

@@ -34,3 +34,14 @@ export const useRouteBasePath = (): string => {
     return `${router.basePath}/arbeidsgiver/${narmestelederid}`;
   }
 };
+
+export const useApiBasePath = (): string => {
+  const router = useRouter();
+  const { isAudienceSykmeldt } = useAudience();
+
+  if (isAudienceSykmeldt) {
+    return `${router.basePath}/api/sykmeldt`;
+  } else {
+    return `${router.basePath}/api/arbeidsgiver`;
+  }
+};

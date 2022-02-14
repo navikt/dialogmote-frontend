@@ -5,11 +5,11 @@ import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { withSentry } from "@sentry/nextjs";
 import { postBrevSvarSM } from "@/server/data/sykmeldt/isDialogmoteApiSM";
 
-const handler = nc<NextApiRequest, NextApiResponse<void>>(ncOptions)
+const handler = nc<NextApiRequest, NextApiResponse>(ncOptions)
   .use(loginServiceToken())
   .use(postBrevSvarSM)
-  .get(async (req, res: NextApiResponse) => {
-    res.status(200);
+  .post(async (req: NextApiRequest, res: NextApiResponse) => {
+    res.status(200).end();
   });
 
 export default withSentry(handler);
