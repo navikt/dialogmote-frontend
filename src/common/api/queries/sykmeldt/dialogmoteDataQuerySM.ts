@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { get } from "@/common/api/axios/axios";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 
-const DIALOGMOTEDATA_SM = "dialogmotedata-sykmeldt";
+export const DIALOGMOTEDATA_SM = "dialogmotedata-sykmeldt";
 
 export const useDialogmoteDataSM = () => {
   const fetchDialogmoteData = () =>

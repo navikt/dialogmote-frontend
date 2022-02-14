@@ -18,7 +18,7 @@ const HeaderStyled = styled(Heading)`
 `;
 
 interface Props {
-  title: string;
+  title?: string;
   icon?: ReactNode;
   className?: string;
   children: ReactNode;

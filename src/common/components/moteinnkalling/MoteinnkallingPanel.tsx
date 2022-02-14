@@ -36,13 +36,13 @@ const getTexts = (brevType: BrevType) => {
   }
 };
 
+const MoteinnkallingButton = styled(Button)`
+  width: fit-content;
+`;
+
 interface Props {
   moteinnkalling?: Brev;
 }
-
-const MoteinnkallingButton = styled(Button)`
-  width: 10rem;
-`;
 
 const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
   const router = useRouter();
@@ -61,7 +61,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
           onClick={(e: { preventDefault: () => void }) => {
             e.preventDefault();
             trackEvent(texts.trackingName);
-            router.push("#");
+            router.push("/sykmeldt/moteinnkalling");
           }}
         >
           {texts.buttonText}

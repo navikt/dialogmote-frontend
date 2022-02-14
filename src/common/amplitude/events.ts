@@ -23,4 +23,5 @@ export enum Events {
   Tidslinjen = "Klikker på tidslinjen",
   SendSvarPaInnkallelse = "Klikker på send svar på møteinnkallelse",
   SpillerAvDialogmotefilm = "Klikker på spill av film om dialogmøte",
+  ErrorWithEscapeRoute = "Klikker på naviger bort fra feilside.",
 }

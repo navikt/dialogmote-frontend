@@ -3,13 +3,14 @@ import {
   BrevType,
   DocumentComponent,
 } from "@/server/data/types/external/BrevTypes";
+import { v4 as uuidv4 } from "uuid";
 
 export class BrevBuilder {
   private readonly brev: Brev;
 
   constructor() {
     this.brev = {
-      uuid: "123",
+      uuid: uuidv4(),
       deltakerUuid: "324",
       createdAt: new Date().toISOString(),
       brevType: "INNKALT",
@@ -20,6 +21,11 @@ export class BrevBuilder {
       document: [],
       virksomhetsnummer: "234",
     };
+  }
+
+  witUuid(uuid: string): BrevBuilder {
+    this.brev.uuid = uuid;
+    return this;
   }
 
   withBrevtype(brevType: BrevType): BrevBuilder {
