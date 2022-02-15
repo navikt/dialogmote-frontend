@@ -1,16 +1,19 @@
 import { useQuery } from "react-query";
 import { get } from "@/common/api/axios/axios";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
+import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
+import { useApiBasePath } from "@/common/hooks/routeHooks";
 
 export const DIALOGMOTEDATA_AG = "dialogmotedata-arbeidsgiver";
 
-export const useDialogmoteDataAG = (narmestelederId?: string) => {
+export const useDialogmoteDataAG = () => {
+  const narmestelederid = useNarmesteLederId();
+  const apiBasePath = useApiBasePath();
+
   const fetchDialogmoteData = () =>
-    get<DialogmoteData>(
-      `/syk/poc/dialogmote/api/arbeidsgiver/${narmestelederId}`
-    );
+    get<DialogmoteData>(`${apiBasePath}/${narmestelederid}`);
 
   return useQuery(DIALOGMOTEDATA_AG, fetchDialogmoteData, {
-    enabled: !!narmestelederId,
+    enabled: !!narmestelederid,
   });
 };

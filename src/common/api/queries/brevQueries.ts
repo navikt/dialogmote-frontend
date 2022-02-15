@@ -9,8 +9,8 @@ const queryToInvalidate = (isAudienceSykmeldt: boolean) =>
   isAudienceSykmeldt ? DIALOGMOTEDATA_SM : DIALOGMOTEDATA_AG;
 
 export const useMutateBrevLest = () => {
-  const { isAudienceSykmeldt } = useAudience();
   const queryClient = useQueryClient();
+  const { isAudienceSykmeldt } = useAudience();
   const basepath = useApiBasePath();
 
   const postLestBrev = (uuid: string) => post(`${basepath}/brev/${uuid}/lest`);
@@ -23,8 +23,8 @@ export const useMutateBrevLest = () => {
 };
 
 export const useSvarPaInnkallelse = (uuid: string) => {
-  const { isAudienceSykmeldt } = useAudience();
   const queryClient = useQueryClient();
+  const { isAudienceSykmeldt } = useAudience();
   const basepath = useApiBasePath();
 
   const postSvar = (svar: SvarRespons) =>

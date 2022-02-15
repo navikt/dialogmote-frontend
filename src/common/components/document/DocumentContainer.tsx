@@ -7,11 +7,11 @@ import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
 const DocumentWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
   border-radius: 4px;
-  padding: 32px;
+  padding: 2rem;
   background-color: white;
-  margin-top: 32px;
+  margin-top: 2rem;
   white-space: pre-wrap;
 `;
 

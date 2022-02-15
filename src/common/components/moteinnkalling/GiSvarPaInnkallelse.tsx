@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect } from "react";
+import React, { ChangeEvent, ReactElement, useState } from "react";
 import styled from "styled-components";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { Control, Controller, useForm } from "react-hook-form";
 import {
   Alert,
   BodyLong,
@@ -11,26 +10,20 @@ import {
   RadioGroup,
   Textarea,
 } from "@navikt/ds-react";
-import { SvarRespons, SvarType } from "@/server/data/types/external/BrevTypes";
+import { SvarType } from "@/server/data/types/external/BrevTypes";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
 import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
+
+const KnappStyled = styled(Button)`
+  width: fit-content;
+`;
 
 const SvarStyled = styled(DialogmotePanel)`
   margin-top: 2rem;
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
-`;
-
-const FormStyled = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
-
-const KnappStyled = styled(Button)`
-  width: fit-content;
 `;
 
 const texts = {
@@ -52,192 +45,187 @@ const texts = {
     "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
   feiloppsummeringTittel: "For å gå videre må du rette opp følgende:",
   errorMessage: "Svaret ditt kom ikke frem. Kan du prøve igjen?",
+  sendSvar: "Send svar",
 };
 
-const fields = {
-  SVAR: "svar",
-  BEGRUNNELSE_ENDRING: "begrunnelseEndring",
-  BEGRUNNELSE_AVLYSNING: "begrunnelseAvlysning",
+const inputFields = {
+  svarType: "svarType",
+  begrunnelseEndring: "begrunnelseEndring",
+  begrunnelseAvlysning: "begrunnelseAvlysning",
 };
 
-interface BegrunnelseProps {
-  control: Control;
-  name: string;
-  label: string;
-  error: string;
+type InputFieldType =
+  | typeof inputFields.svarType
+  | typeof inputFields.begrunnelseEndring
+  | typeof inputFields.begrunnelseAvlysning;
+
+interface FormData {
+  svarType?: SvarType;
+  begrunnelse: string;
 }
 
-const BegrunnelseInput = ({
-  control,
-  name,
-  label,
-  error,
-}: BegrunnelseProps): ReactElement => {
-  return (
-    <Controller
-      name={name}
-      control={control}
-      defaultValue={""}
-      rules={{
-        required: texts.begrunnelseRequired,
-        maxLength: { value: 300, message: texts.begrunnelseMaxLength },
-      }}
-      render={({ field }) => (
-        <Textarea
-          id={name}
-          {...field}
-          label={label}
-          description={texts.begrunnelseDescription}
-          maxLength={300}
-          error={error}
-        />
-      )}
-    />
-  );
-};
+interface Error {
+  inputField: InputFieldType;
+  errorMsg: string;
+}
 
 interface Props {
   brevUuid: string;
 }
 
 const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
-  const svarPaInnkallelse = useSvarPaInnkallelse(brevUuid);
-  const {
-    register,
-    watch,
-    formState,
-    handleSubmit,
-    getValues,
-    control,
-    clearErrors,
-  } = useForm();
-  const { errors } = formState;
-  const watchSvar = watch(fields.SVAR, false);
-  console.log(watch(fields.SVAR));
-
   const { trackEvent } = useAmplitude();
+  const sendSvarQuery = useSvarPaInnkallelse(brevUuid);
+  const [error, setError] = useState<Array<Error>>([]);
+  const [formData, setFormData] = useState<FormData>({
+    svarType: undefined,
+    begrunnelse: "",
+  });
 
-  // useEffect(() => {
-  //   const subscription = watch((value, { name }) => {
-  //     if (name === fields.SVAR) {
-  //       clearErrors();
-  //     }
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch, clearErrors]);
-
-  const sendSvar = (): void => {
-    const selectedSvar = getValues(fields.SVAR);
-    const svar: SvarRespons = {
-      svarType: selectedSvar,
-      ...begrunnelse(selectedSvar),
-    };
-    svarPaInnkallelse.mutate(svar);
+  const updateError = (inputField: InputFieldType, errorMsg: string) => {
+    setError([
+      {
+        inputField: inputField,
+        errorMsg: errorMsg,
+      },
+    ]);
   };
 
-  const begrunnelse = (
-    selectedSvar: SvarType
-  ): { svarTekst: string } | undefined => {
-    switch (selectedSvar) {
-      case "NYTT_TID_STED":
-        return { svarTekst: getValues(fields.BEGRUNNELSE_ENDRING) };
-      case "KOMMER_IKKE":
-        return { svarTekst: getValues(fields.BEGRUNNELSE_AVLYSNING) };
+  const begrunnelseFieldName: InputFieldType =
+    formData.svarType === "KOMMER_IKKE"
+      ? inputFields.begrunnelseAvlysning
+      : inputFields.begrunnelseEndring;
+
+  const validateForm = (): boolean => {
+    if (!formData.svarType) {
+      updateError(inputFields.svarType, texts.svarRequired);
+      return false;
     }
-    return undefined;
+
+    if (
+      formData.svarType === "NYTT_TID_STED" ||
+      formData.svarType === "KOMMER_IKKE"
+    ) {
+      if (!formData.begrunnelse) {
+        updateError(begrunnelseFieldName, texts.begrunnelseRequired);
+        return false;
+      }
+      if (formData.begrunnelse.length > 300) {
+        updateError(begrunnelseFieldName, texts.begrunnelseMaxLength);
+        return false;
+      }
+    }
+    setError([]);
+    return true;
   };
 
-  const feil = Object.keys(errors)
-    .filter((key) => errors[key])
-    .map((key) => {
-      return {
-        skjemaelementId: key,
-        feilmelding: errors[key].message,
-      };
+  const validateAndSubmit = () => {
+    const validated = validateForm();
+
+    if (validated) {
+      trackEvent(Events.SendSvarPaInnkallelse, {
+        svarAlternativ: formData.svarType!!,
+      });
+
+      sendSvarQuery.mutate({
+        svarType: formData.svarType!!,
+        svarTekst: formData.begrunnelse,
+      });
+    }
+  };
+
+  const handleChangeSvarType = (newValue: string) => {
+    setFormData({ svarType: newValue as SvarType, begrunnelse: "" });
+    setError([]);
+  };
+
+  const handleChangeBegrunnelse = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData({
+      svarType: formData.svarType,
+      begrunnelse: e.target.value,
     });
+    validateForm();
+  };
+
+  const isFieldError = (field: InputFieldType): boolean => {
+    return !!error.find((err) => err.inputField === field);
+  };
 
   return (
     <SvarStyled title={texts.title}>
       <BodyLong>{texts.info}</BodyLong>
       <BodyLong>{texts.infoRequired}</BodyLong>
-      <FormStyled onSubmit={handleSubmit(sendSvar)}>
-        <RadioGroup legend={texts.svarLegend} error={errors.svar?.message}>
-          <Radio
-            {...register(fields.SVAR, { required: texts.svarRequired })}
-            value={"KOMMER"}
-          >
-            {texts.svarKommer}
-          </Radio>
-          <Radio
-            {...register(fields.SVAR, { required: texts.svarRequired })}
-            value={"NYTT_TID_STED"}
-          >
-            {texts.svarEndring}
-          </Radio>
-          <Radio
-            {...register(fields.SVAR, { required: texts.svarRequired })}
-            value={"KOMMER_IKKE"}
-          >
-            {texts.svarAvlysning}
-          </Radio>
-        </RadioGroup>
+      <RadioGroup
+        id={inputFields.svarType}
+        legend={texts.svarLegend}
+        error={
+          isFieldError(inputFields.svarType) ? texts.svarRequired : undefined
+        }
+        onChange={handleChangeSvarType}
+      >
+        <Radio value="KOMMER">{texts.svarKommer}</Radio>
+        <Radio value="NYTT_TID_STED">{texts.svarEndring}</Radio>
+        <Radio value="KOMMER_IKKE">{texts.svarAvlysning}</Radio>
+      </RadioGroup>
 
-        {/*{watchSvar == "NYTT_TID_STED" && (*/}
-        {/*  <>*/}
-        {/*    <Alert variant="warning">*/}
-        {/*      <BodyLong>{texts.infoEndring}</BodyLong>*/}
-        {/*    </Alert>*/}
-        {/*    <BegrunnelseInput*/}
-        {/*      control={control}*/}
-        {/*      name={fields.BEGRUNNELSE_ENDRING}*/}
-        {/*      error={errors.begrunnelseEndring?.message}*/}
-        {/*      label={texts.begrunnelseEndringLabel}*/}
-        {/*    />*/}
-        {/*  </>*/}
-        {/*)}*/}
+      {formData.svarType === "NYTT_TID_STED" && (
+        <>
+          <Alert variant="warning">
+            <BodyLong>{texts.infoEndring}</BodyLong>
+          </Alert>
 
-        {/*{watchSvar == "KOMMER_IKKE" && (*/}
-        {/*  <>*/}
-        {/*    <Alert variant="warning">*/}
-        {/*      <BodyLong>{texts.infoAvlysning}</BodyLong>*/}
-        {/*    </Alert>*/}
-        {/*    <BegrunnelseInput*/}
-        {/*      control={control}*/}
-        {/*      name={fields.BEGRUNNELSE_AVLYSNING}*/}
-        {/*      error={errors.begrunnelseAvlysning?.message}*/}
-        {/*      label={texts.begrunnelseAvlysningLabel}*/}
-        {/*    />*/}
-        {/*  </>*/}
-        {/*)}*/}
+          <Textarea
+            id={inputFields.begrunnelseEndring}
+            label={texts.begrunnelseEndringLabel}
+            description={texts.begrunnelseDescription}
+            maxLength={300}
+            error={isFieldError(inputFields.begrunnelseEndring)}
+            onChange={handleChangeBegrunnelse}
+            value={formData.begrunnelse}
+          />
+        </>
+      )}
 
-        {!!feil.length && (
-          <ErrorSummary heading={texts.feiloppsummeringTittel}>
-            {feil.map((err, index) => {
-              return (
-                <ErrorSummary.Item key={index} href={err.skjemaelementId}>
-                  {err.feilmelding}
-                </ErrorSummary.Item>
-              );
-            })}
-          </ErrorSummary>
-        )}
+      {formData.svarType === "KOMMER_IKKE" && (
+        <>
+          <Alert variant="warning">
+            <BodyLong>{texts.infoAvlysning}</BodyLong>
+          </Alert>
+          <Textarea
+            id={inputFields.begrunnelseAvlysning}
+            label={texts.begrunnelseAvlysningLabel}
+            description={texts.begrunnelseDescription}
+            maxLength={300}
+            error={isFieldError(inputFields.begrunnelseAvlysning)}
+            onChange={handleChangeBegrunnelse}
+            value={formData.begrunnelse}
+          />
+        </>
+      )}
 
-        {svarPaInnkallelse.isError && (
-          <Alert variant="error">{texts.errorMessage}</Alert>
-        )}
+      {error.length > 0 && (
+        <ErrorSummary heading={texts.feiloppsummeringTittel}>
+          {error.map((error, index) => {
+            return (
+              <ErrorSummary.Item key={index} href={`#${error.inputField}`}>
+                {error.errorMsg}
+              </ErrorSummary.Item>
+            );
+          })}
+        </ErrorSummary>
+      )}
 
-        <KnappStyled
-          disabled={svarPaInnkallelse.isLoading}
-          spinner={svarPaInnkallelse.isLoading}
-          onClick={() =>
-            trackEvent(Events.SendSvarPaInnkallelse, {
-              // svarAlternativ: watchSvar,
-            })
-          }
-        >
-          Send svar
-        </KnappStyled>
-      </FormStyled>
+      {sendSvarQuery.isError && (
+        <Alert variant="error">{texts.errorMessage}</Alert>
+      )}
+
+      <KnappStyled
+        disabled={sendSvarQuery.isLoading}
+        loading={sendSvarQuery.isLoading}
+        onClick={validateAndSubmit}
+      >
+        {texts.sendSvar}
+      </KnappStyled>
     </SvarStyled>
   );
 };

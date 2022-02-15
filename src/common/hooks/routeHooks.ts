@@ -23,6 +23,18 @@ export const useAudience = (): IUseAudience => {
       };
 };
 
+export const useLandingUrl = (): string => {
+  const router = useRouter();
+  const { isAudienceSykmeldt } = useAudience();
+  const { narmestelederid } = router.query;
+
+  if (isAudienceSykmeldt) {
+    return "/sykmeldt";
+  } else {
+    return `/arbeidsgiver/${narmestelederid}`;
+  }
+};
+
 export const useRouteBasePath = (): string => {
   const router = useRouter();
   const { isAudienceSykmeldt } = useAudience();

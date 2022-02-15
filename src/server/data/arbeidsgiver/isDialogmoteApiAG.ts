@@ -1,10 +1,11 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { NextApiResponse } from "next";
 import serverEnv from "../../utils/serverEnv";
-import { isMockBackend } from "@/common/publicEnv";
+import { isDevelopment, isMockBackend } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import { SvarRespons } from "@/server/data/types/external/BrevTypes";
+import activeMockAG from "@/server/data/mock/activeMockAG";
 
 const brevApiAG = (path?: string): string => {
   const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`;
@@ -35,6 +36,11 @@ export const postBrevLestAG = async (
   res: NextApiResponse,
   next: () => void
 ) => {
+  if (isDevelopment) {
+    const { uuid } = req.query;
+    const brevToUpdate = activeMockAG.brev.find((b) => b.uuid === uuid);
+    brevToUpdate!!.lestDato = new Date().toISOString();
+  }
   if (isMockBackend) {
     return next();
   } else {
@@ -52,6 +58,16 @@ export const postBrevSvarAG = async (
   res: NextApiResponse,
   next: () => void
 ) => {
+  if (isDevelopment) {
+    const { uuid } = req.query;
+    const brevToUpdate = activeMockAG.brev.find((b) => b.uuid === uuid);
+    const svar: SvarRespons = req.body;
+    brevToUpdate!!.svar = {
+      svarType: svar.svarType,
+      svarTekst: svar.svarTekst,
+      svarTidspunkt: new Date().toISOString(),
+    };
+  }
   if (isMockBackend) {
     return next();
   } else {
