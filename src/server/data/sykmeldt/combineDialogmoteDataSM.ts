@@ -7,11 +7,10 @@ export const combineDialogmoteDataSM = async (
   res: NextApiResponseSM,
   next: () => void
 ) => {
-  res.dialogmoteData = mapDialogmoteData(
-    res.isSykmeldt,
-    res.motebehovStatus,
-    res.brevArray
-  );
+  res.dialogmoteData = {
+    isSykmeldt: res.isSykmeldt,
+    ...mapDialogmoteData(res.motebehovStatus, res.brevArray),
+  };
 
   next();
 };

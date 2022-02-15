@@ -1,13 +1,12 @@
 import { infoUrls } from "@/common/constants/InfoUrls";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
+import { DialogmoteBaseData } from "@/server/data/types/internal/DialogmoteType";
 
 export const mapDialogmoteData = (
-  isSykmeldt: boolean,
   motebehov: MotebehovStatus,
   brevArray?: Brev[]
-): DialogmoteData => {
+): DialogmoteBaseData => {
   const brevArraySorted = brevArray?.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   );
@@ -21,7 +20,6 @@ export const mapDialogmoteData = (
     motebehov.visMotebehov && !isLatestBrevOngoingMoteinnkalling;
 
   return {
-    isSykmeldt: isSykmeldt,
     motebehov: displayMotebehov
       ? {
           skjemaType: motebehov.skjemaType,
