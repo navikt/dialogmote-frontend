@@ -64,6 +64,12 @@ spec:
       value: "test"
     - name: ISDIALOGMOTE_AUDIENCE
       value: "dev-gcp:teamsykefravr:isdialogmote"
+    - name: DINE_SYKMELDTE_ROOT
+      value: https://www-gcp.dev.nav.no/sykefravaerarbeidsgiver
+    - name: DITT_SYKEFRAVAER_ROOT
+      value: https://www-gcp.dev.nav.no/syk/sykefravaer
+    - name: BASE_PATH
+      value: /syk/poc/dialogmote
   accessPolicy:
     outbound:
       rules:
