@@ -10,6 +10,7 @@ const texts = {
 
 const ButtonStyled = styled.a`
   width: fit-content;
+  margin-bottom: 2rem;
 `;
 
 interface Props {

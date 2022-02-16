@@ -3,14 +3,14 @@ import GamleReferat from "@/common/components/referat/GamleReferat";
 import SisteReferat from "@/common/components/referat/SisteReferat";
 import { FileContent } from "@navikt/ds-icons";
 import React, { ReactNode } from "react";
-import { Brev } from "@/server/data/types/internal/BrevTypes";
+import { Referat } from "@/server/data/types/internal/BrevTypes";
 
 const texts = {
   title: "Referat fra dialogmøte",
 };
 
 interface Props {
-  referater: Brev[];
+  referater: Referat[];
   children?: ReactNode;
 }
 

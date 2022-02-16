@@ -39,7 +39,6 @@ export const mapDialogmoteData = (
         ?.filter((brev) => brev.brevType === "REFERAT")
         .map((brev) => ({
           uuid: brev.uuid,
-          brevType: brev.brevType,
           tid: brev.tid,
           document: brev.document.map((component) => ({
             type: component.type,
@@ -50,4 +49,3 @@ export const mapDialogmoteData = (
         })) || [],
   };
 };
-

@@ -3,14 +3,14 @@ import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { useRouteBasePath } from "@/common/hooks/routeHooks";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
-import { Brev } from "@/server/data/types/internal/BrevTypes";
+import { Referat } from "@/server/data/types/internal/BrevTypes";
 
 const linkText = (date: string) => {
   return `Referat fra ${date}`;
 };
 
 interface Props {
-  referater: Brev[];
+  referater: Referat[];
 }
 
 const GamleReferat = ({ referater }: Props) => {
@@ -19,12 +19,12 @@ const GamleReferat = ({ referater }: Props) => {
   if (referater.length > 0) {
     return (
       <ul>
-        {referater.map((brev) => {
-          const formattedDate = getLongDateFormat(brev.tid);
-          const referatPath = `${routeBasePath}/referat/${brev.uuid}`;
+        {referater.map((referat) => {
+          const formattedDate = getLongDateFormat(referat.tid);
+          const referatPath = `${routeBasePath}/referat/${referat.uuid}`;
 
           return (
-            <li key={brev.tid}>
+            <li key={referat.tid}>
               <RouterLenke
                 href={referatPath}
                 trackingName={Events.TidligereReferat}
