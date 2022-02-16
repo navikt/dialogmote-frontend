@@ -5,12 +5,12 @@ import DocumentContainer from "@/common/components/document/DocumentContainer";
 import PageHeader from "@/common/components/PageHeader";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import PersonvernInfo from "@/common/components/PersonvernInfo";
+import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
-import { Referat, InfoUrl } from "@/server/data/types/internal/BrevTypes";
-import { Alert } from "@navikt/ds-react";
+import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
 import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
@@ -24,10 +24,6 @@ const infoUrls = (referat: Referat): InfoUrl[] => {
     .map((documentComponent) => documentComponent.infoUrl)
     .filter((infoUrl): infoUrl is InfoUrl => !!infoUrl);
 };
-
-function NoReferatAlert() {
-  return <Alert variant="error">Vi finner ikke dette referatet.</Alert>;
-}
 
 const ReferatPage: NextPage = () => {
   const dialogmoteData = useDialogmoteDataSM();
