@@ -10,6 +10,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import { useBreadcrumbsAG } from "@/common/hooks/useBreadcrumbs";
 
 const texts = {
   title: "Dialogmøter",
@@ -18,6 +19,7 @@ const texts = {
 const Home: NextPage = () => {
   const narmestelederid = useNarmesteLederId();
   const dialogmoteData = useDialogmoteDataAG(narmestelederid);
+  useBreadcrumbsAG();
 
   if (dialogmoteData.isError) {
     return <div>Her ble det noe feil</div>;
