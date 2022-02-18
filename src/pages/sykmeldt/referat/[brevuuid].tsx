@@ -66,7 +66,7 @@ const ReferatPage: NextPage = () => {
         />
         <UsefulLinks infoUrls={infoUrls(referat)} />
         <GuidePanel>
-            <HvaSkjerISykefravaeret />
+          <HvaSkjerISykefravaeret />
         </GuidePanel>
         <PersonvernInfo />
       </>

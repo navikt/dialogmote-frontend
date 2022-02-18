@@ -10,10 +10,11 @@ export const combineDialogmoteDataAG = async (
   res.dialogmoteData = {
     sykmeldtName: res.sykmeldt.navn,
     ...mapDialogmoteData(
-    !!res.sykmeldt.aktivSykmelding,
-    res.motebehovStatus,
-    res.brevArray
-  )}
+      !!res.sykmeldt.aktivSykmelding,
+      res.motebehovStatus,
+      res.brevArray
+    ),
+  };
 
   next();
 };
