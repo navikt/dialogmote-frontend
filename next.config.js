@@ -1,9 +1,16 @@
 /** @type {import('next').NextConfig} */
 const { withSentryConfig } = require("@sentry/nextjs");
 
+const basePath = "/syk/poc/dialogmote";
+
 const moduleExports = {
   reactStrictMode: true,
-  basePath: "/syk/poc/dialogmote",
+  basePath,
+  publicRuntimeConfig: {
+    dineSykemeldteRoot: process.env.DINE_SYKMELDTE_ROOT,
+    dittSykefravarRoot: process.env.DITT_SYKEFRAVAER_ROOT,
+    basePath,
+  },
 };
 
 const sentryWebpackPluginOptions = {

@@ -1,10 +1,14 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import type { AppContext, AppProps } from "next/app";
+import App from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import styled, { createGlobalStyle } from "styled-components";
 import { initAmplitude } from "@/common/amplitude/amplitude";
 import { useEffect } from "react";
+import { useAudience } from "@/common/hooks/routeHooks";
+import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
+import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,6 +37,8 @@ const minutesToMillis = (minutes: number) => {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { isAudienceSykmeldt } = useAudience();
+
   useEffect(() => {
     initAmplitude();
   }, []);
@@ -50,6 +56,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
+      {isAudienceSykmeldt ? (
+        <BreadcrumbsAppenderSM />
+      ) : (
+        <BreadcrumbsAppenderAG />
+      )}
       <ContentWrapperStyled>
         <Component {...pageProps} />
       </ContentWrapperStyled>
@@ -57,5 +68,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     </QueryClientProvider>
   );
 }
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext);
+
+  return { ...appProps };
+};
 
 export default MyApp;
