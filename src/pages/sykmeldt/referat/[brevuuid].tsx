@@ -9,7 +9,6 @@ import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
-import { useBreadcrumbsSM } from "@/common/hooks/useBreadcrumbs";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
 import type { NextPage } from "next";
@@ -30,7 +29,6 @@ const ReferatPage: NextPage = () => {
   const dialogmoteData = useDialogmoteDataSM();
   const brevuuid = useBrevUuid();
   const basePath = useApiBasePath();
-  useBreadcrumbsSM();
 
   if (dialogmoteData.isError) {
     return <div>Her ble det noe feil</div>;
