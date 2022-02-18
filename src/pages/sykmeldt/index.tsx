@@ -8,7 +8,6 @@ import Head from "next/head";
 import React from "react";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import { useBreadcrumbsSM } from "@/common/hooks/useBreadcrumbs";
 
 const texts = {
   title: "Dialogmøter",
@@ -16,7 +15,6 @@ const texts = {
 
 const Home: NextPage = () => {
   const dialogmoteData = useDialogmoteDataSM();
-  useBreadcrumbsSM();
 
   if (dialogmoteData.isError) {
     return <div>Her ble det noe feil</div>;

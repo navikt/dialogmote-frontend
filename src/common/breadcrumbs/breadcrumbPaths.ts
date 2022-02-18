@@ -37,7 +37,7 @@ export function dineSykemeldteBreadcrumbAG(
 ) {
   const dineSykemeldteBreadcrumb = {
     url: dineSykemeldteRoot,
-    title: "Dine sykmeldt",
+    title: "Dine sykmeldte",
   };
 
   return [
