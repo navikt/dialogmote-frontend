@@ -8,14 +8,18 @@ const GuidePanelStyled = styled(GuidePanel)`
   margin-bottom: 2rem;
 `;
 interface Props {
-    children?: ReactNode;
+  children?: ReactNode;
 }
 
 const VeilederGuidePanel = ({ children }: Props) => {
   return (
     <GuidePanelStyled
       illustration={
-        <Image src={getAsset("/veileder/veileder-avatar.svg")} layout="fill" alt={""}/>
+        <Image
+          src={getAsset("/veileder/veileder-avatar.svg")}
+          layout="fill"
+          alt={""}
+        />
       }
     >
       {children}
