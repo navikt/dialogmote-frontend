@@ -7,6 +7,7 @@ import React from "react";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
 import GiSvarPaInnkallelse from "@/common/components/moteinnkalling/GiSvarPaInnkallelse";
+import { Tilbakeknapp } from "@/common/components/button/Tilbakeknapp";
 
 interface Props {
   moteinnkalling: Brev;
@@ -47,6 +48,8 @@ export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
           <VeilederInnkallelseContent />
         </GuidePanel>
       )}
+
+      <Tilbakeknapp />
     </>
   );
 };

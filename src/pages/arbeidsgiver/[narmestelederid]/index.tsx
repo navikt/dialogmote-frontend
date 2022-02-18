@@ -5,7 +5,6 @@ import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
@@ -16,8 +15,7 @@ const texts = {
 };
 
 const Home: NextPage = () => {
-  const narmestelederid = useNarmesteLederId();
-  const dialogmoteData = useDialogmoteDataAG(narmestelederid);
+  const dialogmoteData = useDialogmoteDataAG();
 
   if (dialogmoteData.isError) {
     return <div>Her ble det noe feil</div>;

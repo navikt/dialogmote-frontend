@@ -1,4 +1,4 @@
-import { useRouteBasePath } from "@/common/hooks/routeHooks";
+import { useLandingUrl, useRouteBasePath } from "@/common/hooks/routeHooks";
 import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { Events } from "@/common/amplitude/events";
 import React from "react";
@@ -9,11 +9,11 @@ interface Props {
 }
 
 export const ErrorWithEscapeRoute = ({ children }: Props) => {
-  const basepath = useRouteBasePath();
+  const landingUrl = useLandingUrl();
   return (
     <Alert variant="error">
       {children}
-      <RouterLenke href={basepath} trackingName={Events.ErrorWithEscapeRoute}>
+      <RouterLenke href={landingUrl} trackingName={Events.ErrorWithEscapeRoute}>
         Gå til landingssiden
       </RouterLenke>
     </Alert>

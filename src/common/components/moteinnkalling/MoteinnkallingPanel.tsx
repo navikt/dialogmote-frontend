@@ -61,7 +61,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
           onClick={(e: { preventDefault: () => void }) => {
             e.preventDefault();
             trackEvent(texts.trackingName);
-            router.push("/sykmeldt/moteinnkalling");
+            router.push(`${router.asPath}/moteinnkalling`);
           }}
         >
           {texts.buttonText}

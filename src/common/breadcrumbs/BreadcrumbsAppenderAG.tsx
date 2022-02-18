@@ -8,7 +8,7 @@ import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 export const BreadcrumbsAppenderAG = (): ReactElement => {
   const { pathname } = useRouter();
   const narmestelederId = useNarmesteLederId();
-  const dialogmoteData = useDialogmoteDataAG(narmestelederId);
+  const dialogmoteData = useDialogmoteDataAG();
   const sykmeldtName = dialogmoteData.data?.sykmeldtName;
 
   useEffect(() => {

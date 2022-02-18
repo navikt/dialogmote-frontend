@@ -11,3 +11,4 @@ export const dineSykemeldteRoot =
   publicRuntimeConfig.dineSykemeldteRoot as string;
 export const dittSykefravarRoot =
   publicRuntimeConfig.dittSykefravarRoot as string;
+export const isDevelopment: boolean = process.env["NODE_ENV"] === "development";

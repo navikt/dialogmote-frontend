@@ -8,6 +8,7 @@ import { SvarType } from "@/server/data/types/external/BrevTypes";
 
 const SuksessStripeStyled = styled(Alert)`
   margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const texts = {
