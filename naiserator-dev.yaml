@@ -70,6 +70,10 @@ spec:
       value: https://www-gcp.dev.nav.no/syk/sykefravaer
     - name: BASE_PATH
       value: /syk/poc/dialogmote
+    - name: NEXT_PUBLIC_NAISERATOR_TEST
+      value: naisarator_value_inside_naiserator
+    - name: NAISERATOR_NO_PUBLIC_TEST
+      value: naisarator_no_public_value_inside_naiserator
   accessPolicy:
     outbound:
       rules:

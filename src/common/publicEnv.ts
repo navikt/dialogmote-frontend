@@ -1,4 +1,5 @@
 import getConfig from "next/config";
+
 const { publicRuntimeConfig } = getConfig();
 
 export const isOpplaering: boolean = process.env["OPPLAERING"] === "true";
@@ -12,3 +13,17 @@ export const dineSykemeldteRoot =
 export const dittSykefravarRoot =
   publicRuntimeConfig.dittSykefravarRoot as string;
 export const isDevelopment: boolean = process.env["NODE_ENV"] === "development";
+
+export const listVariables = () => {
+  console.log(
+    "Naiserator public attempt 1: " + process.env.NEXT_PUBLIC_NAISERATOR_TEST
+  );
+  console.log(
+    "Naiserator public attempt 2: " + process.env["NEXT_PUBLIC_NAISERATOR_TEST"]
+  );
+
+  console.log("No public attempt 1: " + process.env.NAISERATOR_NO_PUBLIC_TEST);
+  console.log(
+    "No public attempt 2: " + process.env["NAISERATOR_NO_PUBLIC_TEST"]
+  );
+};
