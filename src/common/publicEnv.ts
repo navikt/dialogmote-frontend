@@ -22,6 +22,14 @@ export const listVariables = () => {
     "Naiserator public attempt 2: " + process.env["NEXT_PUBLIC_NAISERATOR_TEST"]
   );
 
+  console.log(
+    "Naiserator no env attempt 1: " + process.env.NEXT_PUBLIC_NAISERATOR_NO_ENV
+  );
+  console.log(
+    "Naiserator no env attempt 2: " +
+      process.env["NEXT_PUBLIC_NAISERATOR_NO_ENV"]
+  );
+
   console.log("No public attempt 1: " + process.env.NAISERATOR_NO_PUBLIC_TEST);
   console.log(
     "No public attempt 2: " + process.env["NAISERATOR_NO_PUBLIC_TEST"]

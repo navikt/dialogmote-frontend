@@ -72,6 +72,8 @@ spec:
       value: /syk/poc/dialogmote
     - name: NEXT_PUBLIC_NAISERATOR_TEST
       value: naisarator_value_inside_naiserator
+    - name: NEXT_PUBLIC_NAISERATOR_NO_ENV
+      value: naisarator_no_env_value
     - name: NAISERATOR_NO_PUBLIC_TEST
       value: naisarator_no_public_value_inside_naiserator
   accessPolicy:
