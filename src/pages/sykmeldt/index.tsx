@@ -1,5 +1,6 @@
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import MotebehovPanel from "@/common/components/motebehov/MotebehovPanel";
 import PageHeader from "@/common/components/PageHeader";
 import PersonvernInfo from "@/common/components/PersonvernInfo";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
@@ -32,14 +33,20 @@ const Home: NextPage = () => {
         </Head>
 
         <PageHeader title={texts.title} />
+
+          <MotebehovPanel motebehov={dialogmoteData.data.motebehov} />
+          
         <VeilederGuidePanel>
           <InfoOmDialogmote>{texts.infoOmDialogmoter}</InfoOmDialogmote>
         </VeilederGuidePanel>
+          
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
         />
         <ReferaterPanel referater={dialogmoteData.data.referater} />
+          
         <VideoPanel />
+          
         <PersonvernInfo />
       </>
     );

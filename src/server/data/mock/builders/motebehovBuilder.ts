@@ -23,6 +23,11 @@ export class MotebehovBuilder {
     return this;
   }
 
+  withVisMotebehov(vis: boolean): MotebehovBuilder {
+    this.motebehov.visMotebehov = vis;
+    return this;
+  }
+
   build(): MotebehovStatus {
     return this.motebehov;
   }

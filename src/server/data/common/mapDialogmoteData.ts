@@ -1,7 +1,8 @@
-import { infoUrls } from "@/common/constants/InfoUrls";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
+import { mapDialogmotebehov } from "@/server/data/common/mapDialogmotebehov";
+import { mapReferater } from "@/server/data/common/mapReferater";
 
 export const mapDialogmoteData = (
   isSykmeldt: boolean,
@@ -17,35 +18,10 @@ export const mapDialogmoteData = (
     latestBrev?.brevType === "INNKALT" ||
     latestBrev?.brevType === "NYTT_TID_STED";
 
-  const displayMotebehov =
-    motebehov.visMotebehov && !isLatestBrevOngoingMoteinnkalling;
-
   return {
     isSykmeldt: isSykmeldt,
-    motebehov: displayMotebehov
-      ? {
-          skjemaType: motebehov.skjemaType,
-          svar: {
-            harMotebehov: motebehov.motebehov?.motebehovSvar.harMotebehov,
-            forklaring: motebehov.motebehov?.motebehovSvar.forklaring,
-            opprettetDato: motebehov.motebehov?.opprettetDato,
-            virksomhetsnummer: motebehov.motebehov?.virksomhetsnummer,
-          },
-        }
-      : undefined,
+    motebehov: mapDialogmotebehov(motebehov, isLatestBrevOngoingMoteinnkalling),
     moteinnkalling: !isLastestBrevReferat ? latestBrev : undefined,
-    referater:
-      brevArraySorted
-        ?.filter((brev) => brev.brevType === "REFERAT")
-        .map((brev) => ({
-          uuid: brev.uuid,
-          tid: brev.tid,
-          document: brev.document.map((component) => ({
-            type: component.type,
-            infoUrl: component.key ? infoUrls[component.key] : undefined,
-            title: component.title,
-            texts: component.texts,
-          })),
-        })) || [],
+    referater: mapReferater(brevArraySorted),
   };
 };

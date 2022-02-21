@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
+import { Toaster } from "react-hot-toast";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -56,6 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
+      <Toaster />
       {isAudienceSykmeldt ? (
         <BreadcrumbsAppenderSM />
       ) : (
