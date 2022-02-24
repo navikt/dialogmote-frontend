@@ -5,9 +5,11 @@ import DocumentContainer from "@/common/components/document/DocumentContainer";
 import PageHeader from "@/common/components/PageHeader";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import PersonvernInfo from "@/common/components/PersonvernInfo";
+import HvaSkjerISykefravaeret from "@/common/components/referat/HvaSkjerISykefravaeret";
 import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
+import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
@@ -63,6 +65,9 @@ const ReferatPage: NextPage = () => {
           pdfUrl={brevurl}
         />
         <UsefulLinks infoUrls={infoUrls(referat)} />
+        <VeilederGuidePanel>
+          <HvaSkjerISykefravaeret />
+        </VeilederGuidePanel>
         <PersonvernInfo />
       </>
     );

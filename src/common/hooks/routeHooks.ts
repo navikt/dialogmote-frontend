@@ -1,3 +1,4 @@
+import { dineSykemeldteRoot, dittSykefravarRoot } from "@/common/publicEnv";
 import { useRouter } from "next/router";
 
 export type Audience = "Sykmeldt" | "Arbeidsgiver";
@@ -55,5 +56,15 @@ export const useApiBasePath = (): string => {
     return `${router.basePath}/api/sykmeldt`;
   } else {
     return `${router.basePath}/api/arbeidsgiver`;
+  }
+};
+
+export const useSykefravaerBasePath = (): string => {
+  const { isAudienceSykmeldt } = useAudience();
+
+  if (isAudienceSykmeldt) {
+    return dittSykefravarRoot;
+  } else {
+    return dineSykemeldteRoot;
   }
 };
