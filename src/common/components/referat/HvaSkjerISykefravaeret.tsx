@@ -2,7 +2,7 @@ import { Events } from "@/common/amplitude/events";
 import { KONTAKT_INFO_URL, TIDSLINJE_URL } from "@/common/constants/staticUrls";
 import { useSykefravaerBasePath } from "@/common/hooks/routeHooks";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Link } from "@navikt/ds-react";
+import {BodyLong, Link} from "@navikt/ds-react";
 
 const texts = {
   infoText: "Lurer du på hva som skjer underveis i sykefraværet?",
@@ -19,7 +19,7 @@ const HvaSkjerISykefravaeret = () => {
 
   return (
     <>
-      <p>
+      <BodyLong spacing>
         {texts.infoText}
         <br />
         {texts.tidslinjeText}
@@ -30,8 +30,8 @@ const HvaSkjerISykefravaeret = () => {
         >
           {texts.tidslinjeLink}
         </Link>
-      </p>
-      <p>
+      </BodyLong>
+      <BodyLong spacing>
         {texts.kontaktOssText}
         <Link
           href={KONTAKT_INFO_URL}
@@ -40,7 +40,7 @@ const HvaSkjerISykefravaeret = () => {
         >
           {texts.kontaktOssLink}
         </Link>
-      </p>
+      </BodyLong>
     </>
   );
 };

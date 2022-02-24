@@ -63,8 +63,8 @@ export const useSykefravaerBasePath = (): string => {
   const { isAudienceSykmeldt } = useAudience();
 
   if (isAudienceSykmeldt) {
-    return dittSykefravarRoot ?? "";
+    return dittSykefravarRoot;
   } else {
-    return dineSykemeldteRoot ?? "";
+    return dineSykemeldteRoot;
   }
 };
