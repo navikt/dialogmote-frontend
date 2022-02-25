@@ -5,7 +5,7 @@ import DocumentContainer from "@/common/components/document/DocumentContainer";
 import PageHeader from "@/common/components/PageHeader";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import PersonvernInfo from "@/common/components/PersonvernInfo";
-import HvaSkjerISykefravaeret from "@/common/components/referat/HvaSkjerISykefravaeret";
+import HvaSkjerISykefravaeret from "@/common/components/veileder/HvaSkjerISykefravaeret";
 import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import AppSpinner from "@/common/components/spinner/AppSpinner";

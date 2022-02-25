@@ -2,7 +2,7 @@ import { Events } from "@/common/amplitude/events";
 import { KONTAKT_INFO_URL, TIDSLINJE_URL } from "@/common/constants/staticUrls";
 import { useSykefravaerBasePath } from "@/common/hooks/routeHooks";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import {BodyLong, Link} from "@navikt/ds-react";
+import { BodyLong, Link } from "@navikt/ds-react";
 
 const texts = {
   infoText: "Lurer du på hva som skjer underveis i sykefraværet?",
