@@ -31,7 +31,7 @@ const HvaSkjerISykefravaeret = () => {
           {texts.tidslinjeLink}
         </Link>
       </BodyLong>
-      <BodyLong spacing>
+      <BodyLong>
         {texts.kontaktOssText}
         <Link
           href={KONTAKT_INFO_URL}
