@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@navikt/ds-css": "^0.14.1",
-    "@navikt/ds-icons": "^0.7.3",
+    "@navikt/ds-icons": "^0.8.0",
     "@navikt/ds-react": "^0.15.1",
     "@navikt/nav-dekoratoren-moduler": "^1.6.9",
     "@sentry/nextjs": "^6.17.6",
@@ -21,7 +21,7 @@
     "@types/jwk-to-pem": "^2.0.1",
     "amplitude-js": "^8.16.0",
     "axios": "^0.25.0",
-    "cookie": "^0.4.1",
+    "cookie": "^0.4.2",
     "http-errors": "^2.0.0",
     "jose": "^4.4.0",
     "jsonwebtoken": "^8.5.1",
