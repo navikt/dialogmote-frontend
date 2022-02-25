@@ -16,7 +16,7 @@ const VeilederGuidePanel = ({ children }: Props) => {
     <GuidePanelStyled
       illustration={
         <Image
-          src={getAsset("/veileder/veileder-avatar.svg")}
+          src={getAsset("/veileder/veileder.svg")}
           layout="fill"
           alt={""}
         />

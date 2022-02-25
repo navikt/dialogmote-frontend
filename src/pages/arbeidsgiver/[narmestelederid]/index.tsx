@@ -1,17 +1,21 @@
-import React from "react";
+import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import PageHeader from "@/common/components/PageHeader";
 import PersonvernInfo from "@/common/components/PersonvernInfo";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
+import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
+import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import React from "react";
 
 const texts = {
   title: "Dialogmøter",
+  infoOmDialogmoter:
+    "I et dialogmøte går vi gjennom situasjonen og planlegger veien videre. De som deltar, er du, arbeidstakeren og en veileder fra NAV-kontoret, eventuelt også den som sykmelder arbeidstakeren.",
 };
 
 const Home: NextPage = () => {
@@ -29,6 +33,9 @@ const Home: NextPage = () => {
         </Head>
 
         <PageHeader title={texts.title} />
+        <VeilederGuidePanel>
+          <InfoOmDialogmote>{texts.infoOmDialogmoter}</InfoOmDialogmote>
+        </VeilederGuidePanel>
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
         />
