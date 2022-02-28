@@ -7,7 +7,6 @@ const PanelStyled = styled(Panel)`
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
   gap: 1rem;
 `;
 

@@ -1,5 +1,5 @@
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement } from "react";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeRoute";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";

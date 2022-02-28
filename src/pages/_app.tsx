@@ -5,11 +5,17 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import styled, { createGlobalStyle } from "styled-components";
 import { initAmplitude } from "@/common/amplitude/amplitude";
-import { useEffect } from "react";
+import React, { Component, useEffect } from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
-import { Toaster } from "react-hot-toast";
+import { NotificationProvider } from "@/context/NotificationContext";
+import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
+import Head from "next/head";
+
+const texts = {
+  defaultTitle: "Dialogmøter",
+};
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,20 +23,23 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     min-height: 100vh;
   }
-
-  #__next {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-    padding: 2rem;
-    background-color: var(--navds-global-color-gray-100);
-  }
 `;
 
 const ContentWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--navds-global-color-gray-100);
+`;
+
+const InnerContentWrapperStyled = styled.div`
+  display: flex;
+  flex-direction: column;
   max-width: 40rem;
+  flex-grow: 1;
 `;
 
 const minutesToMillis = (minutes: number) => {
@@ -55,19 +64,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <Toaster />
-      {isAudienceSykmeldt ? (
-        <BreadcrumbsAppenderSM />
-      ) : (
-        <BreadcrumbsAppenderAG />
-      )}
-      <ContentWrapperStyled>
-        <Component {...pageProps} />
-      </ContentWrapperStyled>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <NotificationProvider>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        {isAudienceSykmeldt ? (
+          <BreadcrumbsAppenderSM />
+        ) : (
+          <BreadcrumbsAppenderAG />
+        )}
+        <ContentWrapperStyled>
+          <Head>
+            <title>{texts.defaultTitle}</title>
+          </Head>
+          <NotificationBar />
+          <InnerContentWrapperStyled>
+            <Component {...pageProps} />
+          </InnerContentWrapperStyled>
+        </ContentWrapperStyled>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </NotificationProvider>
   );
 }
 

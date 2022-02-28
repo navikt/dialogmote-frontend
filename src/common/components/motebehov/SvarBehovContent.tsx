@@ -1,13 +1,12 @@
 import React, { ReactElement, useState } from "react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
-import PageHeader from "@/common/components/PageHeader";
+import PageHeader from "@/common/components/header/PageHeader";
 import { Alert, BodyLong, Ingress, Link } from "@navikt/ds-react";
 import { DIALOGMOTE_INFO_URL } from "@/common/constants/staticUrls";
 import { HuskOppfolgingsplanGuidePanel } from "@/common/components/motebehov/HuskOppfolgingsplanGuidePanel";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { MotebehovButtonRow } from "@/common/components/motebehov/MotebehovButtonRow";
-import PersonvernInfo from "@/common/components/PersonvernInfo";
+import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import { useSvarPaMotebehov } from "@/common/api/queries/motebehovQueries";
 import {
   MotebehovBegrunnelseTextArea,
@@ -18,6 +17,9 @@ import {
   ErrorValues,
   MotebehovErrorSummary,
 } from "@/common/components/motebehov/MotebehovErrorSummary";
+import { SubmitButton } from "@/common/components/button/SubmitButton";
+import { CancelButton } from "@/common/components/button/CancelButton";
+import { ButtonRow } from "@/common/components/button/ButtonRow";
 
 const texts = {
   title: "Meld behov for møte",
@@ -136,7 +138,10 @@ export const SvarBehovContent = ({
           setBegrunnelse={setBegrunnelse}
         />
 
-        <MotebehovButtonRow onSubmit={validateAndSubmit} />
+        <ButtonRow>
+          <SubmitButton onSubmit={validateAndSubmit} />
+          <CancelButton />
+        </ButtonRow>
       </DialogmotePanel>
 
       <PersonvernInfo />

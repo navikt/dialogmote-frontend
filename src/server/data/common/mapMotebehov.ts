@@ -1,15 +1,15 @@
 import {
-  Motebehov,
-  MotebehovStatus,
-} from "@/server/data/types/external/MotebehovTypes";
+  ExtMotebehov,
+  ExtMotebehovStatus,
+} from "@/server/data/types/external/ExternalMotebehovTypes";
 import {
-  DialogMotebehov,
-  DialogMotebehovSvar,
-} from "@/server/data/types/internal/DialogMotebehovTypes";
+  Motebehov,
+  MotebehovSvar,
+} from "@/server/data/types/internal/MotebehovTypes";
 
-const mapDialogmoteBehovSvar = (
-  motebehovSvar: Motebehov | null | undefined
-): DialogMotebehovSvar | undefined => {
+const mapMotebehovSvar = (
+  motebehovSvar: ExtMotebehov | null | undefined
+): MotebehovSvar | undefined => {
   if (!motebehovSvar) return undefined;
 
   return {
@@ -20,17 +20,17 @@ const mapDialogmoteBehovSvar = (
   };
 };
 
-export const mapDialogmotebehov = (
-  motebehovStatus: MotebehovStatus,
+export const mapMotebehov = (
+  motebehovStatus: ExtMotebehovStatus,
   isLatestBrevOngoingMoteinnkalling: boolean
-): DialogMotebehov | undefined => {
+): Motebehov | undefined => {
   const displayMotebehov =
     motebehovStatus.visMotebehov && !isLatestBrevOngoingMoteinnkalling;
 
-  if (displayMotebehov) {
+  if (displayMotebehov && motebehovStatus.skjemaType) {
     return {
       skjemaType: motebehovStatus.skjemaType,
-      svar: mapDialogmoteBehovSvar(motebehovStatus.motebehov),
+      svar: mapMotebehovSvar(motebehovStatus.motebehov),
     };
   }
 

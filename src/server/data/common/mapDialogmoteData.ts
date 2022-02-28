@@ -1,12 +1,12 @@
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
-import { mapDialogmotebehov } from "@/server/data/common/mapDialogmotebehov";
 import { mapReferater } from "@/server/data/common/mapReferater";
+import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { mapMotebehov } from "@/server/data/common/mapMotebehov";
 
 export const mapDialogmoteData = (
   isSykmeldt: boolean,
-  motebehov: MotebehovStatus,
+  motebehov: ExtMotebehovStatus,
   brevArray?: Brev[]
 ): DialogmoteData => {
   const brevArraySorted = brevArray?.sort(
@@ -20,7 +20,7 @@ export const mapDialogmoteData = (
 
   return {
     isSykmeldt: isSykmeldt,
-    motebehov: mapDialogmotebehov(motebehov, isLatestBrevOngoingMoteinnkalling),
+    motebehov: mapMotebehov(motebehov, isLatestBrevOngoingMoteinnkalling),
     moteinnkalling: !isLastestBrevReferat ? latestBrev : undefined,
     referater: mapReferater(brevArraySorted),
   };

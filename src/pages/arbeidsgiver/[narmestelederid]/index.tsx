@@ -1,8 +1,9 @@
+import React from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import MotebehovPanel from "@/common/components/motebehov/MotebehovPanel";
-import PageHeader from "@/common/components/PageHeader";
-import PersonvernInfo from "@/common/components/PersonvernInfo";
+import PageHeader from "@/common/components/header/PageHeader";
+import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
@@ -10,8 +11,6 @@ import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import type { NextPage } from "next";
-import Head from "next/head";
-import React from "react";
 
 const texts = {
   title: "Dialogmøter",
@@ -29,17 +28,13 @@ const Home: NextPage = () => {
   if (dialogmoteData.isSuccess) {
     return (
       <>
-        <Head>
-          <title>Dialogmøte AG</title>
-        </Head>
-
         <PageHeader title={texts.title} />
-
-          <MotebehovPanel motebehov={dialogmoteData.data.motebehov} />
 
         <VeilederGuidePanel>
           <InfoOmDialogmote>{texts.infoOmDialogmoter}</InfoOmDialogmote>
         </VeilederGuidePanel>
+
+        <MotebehovPanel motebehov={dialogmoteData.data.motebehov} />
 
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
