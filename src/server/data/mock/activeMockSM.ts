@@ -3,6 +3,7 @@ import { BrevBuilder } from "@/server/data/mock/builders/brevBuilder";
 import { MotebehovBuilder } from "@/server/data/mock/builders/motebehovBuilder";
 import { referatDocument } from "@/server/data/mock/brev/referatDocument";
 import { anotherReferatDocument } from "@/server/data/mock/brev/anotherReferatDocument";
+import { moteinnkallingDocument } from "@/server/data/mock/brev/moteinnkallingDocument";
 
 const activeMockSM = new MockDataBuilder()
   .withIsSykmeldt(true)
@@ -22,6 +23,15 @@ const activeMockSM = new MockDataBuilder()
       .withCreatedAt(new Date(2020, 5, 10))
       .withTid(new Date(2021, 3, 3))
       .withDocument(anotherReferatDocument)
+      .build()
+  )
+  .withBrev(
+    new BrevBuilder()
+      .witUuid("125")
+      .withBrevtype("INNKALT")
+      .withCreatedAt(new Date(2022, 1, 4))
+      .withTid(new Date(2022, 4, 4))
+      .withDocument(moteinnkallingDocument)
       .build()
   )
   .withMotebehov(
