@@ -1,5 +1,5 @@
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import PageHeader from "@/common/components/PageHeader";
+import PageHeader from "@/common/components/header/PageHeader";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import React from "react";
 import { Tilbakeknapp } from "@/common/components/button/Tilbakeknapp";

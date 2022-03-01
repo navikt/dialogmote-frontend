@@ -1,11 +1,12 @@
-import { infoUrls } from "@/common/constants/InfoUrls";
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
+import { mapReferater } from "@/server/data/common/mapReferater";
+import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { mapMotebehov } from "@/server/data/common/mapMotebehov";
 
 export const mapDialogmoteData = (
   isSykmeldt: boolean,
-  motebehov: MotebehovStatus,
+  motebehov: ExtMotebehovStatus,
   brevArray?: Brev[]
 ): DialogmoteData => {
   const brevArraySorted = brevArray?.sort(
@@ -17,35 +18,10 @@ export const mapDialogmoteData = (
     latestBrev?.brevType === "INNKALT" ||
     latestBrev?.brevType === "NYTT_TID_STED";
 
-  const displayMotebehov =
-    motebehov.visMotebehov && !isLatestBrevOngoingMoteinnkalling;
-
   return {
     isSykmeldt: isSykmeldt,
-    motebehov: displayMotebehov
-      ? {
-          skjemaType: motebehov.skjemaType,
-          svar: {
-            harMotebehov: motebehov.motebehov?.motebehovSvar.harMotebehov,
-            forklaring: motebehov.motebehov?.motebehovSvar.forklaring,
-            opprettetDato: motebehov.motebehov?.opprettetDato,
-            virksomhetsnummer: motebehov.motebehov?.virksomhetsnummer,
-          },
-        }
-      : undefined,
+    motebehov: mapMotebehov(motebehov, isLatestBrevOngoingMoteinnkalling),
     moteinnkalling: !isLastestBrevReferat ? latestBrev : undefined,
-    referater:
-      brevArraySorted
-        ?.filter((brev) => brev.brevType === "REFERAT")
-        .map((brev) => ({
-          uuid: brev.uuid,
-          tid: brev.tid,
-          document: brev.document.map((component) => ({
-            type: component.type,
-            infoUrl: component.key ? infoUrls[component.key] : undefined,
-            title: component.title,
-            texts: component.texts,
-          })),
-        })) || [],
+    referater: mapReferater(brevArraySorted),
   };
 };

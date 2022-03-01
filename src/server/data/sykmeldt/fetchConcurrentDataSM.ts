@@ -4,9 +4,9 @@ import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import { MotebehovStatus } from "@/server/data/types/external/MotebehovTypes";
 import { Sykmelding } from "@/server/data/types/external/SykmeldingerTypes";
 import activeMockSM from "@/server/data/mock/activeMockSM";
+import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -25,7 +25,7 @@ export const fetchConcurrentDataSM = async (
       }
     );
 
-    const motebehovPromise = get<MotebehovStatus>(
+    const motebehovPromise = get<ExtMotebehovStatus>(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/v2/arbeidstaker/motebehov`,
       {
         accessToken: req.loginServiceToken,

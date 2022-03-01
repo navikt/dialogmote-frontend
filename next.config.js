@@ -11,6 +11,10 @@ const moduleExports = {
     dittSykefravarRoot: process.env.DITT_SYKEFRAVAER_ROOT,
     basePath,
   },
+  compiler: {
+    // ssr and displayName are configured by default
+    styledComponents: true,
+  },
 };
 
 const sentryWebpackPluginOptions = {

@@ -36,6 +36,7 @@ const activeMockSM = new MockDataBuilder()
   )
   .withMotebehov(
     new MotebehovBuilder()
+      .withVisMotebehov(true)
       .withSkjematype("MELD_BEHOV")
       .withMotebehov({
         aktorId: "123",
@@ -46,7 +47,7 @@ const activeMockSM = new MockDataBuilder()
         motebehovSvar: {
           harMotebehov: true,
           forklaring:
-            "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri). Vondt i hodet",
+            "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri). Har vondt i tåa.",
         },
         opprettetDato: "2019-11-08T12:35:37.669+01:00",
       })

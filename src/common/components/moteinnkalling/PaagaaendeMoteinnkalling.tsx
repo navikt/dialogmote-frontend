@@ -1,4 +1,4 @@
-import PageHeader from "@/common/components/PageHeader";
+import PageHeader from "@/common/components/header/PageHeader";
 import { isDateInPast } from "@/common/utils/dateUtils";
 import { Alert, GuidePanel } from "@navikt/ds-react";
 import DocumentContainer from "@/common/components/document/DocumentContainer";

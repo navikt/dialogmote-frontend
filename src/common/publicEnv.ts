@@ -12,3 +12,7 @@ export const dineSykemeldteRoot =
 export const dittSykefravarRoot =
   publicRuntimeConfig.dittSykefravarRoot as string;
 export const isDevelopment: boolean = process.env["NODE_ENV"] === "development";
+export const oppfolgingsplanUrlSM: string = process.env
+  .NEXT_PUBLIC_OPPFOLGINGSPLAN_PATH_SM as string;
+export const oppfolgingsplanUrlAG: string = process.env
+  .NEXT_PUBLIC_OPPFOLGINGSPLAN_PATH_AG as string;

@@ -1,6 +1,8 @@
 import {
   landingBreadcrumbAG,
   landingBreadcrumbSM,
+  motebehovBreadcrumbAG,
+  motebehovBreadcrumbSM,
   moteinnkallingBreadcrumbAG,
   moteinnkallingBreadcrumbSM,
   referatBreadcrumbAG,
@@ -19,6 +21,9 @@ export function createBreadcrumbsAG(
       return referatBreadcrumbAG(sykmeldtName, narmestelederid);
     case "/arbeidsgiver/[narmestelederid]/moteinnkalling":
       return moteinnkallingBreadcrumbAG(sykmeldtName, narmestelederid);
+    case "/arbeidsgiver/[narmestelederid]/motebehov/meld":
+    case "/arbeidsgiver/[narmestelederid]/motebehov/svar":
+      return motebehovBreadcrumbAG(sykmeldtName, narmestelederid);
     default:
       return [];
   }
@@ -32,6 +37,9 @@ export function createBreadcrumbsSM(pathname: string) {
       return referatBreadcrumbSM();
     case "/sykmeldt/moteinnkalling":
       return moteinnkallingBreadcrumbSM();
+    case "/sykmeldt/motebehov/meld":
+    case "/sykmeldt/motebehov/svar":
+      return motebehovBreadcrumbSM();
     default:
       return [];
   }

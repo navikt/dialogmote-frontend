@@ -27,10 +27,12 @@ interface Props {
 const DialogmotePanel = ({ title, icon, className, children }: Props) => {
   return (
     <PanelStyled className={className}>
-      <HeaderStyled size="medium" level="2">
-        {icon && <CircledIcon icon={icon} />}
-        {title}
-      </HeaderStyled>
+      {(title || icon) && (
+        <HeaderStyled size="medium" level="2">
+          {icon && <CircledIcon icon={icon} />}
+          {title}
+        </HeaderStyled>
+      )}
       {children}
     </PanelStyled>
   );

@@ -1,6 +1,6 @@
 import { BodyLong, Link } from "@navikt/ds-react";
 import styled from "styled-components";
-import { PERSONVERN_URL } from "../constants/staticUrls";
+import { PERSONVERN_URL } from "../../constants/staticUrls";
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 
@@ -10,6 +10,7 @@ const BottomInfoStyled = styled.section`
   flex-direction: column;
   margin-top: auto;
   text-align: center;
+  margin-bottom: 2rem;
 `;
 
 const texts = {

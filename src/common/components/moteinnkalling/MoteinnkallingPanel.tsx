@@ -1,6 +1,6 @@
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { FileContent } from "@navikt/ds-icons";
+import { Calender } from "@navikt/ds-icons";
 import { Brev, BrevType } from "@/server/data/types/external/BrevTypes";
 import { Events } from "@/common/amplitude/events";
 import styled from "styled-components";
@@ -52,7 +52,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
     const texts = getTexts(moteinnkalling.brevType);
 
     return (
-      <DialogmotePanel title={texts.title} icon={<FileContent />}>
+      <DialogmotePanel title={texts.title} icon={<Calender />}>
         <BodyShort spacing>{texts.description}</BodyShort>
         <MoteinnkallingButton
           type="button"
