@@ -30,8 +30,6 @@ const ContentWrapperStyled = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
   background-color: var(--navds-global-color-gray-100);
 `;
 
@@ -40,6 +38,8 @@ const InnerContentWrapperStyled = styled.div`
   flex-direction: column;
   max-width: 40rem;
   flex-grow: 1;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `;
 
 const minutesToMillis = (minutes: number) => {
