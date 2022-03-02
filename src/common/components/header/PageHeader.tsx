@@ -12,7 +12,7 @@ const StyledHeading = styled(Heading)`
 
 const PageHeader = ({ title }: Props) => {
   return (
-    <StyledHeading size="2xlarge" level="1">
+    <StyledHeading size="xlarge" level="1">
       {title}
     </StyledHeading>
   );
