@@ -1,6 +1,6 @@
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import Link from "next/link";
+import NextLink from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -21,7 +21,7 @@ interface Props {
 const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
   const { trackEvent } = useAmplitude();
   return (
-    <Link href={pdfUrl} passHref={true}>
+    <NextLink href={pdfUrl} passHref={true}>
       <ButtonStyled
         onClick={() => {
           trackEvent(trackingName);
@@ -30,7 +30,7 @@ const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
       >
         {texts.button}
       </ButtonStyled>
-    </Link>
+    </NextLink>
   );
 };
 

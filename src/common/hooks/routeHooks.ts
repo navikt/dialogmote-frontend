@@ -1,3 +1,4 @@
+import {useBrevUuid} from "@/common/hooks/useBrevUuid";
 import { dineSykemeldteRoot, dittSykefravarRoot } from "@/common/publicEnv";
 import { useRouter } from "next/router";
 
@@ -60,4 +61,11 @@ export const useSykefravaerBasePath = (): string => {
 export const useReferatPath = () => {
   const baseUrl = useLandingUrl();
   return `${baseUrl}/referat`;
+};
+
+export const usePdfPath = () => {
+  const { isAudienceSykmeldt } = useAudience();
+  const context = isAudienceSykmeldt ? "sykmeldt" : "arbeidsgiver";
+  const brevuuid = useBrevUuid();
+  return `/api/${context}/brev/${brevuuid}/pdf`;
 };
