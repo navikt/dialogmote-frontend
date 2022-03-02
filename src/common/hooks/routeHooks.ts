@@ -1,3 +1,4 @@
+import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { dineSykemeldteRoot, dittSykefravarRoot } from "@/common/publicEnv";
 import { useRouter } from "next/router";
 
@@ -36,18 +37,6 @@ export const useLandingUrl = (): string => {
   }
 };
 
-export const useRouteBasePath = (): string => {
-  const router = useRouter();
-  const { isAudienceSykmeldt } = useAudience();
-  const { narmestelederid } = router.query;
-
-  if (isAudienceSykmeldt) {
-    return `${router.basePath}/sykmeldt`;
-  } else {
-    return `${router.basePath}/arbeidsgiver/${narmestelederid}`;
-  }
-};
-
 export const useApiBasePath = (): string => {
   const router = useRouter();
   const { isAudienceSykmeldt } = useAudience();
@@ -67,4 +56,16 @@ export const useSykefravaerBasePath = (): string => {
   } else {
     return dineSykemeldteRoot;
   }
+};
+
+export const useReferatPath = () => {
+  const baseUrl = useLandingUrl();
+  return `${baseUrl}/referat`;
+};
+
+export const usePdfPath = () => {
+  const { isAudienceSykmeldt } = useAudience();
+  const context = isAudienceSykmeldt ? "sykmeldt" : "arbeidsgiver";
+  const brevuuid = useBrevUuid();
+  return `/api/${context}/brev/${brevuuid}/pdf`;
 };

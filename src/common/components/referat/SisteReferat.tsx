@@ -1,9 +1,10 @@
 import { Events } from "@/common/amplitude/events";
-import { Referat } from "@/server/data/types/internal/BrevTypes";
-import { useRouteBasePath } from "@/common/hooks/routeHooks";
+import { useReferatPath } from "@/common/hooks/routeHooks";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
+import { Referat } from "@/server/data/types/internal/BrevTypes";
 import { LinkPanel } from "@navikt/ds-react";
+import NextLink from "next/link";
 import React from "react";
 
 const texts = {
@@ -17,19 +18,18 @@ interface Props {
 const SisteReferat = ({ referat }: Props) => {
   const { trackEvent } = useAmplitude();
 
-  const routeBasePath = useRouteBasePath();
-  const referatPath = `${routeBasePath}/referat/${referat.uuid}`;
+  const referatPath = useReferatPath();
+  const href = `${referatPath}/${referat.uuid}`;
 
   return (
-    <LinkPanel
-      href={referatPath}
-      onClick={() => trackEvent(Events.AktivtReferat)}
-    >
-      <LinkPanel.Title>
-        Referat fra {getLongDateFormat(referat.tid)}
-      </LinkPanel.Title>
-      <LinkPanel.Description>{texts.text}</LinkPanel.Description>
-    </LinkPanel>
+    <NextLink href={href} passHref>
+      <LinkPanel onClick={() => trackEvent(Events.AktivtReferat)}>
+        <LinkPanel.Title>
+          Referat fra {getLongDateFormat(referat.tid)}
+        </LinkPanel.Title>
+        <LinkPanel.Description>{texts.text}</LinkPanel.Description>
+      </LinkPanel>
+    </NextLink>
   );
 };
 
