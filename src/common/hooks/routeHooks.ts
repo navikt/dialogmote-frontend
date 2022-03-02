@@ -36,18 +36,6 @@ export const useLandingUrl = (): string => {
   }
 };
 
-export const useRouteBasePath = (): string => {
-  const router = useRouter();
-  const { isAudienceSykmeldt } = useAudience();
-  const { narmestelederid } = router.query;
-
-  if (isAudienceSykmeldt) {
-    return `${router.basePath}/sykmeldt`;
-  } else {
-    return `${router.basePath}/arbeidsgiver/${narmestelederid}`;
-  }
-};
-
 export const useApiBasePath = (): string => {
   const router = useRouter();
   const { isAudienceSykmeldt } = useAudience();
@@ -67,4 +55,9 @@ export const useSykefravaerBasePath = (): string => {
   } else {
     return dineSykemeldteRoot;
   }
+};
+
+export const useReferatPath = () => {
+  const baseUrl = useLandingUrl();
+  return `${baseUrl}/referat`;
 };
