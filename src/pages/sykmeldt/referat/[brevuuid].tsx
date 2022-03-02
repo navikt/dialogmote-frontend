@@ -10,7 +10,7 @@ import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
-import { usePdfPath} from "@/common/hooks/routeHooks";
+import { usePdfPath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
 import type { NextPage } from "next";

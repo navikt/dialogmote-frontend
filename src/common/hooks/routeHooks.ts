@@ -1,4 +1,4 @@
-import {useBrevUuid} from "@/common/hooks/useBrevUuid";
+import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { dineSykemeldteRoot, dittSykefravarRoot } from "@/common/publicEnv";
 import { useRouter } from "next/router";
 

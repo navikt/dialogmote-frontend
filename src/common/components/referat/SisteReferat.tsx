@@ -1,5 +1,5 @@
 import { Events } from "@/common/amplitude/events";
-import {useReferatPath} from "@/common/hooks/routeHooks";
+import { useReferatPath } from "@/common/hooks/routeHooks";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
 import { Referat } from "@/server/data/types/internal/BrevTypes";
@@ -23,9 +23,7 @@ const SisteReferat = ({ referat }: Props) => {
 
   return (
     <NextLink href={href} passHref>
-      <LinkPanel
-        onClick={() => trackEvent(Events.AktivtReferat)}
-      >
+      <LinkPanel onClick={() => trackEvent(Events.AktivtReferat)}>
         <LinkPanel.Title>
           Referat fra {getLongDateFormat(referat.tid)}
         </LinkPanel.Title>
