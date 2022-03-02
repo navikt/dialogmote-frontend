@@ -1,7 +1,6 @@
 import React from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import MotebehovPanel from "@/common/components/motebehov/MotebehovPanel";
 import PageHeader from "@/common/components/header/PageHeader";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
@@ -11,6 +10,9 @@ import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import type { NextPage } from "next";
+import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
+import { DelOppfolgingsplanInfoBoks } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoks";
+import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovHarIkkeSvartPanel";
 
 const texts = {
   title: "Dialogmøter",
@@ -34,7 +36,11 @@ const Home: NextPage = () => {
           <InfoOmDialogmote>{texts.infoOmDialogmoter}</InfoOmDialogmote>
         </VeilederGuidePanel>
 
-        <MotebehovPanel motebehov={dialogmoteData.data.motebehov} />
+        <MotebehovHarIkkeSvartPanel motebehov={dialogmoteData.data.motebehov} />
+
+        <MotebehovHarSvartPanel motebehov={dialogmoteData.data.motebehov}>
+          <DelOppfolgingsplanInfoBoks />
+        </MotebehovHarSvartPanel>
 
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
