@@ -12,7 +12,7 @@
   "dependencies": {
     "@navikt/ds-css": "^0.15.1",
     "@navikt/ds-icons": "^0.8.0",
-    "@navikt/ds-react": "^0.15.3",
+    "@navikt/ds-react": "^0.16.1",
     "@navikt/nav-dekoratoren-moduler": "^1.6.9",
     "@sentry/nextjs": "^6.17.6",
     "@sentry/react": "^6.17.6",
