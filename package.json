@@ -10,7 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@navikt/ds-css": "^0.15.1",
+    "@navikt/ds-css": "^0.15.2",
     "@navikt/ds-icons": "^0.8.0",
     "@navikt/ds-react": "^0.16.1",
     "@navikt/nav-dekoratoren-moduler": "^1.6.9",
