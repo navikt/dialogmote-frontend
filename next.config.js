@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const { withSentryConfig } = require("@sentry/nextjs");
 
-const basePath = "/syk/poc/dialogmote";
+const basePath = "/syk/dialogmoter";
 
 const moduleExports = {
   reactStrictMode: true,
