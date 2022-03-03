@@ -11,21 +11,24 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import { decoratorEnv } from "@/common/publicEnv";
+import serverEnv from "@/server/utils/serverEnv";
 
 export default class MyDocument extends Document<{ Decorator: Components }> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
-
-    const audienceCtx = ctx.pathname.startsWith("/sykmeldt")
-      ? "privatperson"
-      : "arbeidsgiver";
+    const isAudienceSykmeldt = ctx.pathname.startsWith("/sykmeldt");
 
     const decoratorParams: Props = {
-      env: decoratorEnv,
-      context: audienceCtx,
+      env: serverEnv.DECORATOR_ENV,
+      context: isAudienceSykmeldt ? "privatperson" : "arbeidsgiver",
       chatbot: true,
+      enforceLogin: true,
+      utloggingsvarsel: true,
+      redirectToUrl: isAudienceSykmeldt
+        ? serverEnv.DITT_SYKEFRAVAER_ROOT
+        : serverEnv.DINE_SYKMELDTE_ROOT,
+      level: "Level4",
     };
     const Decorator = await fetchDecoratorReact(decoratorParams);
 
