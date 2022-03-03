@@ -15,7 +15,7 @@ const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(fetchConcurrentDataAG)
   .use(combineDialogmoteDataAG)
   .get(async (req, res: NextApiResponseAG) => {
-    res.status(200).json(res.dialogmoteData);
+    res.json(res.dialogmoteData);
   });
 
 export default withSentry(handler);

@@ -14,6 +14,7 @@ export interface IServerEnvironmentVariables {
   DECORATOR_ENV: "prod" | "dev";
   DITT_SYKEFRAVAER_ROOT: string;
   DINE_SYKMELDTE_ROOT: string;
+  MOCK_BACKEND: string;
 }
 
 // TODO: Add assertions on required env variables

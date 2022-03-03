@@ -30,9 +30,9 @@ export const generalError = (error: Error): ApiError => ({
   defaultErrorMsg: defaultErrorTexts.generalError,
 });
 
-export const loginRequiredError = (error: Error): ApiError => ({
+export const loginRequiredError = (error?: Error): ApiError => ({
   type: ErrorType.LOGIN_REQUIRED,
-  message: error.message,
+  message: error?.message || defaultErrorTexts.loginRequired,
   defaultErrorMsg: defaultErrorTexts.loginRequired,
 });
 
