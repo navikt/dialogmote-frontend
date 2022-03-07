@@ -1,6 +1,7 @@
 import { Events } from "@/common/amplitude/events";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
+import { Tilbakeknapp } from "@/common/components/button/Tilbakeknapp";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import PageHeader from "@/common/components/header/PageHeader";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
@@ -67,6 +68,7 @@ const ReferatPage: NextPage = () => {
         <VeilederGuidePanel>
           <HvaSkjerISykefravaeret />
         </VeilederGuidePanel>
+        <Tilbakeknapp marginBottom={"2rem"}/>
         <PersonvernInfo />
       </>
     );
