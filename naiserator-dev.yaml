@@ -19,13 +19,13 @@ spec:
     sidecar:
       enabled: false
   liveness:
-    path: syk/poc/dialogmote/api/isAlive
+    path: syk/dialogmoter/api/isAlive
     initialDelay: 20
     timeout: 5
     periodSeconds: 5
     failureThreshold: 30
   readiness:
-    path: syk/poc/dialogmote/api/isReady
+    path: syk/dialogmoter/api/isReady
     initialDelay: 20
     periodSeconds: 5
     timeout: 5
@@ -40,7 +40,7 @@ spec:
       cpu: 200m
       memory: 256Mi
   ingresses:
-    - "https://www-gcp.dev.nav.no/syk/poc/dialogmote"
+    - "https://www-gcp.dev.nav.no/syk/dialogmoter"
   env:
     - name: DECORATOR_URL
       value: https://dekoratoren.dev.nav.no
@@ -69,7 +69,7 @@ spec:
     - name: DITT_SYKEFRAVAER_ROOT
       value: https://www-gcp.dev.nav.no/syk/sykefravaer
     - name: BASE_PATH
-      value: /syk/poc/dialogmote
+      value: /syk/dialogmoter
   accessPolicy:
     outbound:
       rules:

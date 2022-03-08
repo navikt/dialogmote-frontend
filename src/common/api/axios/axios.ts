@@ -6,6 +6,7 @@ import {
   loginRequiredError,
   networkError,
 } from "./errors";
+import { loginUser } from "@/common/utils/urlUtils";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -44,6 +45,7 @@ function handleAxiosError(error: AxiosError) {
   if (error.response) {
     switch (error.response.status) {
       case 401: {
+        loginUser();
         throw new ApiErrorException(
           loginRequiredError(error),
           error.response.status

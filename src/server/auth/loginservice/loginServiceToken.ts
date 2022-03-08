@@ -3,6 +3,10 @@ import cookie from "cookie";
 import { IAuthenticatedRequest } from "@/server/api/IAuthenticatedRequest";
 import serverLogger from "@/server/utils/serverLogger";
 import { isMockBackend } from "@/common/publicEnv";
+import {
+  ApiErrorException,
+  loginRequiredError,
+} from "@/common/api/axios/errors";
 
 const loginServiceToken =
   () =>
@@ -17,14 +21,13 @@ const loginServiceToken =
 
     const cookies = cookie.parse(req?.headers.cookie || "");
     const selvbetjeningIdtoken = cookies["selvbetjening-idtoken"];
+
     if (!selvbetjeningIdtoken) {
-      res.status(401).json({ message: "Access denied" });
+      throw new ApiErrorException(loginRequiredError());
     }
 
     serverLogger.info({}, "selvbetjening-idtoken validated ok");
-
     req.loginServiceToken = selvbetjeningIdtoken;
-
     next();
   };
 

@@ -1,3 +1,3 @@
 export const getAsset = (path: string) => {
-  return `/syk/poc/dialogmote${path}`;
+  return `/syk/dialogmoter${path}`;
 };

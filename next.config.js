@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const { withSentryConfig } = require("@sentry/nextjs");
 
-const basePath = "/syk/poc/dialogmote";
+const basePath = "/syk/dialogmoter";
 
 const moduleExports = {
   reactStrictMode: true,
@@ -9,6 +9,7 @@ const moduleExports = {
   publicRuntimeConfig: {
     dineSykemeldteRoot: process.env.DINE_SYKMELDTE_ROOT,
     dittSykefravarRoot: process.env.DITT_SYKEFRAVAER_ROOT,
+    loginServiceUrl: process.env.LOGINSERVICE_URL,
     basePath,
   },
   compiler: {
