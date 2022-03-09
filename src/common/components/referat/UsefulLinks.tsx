@@ -28,7 +28,7 @@ const UsefulLinks = ({ infoUrls = [] }: Props) => {
       <Heading spacing size="small" level="2">
         {texts.title}
       </Heading>
-      <section>
+      <ul>
         {infoUrls.map((infoUrl) => {
           return (
             <li key={infoUrl.key}>
@@ -43,7 +43,7 @@ const UsefulLinks = ({ infoUrls = [] }: Props) => {
             </li>
           );
         })}
-      </section>
+      </ul>
     </AlertStyled>
   );
 };
