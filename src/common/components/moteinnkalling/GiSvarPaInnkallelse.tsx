@@ -1,6 +1,8 @@
-import React, { ChangeEvent, ReactElement, useState } from "react";
-import styled from "styled-components";
+import { Events } from "@/common/amplitude/events";
+import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
+import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { SvarType } from "@/server/data/types/external/BrevTypes";
 import {
   Alert,
   BodyLong,
@@ -10,10 +12,8 @@ import {
   RadioGroup,
   Textarea,
 } from "@navikt/ds-react";
-import { SvarType } from "@/server/data/types/external/BrevTypes";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Events } from "@/common/amplitude/events";
-import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
+import React, { ChangeEvent, ReactElement, useState } from "react";
+import styled from "styled-components";
 
 const KnappStyled = styled(Button)`
   width: fit-content;
@@ -28,7 +28,6 @@ const SvarStyled = styled(DialogmotePanel)`
 
 const texts = {
   title: "Svar om du kan komme",
-  info: "Det er et krav om at du deltar i dialogmøter i løpet av sykefraværet. Passer ikke møtetidspunktet? Be om endring.",
   infoRequired: "Alle felt er obligatoriske.",
   svarLegend: "Svar på innkallingen",
   svarRequired: "Du må velge et svar",
@@ -153,7 +152,6 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <SvarStyled title={texts.title}>
-      <BodyLong>{texts.info}</BodyLong>
       <BodyLong>{texts.infoRequired}</BodyLong>
       <RadioGroup
         id={inputFields.svarType}
