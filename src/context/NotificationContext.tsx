@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { Notification, NotificationType } from "@/context/Notifications";
+
+export interface Notification {
+  //Milliseconds
+  timeout?: number;
+  variant: "error" | "warning" | "info" | "success";
+  message: string;
+}
 
 type NotificationProviderProps = {
   children: React.ReactNode;
 };
 
 type NotificationContextState = {
-  notifications: Notification[];
+  notification?: Notification;
+  //Custom notification
   displayNotification: (notification: Notification) => void;
-  displayToast: (notification: Notification) => void;
-  clearNotification: (notification: NotificationType) => void;
+  displaySuccessToast: (message: string) => void;
+  displayErrorToast: (message: string) => void;
+  clearNotifications: () => void;
 };
 
 export const NotificationContext = React.createContext<
@@ -19,29 +27,30 @@ export const NotificationContext = React.createContext<
 export const NotificationProvider = ({
   children,
 }: NotificationProviderProps) => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-
-  const removeNotification = (type: NotificationType) =>
-    setNotifications(notifications.filter((n) => n.type !== type));
+  const [notification, setNotification] = useState<Notification>();
 
   return (
     <NotificationContext.Provider
       value={{
-        notifications,
+        notification,
         displayNotification: (notification) => {
-          const currentNotificationTypes = notifications.map((n) => n.type);
-          if (!currentNotificationTypes.includes(notification.type)) {
-            setNotifications([...notifications, notification]);
-          }
+          setNotification(notification);
         },
-        displayToast: (notification) => {
-          const currentNotificationTypes = notifications.map((n) => n.type);
-          if (!currentNotificationTypes.includes(notification.type)) {
-            setTimeout(() => removeNotification(notification.type), 8000);
-            setNotifications([...notifications, notification]);
-          }
+        displaySuccessToast: (message) => {
+          setNotification({
+            timeout: 5000,
+            variant: "success",
+            message: message,
+          });
         },
-        clearNotification: (type: NotificationType) => removeNotification(type),
+        displayErrorToast: (message) => {
+          setNotification({
+            timeout: 8000,
+            variant: "error",
+            message: message,
+          });
+        },
+        clearNotifications: () => setNotification(undefined),
       }}
     >
       {children}

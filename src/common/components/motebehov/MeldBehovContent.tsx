@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
-import PageHeader from "@/common/components/header/PageHeader";
 import { Ingress } from "@navikt/ds-react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import {
   MotebehovBegrunnelseTextArea,
   validateBegrunnelse,
@@ -20,7 +18,6 @@ import { CancelButton } from "@/common/components/button/CancelButton";
 import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 export const texts = {
-  title: "Meld behov for møte",
   ingress:
     "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
   begrunnelseLabel: "Begrunnelse (valgfri)",
@@ -104,8 +101,6 @@ export const MeldBehovContent = ({
 
   return (
     <>
-      <PageHeader title={texts.title} />
-
       <Ingress>{texts.ingress}</Ingress>
 
       <DialogmotePanel>
@@ -136,8 +131,6 @@ export const MeldBehovContent = ({
           <CancelButton />
         </ButtonRow>
       </DialogmotePanel>
-
-      <PersonvernInfo />
     </>
   );
 };

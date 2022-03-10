@@ -11,11 +11,6 @@ import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderS
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
-import Head from "next/head";
-
-const texts = {
-  defaultTitle: "Dialogmøter",
-};
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -73,9 +68,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           <BreadcrumbsAppenderAG />
         )}
         <ContentWrapperStyled>
-          <Head>
-            <title>{texts.defaultTitle}</title>
-          </Head>
           <NotificationBar />
           <InnerContentWrapperStyled>
             <Component {...pageProps} />

@@ -10,12 +10,12 @@ const texts = {
 };
 
 interface Props {
-  referater: Referat[];
+  referater?: Referat[];
   children?: ReactNode;
 }
 
 const ReferaterPanel = ({ referater, children }: Props) => {
-  if (referater.length > 0) {
+  if (referater && referater.length > 0) {
     return (
       <DialogmotePanel title={texts.title} icon={<FileContent />}>
         <SisteReferat referat={referater[0]} />
