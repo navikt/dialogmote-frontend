@@ -7,7 +7,6 @@ import { DIALOGMOTE_INFO_URL } from "@/common/constants/staticUrls";
 import { HuskOppfolgingsplanGuidePanel } from "@/common/components/motebehov/HuskOppfolgingsplanGuidePanel";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
-import { useSvarPaMotebehov } from "@/common/api/queries/motebehovQueries";
 import {
   MotebehovBegrunnelseTextArea,
   validateBegrunnelse,
@@ -20,6 +19,7 @@ import {
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
 import { ButtonRow } from "@/common/components/button/ButtonRow";
+import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 const texts = {
   title: "Meld behov for møte",
@@ -40,10 +40,12 @@ const begrunnelseTextAreaId = "begrunnelseTextArea";
 
 interface Props {
   begrunnelseDescription: string;
+  svarMotebehov: (svar: ExtMotebehovSvar) => void;
 }
 
 export const SvarBehovContent = ({
   begrunnelseDescription,
+  svarMotebehov,
 }: Props): ReactElement => {
   const [behovForMote, setBehovForMote] = React.useState<boolean | null>(null);
   const [behovForMoteError, setBehovForMoteError] = useState<string | null>();
@@ -51,7 +53,6 @@ export const SvarBehovContent = ({
   const [begrunnelseError, setBegrunnelseError] = useState<
     string | undefined
   >();
-  const submitMutation = useSvarPaMotebehov();
   const { trackEvent } = useAmplitude();
 
   const validateMotebehov = (): boolean => {
@@ -75,7 +76,7 @@ export const SvarBehovContent = ({
     ) {
       trackEvent(Events.SendSvarBehov);
 
-      submitMutation.mutate({
+      svarMotebehov({
         harMotebehov: behovForMote!!,
         forklaring: begrunnelse,
       });

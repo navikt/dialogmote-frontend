@@ -9,7 +9,7 @@ export const BreadcrumbsAppenderAG = (): ReactElement => {
   const { pathname } = useRouter();
   const narmestelederId = useNarmesteLederId();
   const dialogmoteData = useDialogmoteDataAG();
-  const sykmeldtName = dialogmoteData.data?.sykmeldtName;
+  const sykmeldtName = dialogmoteData.data?.sykmeldt?.navn;
 
   useEffect(() => {
     if (narmestelederId && sykmeldtName) {

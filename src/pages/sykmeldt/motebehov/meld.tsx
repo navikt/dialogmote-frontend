@@ -3,6 +3,8 @@ import React, { ReactElement } from "react";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeRoute";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
+import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
+import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 export const texts = {
   behovForMote: "Jeg har behov for et møte med NAV",
@@ -15,6 +17,7 @@ export const texts = {
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
+  const submitMutation = useSvarPaMotebehovSM();
 
   if (dialogmoteData.isError) {
     return <ErrorWithEscapeRoute>{texts.apiError}</ErrorWithEscapeRoute>;
@@ -22,6 +25,10 @@ const MeldBehov = (): ReactElement => {
 
   if (dialogmoteData.isSuccess) {
     const motebehov = dialogmoteData.data.motebehov;
+
+    const submitSvar = (motebehovSvar: ExtMotebehovSvar) => {
+      submitMutation.mutate(motebehovSvar);
+    };
 
     if (motebehov === undefined) {
       return <ErrorWithEscapeRoute>{texts.apiError}</ErrorWithEscapeRoute>;
@@ -32,6 +39,7 @@ const MeldBehov = (): ReactElement => {
         motebehovTekst={texts.behovForMote}
         behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
         sensitivInfoTekst={texts.sensitivInfoTekst}
+        meldMotebehov={submitSvar}
       />
     );
   }

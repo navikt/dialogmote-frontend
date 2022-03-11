@@ -3,7 +3,6 @@ import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 interface IMockData {
-  isSykmeldt: boolean; //For arbeidstaker
   sykmeldt?: Sykmeldt; //For arbeidsgiver
   brev: Brev[];
   motebehov: ExtMotebehovStatus;
@@ -14,18 +13,12 @@ export class MockDataBuilder {
 
   constructor() {
     this.mockData = {
-      isSykmeldt: true,
       sykmeldt: undefined,
       brev: [],
       motebehov: {
         visMotebehov: false,
       },
     };
-  }
-
-  withIsSykmeldt(isSykmeldt: boolean): MockDataBuilder {
-    this.mockData.isSykmeldt = isSykmeldt;
-    return this;
   }
 
   withSykmeldt(isSykmeldt: boolean): MockDataBuilder {

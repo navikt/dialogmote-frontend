@@ -3,6 +3,8 @@ import React, { ReactElement } from "react";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeRoute";
 import { SvarBehovContent } from "@/common/components/motebehov/SvarBehovContent";
+import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
+import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 const texts = {
   begrunnelseDescription:
@@ -12,6 +14,7 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
+  const submitMutation = useSvarPaMotebehovSM();
 
   if (dialogmoteData.isError) {
     return <ErrorWithEscapeRoute>{texts.apiError}</ErrorWithEscapeRoute>;
@@ -20,12 +23,19 @@ const SvarBehov = (): ReactElement => {
   if (dialogmoteData.isSuccess) {
     const motebehov = dialogmoteData.data.motebehov;
 
+    const submitSvar = (motebehovSvar: ExtMotebehovSvar) => {
+      submitMutation.mutate(motebehovSvar);
+    };
+
     if (motebehov === undefined || motebehov.skjemaType === "MELD_BEHOV") {
       return <ErrorWithEscapeRoute>{texts.apiError}</ErrorWithEscapeRoute>;
     }
 
     return (
-      <SvarBehovContent begrunnelseDescription={texts.begrunnelseDescription} />
+      <SvarBehovContent
+        svarMotebehov={submitSvar}
+        begrunnelseDescription={texts.begrunnelseDescription}
+      />
     );
   }
   return <AppSpinner />;

@@ -51,9 +51,7 @@ spec:
     - name: ISDIALOGMOTE_HOST
       value: https://isdialogmote.dev.nav.no
     - name: SYFOMOTEBEHOV_HOST
-      value: https://syfoapi.dev.nav.no/syfomotebehov/api
-    - name: SYFOOPPFOLGINGSPLANSERVICE_HOST
-      value: https://syfoapi.dev.nav.no/syfooppfolgingsplanservice/api
+      value: https://syfomotebehov.dev-fss-pub.nais.io
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST
       value: https://sykmeldinger-arbeidsgiver.dev.nav.no
     - name: OPPLAERING
@@ -76,3 +74,4 @@ spec:
         - application: isdialogmote
       external:
         - host: dekoratoren.dev.nav.no
+        - host: syfomotebehov.dev-fss-pub.nais.io
