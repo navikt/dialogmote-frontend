@@ -29,7 +29,7 @@ export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   },
   REISETILSKUDD: {
     key: "REISETILSKUDD",
-    text: "Les mer om reisetilskudd (nav.no)",
+    text: "Les mer om reisetilskudd",
     url: "https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/sykmelding-ulike-former/reisetilskudd",
   },
   HJELPEMIDLER_TILRETTELEGGING: {
