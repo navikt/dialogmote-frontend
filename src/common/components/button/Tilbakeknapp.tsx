@@ -15,7 +15,10 @@ const StyledTilbakeknapp = styled.div<Props>`
   margin-bottom: ${(p) => p.marginBottom};
 `;
 
-export const Tilbakeknapp = ({ marginTop, marginBottom }: Props): ReactElement => {
+export const Tilbakeknapp = ({
+  marginTop,
+  marginBottom,
+}: Props): ReactElement => {
   const landingUrl = useLandingUrl();
   return (
     <StyledTilbakeknapp marginTop={marginTop} marginBottom={marginBottom}>
