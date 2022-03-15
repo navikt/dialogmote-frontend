@@ -68,7 +68,7 @@ const ReferatPage: NextPage = () => {
         <VeilederGuidePanel>
           <HvaSkjerISykefravaeret />
         </VeilederGuidePanel>
-        <Tilbakeknapp marginBottom={"2rem"}/>
+        <Tilbakeknapp marginBottom={"2rem"} />
         <PersonvernInfo />
       </>
     );
