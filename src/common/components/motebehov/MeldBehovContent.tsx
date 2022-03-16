@@ -5,7 +5,6 @@ import PageHeader from "@/common/components/header/PageHeader";
 import { Ingress } from "@navikt/ds-react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
-import { useSvarPaMotebehov } from "@/common/api/queries/motebehovQueries";
 import {
   MotebehovBegrunnelseTextArea,
   validateBegrunnelse,
@@ -18,6 +17,7 @@ import {
 import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
+import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -35,12 +35,14 @@ interface Props {
   motebehovTekst: string;
   behandlerVaereMedTekst: string;
   sensitivInfoTekst: string;
+  meldMotebehov: (svar: ExtMotebehovSvar) => void;
 }
 
 export const MeldBehovContent = ({
   motebehovTekst,
   behandlerVaereMedTekst,
   sensitivInfoTekst,
+  meldMotebehov,
 }: Props) => {
   const [behovForMote, setBehovForMote] = React.useState<boolean | undefined>();
   const [behovForMoteError, setBehovForMoteError] = useState<
@@ -54,7 +56,6 @@ export const MeldBehovContent = ({
     string | undefined
   >();
   const { trackEvent } = useAmplitude();
-  const submitMutation = useSvarPaMotebehov();
 
   const validateBehovForMote = () => {
     if (!behovForMote) {
@@ -75,7 +76,7 @@ export const MeldBehovContent = ({
       const behandlerBliMedTekst =
         behandlerBliMed === true ? behandlerVaereMedTekst : "";
 
-      submitMutation.mutate({
+      meldMotebehov({
         harMotebehov: behovForMote!!,
         forklaring: `${behandlerBliMedTekst}${begrunnelse}`,
       });

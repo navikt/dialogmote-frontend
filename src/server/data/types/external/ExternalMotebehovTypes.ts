@@ -5,6 +5,12 @@ export interface ExtMotebehovSvar {
   forklaring?: string;
 }
 
+export interface ExtMotebehovSvarArbeidsgiver {
+  arbeidstakerFnr: string;
+  virksomhetsnummer: string;
+  motebehovSvar: ExtMotebehovSvar;
+}
+
 export interface ExtMotebehov {
   id: string;
   opprettetDato: string;

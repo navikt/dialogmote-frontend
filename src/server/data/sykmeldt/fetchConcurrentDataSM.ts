@@ -4,7 +4,6 @@ import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import { Sykmelding } from "@/server/data/types/external/SykmeldingerTypes";
 import activeMockSM from "@/server/data/mock/activeMockSM";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 
@@ -14,19 +13,11 @@ export const fetchConcurrentDataSM = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.isSykmeldt = activeMockSM.isSykmeldt;
     res.motebehovStatus = activeMockSM.motebehov;
     res.brevArray = activeMockSM.brev;
   } else {
-    const isSykmeldtPromise = get<Sykmelding[]>(
-      `${serverEnv.SYFOOPPFOLGINGSPLANSERVICE_HOST}/arbeidstaker/sykmeldinger?today=true`,
-      {
-        accessToken: req.loginServiceToken,
-      }
-    );
-
     const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/v2/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
       {
         accessToken: req.loginServiceToken,
       }
@@ -40,9 +31,6 @@ export const fetchConcurrentDataSM = async (
     );
 
     await Promise.all([
-      isSykmeldtPromise.then(
-        (sykmeldinger) => (res.isSykmeldt = sykmeldinger?.length > 0)
-      ),
       motebehovPromise.then((motebehov) => (res.motebehovStatus = motebehov)),
       brevPromise.then((brev) => (res.brevArray = brev)),
     ]);

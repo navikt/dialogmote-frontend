@@ -8,7 +8,6 @@ import {
 import { moteinnkallingDocument } from "@/server/data/mock/brev/moteinnkallingDocument";
 
 const activeMockSM = new MockDataBuilder()
-  .withIsSykmeldt(true)
   .withBrev(
     new BrevBuilder()
       .witUuid("123")

@@ -17,7 +17,7 @@ export const fetchConcurrentDataAG = async (
     res.brevArray = activeMockAG.brev;
   } else {
     const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/v2/motebehov?fnr=${res.sykmeldt.fnr}&virksomhetsnummer=${res.sykmeldt.orgnummer}`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/motebehov?fnr=${res.sykmeldt.fnr}&virksomhetsnummer=${res.sykmeldt.orgnummer}`,
       {
         accessToken: req.loginServiceToken,
       }

@@ -7,14 +7,11 @@ export const combineDialogmoteDataAG = async (
   res: NextApiResponseAG,
   next: () => void
 ) => {
-  res.dialogmoteData = {
-    sykmeldtName: res.sykmeldt.navn,
-    ...mapDialogmoteData(
-      !!res.sykmeldt.aktivSykmelding,
-      res.motebehovStatus,
-      res.brevArray
-    ),
-  };
+  res.dialogmoteData = mapDialogmoteData(
+    res.motebehovStatus,
+    res.brevArray,
+    res.sykmeldt
+  );
 
   next();
 };

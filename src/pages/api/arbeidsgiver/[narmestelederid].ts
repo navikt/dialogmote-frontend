@@ -5,13 +5,13 @@ import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { withSentry } from "@sentry/nextjs";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { combineDialogmoteDataAG } from "@/server/data/arbeidsgiver/combineDialogmoteDataAG";
-import { fetchIsSykmeldtAG } from "@/server/data/arbeidsgiver/fetchIsSykmeldtAG";
+import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
-  .use(fetchIsSykmeldtAG)
+  .use(fetchSykmeldtAG)
   .use(fetchConcurrentDataAG)
   .use(combineDialogmoteDataAG)
   .get(async (req, res: NextApiResponseAG) => {

@@ -3,11 +3,12 @@ import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import { mapReferater } from "@/server/data/common/mapReferater";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 import { mapMotebehov } from "@/server/data/common/mapMotebehov";
+import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
 
 export const mapDialogmoteData = (
-  isSykmeldt: boolean,
   motebehov: ExtMotebehovStatus,
-  brevArray?: Brev[]
+  brevArray?: Brev[],
+  sykmeldt?: Sykmeldt
 ): DialogmoteData => {
   const brevArraySorted = brevArray?.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
@@ -19,9 +20,9 @@ export const mapDialogmoteData = (
     latestBrev?.brevType === "NYTT_TID_STED";
 
   return {
-    isSykmeldt: isSykmeldt,
     motebehov: mapMotebehov(motebehov, isLatestBrevOngoingMoteinnkalling),
     moteinnkalling: !isLastestBrevReferat ? latestBrev : undefined,
     referater: mapReferater(brevArraySorted),
+    sykmeldt: sykmeldt,
   };
 };

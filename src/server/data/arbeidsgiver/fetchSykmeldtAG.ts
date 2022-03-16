@@ -5,7 +5,7 @@ import { get } from "@/common/api/axios/axios";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import activeMockAG from "@/server/data/mock/activeMockAG";
 
-export const fetchIsSykmeldtAG = async (
+export const fetchSykmeldtAG = async (
   req: IAuthenticatedRequest,
   res: NextApiResponseAG,
   next: () => void
