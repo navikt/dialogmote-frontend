@@ -1,6 +1,6 @@
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { InfoUrl } from "@/server/data/types/internal/BrevTypes";
+import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
 import { Alert, Heading, Link } from "@navikt/ds-react";
 import styled from "styled-components";
 
@@ -13,11 +13,15 @@ const AlertStyled = styled(Alert)`
 `;
 
 interface Props {
-  infoUrls: InfoUrl[];
+  referat: Referat;
 }
 
-const UsefulLinks = ({ infoUrls = [] }: Props) => {
+const UsefulLinks = ({ referat }: Props) => {
   const { trackEvent } = useAmplitude();
+
+  const infoUrls = referat.document
+    .map((documentComponent) => documentComponent.infoUrl)
+    .filter((infoUrl): infoUrl is InfoUrl => !!infoUrl);
 
   if (infoUrls.length === 0) {
     return null;

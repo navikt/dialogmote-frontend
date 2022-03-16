@@ -1,30 +1,31 @@
-import { ReactElement, ReactNode } from "react";
-import { Alert } from "@navikt/ds-react";
+import { ReactElement, useEffect, useRef } from "react";
 import { useNotifications } from "@/context/NotificationContext";
 import styled from "styled-components";
+import { SingleNotification } from "@/common/components/notificationbar/SingleNotification";
 
-const AlertStyled = styled(Alert)`
-  margin-bottom: 1rem;
+const NotificationBarWrapper = styled.div`
   width: 100%;
-  justify-content: center;
 `;
 
-export const NotificationBar = (): ReactElement => {
-  const { notifications } = useNotifications();
+export const NotificationBar = (): ReactElement | null => {
+  const { notification } = useNotifications();
 
-  const notificationBars = notifications.map(
-    (notification, index): ReactNode => {
-      return (
-        <AlertStyled
-          fullWidth={true}
-          key={index}
-          variant={notification.variant}
-        >
-          {notification.message}
-        </AlertStyled>
-      );
+  const notificationBarRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (notification) {
+      notificationBarRef.current?.scrollIntoView({
+        behavior: "auto",
+        block: "start",
+      });
     }
-  );
+  }, [notification]);
 
-  return <>{notificationBars}</>;
+  if (!notification) return null;
+
+  return (
+    <NotificationBarWrapper ref={notificationBarRef}>
+      <SingleNotification notification={notification} />;
+    </NotificationBarWrapper>
+  );
 };

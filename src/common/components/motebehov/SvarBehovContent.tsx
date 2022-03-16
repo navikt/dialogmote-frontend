@@ -1,12 +1,10 @@
 import React, { ReactElement, useState } from "react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
-import PageHeader from "@/common/components/header/PageHeader";
 import { Alert, BodyLong, Ingress, Link } from "@navikt/ds-react";
 import { DIALOGMOTE_INFO_URL } from "@/common/constants/staticUrls";
 import { HuskOppfolgingsplanGuidePanel } from "@/common/components/motebehov/HuskOppfolgingsplanGuidePanel";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import {
   MotebehovBegrunnelseTextArea,
   validateBegrunnelse,
@@ -22,7 +20,6 @@ import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 const texts = {
-  title: "Meld behov for møte",
   ingressText:
     "Ifølge folketrygdloven skal NAV innkalle til dialogmøte senest innen 26 ukers sykefravær, med mindre det er åpenbart unødvendig. Vi bruker opplysningene du gir her til å vurdere om det er behov for møte. ",
   ingressLink: "Les om dialogmøte.",
@@ -104,8 +101,6 @@ export const SvarBehovContent = ({
 
   return (
     <>
-      <PageHeader title={texts.title} />
-
       <Ingress>
         {texts.ingressText}{" "}
         <Link href={DIALOGMOTE_INFO_URL}>{texts.ingressLink}</Link>
@@ -121,7 +116,10 @@ export const SvarBehovContent = ({
         <SvarBehovRadioGroup
           id={harMotebehovRadioId}
           error={behovForMoteError}
-          clearErrors={() => setBehovForMoteError(null)}
+          clearErrors={() => {
+            setBehovForMoteError(null);
+            setBegrunnelseError(undefined);
+          }}
           setBehovForMote={setBehovForMote}
         />
 
@@ -144,8 +142,6 @@ export const SvarBehovContent = ({
           <CancelButton />
         </ButtonRow>
       </DialogmotePanel>
-
-      <PersonvernInfo />
     </>
   );
 };

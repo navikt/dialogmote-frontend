@@ -11,7 +11,6 @@ const DocumentWrapperStyled = styled.div`
   border-radius: 4px;
   padding: 2rem;
   background-color: white;
-  margin-top: 2rem;
   white-space: pre-wrap;
 `;
 
