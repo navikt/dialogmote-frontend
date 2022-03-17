@@ -12,6 +12,7 @@ const DocumentWrapperStyled = styled.div`
   padding: 2rem;
   background-color: white;
   white-space: pre-wrap;
+  margin-bottom: 2rem;
 `;
 
 interface DocumentContainerProps {

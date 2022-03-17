@@ -1,16 +1,15 @@
-import { UseQueryResult } from "react-query";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
-import { useBrevUuid } from "@/common/hooks/useBrevUuid";
-import { usePdfPath } from "@/common/hooks/routeHooks";
-import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import DocumentContainer from "@/common/components/document/DocumentContainer";
-import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
 import { Events } from "@/common/amplitude/events";
+import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
+import DocumentContainer from "@/common/components/document/DocumentContainer";
+import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
-import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import HvaSkjerISykefravaeret from "@/common/components/veileder/HvaSkjerISykefravaeret";
+import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
+import { usePdfPath } from "@/common/hooks/routeHooks";
+import { useBrevUuid } from "@/common/hooks/useBrevUuid";
+import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import React from "react";
+import { UseQueryResult } from "react-query";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
@@ -30,12 +29,10 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
 
     return (
       <>
-        <DialogmotePanel>
-          <DocumentContainer
-            document={referat.document}
-            brevUuid={referat.uuid}
-          />
-        </DialogmotePanel>
+        <DocumentContainer
+          document={referat.document}
+          brevUuid={referat.uuid}
+        />
 
         <DownloadPdfButton
           trackingName={Events.LastNedReferat}
