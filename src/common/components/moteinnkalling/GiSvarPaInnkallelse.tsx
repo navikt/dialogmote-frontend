@@ -20,7 +20,6 @@ const KnappStyled = styled(Button)`
 `;
 
 const SvarStyled = styled(DialogmotePanel)`
-  margin-top: 2rem;
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
