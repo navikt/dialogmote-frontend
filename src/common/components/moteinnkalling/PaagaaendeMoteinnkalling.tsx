@@ -13,6 +13,8 @@ interface Props {
 
 const texts = {
   pastDateAlertBox: "Denne innkallingen er utdatert.",
+  titleEndring: "Endret dialogmøte",
+  titleInnkalling: "Innkalling til dialogmøte",
 };
 
 export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
@@ -23,6 +25,11 @@ export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
       )}
 
       <DocumentContainer
+        title={
+          moteinnkalling.brevType === "INNKALT"
+            ? texts.titleInnkalling
+            : texts.titleEndring
+        }
         document={moteinnkalling.document}
         brevUuid={moteinnkalling.uuid}
         lestDato={moteinnkalling.lestDato}

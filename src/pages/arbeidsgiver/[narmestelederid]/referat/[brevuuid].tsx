@@ -12,7 +12,11 @@ const ReferatPage: NextPage = () => {
   const dialogmoteData = useDialogmoteDataAG();
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+    <DialogmotePage
+      title={texts.title}
+      hideHeader={true}
+      isLoading={dialogmoteData.isLoading}
+    >
       <ReferatContent dialogmoteData={dialogmoteData} />
     </DialogmotePage>
   );

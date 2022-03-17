@@ -1,6 +1,11 @@
 import { DocumentBuilder } from "@/server/data/mock/builders/documentBuilder";
 import { DocumentComponentBuilder } from "@/server/data/mock/builders/documentComponentBuilder";
 
+const headerComponent = new DocumentComponentBuilder()
+  .withType("HEADER_H1")
+  .withText("Referat fra dialogmote")
+  .build();
+
 const date03042021Component = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withText("Sendt 03. april 2021, kl. 12.11")
@@ -12,7 +17,7 @@ const date11022020Component = new DocumentComponentBuilder()
   .build();
 
 const documentHeaderComponent = new DocumentComponentBuilder()
-  .withType("HEADER")
+  .withType("HEADER_H2")
   .withText("Tykkmaget Midtpunkt")
   .build();
 
@@ -35,7 +40,7 @@ const fnrComponent = new DocumentComponentBuilder()
 
 const deltakereComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
-  .withTitle("Dette skjedde i møtet")
+  .withTitle("Deltakere i møtet")
   .withText("Arbeidstaker: Tykkmaget Midtpunkt")
   .withText("Arbeidsgiver: Forfjamset Taremel")
   .withText("Fra NAV: Elektrisk Myggnetting")
@@ -62,7 +67,7 @@ const taushetspliktComponent = new DocumentComponentBuilder()
   .build();
 
 const detteSkjeddeHeaderComponent = new DocumentComponentBuilder()
-  .withType("HEADER")
+  .withType("HEADER_H2")
   .withText("Dette skjedde i møtet")
   .build();
 
@@ -93,7 +98,7 @@ const situasjonOgMuligheterComponent = new DocumentComponentBuilder()
   .build();
 
 const navInformerteComponent = new DocumentComponentBuilder()
-  .withType("HEADER")
+  .withType("HEADER_H2")
   .withText("Dette informerte NAV om i møtet")
   .build();
 
@@ -143,6 +148,7 @@ const bestRegardsComponent = new DocumentComponentBuilder()
   .build();
 
 export const anotherReferatDocument = new DocumentBuilder()
+  .withComponent(headerComponent)
   .withComponent(date03042021Component)
   .withComponent(documentHeaderComponent)
   .withComponent(fnrComponent)

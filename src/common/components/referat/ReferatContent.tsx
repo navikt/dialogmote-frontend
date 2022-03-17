@@ -15,6 +15,10 @@ interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
 }
 
+const texts = {
+  title: "Referat fra dialogmøte",
+};
+
 export const ReferatContent = ({ dialogmoteData }: Props) => {
   const brevuuid = useBrevUuid();
   const pdfPath = usePdfPath();
@@ -30,6 +34,7 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
     return (
       <>
         <DocumentContainer
+          title={texts.title}
           document={referat.document}
           brevUuid={referat.uuid}
         />

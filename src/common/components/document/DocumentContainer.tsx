@@ -1,3 +1,4 @@
+import { Heading } from "@navikt/ds-react";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { DocumentComponent } from "@/server/data/types/external/BrevTypes";
@@ -13,9 +14,11 @@ const DocumentWrapperStyled = styled.div`
   background-color: white;
   white-space: pre-wrap;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 `;
 
 interface DocumentContainerProps {
+  title: string;
   document: DocumentComponent[];
   className?: string;
   children?: React.ReactNode;
@@ -24,6 +27,7 @@ interface DocumentContainerProps {
 }
 
 const DocumentContainer = ({
+  title,
   document,
   lestDato,
   brevUuid,
@@ -38,8 +42,15 @@ const DocumentContainer = ({
     }
   }, [brevUuid, lestDato, mutation]);
 
+  const isLegacyHeader = document[0]?.type !== "HEADER_H1";
+
   return (
     <DocumentWrapperStyled className={className}>
+      {isLegacyHeader && (
+        <Heading size="xlarge" level="1">
+          {title}
+        </Heading>
+      )}
       {document.map((documentComponent, index) => (
         <section key={index}>
           <DocumentRenderer documentComponent={documentComponent} />
