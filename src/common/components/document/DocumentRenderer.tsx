@@ -24,6 +24,28 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
         </>
       );
 
+    case "HEADER_H1":
+      return (
+        <>
+          {texts.map((text, index) => (
+            <Heading size="xlarge" level="1" key={index}>
+              {text}
+            </Heading>
+          ))}
+        </>
+      );
+
+    case "HEADER_H2":
+      return (
+        <>
+          {texts.map((text, index) => (
+            <Heading size="large" level="2" key={index}>
+              {text}
+            </Heading>
+          ))}
+        </>
+      );
+
     case "LINK":
       return (
         <>

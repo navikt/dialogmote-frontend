@@ -31,6 +31,7 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
       return (
         <DialogmotePage
           title={texts.titleAvlysning}
+          hideHeader={true}
           isLoading={dialogmoteData.isLoading}
         >
           <AvlystMoteinnkalling moteinnkalling={moteinnkalling} />
@@ -45,6 +46,7 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
             ? texts.titleInnkalling
             : texts.titleEndring
         }
+        hideHeader={true}
         isLoading={dialogmoteData.isLoading}
       >
         <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />

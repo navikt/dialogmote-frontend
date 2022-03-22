@@ -1,6 +1,11 @@
 import { DocumentBuilder } from "@/server/data/mock/builders/documentBuilder";
 import { DocumentComponentBuilder } from "@/server/data/mock/builders/documentComponentBuilder";
 
+const headerComponent = new DocumentComponentBuilder()
+  .withType("HEADER_H1")
+  .withText("Innkalling til dialogmøte")
+  .build();
+
 const meetingTimeComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Møtetidspunkt")
@@ -58,6 +63,7 @@ const bestRegardsComponent = new DocumentComponentBuilder()
   .build();
 
 export const moteinnkallingDocument = new DocumentBuilder()
+  .withComponent(headerComponent)
   .withComponent(meetingTimeComponent)
   .withComponent(meetingPlaceComponent)
   .withComponent(videoLinkComponent)

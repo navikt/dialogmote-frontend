@@ -1,4 +1,9 @@
-export type DocumentComponentType = "HEADER" | "PARAGRAPH" | "LINK";
+export type DocumentComponentType =
+  | "HEADER"
+  | "HEADER_H1"
+  | "HEADER_H2"
+  | "PARAGRAPH"
+  | "LINK";
 
 export type SvarType = "KOMMER" | "NYTT_TID_STED" | "KOMMER_IKKE";
 
