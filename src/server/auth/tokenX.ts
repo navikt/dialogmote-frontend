@@ -47,6 +47,7 @@ const tokenX =
 
     serverLogger.info({}, "successfully received tokenx token");
 
+    console.log("tokenX: ", tokenX);
     req.tokenSet = tokenX;
 
     next();

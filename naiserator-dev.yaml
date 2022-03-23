@@ -52,6 +52,8 @@ spec:
       value: https://isdialogmote.dev.nav.no
     - name: SYFOMOTEBEHOV_HOST
       value: https://syfomotebehov.dev-fss-pub.nais.io
+    - name: SYFOMOTEBEHOV_TOKENX_CLIENT_ID
+      value: "dev-fss:team-esyfo:syfomotebehov"
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST
       value: https://sykmeldinger-arbeidsgiver.dev.nav.no
     - name: OPPLAERING
