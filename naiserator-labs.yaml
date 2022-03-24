@@ -72,4 +72,3 @@ spec:
         - application: isdialogmote
       external:
         - host: dekoratoren.dev.nav.no
-        - host: syfomotebehov.dev-fss-pub.nais.io
