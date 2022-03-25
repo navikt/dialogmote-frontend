@@ -43,9 +43,9 @@ spec:
     - "https://dialogmoter.labs.nais.io/syk/dialogmoter"
   env:
     - name: DECORATOR_URL
-      value: https://dekoratoren.dev.nav.no
+      value: https://nav.no/dekoratoren
     - name: DECORATOR_ENV
-      value: "dev"
+      value: "prod"
     - name: LOGINSERVICE_URL
       value: https://loginservice.dev.nav.no/login
     - name: ISDIALOGMOTE_HOST
@@ -70,5 +70,3 @@ spec:
     outbound:
       rules:
         - application: isdialogmote
-      external:
-        - host: dekoratoren.dev.nav.no
