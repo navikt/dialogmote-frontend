@@ -40,7 +40,7 @@ spec:
       cpu: 200m
       memory: 256Mi
   ingresses:
-    - "https://www-gcp.dev.nav.no/syk/dialogmoter"
+    - "https://dialogmoter.labs.nais.io/syk/dialogmoter"
   env:
     - name: DECORATOR_URL
       value: https://dekoratoren.dev.nav.no
@@ -55,15 +55,15 @@ spec:
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST
       value: https://sykmeldinger-arbeidsgiver.dev.nav.no
     - name: OPPLAERING
-      value: "false"
+      value: "true"
     - name: MOCK_BACKEND
-      value: "false"
+      value: "true"
     - name: ENVIRONMENT
       value: "test"
     - name: DINE_SYKMELDTE_ROOT
-      value: https://www-gcp.dev.nav.no/sykefravaerarbeidsgiver
+      value: https://sykefravaerarbeidsgiver.labs.nais.io/
     - name: DITT_SYKEFRAVAER_ROOT
-      value: https://www-gcp.dev.nav.no/syk/sykefravaer
+      value: https://sykefravaer.labs.nais.io/syk/sykefravaer
     - name: BASE_PATH
       value: /syk/dialogmoter
   accessPolicy:
@@ -72,4 +72,3 @@ spec:
         - application: isdialogmote
       external:
         - host: dekoratoren.dev.nav.no
-        - host: syfomotebehov.dev-fss-pub.nais.io
