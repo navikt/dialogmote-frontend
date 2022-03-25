@@ -43,7 +43,7 @@ spec:
     - "https://dialogmoter.labs.nais.io/syk/dialogmoter"
   env:
     - name: DECORATOR_URL
-      value: https://nav.no/dekoratoren
+      value: https://dekoratoren.nav.no
     - name: DECORATOR_ENV
       value: "prod"
     - name: LOGINSERVICE_URL
