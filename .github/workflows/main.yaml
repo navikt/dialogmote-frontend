@@ -71,7 +71,6 @@ jobs:
           CLUSTER: labs-gcp
           RESOURCE: naiserator-labs.yaml
 
-
   deploy-prod:
     if: github.ref == 'refs/heads/master'
     name: Deploy to prod-gcp
