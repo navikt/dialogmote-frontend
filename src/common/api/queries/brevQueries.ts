@@ -9,17 +9,11 @@ const queryToInvalidate = (isAudienceSykmeldt: boolean) =>
   isAudienceSykmeldt ? DIALOGMOTEDATA_SM : DIALOGMOTEDATA_AG;
 
 export const useMutateBrevLest = () => {
-  const queryClient = useQueryClient();
-  const { isAudienceSykmeldt } = useAudience();
   const basepath = useApiBasePath();
 
   const postLestBrev = (uuid: string) => post(`${basepath}/brev/${uuid}/lest`);
 
-  return useMutation(postLestBrev, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryToInvalidate(isAudienceSykmeldt));
-    },
-  });
+  return useMutation(postLestBrev);
 };
 
 export const useSvarPaInnkallelse = (uuid: string) => {

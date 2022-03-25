@@ -6,6 +6,7 @@ import {
 export interface Referat {
   uuid: string;
   tid: string;
+  lestDato?: string;
   document: DocumentComponent[];
 }
 
