@@ -13,14 +13,11 @@ export const postMotebehovSM = async (
   if (isMockBackend) {
     return next();
   } else {
-    console.log(
-      "host:",
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`
-    );
+    console.log("host:", `${serverEnv.SYFOMOTEBEHOV_HOST}`);
     console.log("tokenSet", req.tokenSet);
     const svar: ExtMotebehovSvar = req.body;
     await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
       svar,
       {
         accessToken: req.tokenSet.access_token,
