@@ -37,10 +37,10 @@ const DocumentContainer = ({
   const mutation = useMutateBrevLest();
 
   useEffect(() => {
-    if (!lestDato && !mutation.isLoading) {
+    if (!lestDato) {
       mutation.mutate(brevUuid);
     }
-  }, [brevUuid, lestDato, mutation]);
+  }, []);
 
   const isLegacyHeader = document[0]?.type !== "HEADER_H1";
 

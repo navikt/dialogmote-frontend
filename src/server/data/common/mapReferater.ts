@@ -9,6 +9,7 @@ export const mapReferater = (brev?: Brev[]): Referat[] => {
       .map((brev) => ({
         uuid: brev.uuid,
         tid: brev.tid,
+        lestDato: brev.lestDato,
         document: brev.document.map((component) => ({
           type: component.type,
           infoUrl: component.key ? infoUrls[component.key] : undefined,
