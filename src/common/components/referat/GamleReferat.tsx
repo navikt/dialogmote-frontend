@@ -5,9 +5,13 @@ import { getLongDateFormat } from "@/common/utils/dateUtils";
 import { Referat } from "@/server/data/types/internal/BrevTypes";
 import React from "react";
 
-const linkText = (date: string) => {
-  return `Referat fra ${date}`;
+const linkText = (moteDato: string) => {
+  return `Referat fra møte ${moteDato}`;
 };
+
+const endretDatoText = (endretDato: string) => {
+  return ` - Endret ${getLongDateFormat(endretDato)}`
+}
 
 interface Props {
   referater: Referat[];
@@ -27,6 +31,7 @@ const GamleReferat = ({ referater }: Props) => {
             <li key={referat.tid}>
               <RouterLenke href={href} trackingName={Events.TidligereReferat}>
                 {linkText(formattedDate)}
+                {referat.endring && endretDatoText(referat.createdAt)}
               </RouterLenke>
             </li>
           );

@@ -15,6 +15,10 @@ interface Props {
   referat: Referat;
 }
 
+const endretDatoText = (endretDato: string) => {
+  return ` - Endret ${getLongDateFormat(endretDato)}`
+}
+
 const SisteReferat = ({ referat }: Props) => {
   const { trackEvent } = useAmplitude();
 
@@ -25,7 +29,8 @@ const SisteReferat = ({ referat }: Props) => {
     <NextLink href={href} passHref>
       <LinkPanel onClick={() => trackEvent(Events.AktivtReferat)}>
         <LinkPanel.Title>
-          Referat fra {getLongDateFormat(referat.tid)}
+          Referat fra møte {getLongDateFormat(referat.tid)}
+          {referat.endring && endretDatoText(referat.createdAt)}
         </LinkPanel.Title>
         <LinkPanel.Description>{texts.text}</LinkPanel.Description>
       </LinkPanel>
