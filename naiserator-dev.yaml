@@ -15,9 +15,9 @@ spec:
   tokenx:
     enabled: true
   idporten:
-    enabled: false
+    enabled: true
     sidecar:
-      enabled: false
+      enabled: true
   liveness:
     path: syk/dialogmoter/api/isAlive
     initialDelay: 20
