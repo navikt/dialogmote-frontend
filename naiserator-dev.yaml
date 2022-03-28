@@ -13,7 +13,7 @@ spec:
     cpuThresholdPercentage: 90
   port: 8080
   tokenx:
-    enabled: false
+    enabled: true
   idporten:
     enabled: false
     sidecar:
