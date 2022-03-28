@@ -30,6 +30,14 @@ export default class MyDocument extends Document<{ Decorator: Components }> {
         : serverEnv.DINE_SYKMELDTE_ROOT,
       level: "Level4",
     };
+
+    fetchDecoratorReact(decoratorParams)
+        .catch(console.error)
+        .then((result) => {
+          console.log("We do cleanup here");
+          console.log(result)
+        });
+
     const Decorator = await fetchDecoratorReact(decoratorParams);
 
     try {
