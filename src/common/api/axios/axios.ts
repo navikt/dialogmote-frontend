@@ -46,7 +46,7 @@ function handleAxiosError(error: AxiosError) {
   if (error.response) {
     switch (error.response.status) {
       case 401: {
-        loginUser();
+        // loginUser();
         throw new ApiErrorException(
           loginRequiredError(error),
           error.response.status
