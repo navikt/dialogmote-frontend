@@ -4,6 +4,7 @@ import { isMockBackend } from "@/common/publicEnv";
 import { post } from "@/common/api/axios/axios";
 import serverEnv from "@/server/utils/serverEnv";
 import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
+import serverLogger from "@/server/utils/serverLogger";
 
 export const postMotebehovSM = async (
   req: IAuthenticatedRequest,
@@ -13,8 +14,11 @@ export const postMotebehovSM = async (
   if (isMockBackend) {
     return next();
   } else {
-    console.log("host:", `${serverEnv.SYFOMOTEBEHOV_HOST}`);
-    console.log("tokenSet", req.tokenSet);
+    serverLogger.info({ req }, "spostMotebehovSM, request");
+    serverLogger.info(
+      `${serverEnv.SYFOMOTEBEHOV_HOST}`,
+      "spostMotebehovSM, SYFOMOTEBEHOV_HOST"
+    );
     const svar: ExtMotebehovSvar = req.body;
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
