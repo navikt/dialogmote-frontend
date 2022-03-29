@@ -19,10 +19,17 @@ const tokenX =
       return next();
     }
 
+    serverLogger.info(req.headers, "Enter tokenX");
+
     const authorizationHeaderValidation = validateAuthorizationHeader(
       req.headers
     );
+
     if (!authorizationHeaderValidation.success) {
+      serverLogger.info(
+        authorizationHeaderValidation.error,
+        "authorization header validation error"
+      );
       return next(new Error(authorizationHeaderValidation.error));
     }
 
