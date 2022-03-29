@@ -16,6 +16,10 @@ export const ncOptions: Options<NextApiRequest, NextApiResponse> = {
         case ErrorType.LOGIN_REQUIRED: {
           return res.status(401).end(err.error.defaultErrorMsg);
         }
+        case ErrorType.TOKEN_ERROR: {
+          //todo: Fase ut loginservice og kun bruke 401.
+          return res.status(403).end(err.error.defaultErrorMsg);
+        }
         default:
           return res.status(500).end(err.error.defaultErrorMsg);
       }

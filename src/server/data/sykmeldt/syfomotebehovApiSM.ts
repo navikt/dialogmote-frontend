@@ -14,7 +14,7 @@ export const postMotebehovSM = async (
   if (isMockBackend) {
     return next();
   } else {
-    serverLogger.info({ req }, "spostMotebehovSM, request");
+    serverLogger.info(req, "postMotebehovSM, request");
     serverLogger.info(
       `${serverEnv.SYFOMOTEBEHOV_HOST}`,
       "spostMotebehovSM, SYFOMOTEBEHOV_HOST"
