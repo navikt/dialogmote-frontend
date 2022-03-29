@@ -7,6 +7,7 @@ import {
   networkError,
 } from "./errors";
 import { loginUser } from "@/common/utils/urlUtils";
+import serverLogger from "@/server/utils/serverLogger";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -92,6 +93,8 @@ export const post = <ResponseData>(
   data?: any,
   options?: AxiosOptions
 ): Promise<ResponseData> => {
+  serverLogger.info({ options }, "POST, options");
+  serverLogger.info({ url }, "POST, url");
   return axios
     .post(url, data, {
       headers: defaultRequestHeaders(options),
