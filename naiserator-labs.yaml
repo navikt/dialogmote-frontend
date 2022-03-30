@@ -42,8 +42,6 @@ spec:
   ingresses:
     - "https://dialogmoter.labs.nais.io/syk/dialogmoter"
   env:
-    - name: DECORATOR_URL
-      value: https://dekoratoren.nav.no
     - name: DECORATOR_ENV
       value: "prod"
     - name: LOGINSERVICE_URL
@@ -61,9 +59,9 @@ spec:
     - name: ENVIRONMENT
       value: "test"
     - name: DINE_SYKMELDTE_ROOT
-      value: https://sykefravaerarbeidsgiver.labs.nais.io/
+      value: https://www.nav.no/sykefravaerarbeidsgiver
     - name: DITT_SYKEFRAVAER_ROOT
-      value: https://sykefravaer.labs.nais.io/syk/sykefravaer
+      value: https://www.nav.no/syk/sykefravaer
     - name: BASE_PATH
       value: /syk/dialogmoter
   accessPolicy:
