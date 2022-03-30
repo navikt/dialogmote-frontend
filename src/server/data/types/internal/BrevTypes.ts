@@ -5,8 +5,10 @@ import {
 
 export interface Referat {
   uuid: string;
+  createdAt: string;
   tid: string;
   lestDato?: string;
+  endring?: boolean;
   document: DocumentComponent[];
 }
 

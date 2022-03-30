@@ -7,7 +7,7 @@ export type DocumentComponentType =
 
 export type SvarType = "KOMMER" | "NYTT_TID_STED" | "KOMMER_IKKE";
 
-export type BrevType = "INNKALT" | "AVLYST" | "NYTT_TID_STED" | "REFERAT";
+export type BrevType = "INNKALT" | "AVLYST" | "NYTT_TID_STED" | "REFERAT" | "REFERAT_ENDRET";
 
 export type DocumentComponentKey =
   | "IKKE_BEHOV"
