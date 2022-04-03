@@ -1,11 +1,12 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend } from "@/common/publicEnv";
+import { isMockBackend, isOpplaering } from "@/common/publicEnv";
 import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockAG from "@/server/data/mock/activeMockAG";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { activeLabsMockAG } from "../mock/activeLabsMock";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,
@@ -13,8 +14,13 @@ export const fetchConcurrentDataAG = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.motebehovStatus = activeMockAG.motebehov;
-    res.brevArray = activeMockAG.brev;
+    if (isOpplaering) {
+      res.motebehovStatus = activeLabsMockAG.motebehov;
+      res.brevArray = activeLabsMockAG.brev;
+    } else {
+      res.motebehovStatus = activeMockAG.motebehov;
+      res.brevArray = activeMockAG.brev;
+    }
   } else {
     const motebehovPromise = get<ExtMotebehovStatus>(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/motebehov?fnr=${res.sykmeldt.fnr}&virksomhetsnummer=${res.sykmeldt.orgnummer}`,
