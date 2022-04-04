@@ -3,7 +3,7 @@ import nc from "next-connect";
 import { ncOptions } from "@/server/utils/ncOptions";
 import { withSentry } from "@sentry/nextjs";
 import { postMotebehovSM } from "@/server/data/sykmeldt/syfomotebehovApiSM";
-import tokenX from "@/server/auth/tokenX";
+import { tokenX } from "@/server/auth/tokenx/tokenX";
 import serverEnv from "@/server/utils/serverEnv";
 
 const handler = nc<NextApiRequest, NextApiResponse>(ncOptions)

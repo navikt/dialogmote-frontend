@@ -6,7 +6,7 @@ import {
   loginRequiredError,
   networkError,
 } from "./errors";
-import { loginUser } from "@/common/utils/urlUtils";
+import { loginTokenX, loginUser } from "@/common/utils/urlUtils";
 import serverLogger from "@/server/utils/serverLogger";
 
 interface AxiosOptions {
@@ -53,6 +53,7 @@ function handleAxiosError(error: AxiosError) {
         );
       }
       case 403: {
+        loginTokenX(); //todo: just temp solution until loginservice is removed
         throw new ApiErrorException(
           accessDeniedError(error),
           error.response.status

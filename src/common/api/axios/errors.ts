@@ -10,6 +10,7 @@ export enum ErrorType {
   GENERAL_ERROR = "GENERAL_ERROR",
   NETWORK_ERROR = "NETWORK_ERROR",
   LOGIN_REQUIRED = "LOGIN_REQUIRED",
+  TOKEN_ERROR = "TOKEN_ERROR",
 }
 
 export class ApiErrorException extends Error {
@@ -33,6 +34,12 @@ export const generalError = (error: Error): ApiError => ({
 export const loginRequiredError = (error?: Error): ApiError => ({
   type: ErrorType.LOGIN_REQUIRED,
   message: error?.message || defaultErrorTexts.loginRequired,
+  defaultErrorMsg: defaultErrorTexts.loginRequired,
+});
+
+export const tokenError = (): ApiError => ({
+  type: ErrorType.TOKEN_ERROR,
+  message: defaultErrorTexts.loginRequired,
   defaultErrorMsg: defaultErrorTexts.loginRequired,
 });
 

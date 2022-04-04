@@ -8,6 +8,7 @@ export interface IServerEnvironmentVariables {
   TOKEN_X_PRIVATE_JWK: string;
   TOKEN_X_AUDIENCE: string;
   IDPORTEN_WELL_KNOWN_URL: string;
+  IDPORTEN_CLIENT_ID: string;
   INGRESS: string;
   ISDIALOGMOTE_AUDIENCE: string;
   DECORATOR_ENV: "prod" | "dev";
@@ -15,6 +16,7 @@ export interface IServerEnvironmentVariables {
   DINE_SYKMELDTE_ROOT: string;
   MOCK_BACKEND: string;
   SYFOMOTEBEHOV_TOKENX_CLIENT_ID: string;
+  basePath: string;
 }
 
 // TODO: Add assertions on required env variables
