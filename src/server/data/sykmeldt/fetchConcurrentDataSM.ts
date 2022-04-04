@@ -19,9 +19,9 @@ export const fetchConcurrentDataSM = async (
   } else {
     serverLogger.info(req, "fetchConcurrentDataSM, request");
     const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
       {
-        accessToken: req.tokenSet.access_token,
+        accessToken: req.loginServiceToken,
       }
     );
 

@@ -7,12 +7,12 @@ import { combineDialogmoteDataSM } from "@/server/data/sykmeldt/combineDialogmot
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
-import { tokenX } from "@/server/auth/tokenx/tokenX";
-import serverEnv from "@/server/utils/serverEnv";
+// import { tokenX } from "@/server/auth/tokenx/tokenX";
+// import serverEnv from "@/server/utils/serverEnv";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
-  .use(tokenX(serverEnv.SYFOMOTEBEHOV_TOKENX_CLIENT_ID))
+  // .use(tokenX(serverEnv.SYFOMOTEBEHOV_TOKENX_CLIENT_ID))
   .use(fetchConcurrentDataSM)
   .use(combineDialogmoteDataSM)
   .get(async (req, res: NextApiResponseSM) => {
