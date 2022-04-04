@@ -15,10 +15,6 @@ export const postMotebehovSM = async (
     return next();
   } else {
     serverLogger.info(req, "postMotebehovSM, request");
-    serverLogger.info(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}`,
-      "spostMotebehovSM, SYFOMOTEBEHOV_HOST"
-    );
     const svar: ExtMotebehovSvar = req.body;
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,

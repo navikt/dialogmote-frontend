@@ -6,6 +6,7 @@ import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockSM from "@/server/data/mock/activeMockSM";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import serverLogger from "@/server/utils/serverLogger";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -16,10 +17,11 @@ export const fetchConcurrentDataSM = async (
     res.motebehovStatus = activeMockSM.motebehov;
     res.brevArray = activeMockSM.brev;
   } else {
+    serverLogger.info(req, "fetchConcurrentDataSM, request");
     const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
       {
-        accessToken: req.loginServiceToken,
+        accessToken: req.tokenSet.access_token,
       }
     );
 
