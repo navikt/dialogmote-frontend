@@ -59,7 +59,7 @@ spec:
     - name: ENVIRONMENT
       value: "test"
     - name: DINE_SYKMELDTE_ROOT
-      value: https://www.nav.no/sykefravaerarbeidsgiver
+      value: https://nav.no/arbeidsgiver/sykmeldte
     - name: DITT_SYKEFRAVAER_ROOT
       value: https://www.nav.no/syk/sykefravaer
     - name: BASE_PATH
