@@ -8,9 +8,12 @@ import { combineDialogmoteDataAG } from "@/server/data/arbeidsgiver/combineDialo
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
+import { tokenX } from "@/server/auth/tokenx/tokenX";
+import serverEnv from "@/server/utils/serverEnv";
 
 const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
   .use(loginServiceToken())
+  .use(tokenX(serverEnv.SYFOMOTEBEHOV_TOKENX_CLIENT_ID))
   .use(fetchSykmeldtAG)
   .use(fetchConcurrentDataAG)
   .use(combineDialogmoteDataAG)
