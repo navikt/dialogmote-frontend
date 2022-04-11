@@ -10,8 +10,8 @@ const linkText = (moteDato: string) => {
 };
 
 const endretDatoText = (endretDato: string) => {
-  return ` - Endret ${getLongDateFormat(endretDato)}`
-}
+  return ` - Endret ${getLongDateFormat(endretDato)}`;
+};
 
 interface Props {
   referater: Referat[];

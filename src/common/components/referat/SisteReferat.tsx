@@ -16,8 +16,8 @@ interface Props {
 }
 
 const endretDatoText = (endretDato: string) => {
-  return ` - Endret ${getLongDateFormat(endretDato)}`
-}
+  return ` - Endret ${getLongDateFormat(endretDato)}`;
+};
 
 const SisteReferat = ({ referat }: Props) => {
   const { trackEvent } = useAmplitude();
