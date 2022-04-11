@@ -24,8 +24,8 @@ export const fetchBrevPdfAG = async (
     const { uuid } = req.query;
     res.pdf = await get(brevApiAG(`/${uuid}/pdf`), {
       accessToken: req.loginServiceToken,
-      responseType: "blob",
-    }); //hmz, kanskje bare ha pdf-genereringskoden inne her og serve det direkte herfra?
+      responseType: "arraybuffer",
+    });
   }
 
   next();
