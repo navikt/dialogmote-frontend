@@ -10,6 +10,9 @@ const texts = {
 
 const ButtonStyled = styled.a`
   width: fit-content;
+`;
+
+const MarginStyled = styled.div`
   margin-bottom: 2rem;
 `;
 
@@ -21,16 +24,18 @@ interface Props {
 const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
   const { trackEvent } = useAmplitude();
   return (
-    <NextLink href={pdfUrl} passHref={true}>
-      <ButtonStyled
-        onClick={() => {
-          trackEvent(trackingName);
-        }}
-        className="navds-button navds-button--secondary navds-button--medium"
-      >
-        {texts.button}
-      </ButtonStyled>
-    </NextLink>
+    <MarginStyled>
+      <NextLink href={pdfUrl} passHref={true}>
+        <ButtonStyled
+          onClick={() => {
+            trackEvent(trackingName);
+          }}
+          className="navds-button navds-button--secondary navds-button--medium"
+        >
+          {texts.button}
+        </ButtonStyled>
+      </NextLink>
+    </MarginStyled>
   );
 };
 
