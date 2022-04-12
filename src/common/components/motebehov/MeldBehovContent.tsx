@@ -18,7 +18,7 @@ import { CancelButton } from "@/common/components/button/CancelButton";
 import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 export const texts = {
-  ingress:
+  obligatoriskeFeltInfo:
     "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
   begrunnelseLabel: "Begrunnelse (valgfri)",
   motebehovIkkeValgt:
@@ -101,7 +101,7 @@ export const MeldBehovContent = ({
 
   return (
     <>
-      <Ingress>{texts.ingress}</Ingress>
+      <Ingress spacing>{texts.obligatoriskeFeltInfo}</Ingress>
 
       <DialogmotePanel>
         <MotebehovErrorSummary errors={getErrors()} />

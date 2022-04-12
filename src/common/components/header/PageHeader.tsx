@@ -5,16 +5,18 @@ interface Props {
   title: string;
 }
 
-const StyledHeading = styled(Heading)`
+const MarginStyled = styled.div`
   margin-top: 2rem;
   margin-bottom: 2rem;
 `;
 
 const PageHeader = ({ title }: Props) => {
   return (
-    <StyledHeading size="xlarge" level="1">
-      {title}
-    </StyledHeading>
+    <MarginStyled>
+      <Heading size="xlarge" level="1">
+        {title}
+      </Heading>
+    </MarginStyled>
   );
 };
 
