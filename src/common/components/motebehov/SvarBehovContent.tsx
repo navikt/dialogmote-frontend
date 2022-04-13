@@ -101,14 +101,14 @@ export const SvarBehovContent = ({
 
   return (
     <>
-      <BodyLong spacing>
+      <Ingress spacing>
         {texts.dialogmoteInfo}{" "}
         <Link href={DIALOGMOTE_INFO_URL}>{texts.dialogmoteInfoLink}</Link>
-      </BodyLong>
+      </Ingress>
 
       <HuskOppfolgingsplanGuidePanel />
 
-      <Ingress spacing>{texts.obligatoriskeFeltInfo}</Ingress>
+      <BodyLong spacing>{texts.obligatoriskeFeltInfo}</BodyLong>
 
       <DialogmotePanel>
         <MotebehovErrorSummary errors={getErrors()} />
