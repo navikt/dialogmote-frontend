@@ -1,6 +1,6 @@
+import { Sykmeldt } from "types/shared/sykmeldt";
 import { Brev } from "../types/external/BrevTypes";
 import { ExtMotebehovStatus } from "../types/external/ExternalMotebehovTypes";
-import { Sykmeldt } from "../types/external/SykmeldteTypes";
 import { innkallingAG, innkallingSM } from "./labs/innkalling";
 import { referat1, referat2 } from "./labs/referat";
 

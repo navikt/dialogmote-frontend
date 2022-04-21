@@ -1,6 +1,6 @@
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { Sykmeldt } from "types/shared/sykmeldt";
 
 interface IMockData {
   sykmeldt?: Sykmeldt; //For arbeidsgiver
