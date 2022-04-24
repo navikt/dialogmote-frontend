@@ -1,13 +1,13 @@
-import { Sykmeldt } from "types/shared/sykmeldt";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 import { Brev } from "../types/external/BrevTypes";
-import { ExtMotebehovStatus } from "../types/external/ExternalMotebehovTypes";
 import { innkallingAG, innkallingSM } from "./labs/innkalling";
 import { referat1, referat2 } from "./labs/referat";
 
 interface IMockData {
-  sykmeldt?: Sykmeldt; //For arbeidsgiver
+  sykmeldt?: SykmeldtDTO; //For arbeidsgiver
   brev: Brev[];
-  motebehov: ExtMotebehovStatus;
+  motebehov: MotebehovDTO;
 }
 
 export const activeLabsMockAG: IMockData = {

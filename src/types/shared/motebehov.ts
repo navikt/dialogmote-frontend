@@ -1,4 +1,6 @@
-export type MotebehovSkjemaType = "MELD_BEHOV" | "SVAR_BEHOV";
+import { MotebehovSkjemaTypeDTO } from "@/server/service/schema/motebehovSchema";
+
+export type MotebehovSkjemaType = MotebehovSkjemaTypeDTO;
 
 export interface MotebehovSvar {
   opprettetDato?: string;

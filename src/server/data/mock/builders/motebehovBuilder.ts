@@ -1,11 +1,11 @@
 import {
-  ExtMotebehov,
-  ExtMotebehovSkjemaType,
-  ExtMotebehovStatus,
-} from "@/server/data/types/external/ExternalMotebehovTypes";
+  MotebehovDataDTO,
+  MotebehovDTO,
+  MotebehovSkjemaTypeDTO,
+} from "@/server/service/schema/motebehovSchema";
 
 export class MotebehovBuilder {
-  private readonly motebehov: ExtMotebehovStatus;
+  private readonly motebehov: MotebehovDTO;
 
   constructor() {
     this.motebehov = {
@@ -13,12 +13,12 @@ export class MotebehovBuilder {
     };
   }
 
-  withSkjematype(skjemaType: ExtMotebehovSkjemaType): MotebehovBuilder {
+  withSkjematype(skjemaType: MotebehovSkjemaTypeDTO): MotebehovBuilder {
     this.motebehov.skjemaType = skjemaType;
     return this;
   }
 
-  withMotebehov(motebehov: ExtMotebehov): MotebehovBuilder {
+  withMotebehov(motebehov: MotebehovDataDTO): MotebehovBuilder {
     this.motebehov.motebehov = motebehov;
     return this;
   }
@@ -28,7 +28,7 @@ export class MotebehovBuilder {
     return this;
   }
 
-  build(): ExtMotebehovStatus {
+  build(): MotebehovDTO {
     return this.motebehov;
   }
 }

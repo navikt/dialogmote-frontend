@@ -1,11 +1,11 @@
 import { Brev } from "@/server/data/types/external/BrevTypes";
-import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
 import { Sykmeldt } from "types/shared/sykmeldt";
 
 interface IMockData {
   sykmeldt?: Sykmeldt; //For arbeidsgiver
   brev: Brev[];
-  motebehov: ExtMotebehovStatus;
+  motebehov: MotebehovDTO;
 }
 
 export class MockDataBuilder {
@@ -39,7 +39,7 @@ export class MockDataBuilder {
     return this;
   }
 
-  withMotebehov(motebehov: ExtMotebehovStatus) {
+  withMotebehov(motebehov: MotebehovDTO) {
     this.mockData.motebehov = motebehov;
     return this;
   }

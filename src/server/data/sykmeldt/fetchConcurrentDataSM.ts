@@ -5,8 +5,8 @@ import { get } from "@/common/api/axios/axios";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockSM from "@/server/data/mock/activeMockSM";
-import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 import { activeLabsMockSM } from "../mock/activeLabsMock";
+import { getMotebehovSM } from "@/server/service/motebehovService";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -15,19 +15,14 @@ export const fetchConcurrentDataSM = async (
 ) => {
   if (isMockBackend) {
     if (isOpplaering) {
-      res.motebehovStatus = activeLabsMockSM.motebehov;
+      res.motebehov = activeLabsMockSM.motebehov;
       res.brevArray = activeLabsMockSM.brev;
     } else {
-      res.motebehovStatus = activeMockSM.motebehov;
+      res.motebehov = activeMockSM.motebehov;
       res.brevArray = activeMockSM.brev;
     }
   } else {
-    const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
-      {
-        accessToken: req.loginServiceToken,
-      }
-    );
+    const motebehovPromise = getMotebehovSM(req.loginServiceToken);
 
     const brevPromise = get<Brev[]>(
       `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`,
@@ -37,7 +32,7 @@ export const fetchConcurrentDataSM = async (
     );
 
     await Promise.all([
-      motebehovPromise.then((motebehov) => (res.motebehovStatus = motebehov)),
+      motebehovPromise.then((motebehov) => (res.motebehov = motebehov)),
       brevPromise.then((brev) => (res.brevArray = brev)),
     ]);
   }
