@@ -8,8 +8,10 @@ import { fetchBrevPdfAG } from "@/server/data/arbeidsgiver/isDialogmoteApiAG";
 const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
   .use(loginServiceToken())
   .use(fetchBrevPdfAG)
-  .get(async (req, res: NextApiResponse & { pdf: any }) => {
-    res.status(200).json(res.pdf);
+  .get(async (req: NextApiRequest, res: NextApiResponse & { pdf: any }) => {
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", 'inline; filename="brev.pdf"');
+    res.end(res.pdf);
   });
 
 export default withSentry(handler);

@@ -5,7 +5,7 @@ import {
 } from "@/common/publicEnv";
 
 export const loginUser = () => {
-  if (!window) return;
+  if (typeof window === "undefined") return;
 
   const isArbeidsgiver =
     window.location.href.indexOf("/dialogmoter/arbeidsgiver") > 0;
@@ -15,7 +15,7 @@ export const loginUser = () => {
 };
 
 export const loginTokenX = () => {
-  if (!window) return;
+  if (typeof window === "undefined") return;
 
   window.location.href = `/syk/dialogmoter/oauth2/login?redirect=${window.location.pathname}`;
 };

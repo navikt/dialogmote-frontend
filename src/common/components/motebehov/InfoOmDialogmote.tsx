@@ -1,8 +1,6 @@
-import { BodyLong, Link } from "@navikt/ds-react";
-import { KONTAKT_INFO_URL } from "@/common/constants/staticUrls";
-import { Events } from "@/common/amplitude/events";
+import { BodyLong } from "@navikt/ds-react";
 import React from "react";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 
 const texts = {
   text1: `Målet med et dialogmøtet er å oppsummere hva som har skjedd til nå, og snakke om hva som kan hjelpe arbeidstakeren å komme tilbake til arbeid.`,
@@ -11,20 +9,12 @@ const texts = {
 };
 
 export const InfoOmDialogmote = () => {
-  const { trackEvent } = useAmplitude();
-
   return (
     <>
       <BodyLong>{texts.text1}</BodyLong>
       <BodyLong spacing>
         {texts.text2}
-        <Link
-          href={KONTAKT_INFO_URL}
-          target="_blank"
-          onClick={() => trackEvent(Events.KontaktAndreMoter)}
-        >
-          {texts.link}
-        </Link>
+        <KontaktOssLink linkText={texts.link} />
       </BodyLong>
     </>
   );

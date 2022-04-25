@@ -1,11 +1,12 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend } from "@/common/publicEnv";
+import { isMockBackend, isOpplaering } from "@/common/publicEnv";
 import serverEnv from "@/server/utils/serverEnv";
 import { get } from "@/common/api/axios/axios";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockSM from "@/server/data/mock/activeMockSM";
 import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { activeLabsMockSM } from "../mock/activeLabsMock";
 import serverLogger from "@/server/utils/serverLogger";
 
 export const fetchConcurrentDataSM = async (
@@ -14,8 +15,13 @@ export const fetchConcurrentDataSM = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    res.motebehovStatus = activeMockSM.motebehov;
-    res.brevArray = activeMockSM.brev;
+    if (isOpplaering) {
+      res.motebehovStatus = activeLabsMockSM.motebehov;
+      res.brevArray = activeLabsMockSM.brev;
+    } else {
+      res.motebehovStatus = activeMockSM.motebehov;
+      res.brevArray = activeMockSM.brev;
+    }
   } else {
     serverLogger.info(req, "fetchConcurrentDataSM, request");
     const motebehovPromise = get<ExtMotebehovStatus>(

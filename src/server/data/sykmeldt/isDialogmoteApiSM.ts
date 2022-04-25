@@ -1,7 +1,7 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { NextApiResponse } from "next";
 import serverEnv from "../../utils/serverEnv";
-import { isDevelopment, isMockBackend } from "@/common/publicEnv";
+import { isDevelopment, isMockBackend, isOpplaering } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import { SvarRespons } from "@/server/data/types/external/BrevTypes";
@@ -42,7 +42,7 @@ export const postBrevLestSM = async (
     brevToUpdate!!.lestDato = new Date().toISOString();
   }
 
-  if (isMockBackend) {
+  if (isMockBackend || isOpplaering) {
     return next();
   } else {
     const { uuid } = req.query;
@@ -70,7 +70,7 @@ export const postBrevSvarSM = async (
     };
   }
 
-  if (isMockBackend) {
+  if (isMockBackend || isOpplaering) {
     return next();
   } else {
     const { uuid } = req.query;

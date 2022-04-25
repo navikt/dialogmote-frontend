@@ -1,10 +1,8 @@
 import React, { ReactElement } from "react";
-import { Alert, BodyLong, Link } from "@navikt/ds-react";
+import { Alert, BodyLong } from "@navikt/ds-react";
 import styled from "styled-components";
-import { KONTAKT_INFO_URL } from "@/common/constants/staticUrls";
-import { Events } from "@/common/amplitude/events";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { SvarType } from "@/server/data/types/external/BrevTypes";
+import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 
 const SuksessStripeStyled = styled(Alert)`
   margin-bottom: 2rem;
@@ -20,17 +18,10 @@ const texts = {
 };
 
 const JegKommer = (): ReactElement => {
-  const { trackEvent } = useAmplitude();
-
   return (
     <SuksessStripeStyled variant="success">
       <BodyLong>{texts.svartKommer}</BodyLong>
-      <Link
-        href={KONTAKT_INFO_URL}
-        onClick={() => trackEvent(Events.KontaktOss)}
-      >
-        {texts.taKontakt}
-      </Link>
+      <KontaktOssLink linkText={texts.taKontakt} />
     </SuksessStripeStyled>
   );
 };

@@ -8,12 +8,12 @@ const headerComponent = new DocumentComponentBuilder()
 
 const date03042021Component = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
-  .withText("Sendt 03. april 2021, kl. 12.11")
+  .withText("Sendt 04.april 2021, kl. 12.15")
   .build();
 
 const date11022020Component = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
-  .withText("Sendt 11. februar 2020, kl. 12.11")
+  .withText("Sendt 03.april 2021, kl. 12.11")
   .build();
 
 const documentHeaderComponent = new DocumentComponentBuilder()
@@ -21,15 +21,9 @@ const documentHeaderComponent = new DocumentComponentBuilder()
   .withText("Tykkmaget Midtpunkt")
   .build();
 
-const tidsted11012020Component = new DocumentComponentBuilder()
-  .withType("PARAGRAPH")
-  .withText("Dato: Fredag 11. januar 2020")
-  .withText("Sted: NAV Staden")
-  .build();
-
 const tidsted03042021Component = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
-  .withText("Dato: Fredag 03. april 2020")
+  .withText("Dato: Fredag 03. april 2021")
   .withText("Sted: NAV Staden")
   .build();
 
@@ -147,7 +141,7 @@ const bestRegardsComponent = new DocumentComponentBuilder()
   .withText("95959595")
   .build();
 
-export const anotherReferatDocument = new DocumentBuilder()
+export const endretReferatDocument = new DocumentBuilder()
   .withComponent(headerComponent)
   .withComponent(date03042021Component)
   .withComponent(documentHeaderComponent)
@@ -172,7 +166,7 @@ export const referatDocument = new DocumentBuilder()
   .withComponent(date11022020Component)
   .withComponent(documentHeaderComponent)
   .withComponent(fnrComponent)
-  .withComponent(tidsted11012020Component)
+  .withComponent(tidsted03042021Component)
   .withComponent(deltakereComponent)
   .withComponent(arbeidsgiverComponent)
   .withComponent(formalComponent)

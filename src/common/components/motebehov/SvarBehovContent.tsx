@@ -20,9 +20,9 @@ import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 const texts = {
-  ingressText:
+  dialogmoteInfo:
     "Ifølge folketrygdloven skal NAV innkalle til dialogmøte senest innen 26 ukers sykefravær, med mindre det er åpenbart unødvendig. Vi bruker opplysningene du gir her til å vurdere om det er behov for møte. ",
-  ingressLink: "Les om dialogmøte.",
+  dialogmoteInfoLink: "Les om dialogmøte.",
   obligatoriskeFeltInfo:
     "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
   svarNeiAlert:
@@ -101,9 +101,9 @@ export const SvarBehovContent = ({
 
   return (
     <>
-      <Ingress>
-        {texts.ingressText}{" "}
-        <Link href={DIALOGMOTE_INFO_URL}>{texts.ingressLink}</Link>
+      <Ingress spacing>
+        {texts.dialogmoteInfo}{" "}
+        <Link href={DIALOGMOTE_INFO_URL}>{texts.dialogmoteInfoLink}</Link>
       </Ingress>
 
       <HuskOppfolgingsplanGuidePanel />

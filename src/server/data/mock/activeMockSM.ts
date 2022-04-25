@@ -2,7 +2,7 @@ import { MockDataBuilder } from "@/server/data/mock/builders/mockDataBuilder";
 import { BrevBuilder } from "@/server/data/mock/builders/brevBuilder";
 import { MotebehovBuilder } from "@/server/data/mock/builders/motebehovBuilder";
 import {
-  anotherReferatDocument,
+  endretReferatDocument,
   referatDocument,
 } from "@/server/data/mock/brev/referatDocument";
 import { moteinnkallingDocument } from "@/server/data/mock/brev/moteinnkallingDocument";
@@ -12,18 +12,18 @@ const activeMockSM = new MockDataBuilder()
     new BrevBuilder()
       .witUuid("123")
       .withBrevtype("REFERAT")
-      .withCreatedAt(new Date(2019, 12, 11))
-      .withTid(new Date(2019, 12, 11))
+      .withCreatedAt(new Date(2021, 3, 3))
+      .withTid(new Date(2021, 3, 3))
       .withDocument(referatDocument)
       .build()
   )
   .withBrev(
     new BrevBuilder()
       .witUuid("124")
-      .withBrevtype("REFERAT")
-      .withCreatedAt(new Date(2021, 3, 3))
+      .withBrevtype("REFERAT_ENDRET")
+      .withCreatedAt(new Date(2021, 3, 4))
       .withTid(new Date(2021, 3, 3))
-      .withDocument(anotherReferatDocument)
+      .withDocument(endretReferatDocument)
       .build()
   )
   .withBrev(
