@@ -1,5 +1,5 @@
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { Brev } from "types/shared/brev";
 import { Sykmeldt } from "types/shared/sykmeldt";
 
 interface IMockData {

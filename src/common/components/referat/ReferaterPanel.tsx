@@ -3,7 +3,7 @@ import GamleReferat from "@/common/components/referat/GamleReferat";
 import SisteReferat from "@/common/components/referat/SisteReferat";
 import { FileContent } from "@navikt/ds-icons";
 import React, { ReactNode } from "react";
-import { Referat } from "@/server/data/types/internal/BrevTypes";
+import { Referat } from "types/shared/brev";
 
 const texts = {
   title: "Referat fra dialogmøte",

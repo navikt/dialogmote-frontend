@@ -1,13 +1,13 @@
-import { Brev } from "@/server/data/types/external/BrevTypes";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import { mapReferater } from "@/server/data/common/mapReferater";
 import { mapMotebehov } from "@/server/data/common/mapMotebehov";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { BrevDTO } from "@/server/service/schema/brevSchema";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 export const mapDialogmoteData = (
   motebehov: MotebehovDTO,
-  brevArray?: Brev[],
+  brevArray?: BrevDTO[],
   sykmeldt?: SykmeldtDTO
 ): DialogmoteData => {
   const brevArraySorted = brevArray?.sort(

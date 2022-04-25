@@ -1,9 +1,9 @@
 import { Heading } from "@navikt/ds-react";
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { DocumentComponent } from "@/server/data/types/external/BrevTypes";
 import DocumentRenderer from "@/common/components/document/DocumentRenderer";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
+import { DocumentComponent } from "types/client/brev";
 
 const DocumentWrapperStyled = styled.div`
   display: flex;

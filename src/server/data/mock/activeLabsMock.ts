@@ -1,6 +1,6 @@
 import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
-import { Brev } from "../types/external/BrevTypes";
+import { Brev } from "types/shared/brev";
 import { innkallingAG, innkallingSM } from "./labs/innkalling";
 import { referat1, referat2 } from "./labs/referat";
 

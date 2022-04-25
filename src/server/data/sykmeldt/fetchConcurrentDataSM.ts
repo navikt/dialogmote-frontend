@@ -1,12 +1,10 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { isMockBackend, isOpplaering } from "@/common/publicEnv";
-import serverEnv from "@/server/utils/serverEnv";
-import { get } from "@/common/api/axios/axios";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockSM from "@/server/data/mock/activeMockSM";
 import { activeLabsMockSM } from "../mock/activeLabsMock";
 import { getMotebehovSM } from "@/server/service/motebehovService";
+import { getBrevSM } from "@/server/service/brevService";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -24,12 +22,7 @@ export const fetchConcurrentDataSM = async (
   } else {
     const motebehovPromise = getMotebehovSM(req.loginServiceToken);
 
-    const brevPromise = get<Brev[]>(
-      `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`,
-      {
-        accessToken: req.loginServiceToken,
-      }
-    );
+    const brevPromise = getBrevSM(req.loginServiceToken);
 
     await Promise.all([
       motebehovPromise.then((motebehov) => (res.motebehov = motebehov)),

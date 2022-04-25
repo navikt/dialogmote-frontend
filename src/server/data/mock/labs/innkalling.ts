@@ -1,4 +1,4 @@
-import { Brev } from "../../types/external/BrevTypes";
+import { Brev } from "types/shared/brev";
 
 export const innkallingSM: Brev = {
   uuid: "2fb875a2-325e-4f91-bb53-36592efe30d5",

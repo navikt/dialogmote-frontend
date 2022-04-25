@@ -1,12 +1,10 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { isMockBackend, isOpplaering } from "@/common/publicEnv";
-import serverEnv from "@/server/utils/serverEnv";
-import { get } from "@/common/api/axios/axios";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockAG from "@/server/data/mock/activeMockAG";
 import { activeLabsMockAG } from "../mock/activeLabsMock";
 import { getMotebehovAG } from "@/server/service/motebehovService";
+import { getBrevAG } from "@/server/service/brevService";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,
@@ -28,13 +26,7 @@ export const fetchConcurrentDataAG = async (
       req.loginServiceToken
     );
 
-    const brevPromise = get<Brev[]>(
-      `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`,
-      {
-        accessToken: req.loginServiceToken,
-        personIdent: res.sykmeldt.fnr,
-      }
-    );
+    const brevPromise = getBrevAG(req.loginServiceToken, res.sykmeldt.fnr);
 
     await Promise.all([
       motebehovPromise.then((motebehov) => (res.motebehov = motebehov)),

@@ -6,10 +6,10 @@ import { withSentry } from "@sentry/nextjs";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { combineDialogmoteDataAG } from "@/server/data/arbeidsgiver/combineDialogmoteDataAG";
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
+import { DialogmoteData } from "types/shared/dialogmote";
 
-const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
+const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
   .use(loginServiceToken())
   .use(fetchSykmeldtAG)
   .use(fetchConcurrentDataAG)

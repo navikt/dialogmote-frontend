@@ -3,10 +3,10 @@ import { Alert, GuidePanel } from "@navikt/ds-react";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import VeilederInnkallelseContent from "@/common/components/moteinnkalling/VeilederInnkallelseContent";
 import React from "react";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
 import GiSvarPaInnkallelseA from "@/common/components/moteinnkalling/GiSvarPaInnkallelseAbTest/GiSvarPaInnkallelseA";
 import GiSvarPaInnkallelseB from "@/common/components/moteinnkalling/GiSvarPaInnkallelseAbTest/GiSvarPaInnkallelseB";
+import { Brev } from "types/shared/brev";
 
 interface Props {
   moteinnkalling: Brev;

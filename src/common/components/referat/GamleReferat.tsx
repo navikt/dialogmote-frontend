@@ -2,8 +2,8 @@ import { Events } from "@/common/amplitude/events";
 import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { useReferatPath } from "@/common/hooks/routeHooks";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
-import { Referat } from "@/server/data/types/internal/BrevTypes";
 import React from "react";
+import { Referat } from "types/shared/brev";
 
 const linkText = (moteDato: string) => {
   return `Referat fra møte ${moteDato}`;

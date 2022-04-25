@@ -1,9 +1,9 @@
 import { useQuery } from "react-query";
 import { get } from "@/common/api/axios/axios";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
 import { ApiErrorException } from "@/common/api/axios/errors";
 import { useNotifications } from "@/context/NotificationContext";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 export const DIALOGMOTEDATA_SM = "dialogmotedata-sykmeldt";
 

@@ -2,7 +2,7 @@ import {
   DocumentComponent,
   DocumentComponentKey,
   DocumentComponentType,
-} from "@/server/data/types/external/BrevTypes";
+} from "types/client/brev";
 
 export class DocumentComponentBuilder {
   private readonly documentComponent: DocumentComponent;

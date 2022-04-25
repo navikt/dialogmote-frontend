@@ -4,11 +4,11 @@ import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeR
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import {
   FeatureToggle,
   useFeatureToggles,
 } from "@/common/api/queries/featureFlagsQuery";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 const texts = {
   noMeetingFound: "Vi finner ikke din møteinnkalling.",

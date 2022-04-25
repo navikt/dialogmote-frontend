@@ -2,10 +2,10 @@ import { Events } from "@/common/amplitude/events";
 import { useReferatPath } from "@/common/hooks/routeHooks";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
-import { Referat } from "@/server/data/types/internal/BrevTypes";
 import { LinkPanel } from "@navikt/ds-react";
 import NextLink from "next/link";
 import React from "react";
+import { Referat } from "types/shared/brev";
 
 const texts = {
   text: "Referatet oppsummerer det vi snakket om i dialogmøtet",
