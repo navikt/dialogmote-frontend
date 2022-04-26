@@ -1,4 +1,4 @@
-import { boolean, infer, object, string } from "zod";
+import { boolean, z, object, string } from "zod";
 
 export const sykmeldtSchema = object({
   narmestelederId: string(),
@@ -7,4 +7,4 @@ export const sykmeldtSchema = object({
   navn: string().optional(),
   aktivSykmelding: boolean().optional(),
 });
-export interface SykmeldtDTO extends infer<typeof sykmeldtSchema> {}
+export type SykmeldtDTO = z.infer<typeof sykmeldtSchema>;
