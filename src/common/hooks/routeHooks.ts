@@ -69,3 +69,9 @@ export const usePdfPath = () => {
   const brevuuid = useBrevUuid();
   return `/api/${context}/brev/${brevuuid}/pdf`;
 };
+
+export const useFeaturePath = () => {
+  const router = useRouter();
+
+  return `${router.basePath}/api/features`;
+};

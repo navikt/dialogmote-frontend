@@ -25,20 +25,25 @@ const SvarStyled = styled(DialogmotePanel)`
   flex-direction: column;
 `;
 
+const SmallText = styled.text`
+  font-size: 16px;
+`;
+
 const texts = {
   title: "Svar om du kan komme",
-  infoRequired: "Alle felt er obligatoriske.",
-  svarLegend: "Svar på innkallingen",
+  svarLegend: "Kommer du til møtet? (obligatorisk)",
   svarRequired: "Du må velge et svar",
+  responseRequired: "Svar på innkallingen",
   svarKommer: "Jeg kommer",
   svarEndring: "Jeg ønsker å endre tidspunkt eller sted",
   svarAvlysning: "Jeg ønsker å avlyse",
-  infoEndring: `NAV-kontoret vil vurdere ønsket ditt. Du får et nytt varsel hvis møtet endres. Hvis du ikke får et nytt varsel, er det fortsatt tidspunktet og stedet i denne innkallingen som gjelder.\n\nHusk å begrunne svaret godt slik at NAV-kontoret kan ta beslutningen på et best mulig grunnlag.`,
-  infoAvlysning: `NAV-kontoret vil vurdere ønsket ditt. Du får et nytt varsel hvis møtet avlyses. Hvis du ikke får noe nytt varsel, må du fortsatt stille til møtet i denne innkallingen.\n\nSelv om du ønsker å avlyse, kan det hende NAV-kontoret likevel konkluderer med at et møte er nødvendig. Husk å begrunne svaret godt slik at NAV-kontoret kan ta beslutningen på et best mulig grunnlag.`,
+  infoEndring: `Husk å begrunne svaret godt slik at vi kan ta beslutningen på et best mulig grunnlag. Du får et nytt varsel hvis møtet endres.`,
+  infoAvlysning: `Husk å begrunne svaret godt slik at vi kan ta beslutningen på et best mulig grunnlag. Du får et nytt varsel hvis møtet avlyses.`,
   begrunnelseRequired: "Begrunnelse er obligatorisk",
   begrunnelseMaxLength: "Begrunnelse kan ikke være lenger enn 300 tegn",
-  begrunnelseEndringLabel: "Hvorfor ønsker du å endre tidspunkt eller sted?",
-  begrunnelseAvlysningLabel: "Hvorfor ønsker du å avlyse?",
+  begrunnelseEndringLabel:
+    "Hvorfor ønsker du å endre tidspunkt eller sted? (obligatorisk)",
+  begrunnelseAvlysningLabel: "Hvorfor ønsker du å avlyse? (obligatorisk)",
   begrunnelseDescription:
     "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
   feiloppsummeringTittel: "For å gå videre må du rette opp følgende:",
@@ -71,7 +76,7 @@ interface Props {
   brevUuid: string;
 }
 
-const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
+const GiSvarPaInnkallelseB = ({ brevUuid }: Props): ReactElement => {
   const { trackEvent } = useAmplitude();
   const sendSvarQuery = useSvarPaInnkallelse(brevUuid);
   const [error, setError] = useState<Array<Error>>([]);
@@ -89,6 +94,10 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
     ]);
   };
 
+  const begrunnelseDescriptionSmallText = (
+    <SmallText>{texts.begrunnelseDescription}</SmallText>
+  );
+
   const begrunnelseFieldName: InputFieldType =
     formData.svarType === "KOMMER_IKKE"
       ? inputFields.begrunnelseAvlysning
@@ -96,7 +105,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   const validateForm = (): boolean => {
     if (!formData.svarType) {
-      updateError(inputFields.svarType, texts.svarRequired);
+      updateError(inputFields.svarType, texts.responseRequired);
       return false;
     }
 
@@ -123,6 +132,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
         svarAlternativ: formData.svarType!!,
+        variant: "B",
       });
 
       sendSvarQuery.mutate({
@@ -151,7 +161,18 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <SvarStyled title={texts.title}>
-      <BodyLong>{texts.infoRequired}</BodyLong>
+      {error.length > 0 && (
+        <ErrorSummary heading={texts.feiloppsummeringTittel}>
+          {error.map((error, index) => {
+            return (
+              <ErrorSummary.Item key={index} href={`#${error.inputField}`}>
+                {error.errorMsg}
+              </ErrorSummary.Item>
+            );
+          })}
+        </ErrorSummary>
+      )}
+
       <RadioGroup
         id={inputFields.svarType}
         legend={texts.svarLegend}
@@ -167,14 +188,14 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
       {formData.svarType === "NYTT_TID_STED" && (
         <>
-          <Alert variant="warning">
+          <Alert variant="info">
             <BodyLong>{texts.infoEndring}</BodyLong>
           </Alert>
 
           <Textarea
             id={inputFields.begrunnelseEndring}
             label={texts.begrunnelseEndringLabel}
-            description={texts.begrunnelseDescription}
+            description={begrunnelseDescriptionSmallText}
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseEndring)}
             onChange={handleChangeBegrunnelse}
@@ -185,31 +206,19 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
       {formData.svarType === "KOMMER_IKKE" && (
         <>
-          <Alert variant="warning">
+          <Alert variant="info">
             <BodyLong>{texts.infoAvlysning}</BodyLong>
           </Alert>
           <Textarea
             id={inputFields.begrunnelseAvlysning}
             label={texts.begrunnelseAvlysningLabel}
-            description={texts.begrunnelseDescription}
+            description={begrunnelseDescriptionSmallText}
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseAvlysning)}
             onChange={handleChangeBegrunnelse}
             value={formData.begrunnelse}
           />
         </>
-      )}
-
-      {error.length > 0 && (
-        <ErrorSummary heading={texts.feiloppsummeringTittel}>
-          {error.map((error, index) => {
-            return (
-              <ErrorSummary.Item key={index} href={`#${error.inputField}`}>
-                {error.errorMsg}
-              </ErrorSummary.Item>
-            );
-          })}
-        </ErrorSummary>
       )}
 
       {sendSvarQuery.isError && (
@@ -227,4 +236,4 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   );
 };
 
-export default GiSvarPaInnkallelse;
+export default GiSvarPaInnkallelseB;

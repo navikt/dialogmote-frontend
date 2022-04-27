@@ -6,7 +6,7 @@ metadata:
   labels:
     team: team-esyfo
 spec:
-  image: {{ image }}
+  image: { { image } }
   replicas:
     min: 2
     max: 4
@@ -66,6 +66,8 @@ spec:
       value: https://www-gcp.dev.nav.no/syk/sykefravaer
     - name: BASE_PATH
       value: /syk/dialogmoter
+    - name: FEATURE_TOGGLE_URL
+      value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
   accessPolicy:
     outbound:
       rules:

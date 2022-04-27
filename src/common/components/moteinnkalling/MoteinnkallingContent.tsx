@@ -5,6 +5,10 @@ import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/Paa
 import React from "react";
 import { UseQueryResult } from "react-query";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
+import {
+  FeatureToggle,
+  useFeatureToggles,
+} from "@/common/api/queries/featureFlagsQuery";
 
 const texts = {
   noMeetingFound: "Vi finner ikke din møteinnkalling.",
@@ -18,6 +22,8 @@ interface Props {
 }
 
 export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
+  const featureToggles = useFeatureToggles();
+
   if (dialogmoteData.isSuccess) {
     const moteinnkalling = dialogmoteData.data.moteinnkalling;
 
@@ -47,9 +53,14 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
             : texts.titleEndring
         }
         hideHeader={true}
-        isLoading={dialogmoteData.isLoading}
+        isLoading={dialogmoteData.isLoading || featureToggles.isLoading}
       >
-        <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />
+        <PaagaaendeMoteinnkalling
+          moteinnkalling={moteinnkalling}
+          secondVariant={
+            featureToggles.data?.[FeatureToggle.DialogmoteSvarABTest] ?? false
+          }
+        />
       </DialogmotePage>
     );
   }
