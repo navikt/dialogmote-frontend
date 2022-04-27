@@ -22,6 +22,6 @@ export interface UnleashFeatures {
 
 export type ActiveFeatures = Record<string, boolean>;
 
-export interface FeatureTogglesNextApiResponse extends NextApiResponse {
+export interface FeaturesNextApiResponse extends NextApiResponse {
   features: string;
 }

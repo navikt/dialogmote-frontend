@@ -5,7 +5,7 @@ import { isMockBackend } from "@/common/publicEnv";
 import unleashFeaturesMock from "../mock/unleashFeaturesMock";
 import {
   ActiveFeatures,
-  FeatureTogglesNextApiResponse,
+  FeaturesNextApiResponse,
   UnleashFeature,
   UnleashFeatures,
 } from "../types/features/types";
@@ -18,9 +18,9 @@ const reduceFeatures = (features: UnleashFeature[]): ActiveFeatures =>
     return features;
   }, {});
 
-export const fetchFeatureFlags = async (
+export const fetchFeatures = async (
   req: IAuthenticatedRequest,
-  res: FeatureTogglesNextApiResponse,
+  res: FeaturesNextApiResponse,
   next: () => void
 ) => {
   const response = await get<UnleashFeatures>(serverEnv.FEATURE_TOGGLE_URL);
