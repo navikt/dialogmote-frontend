@@ -14,15 +14,12 @@ export const postMotebehovAG = async (
   if (isMockBackend) {
     return next();
   } else {
-    serverLogger.info(req, "postMotebehovAG, request");
+    const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov`;
+    serverLogger.info(url, "postMotebehovAG, request");
     const svar: ExtMotebehovSvarArbeidsgiver = req.body;
-    await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov`,
-      svar,
-      {
-        accessToken: req.tokenSet.access_token,
-      }
-    );
+    await post(url, svar, {
+      accessToken: req.tokenSet.access_token,
+    });
   }
 
   next();
