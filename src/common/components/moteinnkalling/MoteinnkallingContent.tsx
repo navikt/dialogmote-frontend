@@ -45,6 +45,13 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
       );
     }
 
+    const getRandomVariantBasedOnDate = (date: string) =>
+      (new Date(date).getTime() ?? 0) % 2 === 1;
+
+    const secondVariantCondition =
+      !!featureToggles.data?.[FeatureToggle.DialogmoteSvarABTest] &&
+      getRandomVariantBasedOnDate(moteinnkalling.createdAt);
+
     return (
       <DialogmotePage
         title={
@@ -57,9 +64,7 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
       >
         <PaagaaendeMoteinnkalling
           moteinnkalling={moteinnkalling}
-          secondVariant={
-            featureToggles.data?.[FeatureToggle.DialogmoteSvarABTest] ?? false
-          }
+          secondVariant={secondVariantCondition}
         />
       </DialogmotePage>
     );

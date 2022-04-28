@@ -12,7 +12,7 @@ import {
   RadioGroup,
   Textarea,
 } from "@navikt/ds-react";
-import React, { ChangeEvent, ReactElement, useState } from "react";
+import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const KnappStyled = styled(Button)`
@@ -85,6 +85,12 @@ const GiSvarPaInnkallelseB = ({ brevUuid }: Props): ReactElement => {
     begrunnelse: "",
   });
 
+  const abVariant = "B";
+
+  useEffect(() => {
+    trackEvent(Events.GiSvarPaMoteInnkallingVist, { variant: abVariant });
+  });
+
   const updateError = (inputField: InputFieldType, errorMsg: string) => {
     setError([
       {
@@ -132,7 +138,7 @@ const GiSvarPaInnkallelseB = ({ brevUuid }: Props): ReactElement => {
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
         svarAlternativ: formData.svarType!!,
-        variant: "B",
+        variant: abVariant,
       });
 
       sendSvarQuery.mutate({
