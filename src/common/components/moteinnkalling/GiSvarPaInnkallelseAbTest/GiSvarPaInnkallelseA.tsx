@@ -25,7 +25,7 @@ const SvarStyled = styled(DialogmotePanel)`
   flex-direction: column;
 `;
 
-const MultiLineText = styled.text`
+const BodyLongStyled = styled(BodyLong)`
   white-space: pre-line;
 `;
 
@@ -163,9 +163,7 @@ const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <SvarStyled title={texts.title}>
-      <BodyLong>
-        <MultiLineText>{texts.infoRequired}</MultiLineText>
-      </BodyLong>
+      <BodyLongStyled>{texts.infoRequired}</BodyLongStyled>
       <RadioGroup
         id={inputFields.svarType}
         legend={texts.svarLegend}
@@ -202,9 +200,7 @@ const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
       {formData.svarType === "KOMMER_IKKE" && (
         <>
           <Alert variant="warning">
-            <BodyLong>
-              <MultiLineText>{texts.infoAvlysning}</MultiLineText>
-            </BodyLong>
+            <BodyLongStyled>{texts.infoAvlysning}</BodyLongStyled>
           </Alert>
           <Textarea
             id={inputFields.begrunnelseAvlysning}

@@ -1,9 +1,9 @@
+import React from "react";
+import { UseQueryResult } from "react-query";
 import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeRoute";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
-import React from "react";
-import { UseQueryResult } from "react-query";
 import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import {
   FeatureToggle,

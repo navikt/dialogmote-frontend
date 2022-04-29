@@ -23,7 +23,7 @@ export const fetchFeatures = async (
   res: FeaturesNextApiResponse,
   next: () => void
 ) => {
-  const response = await get<UnleashFeatures>(serverEnv.FEATURE_TOGGLE_URL);
+  const response = await get<UnleashFeatures>(serverEnv.UNLEASH_API_URL);
 
   const getReducedFeatures = () =>
     isMockBackend

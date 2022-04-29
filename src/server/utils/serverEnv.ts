@@ -14,7 +14,7 @@ export interface IServerEnvironmentVariables {
   DITT_SYKEFRAVAER_ROOT: string;
   DINE_SYKMELDTE_ROOT: string;
   MOCK_BACKEND: string;
-  FEATURE_TOGGLE_URL: string;
+  UNLEASH_API_URL: string;
 }
 
 // TODO: Add assertions on required env variables
