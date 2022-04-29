@@ -29,6 +29,11 @@ const BodyLongStyled = styled(BodyLong)`
   white-space: pre-line;
 `;
 
+const SmallText = styled.text`
+  font-size: 16px;
+  line-height: 22px;
+`;
+
 const texts = {
   title: "Svar om du kan komme",
   infoRequired: "Alle felt er obligatoriske.",
@@ -99,6 +104,10 @@ const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
       },
     ]);
   };
+
+  const begrunnelseDescriptionSmallText = (
+    <SmallText>{texts.begrunnelseDescription}</SmallText>
+  );
 
   const begrunnelseFieldName: InputFieldType =
     formData.svarType === "KOMMER_IKKE"
@@ -188,7 +197,7 @@ const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
           <Textarea
             id={inputFields.begrunnelseEndring}
             label={texts.begrunnelseEndringLabel}
-            description={texts.begrunnelseDescription}
+            description={begrunnelseDescriptionSmallText}
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseEndring)}
             onChange={handleChangeBegrunnelse}
@@ -205,7 +214,7 @@ const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
           <Textarea
             id={inputFields.begrunnelseAvlysning}
             label={texts.begrunnelseAvlysningLabel}
-            description={texts.begrunnelseDescription}
+            description={begrunnelseDescriptionSmallText}
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseAvlysning)}
             onChange={handleChangeBegrunnelse}

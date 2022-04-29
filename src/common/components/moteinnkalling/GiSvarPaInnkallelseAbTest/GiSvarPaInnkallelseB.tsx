@@ -27,6 +27,7 @@ const SvarStyled = styled(DialogmotePanel)`
 
 const SmallText = styled.text`
   font-size: 16px;
+  line-height: 22px;
 `;
 
 const texts = {
