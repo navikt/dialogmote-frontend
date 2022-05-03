@@ -8,7 +8,7 @@ import { FeaturesNextApiResponse } from "@/server/data/types/features/types";
 const handler = nc<NextApiRequest, NextApiResponse>(ncOptions)
   .use(fetchFeatures)
   .get(async (req: NextApiRequest, res: FeaturesNextApiResponse) => {
-    res.status(200).end(res.features);
+    res.status(200).json(res.features);
   });
 
 export default withSentry(handler);

@@ -23,14 +23,12 @@ export const fetchFeatures = async (
   res: FeaturesNextApiResponse,
   next: () => void
 ) => {
-  const response = await get<UnleashFeatures>(serverEnv.UNLEASH_API_URL);
-
-  const getReducedFeatures = () =>
-    isMockBackend
-      ? reduceFeatures(unleashFeaturesMock)
-      : reduceFeatures(response.features);
-
-  res.features = JSON.stringify(getReducedFeatures());
+  if (isMockBackend) {
+    res.features = reduceFeatures(unleashFeaturesMock);
+  } else {
+    const response = await get<UnleashFeatures>(serverEnv.UNLEASH_API_URL);
+    res.features = reduceFeatures(response.features);
+  }
 
   next();
 };

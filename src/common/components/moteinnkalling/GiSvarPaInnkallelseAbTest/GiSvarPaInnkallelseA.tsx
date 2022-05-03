@@ -189,9 +189,7 @@ const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
       {formData.svarType === "NYTT_TID_STED" && (
         <>
           <Alert variant="warning">
-            <BodyLong style={{ whiteSpace: "pre-line" }}>
-              {texts.infoEndring}
-            </BodyLong>
+            <BodyLongStyled>{texts.infoEndring}</BodyLongStyled>
           </Alert>
 
           <Textarea
