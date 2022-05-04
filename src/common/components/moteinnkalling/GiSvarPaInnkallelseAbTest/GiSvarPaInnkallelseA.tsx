@@ -12,7 +12,7 @@ import {
   RadioGroup,
   Textarea,
 } from "@navikt/ds-react";
-import React, { ChangeEvent, ReactElement, useState } from "react";
+import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const KnappStyled = styled(Button)`
@@ -25,11 +25,21 @@ const SvarStyled = styled(DialogmotePanel)`
   flex-direction: column;
 `;
 
+const BodyLongStyled = styled(BodyLong)`
+  white-space: pre-line;
+`;
+
+const SmallText = styled.text`
+  font-size: 16px;
+  line-height: 22px;
+`;
+
 const texts = {
   title: "Svar om du kan komme",
   infoRequired: "Alle felt er obligatoriske.",
   svarLegend: "Svar på innkallingen",
   svarRequired: "Du må velge et svar",
+  responseRequired: "Svar på innkallingen",
   svarKommer: "Jeg kommer",
   svarEndring: "Jeg ønsker å endre tidspunkt eller sted",
   svarAvlysning: "Jeg ønsker å avlyse",
@@ -71,13 +81,19 @@ interface Props {
   brevUuid: string;
 }
 
-const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
+const GiSvarPaInnkallelseA = ({ brevUuid }: Props): ReactElement => {
   const { trackEvent } = useAmplitude();
   const sendSvarQuery = useSvarPaInnkallelse(brevUuid);
   const [error, setError] = useState<Array<Error>>([]);
   const [formData, setFormData] = useState<FormData>({
     svarType: undefined,
     begrunnelse: "",
+  });
+
+  const abVariant = "A";
+
+  useEffect(() => {
+    trackEvent(Events.GiSvarPaMoteInnkallingVist, { variant: abVariant });
   });
 
   const updateError = (inputField: InputFieldType, errorMsg: string) => {
@@ -89,6 +105,10 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
     ]);
   };
 
+  const begrunnelseDescriptionSmallText = (
+    <SmallText>{texts.begrunnelseDescription}</SmallText>
+  );
+
   const begrunnelseFieldName: InputFieldType =
     formData.svarType === "KOMMER_IKKE"
       ? inputFields.begrunnelseAvlysning
@@ -96,7 +116,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   const validateForm = (): boolean => {
     if (!formData.svarType) {
-      updateError(inputFields.svarType, texts.svarRequired);
+      updateError(inputFields.svarType, texts.responseRequired);
       return false;
     }
 
@@ -123,6 +143,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
         svarAlternativ: formData.svarType!!,
+        variant: abVariant,
       });
 
       sendSvarQuery.mutate({
@@ -151,7 +172,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <SvarStyled title={texts.title}>
-      <BodyLong>{texts.infoRequired}</BodyLong>
+      <BodyLongStyled>{texts.infoRequired}</BodyLongStyled>
       <RadioGroup
         id={inputFields.svarType}
         legend={texts.svarLegend}
@@ -168,13 +189,13 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
       {formData.svarType === "NYTT_TID_STED" && (
         <>
           <Alert variant="warning">
-            <BodyLong>{texts.infoEndring}</BodyLong>
+            <BodyLongStyled>{texts.infoEndring}</BodyLongStyled>
           </Alert>
 
           <Textarea
             id={inputFields.begrunnelseEndring}
             label={texts.begrunnelseEndringLabel}
-            description={texts.begrunnelseDescription}
+            description={begrunnelseDescriptionSmallText}
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseEndring)}
             onChange={handleChangeBegrunnelse}
@@ -186,12 +207,12 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
       {formData.svarType === "KOMMER_IKKE" && (
         <>
           <Alert variant="warning">
-            <BodyLong>{texts.infoAvlysning}</BodyLong>
+            <BodyLongStyled>{texts.infoAvlysning}</BodyLongStyled>
           </Alert>
           <Textarea
             id={inputFields.begrunnelseAvlysning}
             label={texts.begrunnelseAvlysningLabel}
-            description={texts.begrunnelseDescription}
+            description={begrunnelseDescriptionSmallText}
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseAvlysning)}
             onChange={handleChangeBegrunnelse}
@@ -227,4 +248,4 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   );
 };
 
-export default GiSvarPaInnkallelse;
+export default GiSvarPaInnkallelseA;
