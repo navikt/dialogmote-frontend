@@ -31,7 +31,7 @@ const SmallText = styled.text`
 `;
 
 const texts = {
-  title: "Svar om du kan komme",
+  title: "Gi oss ditt svar",
   svarLegend: "Kommer du til møtet? (obligatorisk)",
   svarRequired: "Du må velge et svar",
   responseRequired: "Svar på innkallingen",
