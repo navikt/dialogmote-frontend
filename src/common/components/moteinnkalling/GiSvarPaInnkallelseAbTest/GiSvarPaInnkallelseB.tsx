@@ -90,7 +90,7 @@ const GiSvarPaInnkallelseB = ({ brevUuid }: Props): ReactElement => {
 
   useEffect(() => {
     trackEvent(Events.GiSvarPaMoteInnkallingVist, { variant: abVariant });
-  });
+  }, []);
 
   const updateError = (inputField: InputFieldType, errorMsg: string) => {
     setError([
