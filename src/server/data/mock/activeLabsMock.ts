@@ -1,12 +1,12 @@
+import { BrevDTO } from "@/server/service/schema/brevSchema";
 import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
-import { Brev } from "types/shared/brev";
 import { innkallingAG, innkallingSM } from "./labs/innkalling";
 import { referat1, referat2 } from "./labs/referat";
 
 interface IMockData {
   sykmeldt?: SykmeldtDTO; //For arbeidsgiver
-  brev: Brev[];
+  brev: BrevDTO[];
   motebehov: MotebehovDTO;
 }
 

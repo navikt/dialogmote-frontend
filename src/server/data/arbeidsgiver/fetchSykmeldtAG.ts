@@ -4,6 +4,7 @@ import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import activeMockAG from "@/server/data/mock/activeMockAG";
 import { activeLabsMockAG } from "../mock/activeLabsMock";
 import { getSykmeldt } from "@/server/service/sykmeldtService";
+import { handleSchemaParsingError } from "@/server/utils/errors";
 
 export const fetchSykmeldtAG = async (
   req: IAuthenticatedRequest,
@@ -18,10 +19,16 @@ export const fetchSykmeldtAG = async (
     }
   } else {
     const { narmestelederid } = req.query;
-    res.sykmeldt = await getSykmeldt(
+    const sykmeldtRes = await getSykmeldt(
       narmestelederid as string,
       req.loginServiceToken
     );
+
+    if (sykmeldtRes.success) {
+      res.sykmeldt = sykmeldtRes.data;
+    } else {
+      handleSchemaParsingError("Arbeidsgiver", "Sykmeldt", sykmeldtRes.error);
+    }
   }
 
   next();
