@@ -39,15 +39,15 @@ const documentComponentKey = union([
 
 const documentComponent = object({
   type: documentComponentType,
-  key: documentComponentKey.optional(),
-  title: string().optional(),
+  key: documentComponentKey.nullable(),
+  title: string().nullable(),
   texts: array(string()),
 });
 
 const svar = object({
   svarTidspunkt: string(),
   svarType: svarType,
-  svarTekst: string().optional(),
+  svarTekst: string().nullable(),
 });
 
 export const brevSchema = object({
@@ -55,15 +55,15 @@ export const brevSchema = object({
   deltakerUuid: string(),
   createdAt: string(),
   brevType: brevType,
-  digitalt: boolean(),
-  lestDato: string().optional(),
+  digitalt: boolean().nullable(),
+  lestDato: string().nullable(),
   fritekst: string(),
   sted: string(),
   tid: string(),
-  videoLink: string().optional(),
+  videoLink: string().nullable(),
   document: array(documentComponent),
   virksomhetsnummer: string(),
-  svar: svar.optional(),
+  svar: svar.nullable(),
 });
 
 export type BrevDTO = z.infer<typeof brevSchema>;

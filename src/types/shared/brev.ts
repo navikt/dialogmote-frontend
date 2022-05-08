@@ -12,10 +12,10 @@ type InfoUrl = {
   url: string;
 };
 
-type ReferatDocumentComponent = {
+export type ReferatDocumentComponent = {
   type: BrevDocumentComponentTypeDTO;
   infoUrl?: InfoUrl;
-  title?: string;
+  title: string | null;
   texts: string[];
 };
 
@@ -23,7 +23,7 @@ export interface Referat {
   uuid: string;
   createdAt: string;
   tid: string;
-  lestDato?: string;
+  lestDato: string | null;
   endring?: boolean;
   document: ReferatDocumentComponent[];
 }

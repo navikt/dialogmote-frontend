@@ -11,12 +11,15 @@ export class BrevBuilder {
       deltakerUuid: "324",
       createdAt: new Date().toISOString(),
       brevType: "INNKALT",
-      digitalt: true,
+      digitalt: null,
+      lestDato: null,
+      videoLink: null,
       fritekst: "Yoyo",
       sted: "Ørsta Rådhus",
       tid: new Date().toISOString(),
       document: [],
       virksomhetsnummer: "234",
+      svar: null,
     };
   }
 

@@ -23,8 +23,8 @@ const motebehov = object({
 
 export const motebehovSchema = object({
   visMotebehov: boolean(),
-  skjemaType: skjemaType.nullable().optional(),
-  motebehov: motebehov.nullable().optional(),
+  skjemaType: skjemaType.nullish(),
+  motebehov: motebehov.nullish(),
 });
 
 export type MotebehovDTO = z.infer<typeof motebehovSchema>;

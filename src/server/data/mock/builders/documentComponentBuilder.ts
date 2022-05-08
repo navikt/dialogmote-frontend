@@ -10,6 +10,8 @@ export class DocumentComponentBuilder {
   constructor() {
     this.documentComponent = {
       type: "PARAGRAPH",
+      title: null,
+      key: null,
       texts: [],
     };
   }
