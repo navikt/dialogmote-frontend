@@ -54,4 +54,5 @@ export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   },
   IKKE_BEHOV: undefined,
   OKONOMISK_STOTTE: undefined,
+  UNKNOWN: undefined,
 };

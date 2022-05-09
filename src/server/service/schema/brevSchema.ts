@@ -1,4 +1,14 @@
-import { union, object, literal, boolean, string, z, array } from "zod";
+import serverLogger from "@/server/utils/serverLogger";
+import {
+  union,
+  object,
+  literal,
+  boolean,
+  string,
+  z,
+  array,
+  preprocess,
+} from "zod";
 
 const documentComponentType = union([
   literal("HEADER"),
@@ -6,6 +16,11 @@ const documentComponentType = union([
   literal("HEADER_H2"),
   literal("PARAGRAPH"),
   literal("LINK"),
+]);
+
+const documentComponentTypeWithUnknown = union([
+  documentComponentType,
+  literal("UNKNOWN"),
 ]);
 
 const svarType = union([
@@ -37,9 +52,17 @@ const documentComponentKey = union([
   literal("INGEN_RETTIGHETER"),
 ]);
 
+const documentComponentKeyWithUnknown = union([
+  documentComponentKey,
+  literal("UNKNOWN"),
+]);
+
 const documentComponent = object({
-  type: documentComponentType,
-  key: documentComponentKey.nullable(),
+  type: preprocess(transformComponentType, documentComponentTypeWithUnknown),
+  key: preprocess(
+    transformDocumentKey,
+    documentComponentKeyWithUnknown.nullable()
+  ),
   title: string().nullable(),
   texts: array(string()),
 });
@@ -66,10 +89,34 @@ export const brevSchema = object({
   svar: svar.nullable(),
 });
 
+function transformComponentType(type: unknown): string {
+  const parsedType = documentComponentType.safeParse(type);
+
+  if (parsedType.success) return parsedType.data;
+
+  serverLogger.error(
+    `Unknown component type received in brev-schema: ${String(type)}`
+  );
+  return "UNKNOWN";
+}
+
+function transformDocumentKey(key: unknown): string | null {
+  const parsedKey = documentComponentKey.nullable().safeParse(key);
+
+  if (parsedKey.success) return parsedKey.data;
+
+  serverLogger.error(
+    `Unknown document key received in brev-schema: ${String(key)}`
+  );
+  return "UNKNOWN";
+}
+
 export type BrevDTO = z.infer<typeof brevSchema>;
 export type BrevTypeDTO = z.infer<typeof brevType>;
 export type BrevDocumentComponentDTO = z.infer<typeof documentComponent>;
 export type BrevDocumentComponentTypeDTO = z.infer<
-  typeof documentComponentType
+  typeof documentComponentTypeWithUnknown
 >;
-export type BrevDocumentComponentKeyDTO = z.infer<typeof documentComponentKey>;
+export type BrevDocumentComponentKeyDTO = z.infer<
+  typeof documentComponentKeyWithUnknown
+>;
