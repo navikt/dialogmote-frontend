@@ -4,7 +4,7 @@ export const sykmeldtSchema = object({
   narmestelederId: string(),
   orgnummer: string(),
   fnr: string(),
-  navn: string().optional(),
-  aktivSykmelding: boolean().optional(),
+  navn: string().nullish(),
+  aktivSykmelding: boolean().nullish(),
 });
 export type SykmeldtDTO = z.infer<typeof sykmeldtSchema>;

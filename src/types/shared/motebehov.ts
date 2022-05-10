@@ -6,7 +6,7 @@ export interface MotebehovSvar {
   opprettetDato?: string;
   virksomhetsnummer?: string;
   harMotebehov?: boolean;
-  forklaring?: string;
+  forklaring: string | null;
 }
 
 export interface Motebehov {

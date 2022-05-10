@@ -51,6 +51,10 @@ const activeMockSM = new MockDataBuilder()
             "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri). Har vondt i tåa.",
         },
         opprettetDato: "2019-11-08T12:35:37.669+01:00",
+        tildeltEnhet: null,
+        behandletTidspunkt: null,
+        behandletVeilederIdent: null,
+        skjemaType: null,
       })
       .build()
   )

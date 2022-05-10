@@ -19,10 +19,10 @@ export const activeLabsMockAG: IMockData = {
     aktivSykmelding: true,
   },
   brev: [innkallingAG, referat1, referat2],
-  motebehov: { visMotebehov: false },
+  motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
 };
 
 export const activeLabsMockSM: IMockData = {
   brev: [innkallingSM, referat1, referat2],
-  motebehov: { visMotebehov: false },
+  motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
 };

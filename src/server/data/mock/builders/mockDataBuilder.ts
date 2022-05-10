@@ -15,9 +15,7 @@ export class MockDataBuilder {
     this.mockData = {
       sykmeldt: undefined,
       brev: [],
-      motebehov: {
-        visMotebehov: false,
-      },
+      motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     };
   }
 
