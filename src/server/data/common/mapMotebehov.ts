@@ -5,9 +5,9 @@ import {
 import { Motebehov, MotebehovSvar } from "types/shared/motebehov";
 
 const mapMotebehovSvar = (
-  motebehovData: MotebehovDataDTO | null | undefined
-): MotebehovSvar | undefined => {
-  if (!motebehovData) return undefined;
+  motebehovData: MotebehovDataDTO | null
+): MotebehovSvar | null => {
+  if (!motebehovData) return null;
 
   return {
     harMotebehov: motebehovData.motebehovSvar.harMotebehov,

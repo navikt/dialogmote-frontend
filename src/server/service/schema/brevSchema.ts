@@ -78,7 +78,7 @@ export const brevSchema = object({
   deltakerUuid: string(),
   createdAt: string(),
   brevType: brevType,
-  digitalt: boolean().nullable(),
+  digitalt: boolean().nullish(),
   lestDato: string().nullable(),
   fritekst: string(),
   sted: string(),
