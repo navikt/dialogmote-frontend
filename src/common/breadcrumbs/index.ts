@@ -9,17 +9,21 @@ import {
   referatBreadcrumbSM,
 } from "./breadcrumbPaths";
 
-export function createBreadcrumbsAG(pathname: string, narmestelederid: string) {
+export function createBreadcrumbsAG(
+  pathname: string,
+  sykmeldtName: string,
+  narmestelederid: string
+) {
   switch (pathname) {
     case "/arbeidsgiver/[narmestelederid]":
-      return landingBreadcrumbAG(narmestelederid);
+      return landingBreadcrumbAG(sykmeldtName, narmestelederid);
     case "/arbeidsgiver/[narmestelederid]/referat/[brevuuid]":
-      return referatBreadcrumbAG(narmestelederid);
+      return referatBreadcrumbAG(sykmeldtName, narmestelederid);
     case "/arbeidsgiver/[narmestelederid]/moteinnkalling":
-      return moteinnkallingBreadcrumbAG(narmestelederid);
+      return moteinnkallingBreadcrumbAG(sykmeldtName, narmestelederid);
     case "/arbeidsgiver/[narmestelederid]/motebehov/meld":
     case "/arbeidsgiver/[narmestelederid]/motebehov/svar":
-      return motebehovBreadcrumbAG(narmestelederid);
+      return motebehovBreadcrumbAG(sykmeldtName, narmestelederid);
     default:
       return [];
   }
