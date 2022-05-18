@@ -1,8 +1,8 @@
-import { Brev } from "@/server/data/types/external/BrevTypes";
-import { Referat } from "@/server/data/types/internal/BrevTypes";
 import { infoUrls } from "@/common/constants/InfoUrls";
+import { BrevDTO } from "@/server/service/schema/brevSchema";
+import { Referat } from "types/shared/brev";
 
-export const mapReferater = (brev?: Brev[]): Referat[] => {
+export const mapReferater = (brev?: BrevDTO[]): Referat[] => {
   return (
     brev
       ?.filter(

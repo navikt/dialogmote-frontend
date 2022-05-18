@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "@navikt/ds-react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { MotebehovSkjemaType } from "@/server/data/types/internal/MotebehovTypes";
 import { useRouter } from "next/router";
+import { MotebehovSkjemaType } from "types/shared/motebehov";
 
 const texts = {
   button: "Meld behov for møte",

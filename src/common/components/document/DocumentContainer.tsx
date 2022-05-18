@@ -1,9 +1,10 @@
 import { Heading } from "@navikt/ds-react";
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { DocumentComponent } from "@/server/data/types/external/BrevTypes";
 import DocumentRenderer from "@/common/components/document/DocumentRenderer";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
+import { DocumentComponent } from "types/client/brev";
+import { ReferatDocumentComponent } from "types/shared/brev";
 
 const DocumentWrapperStyled = styled.div`
   display: flex;
@@ -16,13 +17,12 @@ const DocumentWrapperStyled = styled.div`
   margin-bottom: 2rem;
   margin-top: 2rem;
 `;
-
 interface DocumentContainerProps {
   title: string;
-  document: DocumentComponent[];
+  document: DocumentComponent[] | ReferatDocumentComponent[];
   className?: string;
   children?: React.ReactNode;
-  lestDato?: string;
+  lestDato?: string | null;
   brevUuid: string;
 }
 

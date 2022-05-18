@@ -1,27 +1,24 @@
 import {
-  ExtMotebehov,
-  ExtMotebehovStatus,
-} from "@/server/data/types/external/ExternalMotebehovTypes";
-import {
-  Motebehov,
-  MotebehovSvar,
-} from "@/server/data/types/internal/MotebehovTypes";
+  MotebehovDataDTO,
+  MotebehovDTO,
+} from "@/server/service/schema/motebehovSchema";
+import { Motebehov, MotebehovSvar } from "types/shared/motebehov";
 
 const mapMotebehovSvar = (
-  motebehovSvar: ExtMotebehov | null | undefined
-): MotebehovSvar | undefined => {
-  if (!motebehovSvar) return undefined;
+  motebehovData: MotebehovDataDTO | null
+): MotebehovSvar | null => {
+  if (!motebehovData) return null;
 
   return {
-    harMotebehov: motebehovSvar.motebehovSvar.harMotebehov,
-    forklaring: motebehovSvar.motebehovSvar.forklaring,
-    opprettetDato: motebehovSvar.opprettetDato,
-    virksomhetsnummer: motebehovSvar.virksomhetsnummer,
+    harMotebehov: motebehovData.motebehovSvar.harMotebehov,
+    forklaring: motebehovData.motebehovSvar.forklaring,
+    opprettetDato: motebehovData.opprettetDato,
+    virksomhetsnummer: motebehovData.virksomhetsnummer,
   };
 };
 
 export const mapMotebehov = (
-  motebehovStatus: ExtMotebehovStatus,
+  motebehovStatus: MotebehovDTO,
   isLatestBrevOngoingMoteinnkalling: boolean
 ): Motebehov | undefined => {
   const displayMotebehov =

@@ -1,14 +1,14 @@
-import { Brev } from "@/server/data/types/external/BrevTypes";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import { mapReferater } from "@/server/data/common/mapReferater";
-import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 import { mapMotebehov } from "@/server/data/common/mapMotebehov";
-import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
+import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { BrevDTO } from "@/server/service/schema/brevSchema";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 export const mapDialogmoteData = (
-  motebehov: ExtMotebehovStatus,
-  brevArray?: Brev[],
-  sykmeldt?: Sykmeldt
+  motebehov: MotebehovDTO,
+  brevArray?: BrevDTO[],
+  sykmeldt?: SykmeldtDTO
 ): DialogmoteData => {
   const brevArraySorted = brevArray?.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()

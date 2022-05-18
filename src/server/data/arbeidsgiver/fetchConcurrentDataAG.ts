@@ -1,12 +1,11 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { isMockBackend, isOpplaering } from "@/common/publicEnv";
-import serverEnv from "@/server/utils/serverEnv";
-import { get } from "@/common/api/axios/axios";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import activeMockAG from "@/server/data/mock/activeMockAG";
-import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
 import { activeLabsMockAG } from "../mock/activeLabsMock";
+import { getMotebehovAG } from "@/server/service/motebehovService";
+import { getBrevAG } from "@/server/service/brevService";
+import { handleSchemaParsingError } from "@/server/utils/errors";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,
@@ -15,32 +14,33 @@ export const fetchConcurrentDataAG = async (
 ) => {
   if (isMockBackend) {
     if (isOpplaering) {
-      res.motebehovStatus = activeLabsMockAG.motebehov;
+      res.motebehov = activeLabsMockAG.motebehov;
       res.brevArray = activeLabsMockAG.brev;
     } else {
-      res.motebehovStatus = activeMockAG.motebehov;
+      res.motebehov = activeMockAG.motebehov;
       res.brevArray = activeMockAG.brev;
     }
   } else {
-    const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v2/motebehov?fnr=${res.sykmeldt.fnr}&virksomhetsnummer=${res.sykmeldt.orgnummer}`,
-      {
-        accessToken: req.loginServiceToken,
-      }
+    const motebehovPromise = getMotebehovAG(
+      res.sykmeldt.fnr,
+      res.sykmeldt.orgnummer,
+      req.loginServiceToken
     );
+    const brevPromise = getBrevAG(req.loginServiceToken, res.sykmeldt.fnr);
 
-    const brevPromise = get<Brev[]>(
-      `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`,
-      {
-        accessToken: req.loginServiceToken,
-        personIdent: res.sykmeldt.fnr,
-      }
-    );
-
-    await Promise.all([
-      motebehovPromise.then((motebehov) => (res.motebehovStatus = motebehov)),
-      brevPromise.then((brev) => (res.brevArray = brev)),
+    const [motebehovRes, brevRes] = await Promise.all([
+      motebehovPromise,
+      brevPromise,
     ]);
+
+    if (motebehovRes.success && brevRes.success) {
+      res.motebehov = motebehovRes.data;
+      res.brevArray = brevRes.data;
+    } else if (!motebehovRes.success) {
+      handleSchemaParsingError("Arbeidsgiver", "Motebehov", motebehovRes.error);
+    } else if (!brevRes.success) {
+      handleSchemaParsingError("Arbeidsgiver", "Brev", brevRes.error);
+    }
   }
 
   next();

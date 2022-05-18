@@ -1,10 +1,10 @@
 import { NextApiResponse } from "next";
-import { Brev } from "@/server/data/types/external/BrevTypes";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
-import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { BrevDTO } from "@/server/service/schema/brevSchema";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 export interface NextApiResponseSM extends NextApiResponse {
-  motebehovStatus: ExtMotebehovStatus;
-  brevArray: Brev[];
+  motebehov: MotebehovDTO;
+  brevArray: BrevDTO[];
   dialogmoteData: DialogmoteData;
 }

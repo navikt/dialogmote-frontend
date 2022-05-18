@@ -2,7 +2,7 @@ import {
   DocumentComponent,
   DocumentComponentKey,
   DocumentComponentType,
-} from "@/server/data/types/external/BrevTypes";
+} from "types/client/brev";
 
 export class DocumentComponentBuilder {
   private readonly documentComponent: DocumentComponent;
@@ -10,6 +10,8 @@ export class DocumentComponentBuilder {
   constructor() {
     this.documentComponent = {
       type: "PARAGRAPH",
+      title: null,
+      key: null,
       texts: [],
     };
   }

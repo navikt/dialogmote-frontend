@@ -1,13 +1,13 @@
-import { Brev } from "../types/external/BrevTypes";
-import { ExtMotebehovStatus } from "../types/external/ExternalMotebehovTypes";
-import { Sykmeldt } from "../types/external/SykmeldteTypes";
+import { BrevDTO } from "@/server/service/schema/brevSchema";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 import { innkallingAG, innkallingSM } from "./labs/innkalling";
 import { referat1, referat2 } from "./labs/referat";
 
 interface IMockData {
-  sykmeldt?: Sykmeldt; //For arbeidsgiver
-  brev: Brev[];
-  motebehov: ExtMotebehovStatus;
+  sykmeldt?: SykmeldtDTO; //For arbeidsgiver
+  brev: BrevDTO[];
+  motebehov: MotebehovDTO;
 }
 
 export const activeLabsMockAG: IMockData = {
@@ -19,10 +19,10 @@ export const activeLabsMockAG: IMockData = {
     aktivSykmelding: true,
   },
   brev: [innkallingAG, referat1, referat2],
-  motebehov: { visMotebehov: false },
+  motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
 };
 
 export const activeLabsMockSM: IMockData = {
   brev: [innkallingSM, referat1, referat2],
-  motebehov: { visMotebehov: false },
+  motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
 };

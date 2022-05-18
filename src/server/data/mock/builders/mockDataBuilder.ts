@@ -1,11 +1,11 @@
-import { Brev } from "@/server/data/types/external/BrevTypes";
-import { Sykmeldt } from "@/server/data/types/external/SykmeldteTypes";
-import { ExtMotebehovStatus } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { Brev } from "types/shared/brev";
+import { Sykmeldt } from "types/shared/sykmeldt";
 
 interface IMockData {
   sykmeldt?: Sykmeldt; //For arbeidsgiver
   brev: Brev[];
-  motebehov: ExtMotebehovStatus;
+  motebehov: MotebehovDTO;
 }
 
 export class MockDataBuilder {
@@ -15,9 +15,7 @@ export class MockDataBuilder {
     this.mockData = {
       sykmeldt: undefined,
       brev: [],
-      motebehov: {
-        visMotebehov: false,
-      },
+      motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     };
   }
 
@@ -39,7 +37,7 @@ export class MockDataBuilder {
     return this;
   }
 
-  withMotebehov(motebehov: ExtMotebehovStatus) {
+  withMotebehov(motebehov: MotebehovDTO) {
     this.mockData.motebehov = motebehov;
     return this;
   }

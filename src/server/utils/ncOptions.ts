@@ -1,7 +1,11 @@
 import { Options } from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
 import serverLogger from "@/server/utils/serverLogger";
-import { ApiErrorException, ErrorType } from "@/common/api/axios/errors";
+import {
+  ApiErrorException,
+  defaultErrorTexts,
+  ErrorType,
+} from "@/common/api/axios/errors";
 
 export const ncOptions: Options<NextApiRequest, NextApiResponse> = {
   onError: (
@@ -20,5 +24,7 @@ export const ncOptions: Options<NextApiRequest, NextApiResponse> = {
           return res.status(500).end(err.error.defaultErrorMsg);
       }
     }
+
+    return res.status(500).end(defaultErrorTexts.generalError);
   },
 };

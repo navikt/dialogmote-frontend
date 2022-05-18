@@ -1,8 +1,9 @@
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { InfoUrl, Referat } from "@/server/data/types/internal/BrevTypes";
 import { Alert, Heading, Link } from "@navikt/ds-react";
 import styled from "styled-components";
+import { InfoUrl } from "types/client/infoUrl";
+import { Referat } from "types/shared/brev";
 
 const texts = {
   title: "Du kan finne mer informasjon på nav.no:",

@@ -10,6 +10,7 @@ export enum ErrorType {
   GENERAL_ERROR = "GENERAL_ERROR",
   NETWORK_ERROR = "NETWORK_ERROR",
   LOGIN_REQUIRED = "LOGIN_REQUIRED",
+  SCHEMA_PARSING_ERROR = "SCHEMA_PARSING_ERROR",
 }
 
 export class ApiErrorException extends Error {
@@ -48,4 +49,10 @@ export const networkError = (error: Error): ApiError => ({
   type: ErrorType.NETWORK_ERROR,
   message: error.message,
   defaultErrorMsg: defaultErrorTexts.networkError,
+});
+
+export const schemaParsingError = (error: Error): ApiError => ({
+  type: ErrorType.SCHEMA_PARSING_ERROR,
+  message: error.message,
+  defaultErrorMsg: defaultErrorTexts.generalError,
 });

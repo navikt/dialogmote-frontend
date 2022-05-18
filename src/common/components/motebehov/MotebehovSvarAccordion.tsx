@@ -1,7 +1,7 @@
 import { Accordion } from "@navikt/ds-react";
 import MotebehovKvittering from "@/common/components/motebehov/MotebehovKvittering";
 import React, { useState } from "react";
-import { Motebehov } from "@/server/data/types/internal/MotebehovTypes";
+import { Motebehov } from "types/shared/motebehov";
 
 const texts = {
   seSvaretDitt: "Se svaret ditt",
