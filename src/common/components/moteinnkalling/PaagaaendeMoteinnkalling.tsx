@@ -50,7 +50,7 @@ export const PaagaaendeMoteinnkalling = ({
       {moteinnkalling.svar?.svarType ? (
         <DittSvarPaInnkallelse svarType={moteinnkalling.svar?.svarType} />
       ) : (
-        giSvarPaInnkallelse()
+        !isDateInPast(moteinnkalling.tid) && giSvarPaInnkallelse()
       )}
 
       {moteinnkalling.videoLink && (
