@@ -1,9 +1,9 @@
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { DialogReport } from "@navikt/ds-icons";
-import { Motebehov } from "@/server/data/types/internal/MotebehovTypes";
 import { InfoOmDialogmote } from "@/common/components/motebehov/InfoOmDialogmote";
 import { MotebehovSubmitButton } from "@/common/components/motebehov/MotebehovSubmitButton";
+import { Motebehov } from "types/shared/motebehov";
 
 const texts = {
   titleTrengerMote: "Trenger dere et dialogmøte med NAV?",

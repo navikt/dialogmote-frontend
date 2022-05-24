@@ -3,6 +3,7 @@ import React from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
 import styled from "styled-components";
+import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
 export const texts = {
   title: "Husk å lage en ny oppfølgingsplan før møtet.",
@@ -29,6 +30,8 @@ const StyledGuidePanel = styled(GuidePanel)`
 
 export const HuskOppfolgingsplanGuidePanel = () => {
   const { isAudienceSykmeldt } = useAudience();
+  const narmestelederid = useNarmesteLederId();
+
   return (
     <StyledGuidePanel poster>
       <Heading spacing level="2" size="medium">
@@ -43,7 +46,9 @@ export const HuskOppfolgingsplanGuidePanel = () => {
             {texts.old.forDuSvarer.ikkeLagetPlan}{" "}
             <Link
               href={
-                isAudienceSykmeldt ? oppfolgingsplanUrlSM : oppfolgingsplanUrlAG
+                isAudienceSykmeldt
+                  ? oppfolgingsplanUrlSM
+                  : `${oppfolgingsplanUrlAG}/${narmestelederid}`
               }
             >
               {texts.old.tekstInformasjonInnhold.lenke}

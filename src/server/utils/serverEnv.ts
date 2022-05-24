@@ -15,6 +15,7 @@ export interface IServerEnvironmentVariables {
   DITT_SYKEFRAVAER_ROOT: string;
   DINE_SYKMELDTE_ROOT: string;
   MOCK_BACKEND: string;
+  UNLEASH_API_URL: string;
   SYFOMOTEBEHOV_TOKENX_CLIENT_ID: string;
   basePath: string;
 }

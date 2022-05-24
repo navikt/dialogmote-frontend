@@ -11,8 +11,8 @@ import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovH
 import { DelOppfolgingsplanInfoBoks } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoks";
 import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovHarIkkeSvartPanel";
 import { UseQueryResult } from "react-query";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 const texts = {
   title: "Dialogmøter",

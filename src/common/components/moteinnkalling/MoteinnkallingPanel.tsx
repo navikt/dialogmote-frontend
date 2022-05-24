@@ -1,12 +1,13 @@
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { Calender } from "@navikt/ds-icons";
-import { Brev, BrevType } from "@/server/data/types/external/BrevTypes";
 import { Events } from "@/common/amplitude/events";
 import styled from "styled-components";
 import { BodyShort, Button } from "@navikt/ds-react";
 import { useRouter } from "next/router";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { Brev } from "types/shared/brev";
+import { BrevType } from "types/client/brev";
 
 const getTexts = (brevType: BrevType) => {
   switch (brevType) {

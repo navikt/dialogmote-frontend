@@ -7,9 +7,9 @@ import HvaSkjerISykefravaeret from "@/common/components/veileder/HvaSkjerISykefr
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import { usePdfPath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import React from "react";
 import { UseQueryResult } from "react-query";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;

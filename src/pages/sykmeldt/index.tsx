@@ -9,8 +9,8 @@ import React from "react";
 import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
 import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovHarIkkeSvartPanel";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
-import { DialogmoteData } from "@/server/data/types/internal/DialogmoteType";
 import { UseQueryResult } from "react-query";
+import { DialogmoteData } from "types/shared/dialogmote";
 
 const texts = {
   title: "Dialogmøter",

@@ -1,5 +1,5 @@
-import { DocumentComponentKey } from "@/server/data/types/external/BrevTypes";
-import { InfoUrl } from "@/server/data/types/internal/BrevTypes";
+import { DocumentComponentKey } from "types/client/brev";
+import { InfoUrl } from "types/client/infoUrl";
 
 export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   FRISKMELDING_ARBEIDSFORMIDLING: {
@@ -54,4 +54,5 @@ export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   },
   IKKE_BEHOV: undefined,
   OKONOMISK_STOTTE: undefined,
+  UNKNOWN: undefined,
 };

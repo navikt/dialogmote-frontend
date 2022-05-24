@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import styled, { createGlobalStyle } from "styled-components";
 import { initAmplitude } from "@/common/amplitude/amplitude";
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";

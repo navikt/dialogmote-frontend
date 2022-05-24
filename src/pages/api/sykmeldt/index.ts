@@ -5,12 +5,12 @@ import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { withSentry } from "@sentry/nextjs";
 import { combineDialogmoteDataSM } from "@/server/data/sykmeldt/combineDialogmoteDataSM";
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
+import { DialogmoteData } from "types/shared/dialogmote";
 import { tokenX } from "@/server/auth/tokenx/tokenX";
 import serverEnv from "@/server/utils/serverEnv";
 
-const handler = nc<NextApiRequest, NextApiResponse<Brev[]>>(ncOptions)
+const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
   .use(loginServiceToken())
   .use(tokenX(serverEnv.SYFOMOTEBEHOV_TOKENX_CLIENT_ID))
   .use(fetchConcurrentDataSM)

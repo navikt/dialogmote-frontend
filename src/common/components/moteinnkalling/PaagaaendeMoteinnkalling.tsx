@@ -3,12 +3,14 @@ import { Alert, GuidePanel } from "@navikt/ds-react";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import VeilederInnkallelseContent from "@/common/components/moteinnkalling/VeilederInnkallelseContent";
 import React from "react";
-import { Brev } from "@/server/data/types/external/BrevTypes";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
-import GiSvarPaInnkallelse from "@/common/components/moteinnkalling/GiSvarPaInnkallelse";
+import GiSvarPaInnkallelseA from "@/common/components/moteinnkalling/GiSvarPaInnkallelseAbTest/GiSvarPaInnkallelseA";
+import GiSvarPaInnkallelseB from "@/common/components/moteinnkalling/GiSvarPaInnkallelseAbTest/GiSvarPaInnkallelseB";
+import { Brev } from "types/shared/brev";
 
 interface Props {
   moteinnkalling: Brev;
+  secondVariant: boolean;
 }
 
 const texts = {
@@ -17,7 +19,17 @@ const texts = {
   titleInnkalling: "Innkalling til dialogmøte",
 };
 
-export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
+export const PaagaaendeMoteinnkalling = ({
+  moteinnkalling,
+  secondVariant,
+}: Props) => {
+  const giSvarPaInnkallelse = () =>
+    secondVariant ? (
+      <GiSvarPaInnkallelseB brevUuid={moteinnkalling.uuid} />
+    ) : (
+      <GiSvarPaInnkallelseA brevUuid={moteinnkalling.uuid} />
+    );
+
   return (
     <>
       {isDateInPast(moteinnkalling.tid) && (
@@ -38,7 +50,7 @@ export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
       {moteinnkalling.svar?.svarType ? (
         <DittSvarPaInnkallelse svarType={moteinnkalling.svar?.svarType} />
       ) : (
-        <GiSvarPaInnkallelse brevUuid={moteinnkalling.uuid} />
+        !isDateInPast(moteinnkalling.tid) && giSvarPaInnkallelse()
       )}
 
       {moteinnkalling.videoLink && (

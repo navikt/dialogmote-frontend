@@ -1,8 +1,5 @@
-import {
-  Brev,
-  BrevType,
-  DocumentComponent,
-} from "@/server/data/types/external/BrevTypes";
+import { BrevType, DocumentComponent } from "types/client/brev";
+import { Brev } from "types/shared/brev";
 import { v4 as uuidv4 } from "uuid";
 
 export class BrevBuilder {
@@ -14,12 +11,15 @@ export class BrevBuilder {
       deltakerUuid: "324",
       createdAt: new Date().toISOString(),
       brevType: "INNKALT",
-      digitalt: true,
+      digitalt: null,
+      lestDato: null,
+      videoLink: null,
       fritekst: "Yoyo",
       sted: "Ørsta Rådhus",
       tid: new Date().toISOString(),
       document: [],
       virksomhetsnummer: "234",
+      svar: null,
     };
   }
 

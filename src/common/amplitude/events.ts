@@ -22,6 +22,7 @@ export enum Events {
   TidligereReferat = "Klikker på et tidligere referat",
   Tidslinjen = "Klikker på tidslinjen",
   SendSvarPaInnkallelse = "Klikker på send svar på møteinnkallelse",
+  GiSvarPaMoteInnkallingVist = "Viser gi svar pa moteinnkalling",
   SpillerAvDialogmotefilm = "Klikker på spill av film om dialogmøte",
   ErrorWithEscapeRoute = "Klikker på naviger bort fra feilside.",
 }

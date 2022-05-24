@@ -1,9 +1,9 @@
-import { Motebehov } from "@/server/data/types/internal/MotebehovTypes";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { DialogReport } from "@navikt/ds-icons";
 import { BodyLong } from "@navikt/ds-react";
 import { MotebehovSvarAccordion } from "@/common/components/motebehov/MotebehovSvarAccordion";
 import React, { ReactNode } from "react";
+import { Motebehov } from "types/shared/motebehov";
 
 interface Props {
   motebehov?: Motebehov;
