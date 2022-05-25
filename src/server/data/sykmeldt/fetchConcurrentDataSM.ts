@@ -7,7 +7,6 @@ import { getMotebehovSM } from "@/server/service/motebehovService";
 import { getBrevSM } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import serverLogger from "@/server/utils/serverLogger";
-import serverLogger from "@/server/utils/serverLogger";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -23,23 +22,14 @@ export const fetchConcurrentDataSM = async (
       res.brevArray = activeMockSM.brev;
     }
   } else {
-    const motebehovPromise = getMotebehovSM(req.loginServiceToken);
+    serverLogger.info(req, "fetchConcurrentDataSM, request");
+    const motebehovPromise = getMotebehovSM(req.tokenSet.access_token);
     const brevPromise = getBrevSM(req.loginServiceToken);
 
     const [motebehovRes, brevRes] = await Promise.all([
       motebehovPromise,
       brevPromise,
     ]);
-
-    /* TODO:
-    *     serverLogger.info(req, "fetchConcurrentDataSM, request");
-    const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
-      {
-        accessToken: req.tokenSet.access_token,
-      }
-    );
-    * */
 
     if (motebehovRes.success && brevRes.success) {
       res.motebehov = motebehovRes.data;

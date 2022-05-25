@@ -24,24 +24,9 @@ export const fetchConcurrentDataAG = async (
     const motebehovPromise = getMotebehovAG(
       res.sykmeldt.fnr,
       res.sykmeldt.orgnummer,
-      req.loginServiceToken
+      req.tokenSet.access_token
     );
 
-    /* TODO:
-    *     const motebehovPromise = get<ExtMotebehovStatus>(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov?fnr=${res.sykmeldt.fnr}&virksomhetsnummer=${res.sykmeldt.orgnummer}`,
-      {
-        accessToken: req.tokenSet.access_token,
-      }
-    );
-
-    const brevPromise = get<Brev[]>(
-      `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`,
-      {
-        accessToken: req.loginServiceToken,
-        personIdent: res.sykmeldt.fnr,
-      }
-    );*/
     const brevPromise = getBrevAG(req.loginServiceToken, res.sykmeldt.fnr);
 
     const [motebehovRes, brevRes] = await Promise.all([
