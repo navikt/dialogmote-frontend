@@ -4,13 +4,11 @@ import DocumentContainer from "@/common/components/document/DocumentContainer";
 import VeilederInnkallelseContent from "@/common/components/moteinnkalling/VeilederInnkallelseContent";
 import React from "react";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
-import GiSvarPaInnkallelseA from "@/common/components/moteinnkalling/GiSvarPaInnkallelseAbTest/GiSvarPaInnkallelseA";
-import GiSvarPaInnkallelseB from "@/common/components/moteinnkalling/GiSvarPaInnkallelseAbTest/GiSvarPaInnkallelseB";
 import { Brev } from "types/shared/brev";
+import GiSvarPaInnkallelse from "@/common/components/moteinnkalling/GiSvarPaInnkallelse";
 
 interface Props {
   moteinnkalling: Brev;
-  secondVariant: boolean;
 }
 
 const texts = {
@@ -19,17 +17,7 @@ const texts = {
   titleInnkalling: "Innkalling til dialogmøte",
 };
 
-export const PaagaaendeMoteinnkalling = ({
-  moteinnkalling,
-  secondVariant,
-}: Props) => {
-  const giSvarPaInnkallelse = () =>
-    secondVariant ? (
-      <GiSvarPaInnkallelseB brevUuid={moteinnkalling.uuid} />
-    ) : (
-      <GiSvarPaInnkallelseA brevUuid={moteinnkalling.uuid} />
-    );
-
+export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
   return (
     <>
       {isDateInPast(moteinnkalling.tid) && (
@@ -50,7 +38,9 @@ export const PaagaaendeMoteinnkalling = ({
       {moteinnkalling.svar?.svarType ? (
         <DittSvarPaInnkallelse svarType={moteinnkalling.svar?.svarType} />
       ) : (
-        !isDateInPast(moteinnkalling.tid) && giSvarPaInnkallelse()
+        !isDateInPast(moteinnkalling.tid) && (
+          <GiSvarPaInnkallelse brevUuid={moteinnkalling.uuid} />
+        )
       )}
 
       {moteinnkalling.videoLink && (

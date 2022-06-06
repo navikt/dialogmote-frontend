@@ -4,10 +4,6 @@ import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeR
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
-import {
-  FeatureToggle,
-  useFeatureToggles,
-} from "@/common/api/queries/featureFlagsQuery";
 import { DialogmoteData } from "types/shared/dialogmote";
 
 const texts = {
@@ -22,8 +18,6 @@ interface Props {
 }
 
 export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
-  const featureToggles = useFeatureToggles();
-
   if (dialogmoteData.isSuccess) {
     const moteinnkalling = dialogmoteData.data.moteinnkalling;
 
@@ -45,13 +39,6 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
       );
     }
 
-    const getRandomVariantBasedOnDate = (date: string) =>
-      (new Date(date).getTime() ?? 0) % 2 === 1;
-
-    const secondVariantCondition =
-      !!featureToggles.data?.[FeatureToggle.DialogmoteSvarABTest] &&
-      getRandomVariantBasedOnDate(moteinnkalling.createdAt);
-
     return (
       <DialogmotePage
         title={
@@ -60,12 +47,9 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
             : texts.titleEndring
         }
         hideHeader={true}
-        isLoading={dialogmoteData.isLoading || featureToggles.isLoading}
+        isLoading={dialogmoteData.isLoading}
       >
-        <PaagaaendeMoteinnkalling
-          moteinnkalling={moteinnkalling}
-          secondVariant={secondVariantCondition}
-        />
+        <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />
       </DialogmotePage>
     );
   }
