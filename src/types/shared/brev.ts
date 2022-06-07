@@ -2,6 +2,8 @@ import {
   BrevDocumentComponentKeyDTO,
   BrevDocumentComponentTypeDTO,
   BrevDTO,
+  SvarResponsDTO,
+  SvarTypeDTO,
 } from "@/server/service/schema/brevSchema";
 
 export type Brev = BrevDTO;
@@ -27,3 +29,7 @@ export interface Referat {
   endring?: boolean;
   document: ReferatDocumentComponent[];
 }
+
+export type SvarType = SvarTypeDTO;
+
+export type SvarRespons = SvarResponsDTO;

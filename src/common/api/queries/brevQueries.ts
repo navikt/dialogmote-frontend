@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from "react-query";
 import { post } from "@/common/api/axios/axios";
-import { SvarRespons } from "@/server/data/types/external/BrevTypes";
 import { DIALOGMOTEDATA_SM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { useApiBasePath, useAudience } from "@/common/hooks/routeHooks";
 import { DIALOGMOTEDATA_AG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import { SvarRespons } from "types/shared/brev";
+
+type SvarResponsRequest = Omit<SvarRespons, "svarTidspunkt">;
 
 const queryToInvalidate = (isAudienceSykmeldt: boolean) =>
   isAudienceSykmeldt ? DIALOGMOTEDATA_SM : DIALOGMOTEDATA_AG;
@@ -21,7 +23,7 @@ export const useSvarPaInnkallelse = (uuid: string) => {
   const { isAudienceSykmeldt } = useAudience();
   const basepath = useApiBasePath();
 
-  const postSvar = (svar: SvarRespons) =>
+  const postSvar = (svar: SvarResponsRequest) =>
     post(`${basepath}/brev/${uuid}/svar`, svar);
 
   return useMutation(postSvar, {

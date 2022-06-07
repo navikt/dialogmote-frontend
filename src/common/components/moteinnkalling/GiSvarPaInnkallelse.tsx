@@ -2,7 +2,6 @@ import { Events } from "@/common/amplitude/events";
 import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { SvarType } from "@/server/data/types/external/BrevTypes";
 import {
   Alert,
   BodyLong,
@@ -14,6 +13,7 @@ import {
 } from "@navikt/ds-react";
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
+import { SvarType } from "types/shared/brev";
 
 const KnappStyled = styled(Button)`
   width: fit-content;

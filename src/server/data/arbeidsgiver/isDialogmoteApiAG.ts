@@ -4,8 +4,8 @@ import serverEnv from "../../utils/serverEnv";
 import { isDevelopment, isMockBackend, isOpplaering } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
-import { SvarRespons } from "@/server/data/types/external/BrevTypes";
 import activeMockAG from "@/server/data/mock/activeMockAG";
+import { SvarRespons } from "types/shared/brev";
 
 const brevApiAG = (path?: string): string => {
   const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`;
