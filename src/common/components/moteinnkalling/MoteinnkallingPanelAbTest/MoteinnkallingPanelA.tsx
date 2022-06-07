@@ -45,7 +45,7 @@ interface Props {
   moteinnkalling?: Brev;
 }
 
-const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
+const MoteinnkallingPanelA = ({ moteinnkalling }: Props) => {
   const router = useRouter();
   const { trackEvent } = useAmplitude();
 
@@ -73,4 +73,4 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
   return null;
 };
 
-export default MoteinnkallingPanel;
+export default MoteinnkallingPanelA;
