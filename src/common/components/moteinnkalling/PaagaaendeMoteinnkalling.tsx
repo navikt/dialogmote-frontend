@@ -6,6 +6,7 @@ import React from "react";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
 import { Brev } from "types/shared/brev";
 import GiSvarPaInnkallelse from "@/common/components/moteinnkalling/GiSvarPaInnkallelse";
+import { getRandomVariantBasedOnDate } from "@/common/utils";
 
 interface Props {
   moteinnkalling: Brev;
@@ -18,6 +19,10 @@ const texts = {
 };
 
 export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
+  const variant = getRandomVariantBasedOnDate(moteinnkalling.createdAt)
+    ? "B"
+    : "A";
+
   return (
     <>
       {isDateInPast(moteinnkalling.tid) && (
@@ -39,7 +44,10 @@ export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => {
         <DittSvarPaInnkallelse svarType={moteinnkalling.svar?.svarType} />
       ) : (
         !isDateInPast(moteinnkalling.tid) && (
-          <GiSvarPaInnkallelse brevUuid={moteinnkalling.uuid} />
+          <GiSvarPaInnkallelse
+            brevUuid={moteinnkalling.uuid}
+            variant={variant}
+          />
         )
       )}
 
