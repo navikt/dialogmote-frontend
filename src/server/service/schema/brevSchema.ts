@@ -120,3 +120,5 @@ export type BrevDocumentComponentTypeDTO = z.infer<
 export type BrevDocumentComponentKeyDTO = z.infer<
   typeof documentComponentKeyWithUnknown
 >;
+export type SvarTypeDTO = z.infer<typeof svarType>;
+export type SvarResponsDTO = z.infer<typeof svar>;

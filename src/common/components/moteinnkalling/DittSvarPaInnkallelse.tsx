@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import { Alert, BodyLong } from "@navikt/ds-react";
 import styled from "styled-components";
-import { SvarType } from "@/server/data/types/external/BrevTypes";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
+import { SvarType } from "types/shared/brev";
 
 const SuksessStripeStyled = styled(Alert)`
   margin-bottom: 2rem;

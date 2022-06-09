@@ -45,7 +45,7 @@ interface Props {
   moteinnkalling?: Brev;
 }
 
-const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
+const MoteinnkallingPanelA = ({ moteinnkalling }: Props) => {
   const router = useRouter();
   const { trackEvent } = useAmplitude();
 
@@ -61,7 +61,12 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
           size="medium"
           onClick={(e: { preventDefault: () => void }) => {
             e.preventDefault();
-            trackEvent(texts.trackingName);
+            trackEvent(texts.trackingName, {
+              variant: "A",
+              abtestVer: "v2",
+              read: `${!!moteinnkalling.lestDato}`,
+              responded: `${!!moteinnkalling.svar}`,
+            });
             router.push(`${router.asPath}/moteinnkalling`);
           }}
         >
@@ -73,4 +78,4 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
   return null;
 };
 
-export default MoteinnkallingPanel;
+export default MoteinnkallingPanelA;
