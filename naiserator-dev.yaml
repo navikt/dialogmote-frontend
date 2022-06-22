@@ -22,12 +22,12 @@ spec:
     path: syk/dialogmoter/api/isAlive
     initialDelay: 20
     timeout: 5
-    periodSeconds: 5
+    periodSeconds: 20
     failureThreshold: 30
   readiness:
     path: syk/dialogmoter/api/isReady
     initialDelay: 20
-    periodSeconds: 5
+    periodSeconds: 20
     timeout: 5
   prometheus:
     enabled: true
