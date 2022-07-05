@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
-import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
+import DittSvarPaInnkallelse from "./DittSvarPaInnkallelse";
 
 const getTexts = (brevType: BrevType) => {
   switch (brevType) {
@@ -111,8 +111,6 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
           onClick={(e: { preventDefault: () => void }) => {
             e.preventDefault();
             trackEvent(texts.trackingName, {
-              variant: "B",
-              abtestVer: "v2",
               read: `${!!moteinnkalling.lestDato}`,
               responded: `${!!moteinnkalling.svar}`,
             });
