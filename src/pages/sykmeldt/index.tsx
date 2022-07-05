@@ -1,5 +1,4 @@
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
-import MoteinnkallingPanelB from "@/common/components/moteinnkalling/MoteinnkallingPanelAbTest/MoteinnkallingPanelB";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
@@ -11,9 +10,7 @@ import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovH
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { UseQueryResult } from "react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
-import { getRandomVariantBasedOnDate } from "@/common/utils";
-import MoteinnkallingPanelA from "@/common/components/moteinnkalling/MoteinnkallingPanelAbTest/MoteinnkallingPanelA";
-import { Brev } from "types/shared/brev";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 
 const texts = {
   title: "Dialogmøter",
@@ -25,24 +22,12 @@ interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
 }
 
-const MoteinnkallingPanel = ({ moteinnkalling }: { moteinnkalling?: Brev }) => {
-  const secondVariant = getRandomVariantBasedOnDate(moteinnkalling?.createdAt);
-
-  return secondVariant ? (
-    <MoteinnkallingPanelB moteinnkalling={moteinnkalling} />
-  ) : (
-    <MoteinnkallingPanelA moteinnkalling={moteinnkalling} />
-  );
-};
-
 const Content = ({ dialogmoteData }: Props) => {
   if (dialogmoteData.isSuccess) {
     return (
       <>
         <MotebehovHarIkkeSvartPanel motebehov={dialogmoteData.data.motebehov} />
-
         <MotebehovHarSvartPanel motebehov={dialogmoteData.data.motebehov} />
-
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
         />

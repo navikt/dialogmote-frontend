@@ -75,10 +75,9 @@ interface Error {
 
 interface Props {
   brevUuid: string;
-  variant: string;
 }
 
-const GiSvarPaInnkallelse = ({ brevUuid, variant }: Props): ReactElement => {
+const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   const { trackEvent } = useAmplitude();
   const sendSvarQuery = useSvarPaInnkallelse(brevUuid);
   const [error, setError] = useState<Array<Error>>([]);
@@ -137,8 +136,6 @@ const GiSvarPaInnkallelse = ({ brevUuid, variant }: Props): ReactElement => {
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
         svarAlternativ: formData.svarType!!,
-        variant,
-        abtestVer: "v2",
       });
 
       sendSvarQuery.mutate({
