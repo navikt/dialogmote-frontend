@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
-import DittSvarPaInnkallelse from "../DittSvarPaInnkallelse";
+import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
 
 const getTexts = (brevType: BrevType) => {
   switch (brevType) {
@@ -94,7 +94,7 @@ interface Props {
   moteinnkalling?: Brev;
 }
 
-const MoteinnkallingPanelB = ({ moteinnkalling }: Props) => {
+const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
   const router = useRouter();
   const { trackEvent } = useAmplitude();
 
@@ -127,4 +127,4 @@ const MoteinnkallingPanelB = ({ moteinnkalling }: Props) => {
   return null;
 };
 
-export default MoteinnkallingPanelB;
+export default MoteinnkallingPanel;

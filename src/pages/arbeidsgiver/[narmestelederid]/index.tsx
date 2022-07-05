@@ -12,10 +12,7 @@ import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovH
 import { UseQueryResult } from "react-query";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { DialogmoteData } from "types/shared/dialogmote";
-import MoteinnkallingPanelB from "@/common/components/moteinnkalling/MoteinnkallingPanelAbTest/MoteinnkallingPanelB";
-import { getRandomVariantBasedOnDate } from "@/common/utils";
-import { Brev } from "types/shared/brev";
-import MoteinnkallingPanelA from "@/common/components/moteinnkalling/MoteinnkallingPanelAbTest/MoteinnkallingPanelA";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 
 const texts = {
   title: "Dialogmøter",
@@ -26,30 +23,18 @@ const texts = {
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
 }
-const MoteinnkallingPanel = ({ moteinnkalling }: { moteinnkalling?: Brev }) => {
-  const secondVariant = getRandomVariantBasedOnDate(moteinnkalling?.createdAt);
-
-  return secondVariant ? (
-    <MoteinnkallingPanelB moteinnkalling={moteinnkalling} />
-  ) : (
-    <MoteinnkallingPanelA moteinnkalling={moteinnkalling} />
-  );
-};
 
 const Content = ({ dialogmoteData }: Props) => {
   if (dialogmoteData.isSuccess) {
     return (
       <>
         <MotebehovHarIkkeSvartPanel motebehov={dialogmoteData.data.motebehov} />
-
         <MotebehovHarSvartPanel motebehov={dialogmoteData.data.motebehov}>
           <DelOppfolgingsplanInfoBoks />
         </MotebehovHarSvartPanel>
-
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
         />
-
         <ReferaterPanel referater={dialogmoteData.data.referater}>
           <InfoTilArbeidsgiver />
         </ReferaterPanel>
