@@ -11,11 +11,13 @@ import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { UseQueryResult } from "react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 
 const texts = {
   title: "Dialogmøter",
-  infoOmDialogmoter:
-    "I et dialogmøte oppsummerer vi hva som har skjedd mens du har vært sykmeldt, og vi planlegger veien videre. De som deltar, er du, lederen din og en veileder fra NAV-kontoret, eventuelt også den som sykmelder deg.",
+  text1:
+    "Ønsker du å snakke med NAV om sykepenger eller noe annet enn det vi skal snakke om i et dialogmøte, kan du ",
+  text2: "kontakte oss på andre måter.",
 };
 
 interface Props {
@@ -32,6 +34,14 @@ const Content = ({ dialogmoteData }: Props) => {
           moteinnkalling={dialogmoteData.data.moteinnkalling}
         />
         <ReferaterPanel referater={dialogmoteData.data.referater} />
+        <VeilederGuidePanel>
+          <InfoOmDialogmote>
+            <>
+              {texts.text1}
+              <KontaktOssLink linkText={texts.text2} />
+            </>
+          </InfoOmDialogmote>
+        </VeilederGuidePanel>
       </>
     );
   }
@@ -43,10 +53,6 @@ const Home: NextPage = () => {
 
   return (
     <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-      <VeilederGuidePanel>
-        <InfoOmDialogmote>{texts.infoOmDialogmoter}</InfoOmDialogmote>
-      </VeilederGuidePanel>
-
       <Content dialogmoteData={dialogmoteData} />
 
       <VideoPanel />

@@ -3,9 +3,11 @@ import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { getAsset } from "@/common/utils/getAssetPath";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
+import { BodyShort } from "@navikt/ds-react";
 
 const texts = {
-  title: "Om dialogmøter",
+  title: "En film om dialogmøter",
+  info: "Denne filmen gir en kort innføring i hvordan et dialogmøte kan hjelpe deg som er sykmeldt.",
   browserNotSupported: "Nettleseren din støtter ikke denne videoavspillingen.",
   navigateToMovie: "Gå direkte til filmen!",
 };
@@ -15,6 +17,9 @@ const VideoPanel = () => {
 
   return (
     <DialogmotePanel title={texts.title}>
+      <BodyShort size="medium" spacing>
+        {texts.info}
+      </BodyShort>
       <video
         width="100%"
         height="auto"
