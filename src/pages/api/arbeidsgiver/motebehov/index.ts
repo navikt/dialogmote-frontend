@@ -4,9 +4,10 @@ import { ncOptions } from "@/server/utils/ncOptions";
 import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { withSentry } from "@sentry/nextjs";
 import { postMotebehovAG } from "@/server/data/arbeidsgiver/syfomotebehovApiAG";
+import getIdportenToken from "@/server/auth/idporten/idportenToken";
 
 const handler = nc<NextApiRequest, NextApiResponse>(ncOptions)
-  .use(loginServiceToken())
+  .use(getIdportenToken)
   .use(postMotebehovAG)
   .post(async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).end();

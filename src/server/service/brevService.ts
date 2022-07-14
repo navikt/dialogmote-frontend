@@ -14,7 +14,7 @@ export async function getBrevAG(accessToken: string, personIdent: string) {
 
 export async function getBrevSM(accessToken: string) {
   return array(brevSchema).safeParse(
-    await get(`${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`, {
+    await get(`${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev`, {
       accessToken,
     })
   );

@@ -7,9 +7,5 @@ import {
 export const loginUser = () => {
   if (typeof window === "undefined") return;
 
-  const isArbeidsgiver =
-    window.location.href.indexOf("/dialogmoter/arbeidsgiver") > 0;
-  window.location.href = `${loginServiceUrl}?redirect=${
-    isArbeidsgiver ? dineSykemeldteRoot : dittSykefravarRoot
-  }`;
+  window.location.href = `/syk/dialogmoter/oauth2/login?redirect=${window.location.pathname}`;
 };
