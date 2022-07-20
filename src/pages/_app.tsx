@@ -11,6 +11,7 @@ import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderS
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
+import ErrorBoundary from "@/common/components/error/ErrorBoundary";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -59,23 +60,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <NotificationProvider>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        {isAudienceSykmeldt ? (
-          <BreadcrumbsAppenderSM />
-        ) : (
-          <BreadcrumbsAppenderAG />
-        )}
-        <ContentWrapperStyled>
-          <NotificationBar />
-          <InnerContentWrapperStyled>
-            <Component {...pageProps} />
-          </InnerContentWrapperStyled>
-        </ContentWrapperStyled>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </NotificationProvider>
+    <ErrorBoundary>
+      <NotificationProvider>
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          {isAudienceSykmeldt ? (
+            <BreadcrumbsAppenderSM />
+          ) : (
+            <BreadcrumbsAppenderAG />
+          )}
+          <ContentWrapperStyled>
+            <NotificationBar />
+            <InnerContentWrapperStyled>
+              <Component {...pageProps} />
+            </InnerContentWrapperStyled>
+          </ContentWrapperStyled>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </NotificationProvider>
+    </ErrorBoundary>
   );
 }
 
