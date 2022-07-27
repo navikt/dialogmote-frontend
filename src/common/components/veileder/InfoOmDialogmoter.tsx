@@ -2,7 +2,7 @@ import { Events } from "@/common/amplitude/events";
 import { DIALOGMOTE_INFO_URL } from "@/common/constants/staticUrls";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { BodyLong, Link } from "@navikt/ds-react";
-import React from "react";
+import React, {ReactNode} from "react";
 
 const texts = {
   text1: "Du kan også ",
@@ -10,7 +10,7 @@ const texts = {
 };
 
 interface Props {
-  children: string | object;
+  children: ReactNode;
 }
 
 const InfoOmDialogmote = ({ children }: Props) => {
