@@ -1,7 +1,6 @@
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import GamleReferat from "@/common/components/referat/GamleReferat";
 import SisteReferat from "@/common/components/referat/SisteReferat";
-import { FileContent } from "@navikt/ds-icons";
 import React, { ReactNode } from "react";
 import { Referat } from "types/shared/brev";
 
@@ -17,7 +16,7 @@ interface Props {
 const ReferaterPanel = ({ referater, children }: Props) => {
   if (referater && referater.length > 0) {
     return (
-      <DialogmotePanel title={texts.title} icon={<FileContent />}>
+      <DialogmotePanel title={texts.title}>
         <SisteReferat referat={referater[0]} />
         <GamleReferat referater={referater.slice(1)} />
         {children}

@@ -1,5 +1,4 @@
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { DialogReport } from "@navikt/ds-icons";
 import { BodyLong } from "@navikt/ds-react";
 import { MotebehovSvarAccordion } from "@/common/components/motebehov/MotebehovSvarAccordion";
 import React, { ReactNode } from "react";
@@ -19,7 +18,7 @@ const texts = {
 export const MotebehovHarSvartPanel = ({ motebehov, children }: Props) => {
   if (motebehov?.svar) {
     return (
-      <DialogmotePanel title={texts.titleKvittering} icon={<DialogReport />}>
+      <DialogmotePanel title={texts.titleKvittering}>
         <BodyLong>{texts.textSvart}</BodyLong>
 
         <MotebehovSvarAccordion motebehov={motebehov} />
