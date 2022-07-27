@@ -1,7 +1,6 @@
 import { BodyLong } from "@navikt/ds-react";
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { DialogReport } from "@navikt/ds-icons";
 import { MotebehovSubmitButton } from "@/common/components/motebehov/MotebehovSubmitButton";
 import { Motebehov } from "types/shared/motebehov";
 
@@ -17,7 +16,7 @@ interface Props {
 const MotebehovHarIkkeSvartPanel = ({ motebehov }: Props) => {
   if (motebehov && !motebehov.svar) {
     return (
-      <DialogmotePanel title={texts.titleTrengerMote} icon={<DialogReport />}>
+      <DialogmotePanel title={texts.titleTrengerMote}>
         <BodyLong>{texts.infoOmDialogmote}</BodyLong>
         <MotebehovSubmitButton skjemaType={motebehov.skjemaType} />
       </DialogmotePanel>
