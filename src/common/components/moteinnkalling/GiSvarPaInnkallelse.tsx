@@ -14,6 +14,7 @@ import {
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { SvarType } from "types/shared/brev";
+import { commonTexts } from "@/common/constants/commonTexts";
 
 const KnappStyled = styled(Button)`
   width: fit-content;
@@ -45,8 +46,6 @@ const texts = {
   begrunnelseEndringLabel:
     "Hvorfor ønsker du å endre tidspunkt eller sted? (obligatorisk)",
   begrunnelseAvlysningLabel: "Hvorfor ønsker du å avlyse? (obligatorisk)",
-  begrunnelseDescription:
-    "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
   feiloppsummeringTittel: "For å gå videre må du rette opp følgende:",
   errorMessage: "Svaret ditt kom ikke frem. Kan du prøve igjen?",
   sendSvar: "Send svar",
@@ -99,7 +98,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   };
 
   const begrunnelseDescriptionSmallText = (
-    <SmallText>{texts.begrunnelseDescription}</SmallText>
+    <SmallText>{commonTexts.noSensitiveInfo}</SmallText>
   );
 
   const begrunnelseFieldName: InputFieldType =

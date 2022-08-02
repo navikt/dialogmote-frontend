@@ -7,6 +7,7 @@ import {
   ExtMotebehovSvarArbeidsgiver,
 } from "@/server/data/types/external/ExternalMotebehovTypes";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
+import { commonTexts } from "@/common/constants/commonTexts";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -14,8 +15,6 @@ export const texts = {
   behandlerVaereMedTekst:
     "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri). ",
   begrunnelseLabel: "Begrunnelse (valgfri)",
-  sensitivInfoTekst:
-    "Ikke skriv sensitiv informasjon, for eksempel om den ansattes helse.",
   apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",
 };
 
@@ -40,7 +39,7 @@ const MeldBehov = (): ReactElement => {
       <MeldBehovContent
         motebehovTekst={motebehovTekst}
         behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
-        sensitivInfoTekst={texts.sensitivInfoTekst}
+        sensitivInfoTekst={commonTexts.noSensitiveInfo}
         meldMotebehov={submitSvar}
       />
     </DialogmotePage>

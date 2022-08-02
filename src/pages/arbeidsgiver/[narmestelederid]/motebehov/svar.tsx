@@ -7,11 +7,10 @@ import {
   ExtMotebehovSvar,
   ExtMotebehovSvarArbeidsgiver,
 } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { commonTexts } from "@/common/constants/commonTexts";
 
 const texts = {
   title: "Meld behov for møte",
-  begrunnelseDescription:
-    "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helsen din.",
   apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",
 };
 
@@ -32,7 +31,7 @@ const SvarBehov = (): ReactElement => {
     <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
       <SvarBehovContent
         svarMotebehov={submitSvar}
-        begrunnelseDescription={texts.begrunnelseDescription}
+        begrunnelseDescription={commonTexts.noSensitiveInfo}
       />
     </DialogmotePage>
   );
