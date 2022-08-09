@@ -49,12 +49,7 @@ const Home: NextPage = () => {
 
   return (
     <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-      <VeilederGuidePanel>
-        <InfoOmDialogmote>{texts.infoOmDialogmoter}</InfoOmDialogmote>
-      </VeilederGuidePanel>
-
       <Content dialogmoteData={dialogmoteData} />
-
       <VideoPanel />
     </DialogmotePage>
   );

@@ -3,10 +3,12 @@ import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovSubmitButton } from "@/common/components/motebehov/MotebehovSubmitButton";
 import { Motebehov } from "types/shared/motebehov";
+import { useAudience } from "@/common/hooks/routeHooks";
 
 const texts = {
   titleTrengerMote: "Trenger dere et dialogmøte med NAV?",
-  infoOmDialogmote: `I et dialogmøte oppsummerer vi hva som har skjedd mens du har vært sykmeldt, og vi planlegger veien videre. De som deltar, er du, lederen din og en veileder fra NAV-kontoret, eventuelt også den som sykmelder deg.`,
+  infoOmDialogmoteSM: `I et dialogmøte oppsummerer vi hva som har skjedd mens du har vært sykmeldt, og vi planlegger veien videre. De som deltar, er du, lederen din og en veileder fra NAV-kontoret, eventuelt også den som sykmelder deg.`,
+  infoOmDialogmoteAG: `I et dialogmøte oppsummerer vi hva som har skjedd mens arbeidstakeren har vært sykmeldt, og vi planlegger veien videre. De som deltar, er du, arbeidstakeren og en veileder fra NAV-kontoret, eventuelt også den som skrev sykmeldingen.`,
 };
 
 interface Props {
@@ -14,10 +16,16 @@ interface Props {
 }
 
 const MotebehovHarIkkeSvartPanel = ({ motebehov }: Props) => {
+  const { isAudienceSykmeldt } = useAudience();
+
   if (motebehov && !motebehov.svar) {
     return (
       <DialogmotePanel title={texts.titleTrengerMote}>
-        <BodyLong>{texts.infoOmDialogmote}</BodyLong>
+        <BodyLong>
+          {isAudienceSykmeldt
+            ? texts.infoOmDialogmoteSM
+            : texts.infoOmDialogmoteAG}
+        </BodyLong>
         <MotebehovSubmitButton skjemaType={motebehov.skjemaType} />
       </DialogmotePanel>
     );
