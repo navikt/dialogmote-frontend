@@ -13,3 +13,14 @@ export interface Motebehov {
   skjemaType: MotebehovSkjemaType;
   svar: MotebehovSvar | null;
 }
+
+export type MotebehovSvarRequest = {
+  harMotebehov: boolean;
+  forklaring?: string;
+};
+
+export type MotebehovSvarRequestAG = {
+  arbeidstakerFnr: string;
+  virksomhetsnummer: string;
+  motebehovSvar: MotebehovSvarRequest;
+};
