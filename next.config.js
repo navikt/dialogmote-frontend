@@ -9,7 +9,6 @@ const moduleExports = {
   publicRuntimeConfig: {
     dineSykemeldteRoot: process.env.DINE_SYKMELDTE_ROOT,
     dittSykefravarRoot: process.env.DITT_SYKEFRAVAER_ROOT,
-    loginServiceUrl: process.env.LOGINSERVICE_URL,
     basePath,
   },
   compiler: {

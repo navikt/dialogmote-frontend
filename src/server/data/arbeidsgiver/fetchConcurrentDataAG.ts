@@ -6,6 +6,9 @@ import { activeLabsMockAG } from "../mock/activeLabsMock";
 import { getMotebehovAG } from "@/server/service/motebehovService";
 import { getBrevAG } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
+import { getTokenX } from "@/server/auth/tokenx";
+import serverEnv from "@/server/utils/serverEnv";
+import serverLogger from "@/server/utils/serverLogger";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,
@@ -21,25 +24,46 @@ export const fetchConcurrentDataAG = async (
       res.brevArray = activeMockAG.brev;
     }
   } else {
-    const motebehovPromise = getMotebehovAG(
-      res.sykmeldt.fnr,
-      res.sykmeldt.orgnummer,
-      req.loginServiceToken
+    const token = req.idportenToken;
+    const motebehovTokenXPromise = getTokenX(
+      token,
+      serverEnv.SYFOMOTEBEHOV_CLIENT_ID
     );
-    const brevPromise = getBrevAG(req.loginServiceToken, res.sykmeldt.fnr);
+    const isDialogmoteTokenXPromise = getTokenX(
+      token,
+      serverEnv.ISDIALOGMOTE_CLIENT_ID
+    );
 
-    const [motebehovRes, brevRes] = await Promise.all([
-      motebehovPromise,
-      brevPromise,
+    const [motebehovTokenX, isDialogmoteTokenX] = await Promise.all([
+      motebehovTokenXPromise,
+      isDialogmoteTokenXPromise,
     ]);
+    serverLogger.info("Exchanging AG tokenx ok");
 
-    if (motebehovRes.success && brevRes.success) {
+    const motebehovPromise = getMotebehovAG(
+      motebehovTokenX,
+      res.sykmeldt.fnr,
+      res.sykmeldt.orgnummer
+    );
+    const isDialogmotePromise = getBrevAG(isDialogmoteTokenX, res.sykmeldt.fnr);
+
+    const [motebehovRes, isDialogmoteRes] = await Promise.all([
+      motebehovPromise,
+      isDialogmotePromise,
+    ]);
+    serverLogger.info("Fetching DM data AG ok");
+
+    if (motebehovRes.success && isDialogmoteRes.success) {
       res.motebehov = motebehovRes.data;
-      res.brevArray = brevRes.data;
+      res.brevArray = isDialogmoteRes.data;
     } else if (!motebehovRes.success) {
       handleSchemaParsingError("Arbeidsgiver", "Motebehov", motebehovRes.error);
-    } else if (!brevRes.success) {
-      handleSchemaParsingError("Arbeidsgiver", "Brev", brevRes.error);
+    } else if (!isDialogmoteRes.success) {
+      handleSchemaParsingError(
+        "Arbeidsgiver",
+        "IsDialogmote",
+        isDialogmoteRes.error
+      );
     }
   }
 
