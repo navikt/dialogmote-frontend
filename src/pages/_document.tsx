@@ -23,11 +23,8 @@ export default class MyDocument extends Document<{ Decorator: Components }> {
       env: serverEnv.DECORATOR_ENV,
       context: isAudienceSykmeldt ? "privatperson" : "arbeidsgiver",
       chatbot: true,
-      enforceLogin: serverEnv.MOCK_BACKEND !== "true",
+      redirectToApp: true,
       utloggingsvarsel: true,
-      redirectToUrl: isAudienceSykmeldt
-        ? serverEnv.DITT_SYKEFRAVAER_ROOT
-        : serverEnv.DINE_SYKMELDTE_ROOT,
       level: "Level4",
     };
     const Decorator = await fetchDecoratorReact(decoratorParams);

@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 import { ncOptions } from "@/server/utils/ncOptions";
-import loginServiceToken from "@/server/auth/loginservice/loginServiceToken";
 import { withSentry } from "@sentry/nextjs";
 import { fetchBrevPdfSM } from "@/server/data/sykmeldt/isDialogmoteApiSM";
+import getIdportenToken from "@/server/auth/idporten/idportenToken";
 
 const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
-  .use(loginServiceToken())
+  .use(getIdportenToken)
   .use(fetchBrevPdfSM)
   .get(async (req: NextApiRequest, res: NextApiResponse & { pdf: any }) => {
     res.setHeader("Content-Type", "application/pdf");

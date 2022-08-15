@@ -15,6 +15,10 @@ export interface IServerEnvironmentVariables {
   DINE_SYKMELDTE_ROOT: string;
   MOCK_BACKEND: string;
   UNLEASH_API_URL: string;
+  IDPORTEN_CLIENT_ID: string;
+  SYFOMOTEBEHOV_CLIENT_ID: string;
+  SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID: string;
+  ISDIALOGMOTE_CLIENT_ID: string;
 }
 
 // TODO: Add assertions on required env variables
