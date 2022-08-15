@@ -6,9 +6,6 @@ import { activeLabsMockSM } from "../mock/activeLabsMock";
 import { getMotebehovSM } from "@/server/service/motebehovService";
 import { getBrevSM } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
-import { getTokenX } from "@/server/auth/tokenx";
-import serverEnv from "@/server/utils/serverEnv";
-import serverLogger from "@/server/utils/serverLogger";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,
@@ -24,41 +21,21 @@ export const fetchConcurrentDataSM = async (
       res.brevArray = activeMockSM.brev;
     }
   } else {
-    const token = req.idportenToken;
-    const motebehovTokenXPromise = getTokenX(
-      token,
-      serverEnv.SYFOMOTEBEHOV_CLIENT_ID
-    );
-    const isDialogmoteTokenXPromise = getTokenX(
-      token,
-      serverEnv.ISDIALOGMOTE_CLIENT_ID
-    );
-    const [motebehovTokenX, isDialogmoteTokenX] = await Promise.all([
-      motebehovTokenXPromise,
-      isDialogmoteTokenXPromise,
-    ]);
-    serverLogger.info("Exchanging SM tokenx ok");
+    const motebehovPromise = getMotebehovSM(req.loginServiceToken);
+    const brevPromise = getBrevSM(req.loginServiceToken);
 
-    const motebehovPromise = getMotebehovSM(motebehovTokenX);
-    const isDialogmotePromise = getBrevSM(isDialogmoteTokenX);
-
-    const [motebehovRes, isDialogmoteRes] = await Promise.all([
+    const [motebehovRes, brevRes] = await Promise.all([
       motebehovPromise,
-      isDialogmotePromise,
+      brevPromise,
     ]);
-    serverLogger.info("Fetching DM data SM ok");
 
-    if (motebehovRes.success && isDialogmoteRes.success) {
+    if (motebehovRes.success && brevRes.success) {
       res.motebehov = motebehovRes.data;
-      res.brevArray = isDialogmoteRes.data;
+      res.brevArray = brevRes.data;
     } else if (!motebehovRes.success) {
       handleSchemaParsingError("Sykmeldt", "Motebehov", motebehovRes.error);
-    } else if (!isDialogmoteRes.success) {
-      handleSchemaParsingError(
-        "Sykmeldt",
-        "IsDialogmote",
-        isDialogmoteRes.error
-      );
+    } else if (!brevRes.success) {
+      handleSchemaParsingError("Sykmeldt", "Brev", brevRes.error);
     }
   }
 

@@ -23,7 +23,7 @@ export const fetchBrevPdfAG = async (
   } else {
     const { uuid } = req.query;
     res.pdf = await get(brevApiAG(`/${uuid}/pdf`), {
-      accessToken: req.idportenToken,
+      accessToken: req.loginServiceToken,
       responseType: "arraybuffer",
     });
   }
@@ -46,7 +46,7 @@ export const postBrevLestAG = async (
   } else {
     const { uuid } = req.query;
     await post(brevApiAG(`/${uuid}/les`), undefined, {
-      accessToken: req.idportenToken,
+      accessToken: req.loginServiceToken,
     });
   }
 
@@ -74,7 +74,7 @@ export const postBrevSvarAG = async (
     const { uuid } = req.query;
     const svar: SvarRespons = req.body;
     await post(brevApiAG(`/${uuid}/respons`), svar, {
-      accessToken: req.idportenToken,
+      accessToken: req.loginServiceToken,
     });
   }
 

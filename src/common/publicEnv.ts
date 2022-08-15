@@ -15,3 +15,5 @@ export const oppfolgingsplanUrlSM: string = process.env
   .NEXT_PUBLIC_OPPFOLGINGSPLAN_PATH_SM as string;
 export const oppfolgingsplanUrlAG: string = process.env
   .NEXT_PUBLIC_OPPFOLGINGSPLAN_PATH_AG as string;
+export const loginServiceUrl: string =
+  publicRuntimeConfig.loginServiceUrl as string;

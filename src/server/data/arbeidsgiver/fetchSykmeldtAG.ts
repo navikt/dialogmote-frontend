@@ -5,9 +5,6 @@ import activeMockAG from "@/server/data/mock/activeMockAG";
 import { activeLabsMockAG } from "../mock/activeLabsMock";
 import { getSykmeldt } from "@/server/service/sykmeldtService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
-import { getTokenX } from "@/server/auth/tokenx";
-import serverLogger from "@/server/utils/serverLogger";
-import serverEnv from "@/server/utils/serverEnv";
 
 export const fetchSykmeldtAG = async (
   req: IAuthenticatedRequest,
@@ -21,17 +18,11 @@ export const fetchSykmeldtAG = async (
       res.sykmeldt = activeMockAG.sykmeldt!!;
     }
   } else {
-    const idportenToken = req.idportenToken;
-
-    const tokenx = await getTokenX(
-      idportenToken,
-      serverEnv.SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
+    const { narmestelederid } = req.query;
+    const sykmeldtRes = await getSykmeldt(
+      narmestelederid as string,
+      req.loginServiceToken
     );
-
-    serverLogger.info("Sykemeldinger AG tokenx exchange OK");
-
-    const { narmestelederid } = <{ narmestelederid: string }>req.query;
-    const sykmeldtRes = await getSykmeldt(narmestelederid, tokenx);
 
     if (sykmeldtRes.success) {
       res.sykmeldt = sykmeldtRes.data;

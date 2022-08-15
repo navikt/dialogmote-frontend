@@ -2,12 +2,12 @@ import React, { ReactElement } from "react";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import {
+  ExtMotebehovSvar,
+  ExtMotebehovSvarArbeidsgiver,
+} from "@/server/data/types/external/ExternalMotebehovTypes";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import { commonTexts } from "@/common/constants/commonTexts";
-import {
-  MotebehovSvarRequest,
-  MotebehovSvarRequestAG,
-} from "types/shared/motebehov";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -25,8 +25,8 @@ const MeldBehov = (): ReactElement => {
   const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
   const motebehovTekst = `${texts.behovForMoteTekst} ${ansattName}`;
 
-  const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarRequestAG = {
+  const submitSvar = (motebehovSvar: ExtMotebehovSvar) => {
+    const svar: ExtMotebehovSvarArbeidsgiver = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       motebehovSvar: motebehovSvar,

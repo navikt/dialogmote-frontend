@@ -17,7 +17,7 @@ import {
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
 import { ButtonRow } from "@/common/components/button/ButtonRow";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
+import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 
 const texts = {
   dialogmoteInfo:
@@ -37,7 +37,7 @@ const begrunnelseTextAreaId = "begrunnelseTextArea";
 
 interface Props {
   begrunnelseDescription: string;
-  svarMotebehov: (svar: MotebehovSvarRequest) => void;
+  svarMotebehov: (svar: ExtMotebehovSvar) => void;
 }
 
 export const SvarBehovContent = ({
