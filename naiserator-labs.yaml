@@ -46,6 +46,8 @@ spec:
       value: /tmp
     - name: DECORATOR_ENV
       value: "prod"
+    - name: LOGINSERVICE_URL
+      value: https://loginservice.dev.nav.no/login
     - name: ISDIALOGMOTE_HOST
       value: https://isdialogmote.dev.nav.no
     - name: SYFOMOTEBEHOV_HOST

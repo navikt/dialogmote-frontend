@@ -4,5 +4,6 @@ import { TokenSet } from "openid-client";
 
 export interface IAuthenticatedRequest extends NextApiRequest {
   cookies: NextApiRequestCookies;
-  idportenToken: string;
+  tokenSet: TokenSet;
+  loginServiceToken: string;
 }
