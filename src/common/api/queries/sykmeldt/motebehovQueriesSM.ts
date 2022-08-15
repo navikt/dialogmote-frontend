@@ -3,7 +3,7 @@ import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
 import { post } from "@/common/api/axios/axios";
 import { useRouter } from "next/router";
 import { useNotifications } from "@/context/NotificationContext";
-import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { MotebehovSvarRequest } from "types/shared/motebehov";
 
 export const useSvarPaMotebehovSM = () => {
   const basepath = useApiBasePath();
@@ -11,7 +11,7 @@ export const useSvarPaMotebehovSM = () => {
   const landingUrl = useLandingUrl();
   const { displaySuccessToast, displayErrorToast } = useNotifications();
 
-  const postSvar = (svar: ExtMotebehovSvar) =>
+  const postSvar = (svar: MotebehovSvarRequest) =>
     post(`${basepath}/motebehov`, svar);
 
   return useMutation(postSvar, {

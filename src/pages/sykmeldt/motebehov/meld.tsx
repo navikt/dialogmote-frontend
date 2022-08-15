@@ -3,8 +3,8 @@ import React, { ReactElement } from "react";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
 import { commonTexts } from "@/common/constants/commonTexts";
+import { MotebehovSvarRequest } from "types/shared/motebehov";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -18,7 +18,7 @@ const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
   const submitMutation = useSvarPaMotebehovSM();
 
-  const submitSvar = (motebehovSvar: ExtMotebehovSvar) => {
+  const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     submitMutation.mutate(motebehovSvar);
   };
 
