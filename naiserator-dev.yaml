@@ -13,11 +13,11 @@ spec:
     cpuThresholdPercentage: 90
   port: 8080
   tokenx:
-    enabled: false
+    enabled: true
   idporten:
-    enabled: false
+    enabled: true
     sidecar:
-      enabled: false
+      enabled: true
   liveness:
     path: syk/dialogmoter/api/isAlive
     initialDelay: 20
@@ -48,8 +48,6 @@ spec:
       value: https://dekoratoren.dev.nav.no
     - name: DECORATOR_ENV
       value: "dev"
-    - name: LOGINSERVICE_URL
-      value: https://loginservice.dev.nav.no/login
     - name: ISDIALOGMOTE_HOST
       value: https://isdialogmote.dev.nav.no
     - name: SYFOMOTEBEHOV_HOST
@@ -70,6 +68,12 @@ spec:
       value: /syk/dialogmoter
     - name: UNLEASH_API_URL
       value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
+    - name : SYFOMOTEBEHOV_CLIENT_ID
+      value: "dev-fss:team-esyfo:syfomotebehov"
+    - name : SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
+      value: "dev-gcp:teamsykmelding:sykmeldinger-arbeidsgiver"
+    - name : ISDIALOGMOTE_CLIENT_ID
+      value: "dev-gcp:teamsykefravr:isdialogmote"
   accessPolicy:
     outbound:
       rules:

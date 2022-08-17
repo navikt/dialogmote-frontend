@@ -23,5 +23,5 @@ export const grant = async (
     },
   };
 
-  return await client.grant(body, extras);
+  return client.grant(body, extras);
 };

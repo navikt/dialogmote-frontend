@@ -15,7 +15,7 @@ import {
 import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { ExtMotebehovSvar } from "@/server/data/types/external/ExternalMotebehovTypes";
+import { MotebehovSvarRequest } from "types/shared/motebehov";
 
 export const texts = {
   obligatoriskeFeltInfo:
@@ -32,7 +32,7 @@ interface Props {
   motebehovTekst: string;
   behandlerVaereMedTekst: string;
   sensitivInfoTekst: string;
-  meldMotebehov: (svar: ExtMotebehovSvar) => void;
+  meldMotebehov: (svar: MotebehovSvarRequest) => void;
 }
 
 export const MeldBehovContent = ({
