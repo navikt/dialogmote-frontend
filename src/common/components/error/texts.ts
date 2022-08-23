@@ -8,6 +8,6 @@ export const texts = {
     reloadPageMsgOne: "Du kan prøve å",
     reloadPageMsgTwo: "laste siden på nytt.",
     defaultDetails: "Vi jobber allerede med å fikse feilen.",
-    backToLandingPage: "Tilabke til landingsside",
+    backToLandingPage: "Tilbake til dialogmøter",
   },
 };
