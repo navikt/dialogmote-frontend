@@ -8,7 +8,7 @@ import activeMockSM from "@/server/data/mock/activeMockSM";
 import { SvarRespons } from "types/shared/brev";
 
 const brevApiSM = (path?: string): string => {
-  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`;
+  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev`;
 
   return path ? `${host}${path}` : host;
 };
