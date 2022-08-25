@@ -6,9 +6,10 @@ import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import activeMockSM from "@/server/data/mock/activeMockSM";
 import { SvarRespons } from "types/shared/brev";
+import { getTokenX } from "@/server/auth/tokenx";
 
 const brevApiSM = (path?: string): string => {
-  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/arbeidstaker/brev`;
+  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev`;
 
   return path ? `${host}${path}` : host;
 };
@@ -21,9 +22,14 @@ export const fetchBrevPdfSM = async (
   if (isMockBackend) {
     res.pdf = pdfMock;
   } else {
+    const tokenX = await getTokenX(
+      req.idportenToken,
+      serverEnv.ISDIALOGMOTE_CLIENT_ID
+    );
+
     const { uuid } = req.query;
     res.pdf = await get(brevApiSM(`/${uuid}/pdf`), {
-      accessToken: req.idportenToken,
+      accessToken: tokenX,
       responseType: "arraybuffer",
     });
   }
@@ -45,9 +51,14 @@ export const postBrevLestSM = async (
   if (isMockBackend || isOpplaering) {
     return next();
   } else {
+    const tokenX = await getTokenX(
+      req.idportenToken,
+      serverEnv.ISDIALOGMOTE_CLIENT_ID
+    );
+
     const { uuid } = req.query;
     await post(brevApiSM(`/${uuid}/les`), undefined, {
-      accessToken: req.idportenToken,
+      accessToken: tokenX,
     });
   }
 
@@ -73,10 +84,15 @@ export const postBrevSvarSM = async (
   if (isMockBackend || isOpplaering) {
     return next();
   } else {
+    const tokenX = await getTokenX(
+      req.idportenToken,
+      serverEnv.ISDIALOGMOTE_CLIENT_ID
+    );
+
     const { uuid } = req.query;
     const svar: SvarRespons = req.body;
     await post(brevApiSM(`/${uuid}/respons`), svar, {
-      accessToken: req.idportenToken,
+      accessToken: tokenX,
     });
   }
 
