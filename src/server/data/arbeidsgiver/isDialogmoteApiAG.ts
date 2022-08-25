@@ -8,7 +8,7 @@ import activeMockAG from "@/server/data/mock/activeMockAG";
 import { SvarRespons } from "types/shared/brev";
 
 const brevApiAG = (path?: string): string => {
-  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev`;
+  const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v1/narmesteleder/brev`;
 
   return path ? `${host}${path}` : host;
 };
