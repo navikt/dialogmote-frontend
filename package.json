@@ -72,6 +72,10 @@
   "overrides": {
     "@sentry/nextjs": {
       "ansi-regex": "3.0.1"
+    },
+    "@navikt/dinesykmeldte-sidemeny": {
+      "react": "17.0.2",
+      "@navikt/ds-react": "0.19.26"
     }
   }
 }
