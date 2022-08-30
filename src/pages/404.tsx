@@ -1,11 +1,11 @@
 import React from "react";
-import { ContentContainer } from "@navikt/ds-react";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 
 function NotFound() {
   return (
-    <ContentContainer>
+    <PageContainer>
       <div>Fant ikke siden</div>
-    </ContentContainer>
+    </PageContainer>
   );
 }
 

@@ -2,8 +2,6 @@ import React from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
-import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
-import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import type { NextPage } from "next";
 import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
@@ -13,6 +11,7 @@ import { UseQueryResult } from "react-query";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
 
 const texts = {
   title: "Dialogmøter",
@@ -48,7 +47,16 @@ const Home: NextPage = () => {
   const dialogmoteData = useDialogmoteDataAG();
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+    <DialogmotePage
+      title={texts.title}
+      isLoading={dialogmoteData.isLoading}
+      sideMenu={{
+        navigation: (
+          <ArbeidsgiverSideMenu sykmeldt={dialogmoteData.data?.sykmeldt} />
+        ),
+        sykmeldt: dialogmoteData.data?.sykmeldt,
+      }}
+    >
       <Content dialogmoteData={dialogmoteData} />
       <VideoPanel />
     </DialogmotePage>

@@ -1,19 +1,21 @@
-import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import React, { ReactNode } from "react";
-import PageHeader from "@/common/components/header/PageHeader";
 import Head from "next/head";
+import styled from "styled-components";
+import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
+import PageHeader from "@/common/components/header/PageHeader";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
+import { Sykmeldt } from "../../../types/shared/sykmeldt";
 
-interface Props {
-  title: string;
-  hideHeader?: boolean;
-  isLoading: boolean;
-  children: ReactNode;
-}
+const InnerContentWrapperStyled = styled.div`
+  margin: 0 auto;
+  max-width: 40rem;
+`;
 
 export const DialogmotePage = ({
   title,
   hideHeader,
+  sideMenu,
   isLoading,
   children,
 }: Props) => {
@@ -23,11 +25,19 @@ export const DialogmotePage = ({
     }
 
     return (
-      <>
-        {!hideHeader && <PageHeader title={title} />}
-        {children}
-        <PersonvernInfo />
-      </>
+      <PageContainer
+        navigation={sideMenu?.navigation}
+        sykmeldt={{
+          navn: sideMenu?.sykmeldt?.navn ?? "",
+          fnr: sideMenu?.sykmeldt?.fnr ?? "",
+        }}
+      >
+        <InnerContentWrapperStyled>
+          {!hideHeader && <PageHeader title={title} />}
+          {children}
+          <PersonvernInfo />
+        </InnerContentWrapperStyled>
+      </PageContainer>
     );
   };
 
@@ -41,3 +51,16 @@ export const DialogmotePage = ({
     </>
   );
 };
+
+interface Props {
+  title: string;
+  hideHeader?: boolean;
+  sideMenu?: SideMenuProps;
+  isLoading: boolean;
+  children: ReactNode;
+}
+
+interface SideMenuProps {
+  navigation?: React.ReactNode;
+  sykmeldt?: Sykmeldt;
+}
