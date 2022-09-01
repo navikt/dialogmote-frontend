@@ -49,9 +49,9 @@ const Home: NextPage = () => {
     <DialogmotePage
       title={texts.title}
       isLoading={dialogmoteData.isLoading}
-      sykmeldt={dialogmoteData.data?.sykmeldt}
-      withAGNavigation
       withAGHeader
+      withAGNavigation
+      sykmeldt={dialogmoteData.data?.sykmeldt}
     >
       <Content dialogmoteData={dialogmoteData} />
       <VideoPanel />

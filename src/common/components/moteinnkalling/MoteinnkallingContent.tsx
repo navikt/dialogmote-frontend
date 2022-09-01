@@ -35,7 +35,7 @@ export const MoteinnkallingContent = ({ dialogmoteData, userType }: Props) => {
       userType === "AG"
         ? {
             withAGHeader: true,
-            withAGNavigation: true,
+            sykmeldt: dialogmoteData.data?.sykmeldt,
           }
         : {};
 
@@ -44,8 +44,8 @@ export const MoteinnkallingContent = ({ dialogmoteData, userType }: Props) => {
         <DialogmotePage
           title={texts.titleAvlysning}
           hideTitle={true}
-          {...additionalContainerProps}
           isLoading={dialogmoteData.isLoading}
+          {...additionalContainerProps}
         >
           <AvlystMoteinnkalling moteinnkalling={moteinnkalling} />
         </DialogmotePage>
@@ -60,8 +60,8 @@ export const MoteinnkallingContent = ({ dialogmoteData, userType }: Props) => {
             : texts.titleEndring
         }
         hideTitle={true}
-        {...additionalContainerProps}
         isLoading={dialogmoteData.isLoading}
+        {...additionalContainerProps}
       >
         <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />
       </DialogmotePage>

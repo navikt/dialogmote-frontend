@@ -1,6 +1,10 @@
 import { SideMenu, RootPages } from "@navikt/dinesykmeldte-sidemeny";
 import { Sykmeldt } from "../../../types/shared/sykmeldt";
 
+interface Props {
+  sykmeldt?: Sykmeldt;
+}
+
 export const ArbeidsgiverSideMenu = ({
   sykmeldt,
 }: Props): JSX.Element | null => {
@@ -20,7 +24,3 @@ export const ArbeidsgiverSideMenu = ({
     />
   );
 };
-
-interface Props {
-  sykmeldt?: Sykmeldt;
-}

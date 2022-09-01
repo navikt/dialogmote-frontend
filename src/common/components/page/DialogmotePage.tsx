@@ -7,6 +7,26 @@ import AppSpinner from "@/common/components/spinner/AppSpinner";
 import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { Sykmeldt } from "../../../types/shared/sykmeldt";
 import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
+import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
+
+type WithNavigationAndHeader =
+  | {
+      sykmeldt: Sykmeldt | undefined;
+      withAGNavigation?: boolean;
+      withAGHeader?: boolean;
+    }
+  | {
+      sykmeldt?: never;
+      withAGNavigation?: never;
+      withAGHeader?: never;
+    };
+
+type Props = {
+  title: string;
+  isLoading: boolean;
+  children: React.ReactNode;
+  hideTitle?: boolean;
+} & WithNavigationAndHeader;
 
 export const DialogmotePage = ({
   title,
@@ -21,12 +41,12 @@ export const DialogmotePage = ({
     const sykmeldtName = sykmeldt?.navn ?? "";
     const sykmeldtFnr = sykmeldt?.fnr ?? "";
 
-    const hasValidSykmeldtNameAndFnr =
+    const hasSykmeldtValidData =
       !!sykmeldtName && !!sykmeldtFnr && !!sykmeldt?.narmestelederId;
-    const showAGHeader = withAGHeader && hasValidSykmeldtNameAndFnr;
-    const showAGNavigation = withAGNavigation && hasValidSykmeldtNameAndFnr;
+    const showAGHeader = withAGHeader && hasSykmeldtValidData;
+    const showAGNavigation = withAGNavigation && hasSykmeldtValidData;
 
-    const sykmeldtNameAndFnr = hasValidSykmeldtNameAndFnr
+    const sykmeldtNameAndFnr = hasSykmeldtValidData
       ? { navn: sykmeldtName, fnr: sykmeldtFnr }
       : null;
 
@@ -34,7 +54,9 @@ export const DialogmotePage = ({
       ? {
           title: sykmeldtName,
           Icon: People,
-          subtitle: `Fødselsnr ${sykmeldtFnr}`,
+          subtitle: `Fødselsnr: ${addSpaceAfterEverySixthCharacter(
+            sykmeldtFnr
+          )}`,
         }
       : false;
 
@@ -73,13 +95,3 @@ export const DialogmotePage = ({
     </>
   );
 };
-
-interface Props {
-  title: string;
-  isLoading: boolean;
-  children: React.ReactNode;
-  hideTitle?: boolean | { sykmeldt?: never };
-  withAGNavigation?: boolean;
-  withAGHeader?: boolean;
-  sykmeldt?: Sykmeldt;
-}
