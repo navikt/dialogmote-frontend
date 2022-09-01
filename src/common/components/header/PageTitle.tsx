@@ -6,11 +6,11 @@ interface Props {
 }
 
 const MarginStyled = styled.div`
-  margin-top: -0.35rem;
+  margin-top: -0.4rem;
   margin-bottom: 2rem;
 `;
 
-const PageHeader = ({ title }: Props) => {
+const PageTitle = ({ title }: Props) => {
   return (
     <MarginStyled>
       <Heading size="xlarge" level="1">
@@ -20,4 +20,4 @@ const PageHeader = ({ title }: Props) => {
   );
 };
 
-export default PageHeader;
+export default PageTitle;

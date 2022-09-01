@@ -5,7 +5,9 @@ import { MoteinnkallingContent } from "@/common/components/moteinnkalling/Motein
 const Moteinnkalling = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
 
-  return <MoteinnkallingContent dialogmoteData={dialogmoteData} />;
+  return (
+    <MoteinnkallingContent dialogmoteData={dialogmoteData} userType="SM" />
+  );
 };
 
 export default Moteinnkalling;

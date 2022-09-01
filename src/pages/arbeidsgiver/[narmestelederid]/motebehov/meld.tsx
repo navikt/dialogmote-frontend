@@ -35,7 +35,12 @@ const MeldBehov = (): ReactElement => {
   };
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+    <DialogmotePage
+      title={texts.title}
+      withAGHeader
+      sykmeldt={dialogmoteData.data?.sykmeldt}
+      isLoading={dialogmoteData.isLoading}
+    >
       <MeldBehovContent
         motebehovTekst={motebehovTekst}
         behandlerVaereMedTekst={texts.behandlerVaereMedTekst}

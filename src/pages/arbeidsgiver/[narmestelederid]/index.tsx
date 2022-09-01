@@ -11,7 +11,6 @@ import { UseQueryResult } from "react-query";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
 
 const texts = {
   title: "Dialogmøter",
@@ -50,12 +49,9 @@ const Home: NextPage = () => {
     <DialogmotePage
       title={texts.title}
       isLoading={dialogmoteData.isLoading}
-      sideMenu={{
-        navigation: (
-          <ArbeidsgiverSideMenu sykmeldt={dialogmoteData.data?.sykmeldt} />
-        ),
-        sykmeldt: dialogmoteData.data?.sykmeldt,
-      }}
+      sykmeldt={dialogmoteData.data?.sykmeldt}
+      withAGNavigation
+      withAGHeader
     >
       <Content dialogmoteData={dialogmoteData} />
       <VideoPanel />

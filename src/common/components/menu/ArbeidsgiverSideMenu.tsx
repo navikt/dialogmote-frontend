@@ -1,11 +1,13 @@
 import { SideMenu, RootPages } from "@navikt/dinesykmeldte-sidemeny";
 import { Sykmeldt } from "../../../types/shared/sykmeldt";
 
-export const ArbeidsgiverSideMenu = ({ sykmeldt }: Props) => {
+export const ArbeidsgiverSideMenu = ({
+  sykmeldt,
+}: Props): JSX.Element | null => {
   return (
     <SideMenu
       sykmeldtName={sykmeldt?.navn ?? ""}
-      sykmeldtId={sykmeldt?.fnr ?? ""}
+      sykmeldtId={sykmeldt?.narmestelederId ?? ""}
       activePage={RootPages.Dialogmoter}
       routes={{
         Soknader: 0,

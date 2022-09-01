@@ -5,6 +5,7 @@ import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
 import { DialogmoteData } from "types/shared/dialogmote";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 
 const texts = {
   noMeetingFound: "Vi finner ikke din møteinnkalling.",
@@ -15,23 +16,35 @@ const texts = {
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
+  userType: "AG" | "SM";
 }
 
-export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
+export const MoteinnkallingContent = ({ dialogmoteData, userType }: Props) => {
   if (dialogmoteData.isSuccess) {
     const moteinnkalling = dialogmoteData.data.moteinnkalling;
 
     if (moteinnkalling === undefined) {
       return (
-        <ErrorWithEscapeRoute>{texts.noMeetingFound}</ErrorWithEscapeRoute>
+        <PageContainer header={false}>
+          <ErrorWithEscapeRoute>{texts.noMeetingFound}</ErrorWithEscapeRoute>
+        </PageContainer>
       );
     }
+
+    const additionalContainerProps =
+      userType === "AG"
+        ? {
+            withAGHeader: true,
+            withAGNavigation: true,
+          }
+        : {};
 
     if (moteinnkalling.brevType === "AVLYST") {
       return (
         <DialogmotePage
           title={texts.titleAvlysning}
-          hideHeader={true}
+          hideTitle={true}
+          {...additionalContainerProps}
           isLoading={dialogmoteData.isLoading}
         >
           <AvlystMoteinnkalling moteinnkalling={moteinnkalling} />
@@ -46,7 +59,8 @@ export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
             ? texts.titleInnkalling
             : texts.titleEndring
         }
-        hideHeader={true}
+        hideTitle={true}
+        {...additionalContainerProps}
         isLoading={dialogmoteData.isLoading}
       >
         <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />

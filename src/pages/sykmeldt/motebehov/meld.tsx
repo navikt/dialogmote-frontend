@@ -1,10 +1,10 @@
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import React, { ReactElement } from "react";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 import { commonTexts } from "@/common/constants/commonTexts";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
+import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 
 export const texts = {
   title: "Meld behov for møte",

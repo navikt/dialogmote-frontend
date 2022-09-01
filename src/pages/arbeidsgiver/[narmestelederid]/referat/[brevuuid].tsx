@@ -14,7 +14,9 @@ const ReferatPage: NextPage = () => {
   return (
     <DialogmotePage
       title={texts.title}
-      hideHeader={true}
+      hideTitle={true}
+      sykmeldt={dialogmoteData.data?.sykmeldt}
+      withAGHeader
       isLoading={dialogmoteData.isLoading}
     >
       <ReferatContent dialogmoteData={dialogmoteData} />

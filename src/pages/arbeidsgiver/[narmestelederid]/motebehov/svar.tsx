@@ -28,7 +28,12 @@ const SvarBehov = (): ReactElement => {
   };
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+    <DialogmotePage
+      title={texts.title}
+      withAGHeader
+      sykmeldt={dialogmoteData.data?.sykmeldt}
+      isLoading={dialogmoteData.isLoading}
+    >
       <SvarBehovContent
         svarMotebehov={submitSvar}
         begrunnelseDescription={commonTexts.noSensitiveInfo}
