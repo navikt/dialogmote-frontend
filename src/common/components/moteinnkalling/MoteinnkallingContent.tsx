@@ -5,7 +5,6 @@ import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
 import { DialogmoteData } from "types/shared/dialogmote";
-import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 
 const texts = {
   noMeetingFound: "Vi finner ikke din møteinnkalling.",
@@ -16,36 +15,24 @@ const texts = {
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
-  userType: "AG" | "SM";
 }
 
-export const MoteinnkallingContent = ({ dialogmoteData, userType }: Props) => {
+export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
   if (dialogmoteData.isSuccess) {
     const moteinnkalling = dialogmoteData.data.moteinnkalling;
 
     if (moteinnkalling === undefined) {
       return (
-        <PageContainer header={false}>
-          <ErrorWithEscapeRoute>{texts.noMeetingFound}</ErrorWithEscapeRoute>
-        </PageContainer>
+        <ErrorWithEscapeRoute>{texts.noMeetingFound}</ErrorWithEscapeRoute>
       );
     }
-
-    const additionalContainerProps =
-      userType === "AG"
-        ? {
-            withAGHeader: true,
-            sykmeldt: dialogmoteData.data?.sykmeldt,
-          }
-        : {};
 
     if (moteinnkalling.brevType === "AVLYST") {
       return (
         <DialogmotePage
           title={texts.titleAvlysning}
-          hideTitle={true}
+          hideHeader={true}
           isLoading={dialogmoteData.isLoading}
-          {...additionalContainerProps}
         >
           <AvlystMoteinnkalling moteinnkalling={moteinnkalling} />
         </DialogmotePage>
@@ -59,9 +46,8 @@ export const MoteinnkallingContent = ({ dialogmoteData, userType }: Props) => {
             ? texts.titleInnkalling
             : texts.titleEndring
         }
-        hideTitle={true}
+        hideHeader={true}
         isLoading={dialogmoteData.isLoading}
-        {...additionalContainerProps}
       >
         <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />
       </DialogmotePage>

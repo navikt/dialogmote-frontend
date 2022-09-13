@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
@@ -8,6 +9,7 @@ import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
+import { getAgSideMenuHeader } from "@/common/utils/arbeidsgiverSideMenu";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -35,19 +37,16 @@ const MeldBehov = (): ReactElement => {
   };
 
   return (
-    <DialogmotePage
-      title={texts.title}
-      withAGHeader
-      sykmeldt={dialogmoteData.data?.sykmeldt}
-      isLoading={dialogmoteData.isLoading}
-    >
-      <MeldBehovContent
-        motebehovTekst={motebehovTekst}
-        behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
-        sensitivInfoTekst={commonTexts.noSensitiveInfo}
-        meldMotebehov={submitSvar}
-      />
-    </DialogmotePage>
+    <PageContainer header={getAgSideMenuHeader(dialogmoteData.data)}>
+      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+        <MeldBehovContent
+          motebehovTekst={motebehovTekst}
+          behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
+          sensitivInfoTekst={commonTexts.noSensitiveInfo}
+          meldMotebehov={submitSvar}
+        />
+      </DialogmotePage>
+    </PageContainer>
   );
 };
 

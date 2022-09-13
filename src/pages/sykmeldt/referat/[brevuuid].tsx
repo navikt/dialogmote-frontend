@@ -1,6 +1,7 @@
-import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import type { NextPage } from "next";
 import React from "react";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
+import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { ReferatContent } from "@/common/components/referat/ReferatContent";
 
@@ -12,13 +13,15 @@ const ReferatPage: NextPage = () => {
   const dialogmoteData = useDialogmoteDataSM();
 
   return (
-    <DialogmotePage
-      title={texts.title}
-      hideTitle={true}
-      isLoading={dialogmoteData.isLoading}
-    >
-      <ReferatContent dialogmoteData={dialogmoteData} />
-    </DialogmotePage>
+    <PageContainer header={false}>
+      <DialogmotePage
+        title={texts.title}
+        hideHeader={true}
+        isLoading={dialogmoteData.isLoading}
+      >
+        <ReferatContent dialogmoteData={dialogmoteData} />
+      </DialogmotePage>
+    </PageContainer>
   );
 };
 

@@ -1,14 +1,15 @@
+import React from "react";
+import type { NextPage } from "next";
+import { UseQueryResult } from "react-query";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import type { NextPage } from "next";
-import React from "react";
 import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
 import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovHarIkkeSvartPanel";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
-import { UseQueryResult } from "react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
@@ -52,11 +53,13 @@ const Home: NextPage = () => {
   const dialogmoteData = useDialogmoteDataSM();
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-      <Content dialogmoteData={dialogmoteData} />
+    <PageContainer header={false}>
+      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+        <Content dialogmoteData={dialogmoteData} />
 
-      <VideoPanel />
-    </DialogmotePage>
+        <VideoPanel />
+      </DialogmotePage>
+    </PageContainer>
   );
 };
 

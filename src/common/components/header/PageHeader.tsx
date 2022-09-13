@@ -10,7 +10,7 @@ const MarginStyled = styled.div`
   margin-bottom: 2rem;
 `;
 
-const PageTitle = ({ title }: Props) => {
+const PageHeader = ({ title }: Props) => {
   return (
     <MarginStyled>
       <Heading size="xlarge" level="1">
@@ -20,4 +20,4 @@ const PageTitle = ({ title }: Props) => {
   );
 };
 
-export default PageTitle;
+export default PageHeader;

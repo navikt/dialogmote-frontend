@@ -1,5 +1,6 @@
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import React, { ReactElement } from "react";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 import { commonTexts } from "@/common/constants/commonTexts";
@@ -23,14 +24,16 @@ const MeldBehov = (): ReactElement => {
   };
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-      <MeldBehovContent
-        motebehovTekst={texts.behovForMote}
-        behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
-        sensitivInfoTekst={commonTexts.noSensitiveInfo}
-        meldMotebehov={submitSvar}
-      />
-    </DialogmotePage>
+    <PageContainer header={false}>
+      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+        <MeldBehovContent
+          motebehovTekst={texts.behovForMote}
+          behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
+          sensitivInfoTekst={commonTexts.noSensitiveInfo}
+          meldMotebehov={submitSvar}
+        />
+      </DialogmotePage>
+    </PageContainer>
   );
 };
 

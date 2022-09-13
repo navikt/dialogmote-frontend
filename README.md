@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+### Installing dependencies
+This project uses modules from GitHub Package Repository and requires a PAT token in order to install the dependencies.
+
+Go to [https://github.com/settings/tokens](https://github.com/settings/tokens) and create a PAT token with the `package:read` permission.  
+
+Export an environment variable named `NPM_AUTH_TOKEN` using `export NPM_AUTH_TOKEN=<PAT>`. 
+
+### Start developing
 First, run the development server:
 
 ```bash
