@@ -1,9 +1,11 @@
 import React, { ReactElement } from "react";
+import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { SvarBehovContent } from "@/common/components/motebehov/SvarBehovContent";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import { commonTexts } from "@/common/constants/commonTexts";
+import { getAgSideMenuHeader } from "@/common/utils/arbeidsgiverSideMenu";
 import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
@@ -28,12 +30,14 @@ const SvarBehov = (): ReactElement => {
   };
 
   return (
-    <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-      <SvarBehovContent
-        svarMotebehov={submitSvar}
-        begrunnelseDescription={commonTexts.noSensitiveInfo}
-      />
-    </DialogmotePage>
+    <PageContainer header={getAgSideMenuHeader(dialogmoteData.data)}>
+      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+        <SvarBehovContent
+          svarMotebehov={submitSvar}
+          begrunnelseDescription={commonTexts.noSensitiveInfo}
+        />
+      </DialogmotePage>
+    </PageContainer>
   );
 };
 

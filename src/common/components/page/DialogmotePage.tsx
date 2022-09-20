@@ -1,7 +1,7 @@
-import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import React, { ReactNode } from "react";
-import PageHeader from "@/common/components/header/PageHeader";
 import Head from "next/head";
+import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
+import PageHeader from "@/common/components/header/PageHeader";
 import AppSpinner from "@/common/components/spinner/AppSpinner";
 
 interface Props {
@@ -17,19 +17,9 @@ export const DialogmotePage = ({
   isLoading,
   children,
 }: Props) => {
-  const renderContent = () => {
-    if (isLoading) {
-      return <AppSpinner />;
-    }
-
-    return (
-      <>
-        {!hideHeader && <PageHeader title={title} />}
-        {children}
-        <PersonvernInfo />
-      </>
-    );
-  };
+  if (isLoading) {
+    return <AppSpinner />;
+  }
 
   return (
     <>
@@ -37,7 +27,9 @@ export const DialogmotePage = ({
         <title>{title}</title>
       </Head>
 
-      {renderContent()}
+      {!hideHeader && <PageHeader title={title} />}
+      {children}
+      <PersonvernInfo />
     </>
   );
 };

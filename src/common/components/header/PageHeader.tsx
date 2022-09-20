@@ -6,7 +6,7 @@ interface Props {
 }
 
 const MarginStyled = styled.div`
-  margin-top: 2rem;
+  margin-top: -0.4rem;
   margin-bottom: 2rem;
 `;
 

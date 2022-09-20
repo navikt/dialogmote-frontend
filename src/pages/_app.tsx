@@ -1,11 +1,12 @@
 import "../styles/globals.css";
+import "@navikt/dinesykmeldte-sidemeny/dist/style.css";
 import type { AppContext, AppProps } from "next/app";
 import App from "next/app";
+import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import styled, { createGlobalStyle } from "styled-components";
 import { initAmplitude } from "@/common/amplitude/amplitude";
-import React, { useEffect } from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
@@ -25,17 +26,7 @@ const ContentWrapperStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   background-color: var(--navds-global-color-gray-100);
-`;
-
-const InnerContentWrapperStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 40rem;
-  flex-grow: 1;
-  padding-left: 1rem;
-  padding-right: 1rem;
 `;
 
 const minutesToMillis = (minutes: number) => {
@@ -71,9 +62,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           )}
           <ContentWrapperStyled>
             <NotificationBar />
-            <InnerContentWrapperStyled>
-              <Component {...pageProps} />
-            </InnerContentWrapperStyled>
+            <Component {...pageProps} />
           </ContentWrapperStyled>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

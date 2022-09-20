@@ -25,7 +25,7 @@ export const NotificationBar = (): ReactElement | null => {
 
   return (
     <NotificationBarWrapper ref={notificationBarRef}>
-      <SingleNotification notification={notification} />;
+      <SingleNotification notification={notification} />
     </NotificationBarWrapper>
   );
 };
