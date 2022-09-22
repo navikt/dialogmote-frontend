@@ -20,7 +20,7 @@ export async function getMotebehovAG(
 export async function getMotebehovSM(accessToken: string) {
   return motebehovSchema.safeParse(
     await get(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov/all`,
       {
         accessToken,
       }
