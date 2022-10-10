@@ -1,5 +1,5 @@
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
-import { createDocumentComponent } from "@/fixtures/brev";
+import { createDocumentComponent } from "../../../../tests/fixtures/brev";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import DocumentContainer from "../DocumentContainer";
