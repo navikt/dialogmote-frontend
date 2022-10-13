@@ -62,11 +62,6 @@ type InputFieldType =
   | typeof inputFields.begrunnelseEndring
   | typeof inputFields.begrunnelseAvlysning;
 
-interface FormData {
-  svarType?: SvarType;
-  begrunnelse: string;
-}
-
 interface Error {
   inputField: InputFieldType;
   errorMsg: string;
@@ -80,10 +75,9 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   const { trackEvent } = useAmplitude();
   const sendSvarQuery = useSvarPaInnkallelse(brevUuid);
   const [error, setError] = useState<Array<Error>>([]);
-  const [formData, setFormData] = useState<FormData>({
-    svarType: undefined,
-    begrunnelse: "",
-  });
+  const [svarType, setSvartype] = useState<SvarType | undefined>(undefined);
+  const [begrunnelse, setBegrunnelse] = useState("");
+
   useEffect(() => {
     trackEvent(Events.GiSvarPaMoteInnkallingVist);
   }, []);
@@ -102,25 +96,22 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   );
 
   const begrunnelseFieldName: InputFieldType =
-    formData.svarType === "KOMMER_IKKE"
+    svarType === "KOMMER_IKKE"
       ? inputFields.begrunnelseAvlysning
       : inputFields.begrunnelseEndring;
 
   const validateForm = (): boolean => {
-    if (!formData.svarType) {
+    if (!svarType) {
       updateError(inputFields.svarType, texts.responseRequired);
       return false;
     }
 
-    if (
-      formData.svarType === "NYTT_TID_STED" ||
-      formData.svarType === "KOMMER_IKKE"
-    ) {
-      if (!formData.begrunnelse) {
+    if (svarType === "NYTT_TID_STED" || svarType === "KOMMER_IKKE") {
+      if (!begrunnelse) {
         updateError(begrunnelseFieldName, texts.begrunnelseRequired);
         return false;
       }
-      if (formData.begrunnelse.length > 300) {
+      if (begrunnelse.length > 300) {
         updateError(begrunnelseFieldName, texts.begrunnelseMaxLength);
         return false;
       }
@@ -134,27 +125,25 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
-        svarAlternativ: formData.svarType!!,
+        svarAlternativ: svarType!!,
       });
 
       sendSvarQuery.mutate({
-        svarType: formData.svarType!!,
-        svarTekst: formData.begrunnelse,
+        svarType: svarType!!,
+        svarTekst: begrunnelse,
       });
     }
   };
 
-  const handleChangeSvarType = (newValue: string) => {
-    setFormData({ svarType: newValue as SvarType, begrunnelse: "" });
+  const handleChangeSvarType = (newValue: SvarType) => {
+    setSvartype(newValue);
+    setBegrunnelse("");
     setError([]);
   };
 
   const handleChangeBegrunnelse = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData({
-      svarType: formData.svarType,
-      begrunnelse: e.target.value,
-    });
-    validateForm();
+    setError([]);
+    setBegrunnelse(e.target.value);
   };
 
   const isFieldError = (field: InputFieldType): boolean => {
@@ -188,7 +177,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
         <Radio value="KOMMER_IKKE">{texts.svarAvlysning}</Radio>
       </RadioGroup>
 
-      {formData.svarType === "NYTT_TID_STED" && (
+      {svarType === "NYTT_TID_STED" && (
         <>
           <Alert variant="info">
             <BodyLong>{texts.infoEndring}</BodyLong>
@@ -201,12 +190,12 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseEndring)}
             onChange={handleChangeBegrunnelse}
-            value={formData.begrunnelse}
+            value={begrunnelse}
           />
         </>
       )}
 
-      {formData.svarType === "KOMMER_IKKE" && (
+      {svarType === "KOMMER_IKKE" && (
         <>
           <Alert variant="info">
             <BodyLong>{texts.infoAvlysning}</BodyLong>
@@ -218,7 +207,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
             maxLength={300}
             error={isFieldError(inputFields.begrunnelseAvlysning)}
             onChange={handleChangeBegrunnelse}
-            value={formData.begrunnelse}
+            value={begrunnelse}
           />
         </>
       )}
