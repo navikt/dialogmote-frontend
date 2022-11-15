@@ -50,7 +50,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "LINK":
       return (
         <>
-          {title && <Label spacing>{title}</Label>}
+          {title && (
+            <Heading size="xsmall" level="3" spacing>
+              {title}
+            </Heading>
+          )}
           {texts.map((text, index) => (
             <Link
               key={index}
@@ -68,7 +72,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "PARAGRAPH":
       return (
         <>
-          {title && <Label spacing>{title}</Label>}
+          {title && (
+            <Heading size="xsmall" level="3" spacing>
+              {title}
+            </Heading>
+          )}
           {texts.map((text, index) => (
             <BodyLong key={index}>{text}</BodyLong>
           ))}
