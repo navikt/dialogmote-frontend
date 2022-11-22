@@ -13,6 +13,7 @@ import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
+import { BodyLong } from "@navikt/ds-react";
 
 const texts = {
   title: "Dialogmøter",
@@ -37,10 +38,10 @@ const Content = ({ dialogmoteData }: Props) => {
         <ReferaterPanel referater={dialogmoteData.data.referater} />
         <VeilederGuidePanel>
           <InfoOmDialogmote>
-            <>
+            <BodyLong spacing>
               {texts.text1}
               <KontaktOssLink linkText={texts.text2} />
-            </>
+            </BodyLong>
           </InfoOmDialogmote>
         </VeilederGuidePanel>
       </>
