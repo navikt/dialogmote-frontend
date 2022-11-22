@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ContentWrapperStyled = styled.div`
+const ContentWrapperStyled = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
