@@ -16,19 +16,20 @@ interface Props {
 const InfoOmDialogmote = ({ children }: Props) => {
   const { trackEvent } = useAmplitude();
   return (
-    <BodyLong>
+    <section>
       {children}
-      <br />
-      <br />
-      {texts.text1}
-      <Link
-        href={DIALOGMOTE_INFO_URL}
-        target="_blank"
-        onClick={() => trackEvent(Events.LesMerOmDialogmoter)}
-      >
-        {texts.text2}
-      </Link>
-    </BodyLong>
+
+      <BodyLong>
+        {texts.text1}
+        <Link
+          href={DIALOGMOTE_INFO_URL}
+          target="_blank"
+          onClick={() => trackEvent(Events.LesMerOmDialogmoter)}
+        >
+          {texts.text2}
+        </Link>
+      </BodyLong>
+    </section>
   );
 };
 

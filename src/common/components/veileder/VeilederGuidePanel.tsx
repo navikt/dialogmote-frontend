@@ -1,6 +1,4 @@
-import { getAsset } from "@/common/utils/getAssetPath";
 import { GuidePanel } from "@navikt/ds-react";
-import Image from "next/image";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -12,19 +10,7 @@ interface Props {
 }
 
 const VeilederGuidePanel = ({ children }: Props) => {
-  return (
-    <GuidePanelStyled
-      illustration={
-        <Image
-          src={getAsset("/veileder/veileder.svg")}
-          layout="fill"
-          alt={""}
-        />
-      }
-    >
-      {children}
-    </GuidePanelStyled>
-  );
+  return <GuidePanelStyled>{children}</GuidePanelStyled>;
 };
 
 export default VeilederGuidePanel;
