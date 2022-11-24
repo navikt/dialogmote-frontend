@@ -5,9 +5,6 @@ import React from "react";
 import styled from "styled-components";
 
 const texts = {
-  infoText: "Lurer du på hva som skjer underveis i sykefraværet?",
-  tidslinjeText: "Ta gjerne en titt på denne ",
-  tidslinjeLink: "tidslinjen.",
   kontaktOssText: "Du kan også ",
   kontaktOssLink: "kontakte oss.",
 };
