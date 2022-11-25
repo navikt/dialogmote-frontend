@@ -3,8 +3,7 @@ import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import NoReferatAlert from "@/common/components/referat/NoReferatAlert";
 import UsefulLinks from "@/common/components/referat/UsefulLinks";
-import HvaSkjerISykefravaeret from "@/common/components/veileder/HvaSkjerISykefravaeret";
-import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
+import KontaktOssVeileder from "@/common/components/veileder/KontaktOssVeileder";
 import { usePdfPath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import React from "react";
@@ -44,9 +43,7 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
           pdfUrl={pdfPath}
         />
         <UsefulLinks referat={referat} />
-        <VeilederGuidePanel>
-          <HvaSkjerISykefravaeret />
-        </VeilederGuidePanel>
+        <KontaktOssVeileder/>
       </>
     );
   }
