@@ -9,17 +9,22 @@ export const useSvarPaMotebehovSM = () => {
   const basepath = useApiBasePath();
   const router = useRouter();
   const landingUrl = useLandingUrl();
-  const { displaySuccessToast, displayErrorToast } = useNotifications();
+  const { displaySuccessToast, displayErrorToast, clearNotifications } =
+    useNotifications();
 
   const postSvar = (svar: MotebehovSvarRequest) =>
     post(`${basepath}/motebehov`, svar);
 
   return useMutation(postSvar, {
-    onSuccess: () => {
+    onMutate: () => {
+      clearNotifications();
+    },
+    onSuccess: async () => {
+      await router.push(landingUrl);
+
       displaySuccessToast(
         "Du har sendt svaret ditt på om du ønsker et dialogmøte"
       );
-      router.push(landingUrl);
     },
     onError: () => {
       displayErrorToast(

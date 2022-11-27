@@ -18,13 +18,14 @@ export const NotificationBar = (): ReactElement | null => {
         behavior: "auto",
         block: "start",
       });
+      notificationBarRef.current?.focus();
     }
   }, [notification]);
 
   if (!notification) return null;
 
   return (
-    <NotificationBarWrapper ref={notificationBarRef}>
+    <NotificationBarWrapper ref={notificationBarRef} tabIndex={-1}>
       <SingleNotification notification={notification} />
     </NotificationBarWrapper>
   );

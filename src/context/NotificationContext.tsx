@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useContext, createContext } from "react";
 
 export interface Notification {
   //Milliseconds
@@ -20,7 +20,7 @@ type NotificationContextState = {
   clearNotifications: () => void;
 };
 
-export const NotificationContext = React.createContext<
+export const NotificationContext = createContext<
   NotificationContextState | undefined
 >(undefined);
 
@@ -38,14 +38,12 @@ export const NotificationProvider = ({
         },
         displaySuccessToast: (message) => {
           setNotification({
-            timeout: 5000,
             variant: "success",
             message: message,
           });
         },
         displayErrorToast: (message) => {
           setNotification({
-            timeout: 8000,
             variant: "error",
             message: message,
           });
@@ -59,7 +57,7 @@ export const NotificationProvider = ({
 };
 
 export const useNotifications = () => {
-  const context = React.useContext(NotificationContext);
+  const context = useContext(NotificationContext);
   if (!context) {
     throw new Error(
       `useNotifications must be used within a NotificationProvider`
