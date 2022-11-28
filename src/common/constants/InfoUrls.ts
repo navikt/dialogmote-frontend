@@ -5,7 +5,7 @@ export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   FRISKMELDING_ARBEIDSFORMIDLING: {
     key: "FRISKMELDING_ARBEIDSFORMIDLING",
     text: "Les mer om friskmelding til arbeidsformidling",
-    url: "www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nynorsk/friskmelding-til-arbeidsformidling-nynorsk",
+    url: "https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/nynorsk/friskmelding-til-arbeidsformidling-nynorsk",
   },
   AVKLARING_ARBEIDSEVNE: {
     key: "AVKLARING_ARBEIDSEVNE",
