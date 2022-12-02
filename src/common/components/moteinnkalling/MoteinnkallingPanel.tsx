@@ -1,4 +1,3 @@
-import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { Events } from "@/common/amplitude/events";
 import styled from "styled-components";
@@ -8,6 +7,8 @@ import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
 import DittSvarPaInnkallelse from "./DittSvarPaInnkallelse";
+import NextLink from "next/link";
+import { useLandingUrl } from "@/common/hooks/routeHooks";
 
 const getTexts = (brevType: BrevType) => {
   switch (brevType) {
@@ -51,6 +52,10 @@ const ContentResponedStyled = styled.section`
   margin-top: 1rem;
 `;
 
+const ButtonWrapperStyled = styled.div`
+  width: fit-content;
+`;
+
 const DialogmotePanelContet = ({
   moteinnkalling,
 }: {
@@ -85,11 +90,6 @@ const DialogmotePanelContet = ({
     </ContentStyled>
   );
 };
-
-const MoteinnkallingButton = styled(Button)`
-  width: fit-content;
-`;
-
 interface Props {
   moteinnkalling?: Brev;
 }
@@ -97,6 +97,7 @@ interface Props {
 const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
   const router = useRouter();
   const { trackEvent } = useAmplitude();
+  const landingUrl = useLandingUrl();
 
   if (moteinnkalling) {
     const texts = getTexts(moteinnkalling.brevType);
@@ -104,21 +105,21 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
     return (
       <DialogmotePanel title={texts.title} titleSize="large">
         <DialogmotePanelContet moteinnkalling={moteinnkalling} />
-        <MoteinnkallingButton
-          type="button"
-          variant="primary"
-          size="medium"
-          onClick={(e: { preventDefault: () => void }) => {
-            e.preventDefault();
-            trackEvent(texts.trackingName, {
-              read: `${!!moteinnkalling.lestDato}`,
-              responded: `${!!moteinnkalling.svar}`,
-            });
-            router.push(`${router.asPath}/moteinnkalling`);
-          }}
-        >
-          {texts.buttonText}
-        </MoteinnkallingButton>
+        <ButtonWrapperStyled>
+          <NextLink href={`${landingUrl}/moteinnkalling`} passHref>
+            <Button
+              as="a"
+              onClick={() => {
+                trackEvent(texts.trackingName, {
+                  read: `${!!moteinnkalling.lestDato}`,
+                  responded: `${!!moteinnkalling.svar}`,
+                });
+              }}
+            >
+              {texts.buttonText}
+            </Button>
+          </NextLink>
+        </ButtonWrapperStyled>
       </DialogmotePanel>
     );
   }
