@@ -3,14 +3,15 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "@navikt/ds-react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { useRouter } from "next/router";
 import { MotebehovSkjemaType } from "types/shared/motebehov";
+import NextLink from "next/link";
+import { useLandingUrl } from "@/common/hooks/routeHooks";
 
 const texts = {
   button: "Meld behov for møte",
 };
 
-const HovedKnapp = styled(Button)`
+const ButtonWrapperStyled = styled.div`
   width: fit-content;
 `;
 
@@ -19,26 +20,30 @@ interface Props {
 }
 
 export const MotebehovSubmitButton = ({ skjemaType }: Props) => {
-  const router = useRouter();
+  const landingUrl = useLandingUrl();
   const { trackEvent } = useAmplitude();
 
+  const path =
+    skjemaType === "MELD_BEHOV"
+      ? `${landingUrl}/motebehov/meld`
+      : `${landingUrl}/motebehov/svar`;
+
   return (
-    <HovedKnapp
-      type="button"
-      variant="primary"
-      size="medium"
-      onClick={() => {
-        trackEvent(
-          skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
-        );
-        router.push(
-          skjemaType === "MELD_BEHOV"
-            ? `${router.asPath}/motebehov/meld`
-            : `${router.asPath}/motebehov/svar`
-        );
-      }}
-    >
-      {texts.button}
-    </HovedKnapp>
+    <ButtonWrapperStyled>
+      <NextLink href={path} passHref>
+        <Button
+          as="a"
+          variant="primary"
+          size="medium"
+          onClick={() => {
+            trackEvent(
+              skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
+            );
+          }}
+        >
+          {texts.button}
+        </Button>
+      </NextLink>
+    </ButtonWrapperStyled>
   );
 };
