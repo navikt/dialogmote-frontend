@@ -5,10 +5,10 @@ import { withSentry } from "@sentry/nextjs";
 import { fetchBrevPdfSM } from "@/server/data/sykmeldt/isDialogmoteApiSM";
 import getIdportenToken from "@/server/auth/idporten/idportenToken";
 
-const handler = nc<NextApiRequest, NextApiResponse<any>>(ncOptions)
+const handler = nc<NextApiRequest, NextApiResponse>(ncOptions)
   .use(getIdportenToken)
   .use(fetchBrevPdfSM)
-  .get(async (req: NextApiRequest, res: NextApiResponse & { pdf: any }) => {
+  .get(async (req: NextApiRequest, res: NextApiResponse & { pdf: unknown }) => {
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", 'inline; filename="brev.pdf"');
     res.end(res.pdf);
