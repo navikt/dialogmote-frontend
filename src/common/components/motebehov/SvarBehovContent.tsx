@@ -74,7 +74,7 @@ export const SvarBehovContent = ({
       trackEvent(Events.SendSvarBehov);
 
       svarMotebehov({
-        harMotebehov: behovForMote!!,
+        harMotebehov: !!behovForMote,
         forklaring: begrunnelse,
       });
     }
@@ -111,36 +111,38 @@ export const SvarBehovContent = ({
       <BodyLong spacing>{texts.obligatoriskeFeltInfo}</BodyLong>
 
       <DialogmotePanel>
-        <MotebehovErrorSummary errors={getErrors()} />
+        <form>
+          <MotebehovErrorSummary errors={getErrors()} />
 
-        <SvarBehovRadioGroup
-          id={harMotebehovRadioId}
-          error={behovForMoteError}
-          clearErrors={() => {
-            setBehovForMoteError(null);
-            setBegrunnelseError(undefined);
-          }}
-          setBehovForMote={setBehovForMote}
-        />
+          <SvarBehovRadioGroup
+            id={harMotebehovRadioId}
+            error={behovForMoteError}
+            clearErrors={() => {
+              setBehovForMoteError(null);
+              setBegrunnelseError(undefined);
+            }}
+            setBehovForMote={setBehovForMote}
+          />
 
-        {behovForMote === false && (
-          <Alert variant="info">{texts.svarNeiAlert}</Alert>
-        )}
+          {behovForMote === false && (
+            <Alert variant="info">{texts.svarNeiAlert}</Alert>
+          )}
 
-        <MotebehovBegrunnelseTextArea
-          id={begrunnelseTextAreaId}
-          isOptional={behovForMote === true}
-          description={begrunnelseDescription}
-          error={begrunnelseError}
-          clearErrors={() => setBegrunnelseError("")}
-          begrunnelse={begrunnelse}
-          setBegrunnelse={setBegrunnelse}
-        />
+          <MotebehovBegrunnelseTextArea
+            id={begrunnelseTextAreaId}
+            isOptional={!!behovForMote}
+            description={begrunnelseDescription}
+            error={begrunnelseError}
+            clearErrors={() => setBegrunnelseError("")}
+            begrunnelse={begrunnelse}
+            setBegrunnelse={setBegrunnelse}
+          />
 
-        <ButtonRow>
-          <SubmitButton onSubmit={validateAndSubmit} />
-          <CancelButton />
-        </ButtonRow>
+          <ButtonRow>
+            <SubmitButton onSubmit={validateAndSubmit} />
+            <CancelButton />
+          </ButtonRow>
+        </form>
       </DialogmotePanel>
     </>
   );
