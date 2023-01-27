@@ -152,77 +152,83 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <SvarStyled title={texts.title}>
-      {error.length > 0 && (
-        <ErrorSummary heading={texts.feiloppsummeringTittel}>
-          {error.map((error, index) => {
-            return (
-              <ErrorSummary.Item key={index} href={`#${error.inputField}`}>
-                {error.errorMsg}
-              </ErrorSummary.Item>
-            );
-          })}
-        </ErrorSummary>
-      )}
+      <form>
+        {error.length > 0 && (
+          <ErrorSummary heading={texts.feiloppsummeringTittel}>
+            {error.map((error, index) => {
+              return (
+                <ErrorSummary.Item key={index} href={`#${error.inputField}`}>
+                  {error.errorMsg}
+                </ErrorSummary.Item>
+              );
+            })}
+          </ErrorSummary>
+        )}
 
-      <RadioGroup
-        id={inputFields.svarType}
-        legend={texts.svarLegend}
-        error={
-          isFieldError(inputFields.svarType) ? texts.svarRequired : undefined
-        }
-        onChange={handleChangeSvarType}
-      >
-        <Radio value="KOMMER">{texts.svarKommer}</Radio>
-        <Radio value="NYTT_TID_STED">{texts.svarEndring}</Radio>
-        <Radio value="KOMMER_IKKE">{texts.svarAvlysning}</Radio>
-      </RadioGroup>
+        <RadioGroup
+          id={inputFields.svarType}
+          legend={texts.svarLegend}
+          error={
+            isFieldError(inputFields.svarType) ? texts.svarRequired : undefined
+          }
+          onChange={handleChangeSvarType}
+        >
+          <Radio value="KOMMER">{texts.svarKommer}</Radio>
+          <Radio value="NYTT_TID_STED">{texts.svarEndring}</Radio>
+          <Radio value="KOMMER_IKKE">{texts.svarAvlysning}</Radio>
+        </RadioGroup>
 
-      {svarType === "NYTT_TID_STED" && (
-        <>
-          <Alert variant="info">
-            <BodyLong>{texts.infoEndring}</BodyLong>
-          </Alert>
+        {svarType === "NYTT_TID_STED" && (
+          <>
+            <Alert variant="info">
+              <BodyLong>{texts.infoEndring}</BodyLong>
+            </Alert>
 
-          <Textarea
-            id={inputFields.begrunnelseEndring}
-            label={texts.begrunnelseEndringLabel}
-            description={begrunnelseDescriptionSmallText}
-            maxLength={300}
-            error={isFieldError(inputFields.begrunnelseEndring)}
-            onChange={handleChangeBegrunnelse}
-            value={begrunnelse}
-          />
-        </>
-      )}
+            <Textarea
+              id={inputFields.begrunnelseEndring}
+              label={texts.begrunnelseEndringLabel}
+              description={begrunnelseDescriptionSmallText}
+              maxLength={300}
+              error={isFieldError(inputFields.begrunnelseEndring)}
+              onChange={handleChangeBegrunnelse}
+              value={begrunnelse}
+            />
+          </>
+        )}
 
-      {svarType === "KOMMER_IKKE" && (
-        <>
-          <Alert variant="info">
-            <BodyLong>{texts.infoAvlysning}</BodyLong>
-          </Alert>
-          <Textarea
-            id={inputFields.begrunnelseAvlysning}
-            label={texts.begrunnelseAvlysningLabel}
-            description={begrunnelseDescriptionSmallText}
-            maxLength={300}
-            error={isFieldError(inputFields.begrunnelseAvlysning)}
-            onChange={handleChangeBegrunnelse}
-            value={begrunnelse}
-          />
-        </>
-      )}
+        {svarType === "KOMMER_IKKE" && (
+          <>
+            <Alert variant="info">
+              <BodyLong>{texts.infoAvlysning}</BodyLong>
+            </Alert>
+            <Textarea
+              id={inputFields.begrunnelseAvlysning}
+              label={texts.begrunnelseAvlysningLabel}
+              description={begrunnelseDescriptionSmallText}
+              maxLength={300}
+              error={isFieldError(inputFields.begrunnelseAvlysning)}
+              onChange={handleChangeBegrunnelse}
+              value={begrunnelse}
+            />
+          </>
+        )}
 
-      {sendSvarQuery.isError && (
-        <Alert variant="error">{texts.errorMessage}</Alert>
-      )}
+        {sendSvarQuery.isError && (
+          <Alert variant="error">{texts.errorMessage}</Alert>
+        )}
 
-      <KnappStyled
-        disabled={sendSvarQuery.isLoading}
-        loading={sendSvarQuery.isLoading}
-        onClick={validateAndSubmit}
-      >
-        {texts.sendSvar}
-      </KnappStyled>
+        <KnappStyled
+          type="submit"
+          disabled={sendSvarQuery.isLoading}
+          loading={sendSvarQuery.isLoading}
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            validateAndSubmit();
+          }}
+        >
+          {texts.sendSvar}
+        </KnappStyled>
+      </form>
     </SvarStyled>
   );
 };
