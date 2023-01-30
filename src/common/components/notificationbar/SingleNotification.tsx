@@ -36,7 +36,11 @@ export const SingleNotification = ({ notification }: Props) => {
   );
 
   return (
-    <AlertStyled fullWidth={true} variant={notification.variant}>
+    <AlertStyled
+      fullWidth={true}
+      variant={notification.variant}
+      aria-live="polite"
+    >
       {notification.message}
     </AlertStyled>
   );
