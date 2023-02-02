@@ -19,7 +19,7 @@ const texts = {
 
 const JegKommer = (): ReactElement => {
   return (
-    <SuksessStripeStyled variant="success">
+    <SuksessStripeStyled variant="success" aria-live="polite">
       <BodyLong>{texts.svartKommer}</BodyLong>
       <KontaktOssLink linkText={texts.taKontakt} />
     </SuksessStripeStyled>
@@ -28,7 +28,7 @@ const JegKommer = (): ReactElement => {
 
 const JegVilEndre = (): ReactElement => {
   return (
-    <SuksessStripeStyled variant="success">
+    <SuksessStripeStyled variant="success" aria-live="polite">
       <BodyLong>{texts.svartVilEndre}</BodyLong>
     </SuksessStripeStyled>
   );
@@ -36,7 +36,7 @@ const JegVilEndre = (): ReactElement => {
 
 const JegVilAvlyse = (): ReactElement => {
   return (
-    <SuksessStripeStyled variant="success">
+    <SuksessStripeStyled variant="success" aria-live="polite">
       <BodyLong>{texts.svartKommerIkke}</BodyLong>
     </SuksessStripeStyled>
   );
