@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@navikt/dinesykmeldte-sidemeny": "^2.0.0",
+    "@navikt/dinesykmeldte-sidemeny": "^3.0.0",
     "@navikt/ds-css": "^2.0.4",
     "@navikt/ds-icons": "^2.0.4",
     "@navikt/ds-react": "^2.0.4",
