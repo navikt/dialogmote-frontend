@@ -71,6 +71,7 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: labs-gcp
           RESOURCE: naiserator-labs.yaml
+          DEPLOY_SERVER: deploy.nais.io:443
 
   deploy-prod:
     if: github.ref == 'refs/heads/master'
