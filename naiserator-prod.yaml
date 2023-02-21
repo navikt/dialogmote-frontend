@@ -74,6 +74,8 @@ spec:
       value: "prod-gcp:teamsykmelding:sykmeldinger-arbeidsgiver"
     - name : ISDIALOGMOTE_CLIENT_ID
       value: "prod-gcp:teamsykefravr:isdialogmote"
+    - name: DISPLAY_TESTSCENARIO_SELECTOR
+      value: "false"
   accessPolicy:
     outbound:
       rules:

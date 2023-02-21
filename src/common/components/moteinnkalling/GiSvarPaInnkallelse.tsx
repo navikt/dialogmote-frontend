@@ -80,6 +80,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   useEffect(() => {
     trackEvent(Events.GiSvarPaMoteInnkallingVist);
+    // eslint-disable-next-line
   }, []);
 
   const updateError = (inputField: InputFieldType, errorMsg: string) => {
@@ -125,11 +126,13 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
-        svarAlternativ: svarType!!,
+        // eslint-disable-next-line
+        svarAlternativ: svarType!,
       });
 
       sendSvarQuery.mutate({
-        svarType: svarType!!,
+        // eslint-disable-next-line
+        svarType: svarType!,
         svarTekst: begrunnelse,
       });
     }
@@ -151,8 +154,8 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   };
 
   return (
-    <SvarStyled title={texts.title}>
-      <form>
+    <form>
+      <SvarStyled title={texts.title}>
         {error.length > 0 && (
           <ErrorSummary heading={texts.feiloppsummeringTittel}>
             {error.map((error, index) => {
@@ -228,8 +231,8 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
         >
           {texts.sendSvar}
         </KnappStyled>
-      </form>
-    </SvarStyled>
+      </SvarStyled>
+    </form>
   );
 };
 

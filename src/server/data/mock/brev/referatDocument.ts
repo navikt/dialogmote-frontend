@@ -18,13 +18,13 @@ const date11022020Component = new DocumentComponentBuilder()
 
 const documentHeaderComponent = new DocumentComponentBuilder()
   .withType("HEADER_H2")
-  .withText("Tykkmaget Midtpunkt")
+  .withText("Kreativ Hatt")
   .build();
 
 const tidsted03042021Component = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
-  .withText("Dato: Fredag 03. april 2021")
-  .withText("Sted: NAV Staden")
+  .withText("Dato: Fredag 03. april 2025")
+  .withText("Sted: Digitalt")
   .build();
 
 const fnrComponent = new DocumentComponentBuilder()
@@ -35,15 +35,15 @@ const fnrComponent = new DocumentComponentBuilder()
 const deltakereComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Deltakere i møtet")
-  .withText("Arbeidstaker: Tykkmaget Midtpunkt")
-  .withText("Arbeidsgiver: Forfjamset Taremel")
-  .withText("Fra NAV: Elektrisk Myggnetting")
+  .withText("Arbeidstaker: Kreativ Hatt")
+  .withText("Arbeidsgiver: Albus Dumbledore")
+  .withText("Fra NAV: Kari Saksbehandler")
   .build();
 
 const arbeidsgiverComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Arbeidsgiver")
-  .withText("SJOKKERENDE ELEKTRIKER")
+  .withText("Hogwarts School of Witchcraft and Wizardry")
   .build();
 
 const formalComponent = new DocumentComponentBuilder()
@@ -68,27 +68,33 @@ const detteSkjeddeHeaderComponent = new DocumentComponentBuilder()
 const konklusjonComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Konklusjon")
-  .withText("Det er gode muligheter for å komme litt tilbake i jobb")
+  .withText(
+    "Du jobber den graden du klarer ut fra helsesituasjonen din, i tillegg til at du er i aktiv behandling. Det er forventet at behandlingen på sikt skal hjelpe deg med å komme tilbake i full jobb. På arbeidsplassen vurderes det ytterligere tilretteleggingsmuligheter."
+  )
   .build();
 
 const dinOppgaveComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Din oppgave")
-  .withText("Tykkmaget må trene 2 ganger i uken")
+  .withText(
+    "Du skal fortsette med pågående behandling og har løpende dialog med legen og lederen din om muligheter for opptrapping av arbeid."
+  )
   .build();
 
 const arbeidsgiverensOppgaveComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Arbeidsgiverens oppgave")
   .withText(
-    "Arbeidsgiver sørger for at arbeidstaker har tilgang til treningsrom"
+    "Lederen din tar kontakt med BHT for å høre hva de kan bistå med. Hvis det ikke er til hjelp, gir han beskjed til NAV slik at vi kan koble på Hjelpemiddelsentralen."
   )
   .build();
 
 const situasjonOgMuligheterComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withTitle("Situasjon og muligheter")
-  .withText("Her er det mange muligheter")
+  .withText(
+    "Grunnet pågående behandling og avklaring av tilretteleggingsmuligheter på arbeidsplassen, er vi enige om å fortsette med samme friskmeldingsgrad i en periode til. Når behandlingen har ført til bedring, er målet ditt å trappe opp arbeidstiden ytterligere."
+  )
   .build();
 
 const navInformerteComponent = new DocumentComponentBuilder()
@@ -134,10 +140,10 @@ const avklaringArbeidsevneComponent = new DocumentComponentBuilder()
 
 const bestRegardsComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
-  .withText("Med hilsen")
+  .withText("Vennlig hilsen")
   .withText("NAV Staden")
-  .withText("Elektrisk Myggnetting")
-  .withText("elektrisk.myggnetting@nav.no")
+  .withText("Kari Saksbehandler")
+  .withText("kari@nav.no")
   .withText("95959595")
   .build();
 

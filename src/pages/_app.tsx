@@ -13,6 +13,8 @@ import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderA
 import { NotificationProvider } from "@/context/NotificationContext";
 import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
 import ErrorBoundary from "@/common/components/error/ErrorBoundary";
+import { displayTestScenarioSelector } from "@/common/publicEnv";
+import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -31,6 +33,13 @@ const ContentWrapperStyled = styled.main`
 
 const minutesToMillis = (minutes: number) => {
   return 1000 * 60 * minutes;
+};
+
+const TestScenarioDevTools = () => {
+  if (displayTestScenarioSelector) {
+    return <TestScenarioSelector />;
+  }
+  return null;
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -64,6 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <NotificationBar />
             <Component {...pageProps} />
           </ContentWrapperStyled>
+          <TestScenarioDevTools />
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </NotificationProvider>

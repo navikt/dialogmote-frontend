@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require("@sentry/nextjs");
 
 const basePath = "/syk/dialogmoter";
@@ -9,6 +10,7 @@ const moduleExports = {
   publicRuntimeConfig: {
     dineSykemeldteRoot: process.env.DINE_SYKMELDTE_ROOT,
     dittSykefravarRoot: process.env.DITT_SYKEFRAVAER_ROOT,
+    displayTestScenarioSelector: process.env.DISPLAY_TESTSCENARIO_SELECTOR,
     basePath,
   },
   compiler: {

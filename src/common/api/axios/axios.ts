@@ -7,6 +7,8 @@ import {
   networkError,
 } from "./errors";
 import { loginUser } from "@/common/utils/urlUtils";
+import { displayTestScenarioSelector } from "@/common/publicEnv";
+import { v4 as uuidv4 } from "uuid";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -18,6 +20,7 @@ interface AxiosOptions {
 export const AUTHORIZATION_HEADER = "Authorization";
 export const NAV_PERSONIDENT_HEADER = "nav-personident";
 export const ORGNUMMER_HEADER = "orgnummer";
+export const TEST_SESSION_ID = "testscenario-session-id";
 
 const defaultRequestHeaders = (
   options?: AxiosOptions
@@ -36,6 +39,15 @@ const defaultRequestHeaders = (
 
   if (options?.orgnummer) {
     headers[ORGNUMMER_HEADER] = options?.orgnummer;
+  }
+
+  if (displayTestScenarioSelector && typeof window !== "undefined") {
+    let sessionId = sessionStorage.getItem(TEST_SESSION_ID);
+    if (!sessionId) {
+      sessionId = uuidv4();
+      sessionStorage.setItem(TEST_SESSION_ID, sessionId);
+    }
+    headers[TEST_SESSION_ID] = sessionId;
   }
 
   return headers;
@@ -89,6 +101,7 @@ export const get = <ResponseData>(
 
 export const post = <ResponseData>(
   url: string,
+  // eslint-disable-next-line
   data?: any,
   options?: AxiosOptions
 ): Promise<ResponseData> => {

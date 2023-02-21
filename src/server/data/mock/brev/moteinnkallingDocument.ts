@@ -58,7 +58,7 @@ const bestRegardsComponent = new DocumentComponentBuilder()
   .withText("Med hilsen")
   .withText("NAV Staden")
   .withText("Åge Saksbehandler")
-  .withText("yolo@nav.no")
+  .withText("aage@nav.no")
   .withText("95959595")
   .build();
 

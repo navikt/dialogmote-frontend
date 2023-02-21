@@ -1,3 +1,5 @@
+const MILLISEKUNDER_PER_DAG = 86400000;
+
 export const getLongDateFormat = (date: string | number | Date) => {
   const dateObject = new Date(date);
 
@@ -31,3 +33,9 @@ export const isDateInPast = (dateTime: string | number | Date) => {
 export const minutesToMillis = (minutes: number) => {
   return 1000 * 60 * minutes;
 };
+
+export function leggTilDagerPaDato(date: Date, days: number) {
+  const nyDato = new Date(date);
+  nyDato.setTime(nyDato.getTime() + days * MILLISEKUNDER_PER_DAG);
+  return new Date(nyDato);
+}

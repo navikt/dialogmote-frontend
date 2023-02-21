@@ -1,25 +1,20 @@
 import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
 import { Brev } from "types/shared/brev";
-import { Sykmeldt } from "types/shared/sykmeldt";
+import { MockSetup, TestScenario } from "@/server/data/mock/getMockDb";
 
-interface IMockData {
-  sykmeldt?: Sykmeldt; //For arbeidsgiver
-  brev: Brev[];
-  motebehov: MotebehovDTO;
-}
-
-export class MockDataBuilder {
-  private readonly mockData: IMockData;
+export class TestScenarioBuilder {
+  private readonly mockData: MockSetup;
 
   constructor() {
     this.mockData = {
       sykmeldt: undefined,
       brev: [],
       motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
+      activeTestScenario: "MELD_BEHOV",
     };
   }
 
-  withSykmeldt(isSykmeldt: boolean): MockDataBuilder {
+  withSykmeldt(isSykmeldt: boolean): TestScenarioBuilder {
     this.mockData.sykmeldt = isSykmeldt
       ? {
           narmestelederId: "123",
@@ -32,7 +27,7 @@ export class MockDataBuilder {
     return this;
   }
 
-  withBrev(brev: Brev): MockDataBuilder {
+  withBrev(brev: Brev): TestScenarioBuilder {
     this.mockData.brev.push(brev);
     return this;
   }
@@ -42,7 +37,12 @@ export class MockDataBuilder {
     return this;
   }
 
-  build(): IMockData {
+  withTestScenario(testscenario: TestScenario) {
+    this.mockData.activeTestScenario = testscenario;
+    return this;
+  }
+
+  build(): MockSetup {
     return this.mockData;
   }
 }

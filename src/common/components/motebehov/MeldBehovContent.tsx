@@ -104,8 +104,8 @@ export const MeldBehovContent = ({
     <>
       <Ingress spacing>{texts.obligatoriskeFeltInfo}</Ingress>
 
-      <DialogmotePanel>
-        <form>
+      <form>
+        <DialogmotePanel>
           <MotebehovErrorSummary errors={getErrors()} />
 
           <MeldBehovCheckboxGroup
@@ -132,8 +132,8 @@ export const MeldBehovContent = ({
             <SubmitButton onSubmit={validateAndSubmit} />
             <CancelButton />
           </ButtonRow>
-        </form>
-      </DialogmotePanel>
+        </DialogmotePanel>
+      </form>
     </>
   );
 };
