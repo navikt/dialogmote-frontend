@@ -9,6 +9,8 @@ import { leggTilDagerPaDato } from "@/common/utils/dateUtils";
 import { moteavlystDocument } from "@/server/data/mock/brev/moteAvlystDocument";
 
 export const dialogmoteAvlystScenario: MockSetup = new TestScenarioBuilder()
+  .withTestScenario("DIALOGMOTE_AVLYST")
+  .withSykmeldt(true)
   .withBrev(
     new BrevBuilder()
       .witUuid("123")

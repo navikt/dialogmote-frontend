@@ -9,6 +9,8 @@ import { moteinnkallingDocument } from "@/server/data/mock/brev/moteinnkallingDo
 import { leggTilDagerPaDato } from "@/common/utils/dateUtils";
 
 export const dialogmoteInnkallingScenario: MockSetup = new TestScenarioBuilder()
+  .withTestScenario("DIALOGMOTE_INNKALLING")
+  .withSykmeldt(true)
   .withBrev(
     new BrevBuilder()
       .witUuid("123")
