@@ -16,7 +16,15 @@ interface Props {
 
 export const SubmitButton = ({ onSubmit }: Props) => {
   return (
-    <StyledButton onClick={onSubmit} variant="primary" size="medium">
+    <StyledButton
+      onClick={(e: React.MouseEvent) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+      variant="primary"
+      size="medium"
+      type="submit"
+    >
       {texts.sendSvar}
     </StyledButton>
   );

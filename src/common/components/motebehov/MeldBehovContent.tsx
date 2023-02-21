@@ -70,11 +70,12 @@ export const MeldBehovContent = ({
     ) {
       trackEvent(Events.SendMeldBehov);
 
-      const behandlerBliMedTekst =
-        behandlerBliMed === true ? behandlerVaereMedTekst : "";
+      const behandlerBliMedTekst = !!behandlerBliMed
+        ? behandlerVaereMedTekst
+        : "";
 
       meldMotebehov({
-        harMotebehov: behovForMote!!,
+        harMotebehov: !!behovForMote,
         forklaring: `${behandlerBliMedTekst}${begrunnelse}`,
       });
     }
@@ -104,32 +105,34 @@ export const MeldBehovContent = ({
       <Ingress spacing>{texts.obligatoriskeFeltInfo}</Ingress>
 
       <DialogmotePanel>
-        <MotebehovErrorSummary errors={getErrors()} />
+        <form>
+          <MotebehovErrorSummary errors={getErrors()} />
 
-        <MeldBehovCheckboxGroup
-          behovForMoteId={behovForMoteCheckboxId}
-          setBehovForMote={setBehovForMote}
-          clearErrors={() => setBehovForMoteError(undefined)}
-          setBehandlerBliMed={setBehandlerBliMed}
-          behandlerVaereMedTekst={behandlerVaereMedTekst}
-          motebehovTekst={motebehovTekst}
-          error={behovForMoteError}
-        />
+          <MeldBehovCheckboxGroup
+            behovForMoteId={behovForMoteCheckboxId}
+            setBehovForMote={setBehovForMote}
+            clearErrors={() => setBehovForMoteError(undefined)}
+            setBehandlerBliMed={setBehandlerBliMed}
+            behandlerVaereMedTekst={behandlerVaereMedTekst}
+            motebehovTekst={motebehovTekst}
+            error={behovForMoteError}
+          />
 
-        <MotebehovBegrunnelseTextArea
-          id={begrunnelseTextAreaId}
-          isOptional={true}
-          description={sensitivInfoTekst}
-          error={begrunnelseError}
-          begrunnelse={begrunnelse}
-          clearErrors={() => setBegrunnelseError("")}
-          setBegrunnelse={setBegrunnelse}
-        />
+          <MotebehovBegrunnelseTextArea
+            id={begrunnelseTextAreaId}
+            isOptional={true}
+            description={sensitivInfoTekst}
+            error={begrunnelseError}
+            begrunnelse={begrunnelse}
+            clearErrors={() => setBegrunnelseError("")}
+            setBegrunnelse={setBegrunnelse}
+          />
 
-        <ButtonRow>
-          <SubmitButton onSubmit={validateAndSubmit} />
-          <CancelButton />
-        </ButtonRow>
+          <ButtonRow>
+            <SubmitButton onSubmit={validateAndSubmit} />
+            <CancelButton />
+          </ButtonRow>
+        </form>
       </DialogmotePanel>
     </>
   );
