@@ -1,14 +1,13 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend, isOpplaering } from "@/common/publicEnv";
+import { isMockBackend } from "@/common/publicEnv";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
-import activeMockAG from "@/server/data/mock/activeMockAG";
-import { activeLabsMockAG } from "../mock/activeLabsMock";
 import { getMotebehovAG } from "@/server/service/motebehovService";
 import { getBrevAG } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import { getTokenX } from "@/server/auth/tokenx";
 import serverEnv from "@/server/utils/serverEnv";
 import serverLogger from "@/server/utils/serverLogger";
+import getMockDb from "@/server/data/mock/getMockDb";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,
@@ -16,13 +15,8 @@ export const fetchConcurrentDataAG = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    if (isOpplaering) {
-      res.motebehov = activeLabsMockAG.motebehov;
-      res.brevArray = activeLabsMockAG.brev;
-    } else {
-      res.motebehov = activeMockAG.motebehov;
-      res.brevArray = activeMockAG.brev;
-    }
+    res.motebehov = getMockDb(req).motebehov;
+    res.brevArray = getMockDb(req).brev;
   } else {
     const token = req.idportenToken;
     const motebehovTokenXPromise = getTokenX(

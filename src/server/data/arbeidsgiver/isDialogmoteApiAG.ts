@@ -4,9 +4,9 @@ import serverEnv from "../../utils/serverEnv";
 import { isDevelopment, isMockBackend, isOpplaering } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
-import activeMockAG from "@/server/data/mock/activeMockAG";
 import { SvarRespons } from "types/shared/brev";
 import { getTokenX } from "@/server/auth/tokenx";
+import getMockDb from "@/server/data/mock/getMockDb";
 
 const brevApiAG = (path?: string): string => {
   const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev`;
@@ -16,6 +16,7 @@ const brevApiAG = (path?: string): string => {
 
 export const fetchBrevPdfAG = async (
   req: IAuthenticatedRequest,
+  // eslint-disable-next-line
   res: NextApiResponse & { pdf: any }, //todo better typing and response PDF
   next: () => void
 ) => {
@@ -44,8 +45,10 @@ export const postBrevLestAG = async (
 ) => {
   if (isDevelopment) {
     const { uuid } = req.query;
-    const brevToUpdate = activeMockAG.brev.find((b) => b.uuid === uuid);
-    brevToUpdate!!.lestDato = new Date().toISOString();
+    const brevToUpdate = getMockDb(req).brev.find((b) => b.uuid === uuid);
+    if (brevToUpdate) {
+      brevToUpdate.lestDato = new Date().toISOString();
+    }
   }
   if (isMockBackend || isOpplaering) {
     return next();
@@ -71,13 +74,15 @@ export const postBrevSvarAG = async (
 ) => {
   if (isDevelopment) {
     const { uuid } = req.query;
-    const brevToUpdate = activeMockAG.brev.find((b) => b.uuid === uuid);
+    const brevToUpdate = getMockDb(req).brev.find((b) => b.uuid === uuid);
     const svar: SvarRespons = req.body;
-    brevToUpdate!!.svar = {
-      svarType: svar.svarType,
-      svarTekst: svar.svarTekst,
-      svarTidspunkt: new Date().toISOString(),
-    };
+    if (brevToUpdate) {
+      brevToUpdate.svar = {
+        svarType: svar.svarType,
+        svarTekst: svar.svarTekst,
+        svarTidspunkt: new Date().toISOString(),
+      };
+    }
   }
   if (isMockBackend || isOpplaering) {
     return next();

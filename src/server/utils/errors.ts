@@ -1,5 +1,6 @@
 import {
   ApiErrorException,
+  generalError,
   schemaParsingError,
 } from "@/common/api/axios/errors";
 import { Audience } from "@/common/hooks/routeHooks";
@@ -18,3 +19,11 @@ export function handleSchemaParsingError(
     )
   );
 }
+
+export const handleQueryParamError = (
+  ...params: (string | string[] | undefined)[]
+): never => {
+  throw new ApiErrorException(
+    generalError(new Error(`Malformed query params: ${JSON.stringify(params)}`))
+  );
+};

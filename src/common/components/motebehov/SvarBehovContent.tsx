@@ -110,8 +110,8 @@ export const SvarBehovContent = ({
 
       <BodyLong spacing>{texts.obligatoriskeFeltInfo}</BodyLong>
 
-      <DialogmotePanel>
-        <form>
+      <form>
+        <DialogmotePanel>
           <MotebehovErrorSummary errors={getErrors()} />
 
           <SvarBehovRadioGroup
@@ -142,8 +142,8 @@ export const SvarBehovContent = ({
             <SubmitButton onSubmit={validateAndSubmit} />
             <CancelButton />
           </ButtonRow>
-        </form>
-      </DialogmotePanel>
+        </DialogmotePanel>
+      </form>
     </>
   );
 };

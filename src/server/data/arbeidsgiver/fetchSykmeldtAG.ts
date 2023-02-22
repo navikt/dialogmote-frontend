@@ -1,13 +1,12 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend, isOpplaering } from "@/common/publicEnv";
+import { isMockBackend } from "@/common/publicEnv";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
-import activeMockAG from "@/server/data/mock/activeMockAG";
-import { activeLabsMockAG } from "../mock/activeLabsMock";
 import { getSykmeldt } from "@/server/service/sykmeldtService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import { getTokenX } from "@/server/auth/tokenx";
 import serverLogger from "@/server/utils/serverLogger";
 import serverEnv from "@/server/utils/serverEnv";
+import getMockDb from "@/server/data/mock/getMockDb";
 
 export const fetchSykmeldtAG = async (
   req: IAuthenticatedRequest,
@@ -15,11 +14,8 @@ export const fetchSykmeldtAG = async (
   next: () => void
 ) => {
   if (isMockBackend) {
-    if (isOpplaering) {
-      res.sykmeldt = activeLabsMockAG.sykmeldt!!;
-    } else {
-      res.sykmeldt = activeMockAG.sykmeldt!!;
-    }
+    // eslint-disable-next-line
+    res.sykmeldt = getMockDb(req).sykmeldt!;
   } else {
     const idportenToken = req.idportenToken;
 

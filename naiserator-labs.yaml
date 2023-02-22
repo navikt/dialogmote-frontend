@@ -66,6 +66,8 @@ spec:
       value: /syk/dialogmoter
     - name: UNLEASH_API_URL
       value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
+    - name: DISPLAY_TESTSCENARIO_SELECTOR
+      value: "true"
   accessPolicy:
     outbound:
       rules:
