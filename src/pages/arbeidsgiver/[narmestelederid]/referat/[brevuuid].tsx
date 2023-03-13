@@ -5,6 +5,7 @@ import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmot
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { ReferatContent } from "@/common/components/referat/ReferatContent";
 import { getAgSideMenuHeader } from "@/common/utils/arbeidsgiverSideMenu";
+import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 
 const texts = {
   title: "Referat fra dialogmøte",
@@ -25,5 +26,7 @@ const ReferatPage: NextPage = () => {
     </PageContainer>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default ReferatPage;

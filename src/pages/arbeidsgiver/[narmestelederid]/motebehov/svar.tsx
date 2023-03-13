@@ -10,6 +10,7 @@ import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
+import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 
 const texts = {
   title: "Meld behov for møte",
@@ -40,5 +41,7 @@ const SvarBehov = (): ReactElement => {
     </PageContainer>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default SvarBehov;

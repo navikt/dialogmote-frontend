@@ -14,6 +14,7 @@ import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { BodyLong } from "@navikt/ds-react";
+import { beskyttetSideUtenProps } from "../../auth/beskyttetSide";
 
 const texts = {
   title: "Dialogmøter",
@@ -63,5 +64,7 @@ const Home: NextPage = () => {
     </PageContainer>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default Home;

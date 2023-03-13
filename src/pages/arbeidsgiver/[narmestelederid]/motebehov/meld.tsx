@@ -10,6 +10,7 @@ import {
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
 import { getAgSideMenuHeader } from "@/common/utils/arbeidsgiverSideMenu";
+import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -49,5 +50,7 @@ const MeldBehov = (): ReactElement => {
     </PageContainer>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default MeldBehov;
