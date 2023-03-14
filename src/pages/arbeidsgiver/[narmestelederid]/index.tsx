@@ -17,6 +17,7 @@ import {
   getAgSideMenuHeader,
   getSykmeldt,
 } from "@/common/utils/arbeidsgiverSideMenu";
+import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 
 const texts = {
   title: "Dialogmøter",
@@ -64,5 +65,7 @@ const Home: NextPage = () => {
     </PageContainer>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default Home;

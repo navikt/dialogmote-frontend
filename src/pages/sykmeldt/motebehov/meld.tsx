@@ -6,6 +6,7 @@ import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQue
 import { commonTexts } from "@/common/constants/commonTexts";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -36,5 +37,7 @@ const MeldBehov = (): ReactElement => {
     </PageContainer>
   );
 };
+
+export const getServerSideProps = beskyttetSideUtenProps;
 
 export default MeldBehov;
