@@ -1,13 +1,13 @@
 import { Events } from "@/common/amplitude/events";
 import React from "react";
-import { LinkPanel } from "@navikt/ds-react";
+import { Button } from "@navikt/ds-react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { MotebehovSkjemaType } from "types/shared/motebehov";
 import NextLink from "next/link";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
 import styled from "styled-components";
 
-const ContainedLinkPanel = styled(LinkPanel)`
+const ButtonWrapperStyled = styled.div`
   width: fit-content;
   margin-bottom: 1rem;
 `;
@@ -27,17 +27,21 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
       : `${landingUrl}/motebehov/svar`;
 
   return (
-    <NextLink href={path} passHref>
-      <ContainedLinkPanel
-        border
-        onClick={() => {
-          trackEvent(
-            skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
-          );
-        }}
-      >
-        <LinkPanel.Title>{children}</LinkPanel.Title>
-      </ContainedLinkPanel>
-    </NextLink>
+    <ButtonWrapperStyled>
+      <NextLink href={path} passHref>
+        <Button
+          as="a"
+          variant="primary"
+          size="medium"
+          onClick={() => {
+            trackEvent(
+              skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
+            );
+          }}
+        >
+          {children}
+        </Button>
+      </NextLink>
+    </ButtonWrapperStyled>
   );
 };
