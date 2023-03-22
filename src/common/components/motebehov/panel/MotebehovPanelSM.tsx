@@ -48,7 +48,7 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
           slikt møte før eller senere, kan du be om det nedenfor.
         </BodyLong>
 
-        <MotebehovSubmitButton skjemaType={"MELD_BEHOV"}>
+        <MotebehovSubmitButton skjemaType={motebehov.skjemaType}>
           Gå til tjenesten for å be om dialogmøte
         </MotebehovSubmitButton>
       </DialogmotePanel>
@@ -66,7 +66,7 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
           svarene til å vurdere om møtet skal avholdes etter ikke.
         </BodyLong>
 
-        <MotebehovSubmitButton skjemaType={"SVAR_BEHOV"}>
+        <MotebehovSubmitButton skjemaType={motebehov.skjemaType}>
           Gå til tjenesten for å svare
         </MotebehovSubmitButton>
 
