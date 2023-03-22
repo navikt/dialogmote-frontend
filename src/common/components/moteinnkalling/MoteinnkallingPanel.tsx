@@ -2,7 +2,6 @@ import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { Events } from "@/common/amplitude/events";
 import styled from "styled-components";
 import { Alert, BodyShort, Button } from "@navikt/ds-react";
-import { useRouter } from "next/router";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
@@ -48,10 +47,6 @@ const ContentStyled = styled.section`
   margin: 1rem 0;
 `;
 
-const ContentResponedStyled = styled.section`
-  margin-top: 1rem;
-`;
-
 const ButtonWrapperStyled = styled.div`
   width: fit-content;
 `;
@@ -77,9 +72,9 @@ const DialogmotePanelContet = ({
 
   if (moteinnkalling.svar) {
     return (
-      <ContentResponedStyled>
+      <section>
         <DittSvarPaInnkallelse svarType={moteinnkalling.svar.svarType} />
-      </ContentResponedStyled>
+      </section>
     );
   }
 
@@ -95,7 +90,6 @@ interface Props {
 }
 
 const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
-  const router = useRouter();
   const { trackEvent } = useAmplitude();
   const landingUrl = useLandingUrl();
 
@@ -103,7 +97,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
     const texts = getTexts(moteinnkalling.brevType);
 
     return (
-      <DialogmotePanel title={texts.title} titleSize="large">
+      <DialogmotePanel title={texts.title}>
         <DialogmotePanelContet moteinnkalling={moteinnkalling} />
         <ButtonWrapperStyled>
           <NextLink href={`${landingUrl}/moteinnkalling`} passHref>
