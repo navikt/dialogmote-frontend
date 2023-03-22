@@ -42,7 +42,7 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
           Når har man et dialogmøte?
         </Heading>
 
-        <BodyLong spacing>
+        <BodyLong>
           Innen du har vært sykmeldt i 6 måneder, kan du forvente at NAV
           vurderer om det skal gjennomføres et dialogmøte. Hvis du trenger et
           slikt møte før eller senere, kan du be om det nedenfor.
@@ -62,8 +62,8 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
 
         <BodyLong>
           Når du har vært sykmeldt i 4 måneder ber vi deg og lederen din om å
-          svare på om dere trenger et dialogmøte med NAV. NAV bruker svaret ditt
-          til å vurdere om det skal avholdes et møte eller ikke.
+          svare på om dere trenger et dialogmøte med NAV. Veilederen bruker
+          svarene til å vurdere om møtet skal avholdes etter ikke.
         </BodyLong>
 
         <MotebehovSubmitButton skjemaType={"SVAR_BEHOV"}>

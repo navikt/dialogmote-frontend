@@ -43,10 +43,6 @@ const getTexts = (brevType: BrevType) => {
   }
 };
 
-const ContentStyled = styled.section`
-  margin: 1rem 0;
-`;
-
 const ButtonWrapperStyled = styled.div`
   width: fit-content;
 `;
@@ -63,26 +59,18 @@ const DialogmotePanelContet = ({
   }
 
   if (!moteinnkalling.svar && moteinnkalling.lestDato) {
-    return (
-      <ContentStyled>
-        <Alert variant="warning">{texts.descriptionNotResponded}</Alert>
-      </ContentStyled>
-    );
+    return <Alert variant="warning">{texts.descriptionNotResponded}</Alert>;
   }
 
   if (moteinnkalling.svar) {
-    return (
-      <section>
-        <DittSvarPaInnkallelse svarType={moteinnkalling.svar.svarType} />
-      </section>
-    );
+    return <DittSvarPaInnkallelse svarType={moteinnkalling.svar.svarType} />;
   }
 
   return (
-    <ContentStyled>
+    <>
       <BodyShort spacing>{texts.description}</BodyShort>
       <BodyShort spacing>{texts.description2}</BodyShort>
-    </ContentStyled>
+    </>
   );
 };
 interface Props {
