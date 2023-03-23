@@ -12,7 +12,6 @@ const PanelStyled = styled(Panel)`
 `;
 
 const HeaderStyled = styled(Heading)`
-  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 1rem;

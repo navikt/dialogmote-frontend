@@ -2,7 +2,6 @@ import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { Events } from "@/common/amplitude/events";
 import styled from "styled-components";
 import { Alert, BodyShort, Button } from "@navikt/ds-react";
-import { useRouter } from "next/router";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
@@ -44,14 +43,6 @@ const getTexts = (brevType: BrevType) => {
   }
 };
 
-const ContentStyled = styled.section`
-  margin: 1rem 0;
-`;
-
-const ContentResponedStyled = styled.section`
-  margin-top: 1rem;
-`;
-
 const ButtonWrapperStyled = styled.div`
   width: fit-content;
 `;
@@ -68,26 +59,18 @@ const DialogmotePanelContet = ({
   }
 
   if (!moteinnkalling.svar && moteinnkalling.lestDato) {
-    return (
-      <ContentStyled>
-        <Alert variant="warning">{texts.descriptionNotResponded}</Alert>
-      </ContentStyled>
-    );
+    return <Alert variant="warning">{texts.descriptionNotResponded}</Alert>;
   }
 
   if (moteinnkalling.svar) {
-    return (
-      <ContentResponedStyled>
-        <DittSvarPaInnkallelse svarType={moteinnkalling.svar.svarType} />
-      </ContentResponedStyled>
-    );
+    return <DittSvarPaInnkallelse svarType={moteinnkalling.svar.svarType} />;
   }
 
   return (
-    <ContentStyled>
+    <>
       <BodyShort spacing>{texts.description}</BodyShort>
       <BodyShort spacing>{texts.description2}</BodyShort>
-    </ContentStyled>
+    </>
   );
 };
 interface Props {
@@ -95,7 +78,6 @@ interface Props {
 }
 
 const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
-  const router = useRouter();
   const { trackEvent } = useAmplitude();
   const landingUrl = useLandingUrl();
 
@@ -103,7 +85,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
     const texts = getTexts(moteinnkalling.brevType);
 
     return (
-      <DialogmotePanel title={texts.title} titleSize="large">
+      <DialogmotePanel title={texts.title}>
         <DialogmotePanelContet moteinnkalling={moteinnkalling} />
         <ButtonWrapperStyled>
           <NextLink href={`${landingUrl}/moteinnkalling`} passHref>

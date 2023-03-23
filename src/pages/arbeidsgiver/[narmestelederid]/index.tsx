@@ -6,9 +6,6 @@ import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmot
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
-import { DelOppfolgingsplanInfoBoks } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoks";
-import MotebehovHarIkkeSvartPanel from "@/common/components/motebehov/MotebehovHarIkkeSvartPanel";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
@@ -18,6 +15,7 @@ import {
   getSykmeldt,
 } from "@/common/utils/arbeidsgiverSideMenu";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
+import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
 
 const texts = {
   title: "Dialogmøter",
@@ -33,10 +31,7 @@ const Content = ({ dialogmoteData }: Props) => {
   if (dialogmoteData.isSuccess) {
     return (
       <>
-        <MotebehovHarIkkeSvartPanel motebehov={dialogmoteData.data.motebehov} />
-        <MotebehovHarSvartPanel motebehov={dialogmoteData.data.motebehov}>
-          <DelOppfolgingsplanInfoBoks />
-        </MotebehovHarSvartPanel>
+        <MotebehovPanelAG motebehov={dialogmoteData.data.motebehov} />
         <MoteinnkallingPanel
           moteinnkalling={dialogmoteData.data.moteinnkalling}
         />
