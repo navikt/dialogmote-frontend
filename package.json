@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@navikt/aksel-icons": "^2.8.3",
     "@navikt/dinesykmeldte-sidemeny": "^3.0.0",
     "@navikt/ds-css": "^2.0.4",
     "@navikt/ds-icons": "^2.0.4",

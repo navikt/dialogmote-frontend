@@ -33,7 +33,7 @@ const DialogmotePanel = ({
   children,
 }: Props) => {
   return (
-    <PanelStyled className={className}>
+    <PanelStyled className={className} border>
       {(title || icon) && (
         <HeaderStyled size={titleSize} level="2">
           {icon && <CircledIcon icon={icon} />}
