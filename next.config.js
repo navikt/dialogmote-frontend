@@ -10,6 +10,7 @@ const moduleExports = {
   publicRuntimeConfig: {
     dineSykemeldteRoot: process.env.DINE_SYKMELDTE_ROOT,
     dittSykefravarRoot: process.env.DITT_SYKEFRAVAER_ROOT,
+    minSideRoot: process.env.MIN_SIDE_ROOT,
     displayTestScenarioSelector: process.env.DISPLAY_TESTSCENARIO_SELECTOR,
     basePath,
   },

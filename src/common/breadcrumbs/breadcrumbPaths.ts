@@ -1,8 +1,17 @@
-import { basePath, dineSykemeldteRoot, dittSykefravarRoot } from "../publicEnv";
+import {
+  basePath,
+  dineSykemeldteRoot,
+  dittSykefravarRoot,
+  minSideRoot,
+} from "../publicEnv";
 
 // Breadcrumbs for sykmeldt
-export function dittSykefravaerBreadcrumbSM() {
+export function baseBreadcrumbSM() {
   return [
+    {
+      url: minSideRoot,
+      title: "Min side",
+    },
     {
       url: dittSykefravarRoot,
       title: "Ditt sykefravær",
@@ -12,7 +21,7 @@ export function dittSykefravaerBreadcrumbSM() {
 
 export function landingBreadcrumbSM() {
   return [
-    ...dittSykefravaerBreadcrumbSM(),
+    ...baseBreadcrumbSM(),
     {
       url: `${basePath}/sykmeldt`,
       title: "Dialogmøte",
