@@ -63,7 +63,7 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
         <BodyLong>
           Når du har vært sykmeldt i 4 måneder ber vi deg og lederen din om å
           svare på om dere trenger et dialogmøte med NAV. Veilederen bruker
-          svarene til å vurdere om møtet skal avholdes etter ikke.
+          svarene til å vurdere om møtet skal avholdes eller ikke.
         </BodyLong>
 
         <MotebehovSubmitButton skjemaType={motebehov.skjemaType}>
