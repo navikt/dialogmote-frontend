@@ -28,7 +28,6 @@ const ContentWrapperStyled = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: var(--a-gray-100);
 `;
 
 const minutesToMillis = (minutes: number) => {

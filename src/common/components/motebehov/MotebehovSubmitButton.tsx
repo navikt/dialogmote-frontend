@@ -1,15 +1,24 @@
 import { Events } from "@/common/amplitude/events";
 import React from "react";
-import { Button } from "@navikt/ds-react";
+import { LinkPanel } from "@navikt/ds-react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { MotebehovSkjemaType } from "types/shared/motebehov";
 import NextLink from "next/link";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
 import styled from "styled-components";
+import { Chat2Icon } from "@navikt/aksel-icons";
+import CircledIcon from "@/common/components/icon/CircledIcon";
 
-const ButtonWrapperStyled = styled.div`
+const ContainedLinkPanel = styled(LinkPanel)`
   width: fit-content;
   margin-bottom: 1rem;
+  background: #f7f7f7;
+`;
+
+const IconAndTextWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
 `;
 
 interface Props {
@@ -27,21 +36,20 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
       : `${landingUrl}/motebehov/svar`;
 
   return (
-    <ButtonWrapperStyled>
-      <NextLink href={path} passHref>
-        <Button
-          as="a"
-          variant="primary"
-          size="medium"
-          onClick={() => {
-            trackEvent(
-              skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
-            );
-          }}
-        >
-          {children}
-        </Button>
-      </NextLink>
-    </ButtonWrapperStyled>
+    <NextLink href={path} passHref>
+      <ContainedLinkPanel
+        border
+        onClick={() => {
+          trackEvent(
+            skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
+          );
+        }}
+      >
+        <IconAndTextWrapper>
+          <CircledIcon icon={<Chat2Icon fontSize="1.5rem" />} />
+          <LinkPanel.Title>{children}</LinkPanel.Title>
+        </IconAndTextWrapper>
+      </ContainedLinkPanel>
+    </NextLink>
   );
 };
