@@ -18,7 +18,7 @@ class ProtectedApi {
     method: "GET" | "POST",
     path: string,
     body?: string
-  ): Promise<any> {
+  ): Promise<Response> {
     const headers: HeadersInit = {
       ...this.authorizationHeaders,
       Accept: "application/json",
@@ -45,12 +45,12 @@ class ProtectedApi {
     return response;
   }
 
-  public async get(path: string): Promise<any> {
+  public async get(path: string): Promise<unknown> {
     const response = await this.do("GET", path);
     return await response.json();
   }
 
-  public async post(path: string, body?: string): Promise<any> {
+  public async post(path: string, body?: string): Promise<unknown> {
     const response = await this.do("POST", path, body);
     return await response.json();
   }

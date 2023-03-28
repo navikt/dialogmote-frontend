@@ -22,8 +22,6 @@ export interface IServerEnvironmentVariables {
 }
 
 // TODO: Add assertions on required env variables
-
-// @ts-ignore
-const serverEnv = process.env as IServerEnvironmentVariables;
+const serverEnv = process.env as unknown as IServerEnvironmentVariables;
 
 export default serverEnv;

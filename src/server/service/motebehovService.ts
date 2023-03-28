@@ -1,4 +1,4 @@
-import { get, post } from "@/common/api/axios/axios";
+import { get } from "@/common/api/axios/axios";
 
 import serverEnv from "@/server/utils/serverEnv";
 import { motebehovSchema } from "./schema/motebehovSchema";

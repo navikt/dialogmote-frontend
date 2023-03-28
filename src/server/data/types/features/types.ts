@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 
 interface Strategy {
   name: string;
-  parameters: any;
+  parameters: unknown;
   constraints: [];
 }
 

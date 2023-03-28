@@ -1,5 +1,5 @@
 import React from "react";
-import { BodyLong, Heading, Label, Link } from "@navikt/ds-react";
+import { BodyLong, Heading, Link } from "@navikt/ds-react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
 import { DocumentComponent } from "types/client/brev";
