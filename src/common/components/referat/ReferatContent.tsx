@@ -43,7 +43,7 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
           pdfUrl={pdfPath}
         />
         <UsefulLinks referat={referat} />
-        <KontaktOssVeileder/>
+        <KontaktOssVeileder />
       </>
     );
   }
