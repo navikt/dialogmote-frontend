@@ -64,6 +64,8 @@ spec:
       value: https://www-gcp.dev.nav.no/arbeidsgiver/sykmeldte
     - name: DITT_SYKEFRAVAER_ROOT
       value: https://www.ekstern.dev.nav.no/syk/sykefravaer
+    - name: MIN_SIDE_ROOT
+      value: https://www.dev.nav.no/minside/
     - name: BASE_PATH
       value: /syk/dialogmoter
     - name: UNLEASH_API_URL
