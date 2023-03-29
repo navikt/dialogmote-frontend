@@ -90,7 +90,6 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
         <ButtonWrapperStyled>
           <NextLink href={`${landingUrl}/moteinnkalling`} passHref>
             <Button
-              as="a"
               onClick={() => {
                 trackEvent(texts.trackingName, {
                   read: `${!!moteinnkalling.lestDato}`,

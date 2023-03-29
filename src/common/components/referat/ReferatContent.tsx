@@ -35,6 +35,7 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
         <DocumentContainer
           title={texts.title}
           document={referat.document}
+          lestDato={referat.lestDato}
           brevUuid={referat.uuid}
         />
 

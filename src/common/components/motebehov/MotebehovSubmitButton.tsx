@@ -38,6 +38,7 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
   return (
     <NextLink href={path} passHref>
       <ContainedLinkPanel
+        forwardedAs="div"
         border
         onClick={() => {
           trackEvent(

@@ -1,5 +1,5 @@
 import { Heading } from "@navikt/ds-react";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import DocumentRenderer from "@/common/components/document/DocumentRenderer";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
@@ -34,11 +34,13 @@ const DocumentContainer = ({
   className,
   children,
 }: DocumentContainerProps) => {
-  const mutation = useMutateBrevLest();
+  const { mutate } = useMutateBrevLest();
 
-  if (!lestDato) {
-    mutation.mutate(brevUuid);
-  }
+  useEffect(() => {
+    if (!lestDato) {
+      mutate(brevUuid);
+    }
+  }, [brevUuid, lestDato, mutate]);
 
   const isLegacyHeader = document[0]?.type !== "HEADER_H1";
 

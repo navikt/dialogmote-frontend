@@ -24,7 +24,6 @@ const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
     <MarginStyled>
       <NextLink href={pdfUrl} passHref>
         <Button
-          as="a"
           onClick={() => {
             trackEvent(trackingName);
           }}
