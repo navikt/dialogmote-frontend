@@ -1,6 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";

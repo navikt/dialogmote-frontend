@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { get, post } from "../axios/axios";
 import { ApiErrorException } from "../axios/errors";
 import { useRouter } from "next/router";
@@ -12,8 +12,8 @@ export const useSetActiveTestScenario = () => {
     post(`${router.basePath}/api/scenario/activescenario`, mockSetup);
 
   return useMutation(setActiveTestScenario, {
-    onSuccess: () => {
-      queryClient.invalidateQueries();
+    onSuccess: async () => {
+      await queryClient.invalidateQueries();
     },
   });
 };
@@ -25,7 +25,7 @@ export const useActiveTestScenario = () => {
     get<TestScenario>(`${router.basePath}/api/scenario/activescenario`);
 
   return useQuery<TestScenario, ApiErrorException>(
-    "active-test-scenario",
+    ["active-test-scenario"],
     fetchActiveTestScenario
   );
 };

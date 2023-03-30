@@ -1,5 +1,5 @@
 import React from "react";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeRoute";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";

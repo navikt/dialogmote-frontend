@@ -7,7 +7,7 @@ import KontaktOssVeileder from "@/common/components/veileder/KontaktOssVeileder"
 import { usePdfPath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import React from "react";
-import { UseQueryResult } from "react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
 
 interface Props {
