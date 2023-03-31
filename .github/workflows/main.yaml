@@ -42,6 +42,8 @@ jobs:
           team: team-esyfo
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
 
   deploy-dev:
     if: github.ref == 'refs/heads/master'
@@ -55,6 +57,7 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: naiserator-dev.yaml
+          VAR: image=${{ needs.build.outputs.image }},version=${{ github.sha }}
 
   deploy-labs:
     if: github.ref == 'refs/heads/master'
@@ -69,6 +72,7 @@ jobs:
           CLUSTER: labs-gcp
           RESOURCE: naiserator-labs.yaml
           DEPLOY_SERVER: deploy.nais.io:443
+          VAR: image=${{ needs.build.outputs.image }},version=${{ github.sha }}
 
   deploy-prod:
     if: github.ref == 'refs/heads/master'
@@ -82,3 +86,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: naiserator-prod.yaml
+          VAR: image=${{ needs.build.outputs.image }},version=${{ github.sha }}
