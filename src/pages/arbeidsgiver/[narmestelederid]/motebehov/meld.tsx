@@ -23,7 +23,7 @@ export const texts = {
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
-  const submitMutation = useSvarPaMotebehovAG();
+  const submitMutation = useSvarPaMotebehovAG("meld");
 
   const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
   const motebehovTekst = `${texts.behovForMoteTekst} ${ansattName}`;

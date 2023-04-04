@@ -4,8 +4,12 @@ import { post } from "@/common/api/axios/axios";
 import { useRouter } from "next/router";
 import { useNotifications } from "@/context/NotificationContext";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
+import {
+  MotebehovType,
+  triggerMotebehovSubmitHotjar,
+} from "@/common/components/hotjar";
 
-export const useSvarPaMotebehovSM = () => {
+export const useSvarPaMotebehovSM = (type: MotebehovType) => {
   const basepath = useApiBasePath();
   const router = useRouter();
   const landingUrl = useLandingUrl();
@@ -20,7 +24,9 @@ export const useSvarPaMotebehovSM = () => {
       clearNotifications();
     },
     onSuccess: async () => {
-      await router.push(landingUrl);
+      await router.push(`${landingUrl}?${type}`);
+
+      triggerMotebehovSubmitHotjar();
 
       displaySuccessToast(
         "Du har sendt svaret ditt på om du ønsker et dialogmøte"
