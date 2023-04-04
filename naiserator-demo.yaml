@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: dialogmote-frontend
+  name: dialogmote-frontend-demo
   namespace: team-esyfo
   labels:
     team: team-esyfo
@@ -40,7 +40,14 @@ spec:
       cpu: 200m
       memory: 256Mi
   ingresses:
-    - "https://dialogmoter.labs.nais.io/syk/dialogmoter"
+    - "https://demo.ekstern.dev.nav.no/syk/dialogmoter"
+  accessPolicy:
+    outbound:
+      rules:
+        - application: isdialogmote
+      external:
+        - host: nav.no
+        - host: dekoratoren.nav.no
   env:
     - name: NPM_CONFIG_CACHE
       value: /tmp
@@ -70,7 +77,3 @@ spec:
       value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
     - name: DISPLAY_TESTSCENARIO_SELECTOR
       value: "true"
-  accessPolicy:
-    outbound:
-      rules:
-        - application: isdialogmote
