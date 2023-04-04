@@ -15,7 +15,7 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
-  const submitMutation = useSvarPaMotebehovSM();
+  const submitMutation = useSvarPaMotebehovSM("svar");
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     submitMutation.mutate(motebehovSvar);

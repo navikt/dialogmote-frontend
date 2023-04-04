@@ -18,7 +18,7 @@ export const texts = {
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
-  const submitMutation = useSvarPaMotebehovSM();
+  const submitMutation = useSvarPaMotebehovSM("meld");
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     submitMutation.mutate(motebehovSvar);
