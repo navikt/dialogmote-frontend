@@ -46,8 +46,9 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^9.2.0",
-    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/amplitude-js": "^8.9.3",
     "@types/cookie": "^0.4.1",
     "@types/http-errors": "^1.8.1",
@@ -63,10 +64,15 @@
     "eslint-config-next": "12.0.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-testing-library": "^5.10.2",
     "husky": "^8.0.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^27.5.1",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "lint-staged": "^13.1.0",
+    "msw": "^1.2.1",
+    "next-router-mock": "^0.9.3",
+    "open": "^8.4.2",
     "prettier": "2.5.1",
     "react-test-renderer": "^18.2.0",
     "typescript": "^5.0.2"
@@ -75,5 +81,8 @@
     "@sentry/nextjs": {
       "ansi-regex": "3.0.1"
     }
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

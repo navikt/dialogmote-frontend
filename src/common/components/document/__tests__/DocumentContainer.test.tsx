@@ -1,23 +1,9 @@
-import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
-import { createDocumentComponent } from "@/fixtures/brev";
-import { render, screen } from "@testing-library/react";
-import React from "react";
+import { createDocumentComponent } from "../../../../mocks/data/factories/brev";
 import DocumentContainer from "../DocumentContainer";
+import { render, screen } from "../../../../test/testUtils";
+import { waitFor } from "@testing-library/react";
 
 describe("DocumentContainer", () => {
-  const mutateSpy = jest.fn();
-
-  beforeEach(() => {
-    (useMutateBrevLest as jest.Mock).mockReturnValue({
-      mutate: mutateSpy,
-      isLoading: false,
-    });
-  });
-
-  afterEach(() => {
-    mutateSpy.mockReset();
-  });
-
   test("should render", () => {
     const document = [
       createDocumentComponent({ texts: ["test-text-1"] }),
@@ -58,10 +44,10 @@ describe("DocumentContainer", () => {
     );
   });
 
-  test("should invoke mutation.mutate when lestDato is undefined", () => {
+  test("should invoke mutation.mutate when lestDato is undefined", async () => {
     const document = [createDocumentComponent(), createDocumentComponent()];
 
-    render(
+    const { requestBodySpy } = render(
       <DocumentContainer
         document={document}
         brevUuid="brev_uuid"
@@ -71,13 +57,15 @@ describe("DocumentContainer", () => {
       </DocumentContainer>
     );
 
-    expect(mutateSpy).toHaveBeenCalledWith("brev_uuid");
+    await waitFor(() => {
+      expect(requestBodySpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   test("should not invoke mutation.mutate when lestDato is defined", () => {
     const document = [createDocumentComponent(), createDocumentComponent()];
 
-    render(
+    const { requestBodySpy } = render(
       <DocumentContainer
         document={document}
         brevUuid="brev_uuid"
@@ -88,6 +76,6 @@ describe("DocumentContainer", () => {
       </DocumentContainer>
     );
 
-    expect(mutateSpy).not.toHaveBeenCalled();
+    expect(requestBodySpy).not.toHaveBeenCalled();
   });
 });
