@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { post } from "@/common/api/axios/axios";
 import { DIALOGMOTEDATA_SM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { useApiBasePath, useAudience } from "@/common/hooks/routeHooks";
@@ -27,8 +27,10 @@ export const useSvarPaInnkallelse = (uuid: string) => {
     post(`${basepath}/brev/${uuid}/svar`, svar);
 
   return useMutation(postSvar, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(queryToInvalidate(isAudienceSykmeldt));
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([
+        queryToInvalidate(isAudienceSykmeldt),
+      ]);
     },
   });
 };

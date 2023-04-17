@@ -27,7 +27,7 @@ const SisteReferat = ({ referat }: Props) => {
 
   return (
     <NextLink href={href} passHref>
-      <LinkPanel onClick={() => trackEvent(Events.AktivtReferat)}>
+      <LinkPanel as="div" onClick={() => trackEvent(Events.AktivtReferat)}>
         <LinkPanel.Title>
           Referat fra møte {getLongDateFormat(referat.tid)}
           {referat.endring && endretDatoText(referat.createdAt)}

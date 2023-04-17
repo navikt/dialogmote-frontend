@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { get } from "@/common/api/axios/axios";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
@@ -18,7 +18,7 @@ export const useDialogmoteDataAG = () => {
   const { displayNotification } = useNotifications();
 
   return useQuery<DialogmoteData, ApiErrorException>(
-    DIALOGMOTEDATA_AG,
+    [DIALOGMOTEDATA_AG],
     fetchDialogmoteData,
     {
       enabled: !!narmestelederid,

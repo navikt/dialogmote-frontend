@@ -14,9 +14,9 @@ const RouterLenke = ({ href, trackingName, children }: Props) => {
 
   return (
     <NextLink href={href}>
-      <a className="navds-link" onClick={() => trackEvent(trackingName)}>
+      <span className="navds-link" onClick={() => trackEvent(trackingName)}>
         {children}
-      </a>
+      </span>
     </NextLink>
   );
 };

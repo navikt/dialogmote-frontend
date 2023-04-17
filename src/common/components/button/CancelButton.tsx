@@ -12,7 +12,7 @@ export const CancelButton = () => {
 
   return (
     <NextLink href={landingUrl} passHref>
-      <Button as="a" variant="tertiary" size="medium">
+      <Button variant="tertiary" size="medium">
         {texts.avbryt}
       </Button>
     </NextLink>

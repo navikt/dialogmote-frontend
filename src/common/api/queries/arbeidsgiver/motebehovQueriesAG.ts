@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
 import { post } from "@/common/api/axios/axios";
 import { useRouter } from "next/router";

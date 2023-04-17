@@ -3,8 +3,8 @@ import "@navikt/dinesykmeldte-sidemeny/dist/style.css";
 import type { AppContext, AppProps } from "next/app";
 import App from "next/app";
 import React, { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import styled, { createGlobalStyle } from "styled-components";
 import { initAmplitude } from "@/common/amplitude/amplitude";
 import { useAudience } from "@/common/hooks/routeHooks";
@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       queries: {
         refetchOnWindowFocus: false,
         cacheTime: minutesToMillis(60),
-        staleTime: minutesToMillis(30),
       },
     },
   });
