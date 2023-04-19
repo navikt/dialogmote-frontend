@@ -83,4 +83,5 @@ spec:
       rules:
         - application: isdialogmote
       external:
+        - host: www.nav.no
         - host: syfomotebehov.prod-fss-pub.nais.io
