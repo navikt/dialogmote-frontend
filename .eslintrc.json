@@ -3,6 +3,7 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
+    "plugin:testing-library/react",
     "plugin:prettier/recommended"
   ],
   "rules": {
@@ -13,6 +14,7 @@
       }
     ],
     "arrow-body-style": "off",
-    "prefer-arrow-callback": "off"
+    "prefer-arrow-callback": "off",
+    "testing-library/render-result-naming-convention": "off"
   }
 }
