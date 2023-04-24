@@ -7,6 +7,8 @@ import { commonTexts } from "@/common/constants/commonTexts";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
+import { KontaktOssPaaAndreMaater } from "@/common/components/veileder/KontaktOssPaaAndreMaater";
+import { BodyLong } from "@navikt/ds-react";
 
 export const texts = {
   title: "Meld behov for møte",
@@ -27,6 +29,14 @@ const MeldBehov = (): ReactElement => {
   return (
     <PageContainer header={false}>
       <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
+        <BodyLong spacing>
+          I dialogmøtet kan du, arbeidsgiveren og veilederen din i NAV sammen
+          finne muligheter som kan bidra til at du får en best mulig
+          arbeidshverdag ut fra din helsesituasjon. Målet er å lage en plan for
+          å komme tilbake i jobb. Hvis det er behov, kan behandleren din også
+          delta.
+        </BodyLong>
+        <KontaktOssPaaAndreMaater />
         <MeldBehovContent
           motebehovTekst={texts.behovForMote}
           behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
