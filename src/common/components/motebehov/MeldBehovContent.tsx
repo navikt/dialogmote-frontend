@@ -33,6 +33,7 @@ interface Props {
   behandlerVaereMedTekst: string;
   sensitivInfoTekst: string;
   meldMotebehov: (svar: MotebehovSvarRequest) => void;
+  isLoading: boolean;
 }
 
 export const MeldBehovContent = ({
@@ -40,6 +41,7 @@ export const MeldBehovContent = ({
   behandlerVaereMedTekst,
   sensitivInfoTekst,
   meldMotebehov,
+  isLoading,
 }: Props) => {
   const [behovForMote, setBehovForMote] = React.useState<boolean | undefined>();
   const [behovForMoteError, setBehovForMoteError] = useState<
@@ -129,7 +131,7 @@ export const MeldBehovContent = ({
           />
 
           <ButtonRow>
-            <SubmitButton onSubmit={validateAndSubmit} />
+            <SubmitButton onSubmit={validateAndSubmit} isLoading={isLoading} />
             <CancelButton />
           </ButtonRow>
         </DialogmotePanel>

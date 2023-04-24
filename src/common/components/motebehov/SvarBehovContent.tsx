@@ -38,11 +38,13 @@ const begrunnelseTextAreaId = "begrunnelseTextArea";
 interface Props {
   begrunnelseDescription: string;
   svarMotebehov: (svar: MotebehovSvarRequest) => void;
+  isLoading: boolean;
 }
 
 export const SvarBehovContent = ({
   begrunnelseDescription,
   svarMotebehov,
+  isLoading,
 }: Props): ReactElement => {
   const [behovForMote, setBehovForMote] = React.useState<boolean | null>(null);
   const [behovForMoteError, setBehovForMoteError] = useState<string | null>();
@@ -139,7 +141,7 @@ export const SvarBehovContent = ({
           />
 
           <ButtonRow>
-            <SubmitButton onSubmit={validateAndSubmit} />
+            <SubmitButton onSubmit={validateAndSubmit} isLoading={isLoading} />
             <CancelButton />
           </ButtonRow>
         </DialogmotePanel>

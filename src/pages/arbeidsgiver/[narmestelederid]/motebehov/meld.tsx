@@ -23,7 +23,7 @@ export const texts = {
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
-  const submitMutation = useSvarPaMotebehovAG("meld");
+  const { mutate, isLoading } = useSvarPaMotebehovAG("meld");
 
   const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
   const motebehovTekst = `${texts.behovForMoteTekst} ${ansattName}`;
@@ -34,7 +34,7 @@ const MeldBehov = (): ReactElement => {
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       motebehovSvar: motebehovSvar,
     };
-    submitMutation.mutate(svar);
+    mutate(svar);
   };
 
   return (
@@ -45,6 +45,7 @@ const MeldBehov = (): ReactElement => {
           behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
           sensitivInfoTekst={commonTexts.noSensitiveInfo}
           meldMotebehov={submitSvar}
+          isLoading={isLoading}
         />
       </DialogmotePage>
     </PageContainer>

@@ -12,9 +12,10 @@ const StyledButton = styled(Button)`
 
 interface Props {
   onSubmit(): void;
+  isLoading: boolean;
 }
 
-export const SubmitButton = ({ onSubmit }: Props) => {
+export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
   return (
     <StyledButton
       onClick={(e: React.MouseEvent) => {
@@ -24,6 +25,7 @@ export const SubmitButton = ({ onSubmit }: Props) => {
       variant="primary"
       size="medium"
       type="submit"
+      loading={isLoading}
     >
       {texts.sendSvar}
     </StyledButton>

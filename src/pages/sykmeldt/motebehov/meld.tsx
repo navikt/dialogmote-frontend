@@ -18,10 +18,10 @@ export const texts = {
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
-  const submitMutation = useSvarPaMotebehovSM("meld");
+  const { mutate, isLoading } = useSvarPaMotebehovSM("meld");
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    submitMutation.mutate(motebehovSvar);
+    mutate(motebehovSvar);
   };
 
   return (
@@ -32,6 +32,7 @@ const MeldBehov = (): ReactElement => {
           behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
           sensitivInfoTekst={commonTexts.noSensitiveInfo}
           meldMotebehov={submitSvar}
+          isLoading={isLoading}
         />
       </DialogmotePage>
     </PageContainer>
