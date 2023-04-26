@@ -1,57 +1,25 @@
 import React from "react";
-import { UseQueryResult } from "@tanstack/react-query";
 import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeRoute";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
-import { DialogmoteData } from "types/shared/dialogmote";
-
-const texts = {
-  noMeetingFound: "Vi finner ikke din møteinnkalling.",
-  titleAvlysning: "Avlysning av dialogmøte",
-  titleEndring: "Endret dialogmøte",
-  titleInnkalling: "Innkalling til dialogmøte",
-};
+import { Brev } from "../../../types/shared/brev";
 
 interface Props {
-  dialogmoteData: UseQueryResult<DialogmoteData>;
+  moteinnkalling?: Brev;
 }
 
-export const MoteinnkallingContent = ({ dialogmoteData }: Props) => {
-  if (dialogmoteData.isSuccess) {
-    const moteinnkalling = dialogmoteData.data.moteinnkalling;
-
-    if (moteinnkalling === undefined) {
-      return (
-        <ErrorWithEscapeRoute>{texts.noMeetingFound}</ErrorWithEscapeRoute>
-      );
-    }
-
-    if (moteinnkalling.brevType === "AVLYST") {
-      return (
-        <DialogmotePage
-          title={texts.titleAvlysning}
-          hideHeader={true}
-          isLoading={dialogmoteData.isLoading}
-        >
-          <AvlystMoteinnkalling moteinnkalling={moteinnkalling} />
-        </DialogmotePage>
-      );
-    }
-
+export const MoteinnkallingContent = ({ moteinnkalling }: Props) => {
+  if (moteinnkalling === undefined) {
     return (
-      <DialogmotePage
-        title={
-          moteinnkalling.brevType === "INNKALT"
-            ? texts.titleInnkalling
-            : texts.titleEndring
-        }
-        hideHeader={true}
-        isLoading={dialogmoteData.isLoading}
-      >
-        <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />
-      </DialogmotePage>
+      <ErrorWithEscapeRoute>
+        Vi finner ikke din møteinnkalling.
+      </ErrorWithEscapeRoute>
     );
   }
-  return null;
+
+  if (moteinnkalling.brevType === "AVLYST") {
+    return <AvlystMoteinnkalling moteinnkalling={moteinnkalling} />;
+  }
+
+  return <PaagaaendeMoteinnkalling moteinnkalling={moteinnkalling} />;
 };
