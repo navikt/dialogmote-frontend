@@ -11,11 +11,9 @@ const DocumentWrapperStyled = styled.div`
   flex-direction: column;
   gap: 2rem;
   border-radius: 4px;
-  padding: 2rem;
   background-color: white;
   white-space: pre-wrap;
   margin-bottom: 2rem;
-  margin-top: 2rem;
 `;
 interface DocumentContainerProps {
   title: string;
