@@ -15,10 +15,10 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
-  const submitMutation = useSvarPaMotebehovSM("svar");
+  const { mutate, isLoading } = useSvarPaMotebehovSM("svar");
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    submitMutation.mutate(motebehovSvar);
+    mutate(motebehovSvar);
   };
 
   return (
@@ -27,6 +27,7 @@ const SvarBehov = (): ReactElement => {
         <SvarBehovContent
           svarMotebehov={submitSvar}
           begrunnelseDescription={commonTexts.noSensitiveInfo}
+          isLoading={isLoading}
         />
       </DialogmotePage>
     </PageContainer>

@@ -19,7 +19,7 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
-  const submitMutation = useSvarPaMotebehovAG("svar");
+  const { mutate, isLoading } = useSvarPaMotebehovAG("svar");
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
@@ -27,7 +27,7 @@ const SvarBehov = (): ReactElement => {
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       motebehovSvar: motebehovSvar,
     };
-    submitMutation.mutate(svar);
+    mutate(svar);
   };
 
   return (
@@ -36,6 +36,7 @@ const SvarBehov = (): ReactElement => {
         <SvarBehovContent
           svarMotebehov={submitSvar}
           begrunnelseDescription={commonTexts.noSensitiveInfo}
+          isLoading={isLoading}
         />
       </DialogmotePage>
     </PageContainer>
