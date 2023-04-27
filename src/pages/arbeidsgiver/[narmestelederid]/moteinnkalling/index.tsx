@@ -4,13 +4,24 @@ import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmot
 import { MoteinnkallingContent } from "@/common/components/moteinnkalling/MoteinnkallingContent";
 import { getAgSideMenuHeader } from "@/common/utils/arbeidsgiverSideMenu";
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
+import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 
 const Moteinnkalling = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
 
   return (
     <PageContainer header={getAgSideMenuHeader(dialogmoteData.data)}>
-      <MoteinnkallingContent dialogmoteData={dialogmoteData} />
+      <DialogmotePage
+        title={"Innkalling til Dialogmøte"}
+        hideHeader={true}
+        isLoading={dialogmoteData.isLoading}
+      >
+        {dialogmoteData.isSuccess ? (
+          <MoteinnkallingContent
+            moteinnkalling={dialogmoteData.data.moteinnkalling}
+          />
+        ) : null}
+      </DialogmotePage>
     </PageContainer>
   );
 };
