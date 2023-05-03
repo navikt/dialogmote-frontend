@@ -3,6 +3,13 @@ import { loginUser } from "@/common/utils/urlUtils";
 import { displayTestScenarioSelector } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
 import { logServerError } from "@/server/utils/serverLogger";
+import {
+  accessDeniedError,
+  ApiErrorException,
+  generalError,
+  loginRequiredError,
+  networkError,
+} from "@/common/api/axios/errors";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -50,14 +57,28 @@ const defaultRequestHeaders = (
 function handleError(error: AxiosError, url: string, httpMethod: string) {
   logServerError(error, url, httpMethod);
 
-  if (
-    error.response &&
-    error.response.status === 401 &&
-    typeof window !== "undefined"
-  ) {
-    loginUser();
+  if (error.response) {
+    switch (error.response.status) {
+      case 401: {
+        loginUser();
+        throw new ApiErrorException(
+          loginRequiredError(error),
+          error.response.status
+        );
+      }
+      case 403: {
+        throw new ApiErrorException(
+          accessDeniedError(error),
+          error.response.status
+        );
+      }
+      default:
+        throw new ApiErrorException(generalError(error), error.response.status);
+    }
+  } else if (error.request) {
+    throw new ApiErrorException(networkError(error));
   } else {
-    throw error;
+    throw new ApiErrorException(generalError(error));
   }
 }
 
