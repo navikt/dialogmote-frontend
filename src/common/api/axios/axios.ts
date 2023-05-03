@@ -2,6 +2,7 @@ import axios, { AxiosError, ResponseType } from "axios";
 import { loginUser } from "@/common/utils/urlUtils";
 import { displayTestScenarioSelector } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
+import { logServerError } from "@/server/utils/serverLogger";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -46,7 +47,9 @@ const defaultRequestHeaders = (
   return headers;
 };
 
-function handleError(error: AxiosError) {
+function handleError(error: AxiosError, url: string, httpMethod: string) {
+  logServerError(error, url, httpMethod);
+
   if (
     error.response &&
     error.response.status === 401 &&
@@ -70,7 +73,7 @@ export const get = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      handleError(error);
+      handleError(error, url, "GET");
     });
 };
 
@@ -88,6 +91,6 @@ export const post = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      handleError(error);
+      handleError(error, url, "POST");
     });
 };
