@@ -49,7 +49,7 @@ const defaultRequestHeaders = (
 function handleError(error: AxiosError) {
   if (
     error.response &&
-    (error.response.status === 401 || error.response.status === 403) &&
+    error.response.status === 401 &&
     typeof window !== "undefined"
   ) {
     loginUser();
