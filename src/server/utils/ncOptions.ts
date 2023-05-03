@@ -1,35 +1,45 @@
 import { Options } from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
 import serverLogger from "@/server/utils/serverLogger";
-import {
-  ApiErrorException,
-  defaultErrorTexts,
-  ErrorType,
-} from "@/common/api/axios/errors";
+import { ApiErrorException } from "@/common/api/axios/errors";
+
+const UUID =
+  /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
+const ORGNR = /\b[0-9a-f]{9}\b/g;
+const FNR = /\b[0-9]{11}\b/g;
+export function cleanPathForMetric(
+  value: string | undefined
+): string | undefined {
+  return value
+    ?.replace(UUID, "[uuid]")
+    .replace(ORGNR, "[orgnr]")
+    .replace(FNR, "[fnr]");
+}
 
 export const ncOptions: Options<NextApiRequest, NextApiResponse> = {
   onError: (
-    err: ApiErrorException,
+    error: ApiErrorException,
     req: NextApiRequest,
     res: NextApiResponse
   ) => {
-    serverLogger.error(
-      err,
-      err.error && err.error.type
-        ? "Api request failed: ".concat(err.error.type.toString())
-        : "Api request failed"
-    );
-
-    if (err.error) {
-      switch (err.error.type) {
-        case ErrorType.LOGIN_REQUIRED: {
-          return res.status(401).end(err.error.defaultErrorMsg);
-        }
-        default:
-          return res.status(500).end(err.error.defaultErrorMsg);
+    if (error.code === 401 || error.code === 403) {
+      res.status(401).json({ message: "Access denied" });
+    } else {
+      if (error.code) {
+        serverLogger.error(
+          `${req.method} ${cleanPathForMetric(req.url)} returned code: ${
+            error.code
+          }, message: ${error.message}`
+        );
+      } else {
+        serverLogger.error(
+          `${req.method} ${cleanPathForMetric(
+            req.url
+          )} returned error message: ${error.message}`
+        );
       }
-    }
 
-    return res.status(500).end(defaultErrorTexts.generalError);
+      res.status(500).end();
+    }
   },
 };

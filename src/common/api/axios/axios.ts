@@ -1,11 +1,4 @@
 import axios, { AxiosError, ResponseType } from "axios";
-import {
-  accessDeniedError,
-  ApiErrorException,
-  generalError,
-  loginRequiredError,
-  networkError,
-} from "./errors";
 import { loginUser } from "@/common/utils/urlUtils";
 import { displayTestScenarioSelector } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
@@ -53,29 +46,15 @@ const defaultRequestHeaders = (
   return headers;
 };
 
-function handleAxiosError(error: AxiosError) {
-  if (error.response) {
-    switch (error.response.status) {
-      case 401: {
-        loginUser();
-        throw new ApiErrorException(
-          loginRequiredError(error),
-          error.response.status
-        );
-      }
-      case 403: {
-        throw new ApiErrorException(
-          accessDeniedError(error),
-          error.response.status
-        );
-      }
-      default:
-        throw new ApiErrorException(generalError(error), error.response.status);
-    }
-  } else if (error.request) {
-    throw new ApiErrorException(networkError(error));
+function handleError(error: AxiosError) {
+  if (
+    error.response &&
+    (error.response.status === 401 || error.response.status === 403) &&
+    typeof window !== "undefined"
+  ) {
+    loginUser();
   } else {
-    throw new ApiErrorException(generalError(error));
+    throw error;
   }
 }
 
@@ -91,11 +70,7 @@ export const get = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      if (axios.isAxiosError(error)) {
-        handleAxiosError(error);
-      } else {
-        throw new ApiErrorException(generalError(error), error.code);
-      }
+      handleError(error);
     });
 };
 
@@ -113,10 +88,6 @@ export const post = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      if (axios.isAxiosError(error)) {
-        handleAxiosError(error);
-      } else {
-        throw new ApiErrorException(generalError(error.message), error.code);
-      }
+      handleError(error);
     });
 };
