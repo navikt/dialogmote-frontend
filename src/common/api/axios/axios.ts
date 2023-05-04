@@ -1,14 +1,15 @@
 import axios, { AxiosError, ResponseType } from "axios";
+import { loginUser } from "@/common/utils/urlUtils";
+import { displayTestScenarioSelector } from "@/common/publicEnv";
+import { v4 as uuidv4 } from "uuid";
 import {
   accessDeniedError,
   ApiErrorException,
   generalError,
   loginRequiredError,
   networkError,
-} from "./errors";
-import { loginUser } from "@/common/utils/urlUtils";
-import { displayTestScenarioSelector } from "@/common/publicEnv";
-import { v4 as uuidv4 } from "uuid";
+} from "@/common/api/axios/errors";
+import { logApiError } from "@/server/utils/logUtils";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -53,7 +54,9 @@ const defaultRequestHeaders = (
   return headers;
 };
 
-function handleAxiosError(error: AxiosError) {
+function handleError(error: AxiosError, url: string, httpMethod: string) {
+  logApiError(error, url, httpMethod);
+
   if (error.response) {
     switch (error.response.status) {
       case 401: {
@@ -91,11 +94,7 @@ export const get = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      if (axios.isAxiosError(error)) {
-        handleAxiosError(error);
-      } else {
-        throw new ApiErrorException(generalError(error), error.code);
-      }
+      handleError(error, url, "GET");
     });
 };
 
@@ -113,10 +112,6 @@ export const post = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      if (axios.isAxiosError(error)) {
-        handleAxiosError(error);
-      } else {
-        throw new ApiErrorException(generalError(error.message), error.code);
-      }
+      handleError(error, url, "POST");
     });
 };

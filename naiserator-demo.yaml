@@ -45,6 +45,7 @@ spec:
     outbound:
       rules:
         - application: isdialogmote
+          namespace: teamsykefravr
       external:
         - host: nav.no
         - host: dekoratoren.nav.no
@@ -54,7 +55,7 @@ spec:
     - name: DECORATOR_ENV
       value: "prod"
     - name: ISDIALOGMOTE_HOST
-      value: https://isdialogmote.dev.nav.no
+      value: http://isdialogmote.teamsykefravr
     - name: SYFOMOTEBEHOV_HOST
       value: https://syfomotebehov.dev-fss-pub.nais.io
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST

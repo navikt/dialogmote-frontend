@@ -1,35 +1,17 @@
 import { Options } from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import serverLogger from "@/server/utils/serverLogger";
-import {
-  ApiErrorException,
-  defaultErrorTexts,
-  ErrorType,
-} from "@/common/api/axios/errors";
+import { ApiErrorException } from "@/common/api/axios/errors";
 
 export const ncOptions: Options<NextApiRequest, NextApiResponse> = {
   onError: (
-    err: ApiErrorException,
+    error: ApiErrorException,
     req: NextApiRequest,
     res: NextApiResponse
   ) => {
-    serverLogger.error(
-      err,
-      err.error && err.error.type
-        ? "Api request failed: ".concat(err.error.type.toString())
-        : "Api request failed"
-    );
-
-    if (err.error) {
-      switch (err.error.type) {
-        case ErrorType.LOGIN_REQUIRED: {
-          return res.status(401).end(err.error.defaultErrorMsg);
-        }
-        default:
-          return res.status(500).end(err.error.defaultErrorMsg);
-      }
+    if (error.code === 401 || error.code === 403) {
+      res.status(401).json({ message: "Access denied" });
+    } else {
+      res.status(500).end();
     }
-
-    return res.status(500).end(defaultErrorTexts.generalError);
   },
 };
