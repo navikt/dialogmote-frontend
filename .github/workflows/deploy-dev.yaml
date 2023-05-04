@@ -33,8 +33,6 @@ jobs:
         run: npm ci
       - name: Build project
         run: npm run build
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push
