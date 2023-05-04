@@ -15,6 +15,11 @@ import { NotificationBar } from "@/common/components/notificationbar/Notificatio
 import ErrorBoundary from "@/common/components/error/ErrorBoundary";
 import { displayTestScenarioSelector } from "@/common/publicEnv";
 import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
+import { configureLogger } from "@navikt/next-logger";
+
+configureLogger({
+  basePath: "/syk/dialogmoter",
+});
 
 const GlobalStyle = createGlobalStyle`
   body {
