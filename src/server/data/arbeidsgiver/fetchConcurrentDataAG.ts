@@ -6,8 +6,8 @@ import { getBrevAG } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import { getTokenX } from "@/server/auth/tokenx";
 import serverEnv from "@/server/utils/serverEnv";
-import serverLogger from "@/server/utils/serverLogger";
 import getMockDb from "@/server/data/mock/getMockDb";
+import { logger } from "@navikt/next-logger";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,
@@ -32,7 +32,7 @@ export const fetchConcurrentDataAG = async (
       motebehovTokenXPromise,
       isDialogmoteTokenXPromise,
     ]);
-    serverLogger.info("Exchanging AG tokenx ok");
+    logger.info("Exchanging AG tokenx ok");
 
     const motebehovPromise = getMotebehovAG(
       motebehovTokenX,
@@ -45,7 +45,7 @@ export const fetchConcurrentDataAG = async (
       motebehovPromise,
       isDialogmotePromise,
     ]);
-    serverLogger.info("Fetching DM data AG ok");
+    logger.info("Fetching DM data AG ok");
 
     if (motebehovRes.success && isDialogmoteRes.success) {
       res.motebehov = motebehovRes.data;

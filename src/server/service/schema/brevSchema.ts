@@ -1,14 +1,14 @@
-import serverLogger from "@/server/utils/serverLogger";
 import {
-  union,
-  object,
-  literal,
-  boolean,
-  string,
-  z,
   array,
+  boolean,
+  literal,
+  object,
   preprocess,
+  string,
+  union,
+  z,
 } from "zod";
+import { logger } from "@navikt/next-logger";
 
 const documentComponentType = union([
   literal("HEADER"),
@@ -94,7 +94,7 @@ function transformComponentType(type: unknown): string {
 
   if (parsedType.success) return parsedType.data;
 
-  serverLogger.error(
+  logger.error(
     `Unknown component type received in brev-schema: ${String(type)}`
   );
   return "UNKNOWN";
@@ -105,9 +105,7 @@ function transformDocumentKey(key: unknown): string | null {
 
   if (parsedKey.success) return parsedKey.data;
 
-  serverLogger.error(
-    `Unknown document key received in brev-schema: ${String(key)}`
-  );
+  logger.error(`Unknown document key received in brev-schema: ${String(key)}`);
   return "UNKNOWN";
 }
 

@@ -1,8 +1,8 @@
 import { Client, Issuer } from "openid-client";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
-import serverLogger from "@/server/utils/serverLogger";
 import serverEnv from "@/server/utils/serverEnv";
+import { logger } from "@navikt/next-logger";
 
 let _issuer: Issuer<Client>;
 let _remoteJWKSet: ReturnType<typeof createRemoteJWKSet>;
@@ -30,17 +30,17 @@ export async function validateToken(bearerToken: string): Promise<boolean> {
   });
 
   if (verified.payload.exp && verified.payload.exp * 1000 <= Date.now()) {
-    serverLogger.error({}, "token is expired");
+    logger.error("token is expired");
     return false;
   }
 
   if (verified.payload.client_id !== serverEnv.IDPORTEN_CLIENT_ID) {
-    serverLogger.error({}, "client_id does not match app client_id");
+    logger.error("client_id does not match app client_id");
     return false;
   }
 
   if (verified.payload.acr !== "Level4") {
-    serverLogger.error({}, "token does not have acr Level4");
+    logger.error("token does not have acr Level4");
     return false;
   }
 

@@ -1,5 +1,5 @@
-import pino, { LoggerOptions } from "pino";
 import { AxiosError } from "axios";
+import { logger } from "@navikt/next-logger";
 
 const UUID =
   /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
@@ -14,21 +14,7 @@ export function cleanPathForMetric(
     .replace(FNR, "[fnr]");
 }
 
-const loggerOptions: LoggerOptions = {
-  transport:
-    process.env.NODE_ENV !== "production"
-      ? { target: "pino-pretty" }
-      : undefined,
-  level: "info",
-  timestamp: false,
-  formatters: {
-    level: (label) => {
-      return { level: label };
-    },
-  },
-};
-
-export const logServerError = (
+export const logApiError = (
   error: AxiosError,
   url: string,
   httpMethod: string
@@ -36,20 +22,17 @@ export const logServerError = (
   const logPrefix = typeof window === "undefined" ? "Backend:" : "Frontend:";
 
   if (error.code) {
-    serverLogger.error(
+    if (error.code === "401") return;
+    logger.error(
       `${logPrefix} ${httpMethod} ${cleanPathForMetric(url)} returned code: ${
         error.code
       }, message: ${error.message}`
     );
   } else {
-    serverLogger.error(
+    logger.error(
       `${logPrefix} ${httpMethod} ${cleanPathForMetric(
         url
       )} returned error message: ${error.message}`
     );
   }
 };
-
-const serverLogger = pino(loggerOptions);
-
-export default serverLogger;

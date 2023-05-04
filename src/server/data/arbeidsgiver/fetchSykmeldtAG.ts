@@ -4,9 +4,9 @@ import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { getSykmeldt } from "@/server/service/sykmeldtService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import { getTokenX } from "@/server/auth/tokenx";
-import serverLogger from "@/server/utils/serverLogger";
 import serverEnv from "@/server/utils/serverEnv";
 import getMockDb from "@/server/data/mock/getMockDb";
+import { logger } from "@navikt/next-logger";
 
 export const fetchSykmeldtAG = async (
   req: IAuthenticatedRequest,
@@ -24,7 +24,7 @@ export const fetchSykmeldtAG = async (
       serverEnv.SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
     );
 
-    serverLogger.info("Sykemeldinger AG tokenx exchange OK");
+    logger.info("Sykemeldinger AG tokenx exchange OK");
 
     const { narmestelederid } = <{ narmestelederid: string }>req.query;
     const sykmeldtRes = await getSykmeldt(narmestelederid, tokenx);

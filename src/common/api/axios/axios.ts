@@ -2,7 +2,6 @@ import axios, { AxiosError, ResponseType } from "axios";
 import { loginUser } from "@/common/utils/urlUtils";
 import { displayTestScenarioSelector } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
-import { logServerError } from "@/server/utils/serverLogger";
 import {
   accessDeniedError,
   ApiErrorException,
@@ -10,6 +9,7 @@ import {
   loginRequiredError,
   networkError,
 } from "@/common/api/axios/errors";
+import { logApiError } from "@/server/utils/logUtils";
 
 interface AxiosOptions {
   accessToken?: string;
@@ -55,7 +55,7 @@ const defaultRequestHeaders = (
 };
 
 function handleError(error: AxiosError, url: string, httpMethod: string) {
-  logServerError(error, url, httpMethod);
+  logApiError(error, url, httpMethod);
 
   if (error.response) {
     switch (error.response.status) {

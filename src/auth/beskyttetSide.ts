@@ -2,7 +2,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
 import { validateToken } from "@/server/auth/idporten/verifyIdportenToken";
 import { isMockBackend } from "@/common/publicEnv";
-import serverLogger from "@/server/utils/serverLogger";
+import { logger } from "@navikt/next-logger";
 
 export type PageHandler = (
   context: GetServerSidePropsContext
@@ -37,7 +37,7 @@ const beskyttetSide = (handler: PageHandler) => {
     }
 
     if (!(await validateToken(bearerToken))) {
-      serverLogger.error("Kunne ikke validere idportentoken i beskyttetSide");
+      logger.error("Kunne ikke validere idportentoken i beskyttetSide");
       return wonderwallRedirect;
     }
 

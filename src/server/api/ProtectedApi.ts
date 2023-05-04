@@ -1,5 +1,5 @@
 import createError from "http-errors";
-import serverLogger from "../utils/serverLogger";
+import { logger } from "@navikt/next-logger";
 
 interface IAuthorizationHeaders {
   Authorization: string;
@@ -35,7 +35,7 @@ class ProtectedApi {
     });
 
     if (!response.ok) {
-      serverLogger.error(
+      logger.error(
         { status: response.status, path, method },
         "api returned error"
       );
