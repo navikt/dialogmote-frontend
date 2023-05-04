@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 import { ncOptions } from "@/server/utils/ncOptions";
-import { withSentry } from "@sentry/nextjs";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { combineDialogmoteDataAG } from "@/server/data/arbeidsgiver/combineDialogmoteDataAG";
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
@@ -18,4 +17,4 @@ const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
     res.json(res.dialogmoteData);
   });
 
-export default withSentry(handler);
+export default handler;
