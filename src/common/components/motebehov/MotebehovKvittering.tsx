@@ -1,7 +1,7 @@
 import React from "react";
 import { BodyLong, Heading, Label } from "@navikt/ds-react";
-import { texts as MeldBehovTextsSM } from "../../../pages/sykmeldt/motebehov/meld";
-import { texts as MeldBehovTextsAG } from "../../../pages/arbeidsgiver/[narmestelederid]/motebehov/meld";
+import { texts as MeldBehovTextsSM } from "@/pages/sykmeldt/motebehov/meld.page";
+import { texts as MeldBehovTextsAG } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
 import { getFullDateFormat } from "@/common/utils/dateUtils";
 import { CapitalizedLabel } from "@/common/components/label/CapitalizedLabel";
 import { Motebehov } from "types/shared/motebehov";
