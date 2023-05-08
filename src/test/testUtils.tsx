@@ -4,14 +4,7 @@ import React, { ReactElement, ReactNode } from "react";
 import open from "open";
 import userEvent from "@testing-library/user-event";
 import { testServer } from "../mocks/testServer";
-
-const requestBodySpy = jest.fn();
-afterEach(() => {
-  requestBodySpy.mockClear();
-});
-testServer.events.on("request:match", (req) => {
-  requestBodySpy(req.body);
-});
+import { NotificationProvider } from "@/context/NotificationContext";
 
 const AllTheProviders = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient({
@@ -23,7 +16,9 @@ const AllTheProviders = ({ children }: { children: ReactNode }) => {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <NotificationProvider>{children}</NotificationProvider>
+    </QueryClientProvider>
   );
 };
 
@@ -31,6 +26,12 @@ const customRender = (
   ui: ReactElement,
   options?: Omit<RenderOptions, "wrapper">
 ) => {
+  const requestBodySpy = jest.fn();
+
+  testServer.events.on("request:match", (req) => {
+    requestBodySpy(req.body);
+  });
+
   return {
     requestBodySpy,
     user: userEvent.setup({ delay: null }),

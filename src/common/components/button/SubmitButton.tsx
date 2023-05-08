@@ -11,7 +11,7 @@ const StyledButton = styled(Button)`
 `;
 
 interface Props {
-  onSubmit(): void;
+  onSubmit?: () => void;
   isLoading: boolean;
 }
 
@@ -19,8 +19,10 @@ export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
   return (
     <StyledButton
       onClick={(e: React.MouseEvent) => {
-        e.preventDefault();
-        onSubmit();
+        if (onSubmit) {
+          e.preventDefault();
+          onSubmit();
+        }
       }}
       variant="primary"
       size="medium"

@@ -15,6 +15,12 @@ jest.mock("next/config", () => () => ({
   },
 }));
 
+jest.mock("src/auth/beskyttetSide.ts", () => {
+  return jest.fn().mockImplementation((callback) => {
+    callback();
+  });
+});
+
 beforeAll(() => testServer.listen());
 afterEach(() => {
   testServer.resetHandlers();

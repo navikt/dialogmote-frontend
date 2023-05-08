@@ -1,32 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
-import { Ingress } from "@navikt/ds-react";
+import { Checkbox, CheckboxGroup, Ingress, Textarea } from "@navikt/ds-react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import {
-  MotebehovBegrunnelseTextArea,
-  validateBegrunnelse,
-} from "@/common/components/motebehov/MotebehovBegrunnelseTextArea";
-import { MeldBehovCheckboxGroup } from "@/common/components/motebehov/MeldBehovCheckboxGroup";
-import {
-  ErrorValues,
-  MotebehovErrorSummary,
-} from "@/common/components/motebehov/MotebehovErrorSummary";
+import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
+import { Controller, useForm } from "react-hook-form";
+import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
 
-export const texts = {
-  obligatoriskeFeltInfo:
-    "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
-  begrunnelseLabel: "Begrunnelse (valgfri)",
-  motebehovIkkeValgt:
-    "Du må krysse av for møtebehov for å kunne sende inn skjemaet.",
+const begrunnelseMaxLength = 1000;
+
+const motebehovCheckbox = "motebehovCheckbox";
+const behandlerCheckbox = "behandlerCheckbox";
+const begrunnelseTextArea = "begrunnelseTextArea";
+
+type FormValues = {
+  [motebehovCheckbox]: boolean;
+  [behandlerCheckbox]: boolean;
+  [begrunnelseTextArea]: string;
 };
-
-const behovForMoteCheckboxId = "behovForMoteCheckbox";
-const begrunnelseTextAreaId = "begrunnelseTextArea";
 
 interface Props {
   motebehovTekst: string;
@@ -43,95 +38,94 @@ export const MeldBehovContent = ({
   meldMotebehov,
   isLoading,
 }: Props) => {
-  const [behovForMote, setBehovForMote] = React.useState<boolean | undefined>();
-  const [behovForMoteError, setBehovForMoteError] = useState<
-    string | undefined
-  >();
-  const [behandlerBliMed, setBehandlerBliMed] = React.useState<
-    boolean | undefined
-  >();
-  const [begrunnelse, setBegrunnelse] = React.useState<string>("");
-  const [begrunnelseError, setBegrunnelseError] = useState<
-    string | undefined
-  >();
   const { trackEvent } = useAmplitude();
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<FormValues>();
+  const errorList = useErrorSummaryFormatter(errors);
 
-  const validateBehovForMote = () => {
-    if (!behovForMote) {
-      setBehovForMoteError(texts.motebehovIkkeValgt);
-      return false;
-    }
-    setBehovForMoteError(undefined);
-    return true;
-  };
+  function onSubmit({
+    behandlerCheckbox,
+    motebehovCheckbox,
+    begrunnelseTextArea,
+  }: FormValues) {
+    const behandlerBliMedTekst = !!behandlerCheckbox
+      ? behandlerVaereMedTekst
+      : "";
 
-  const validateAndSubmit = () => {
-    if (
-      validateBehovForMote() &&
-      validateBegrunnelse(true, begrunnelse, setBegrunnelseError)
-    ) {
-      trackEvent(Events.SendMeldBehov);
-
-      const behandlerBliMedTekst = !!behandlerBliMed
-        ? behandlerVaereMedTekst
-        : "";
-
-      meldMotebehov({
-        harMotebehov: !!behovForMote,
-        forklaring: `${behandlerBliMedTekst}${begrunnelse}`,
-      });
-    }
-  };
-
-  const getErrors = (): Array<ErrorValues> => {
-    const errorArray: Array<ErrorValues> = [];
-
-    if (behovForMoteError) {
-      errorArray.push({
-        href: `#${behovForMoteCheckboxId}`,
-        text: behovForMoteError,
-      });
-    }
-    if (begrunnelseError) {
-      errorArray.push({
-        href: `#${begrunnelseTextAreaId}`,
-        text: begrunnelseError,
-      });
-    }
-
-    return errorArray;
-  };
+    meldMotebehov({
+      harMotebehov: !!motebehovCheckbox,
+      forklaring: `${behandlerBliMedTekst}${begrunnelseTextArea}`,
+    });
+    trackEvent(Events.SendMeldBehov);
+  }
 
   return (
     <>
-      <Ingress spacing>{texts.obligatoriskeFeltInfo}</Ingress>
+      <Ingress spacing>
+        Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.
+      </Ingress>
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <DialogmotePanel>
-          <MotebehovErrorSummary errors={getErrors()} />
+          <MotebehovErrorSummary errors={errorList} />
 
-          <MeldBehovCheckboxGroup
-            behovForMoteId={behovForMoteCheckboxId}
-            setBehovForMote={setBehovForMote}
-            clearErrors={() => setBehovForMoteError(undefined)}
-            setBehandlerBliMed={setBehandlerBliMed}
-            behandlerVaereMedTekst={behandlerVaereMedTekst}
-            motebehovTekst={motebehovTekst}
-            error={behovForMoteError}
-          />
+          <CheckboxGroup legend="Meld behov for møte" hideLegend>
+            <Controller
+              name={motebehovCheckbox}
+              control={control}
+              rules={{
+                required:
+                  "Du må krysse av for møtebehov for å kunne sende inn skjemaet.",
+              }}
+              render={({ field }) => (
+                <Checkbox
+                  {...field}
+                  id={motebehovCheckbox}
+                  value={motebehovTekst}
+                  error={!!errors[motebehovCheckbox]}
+                >
+                  {motebehovTekst}
+                </Checkbox>
+              )}
+            />
+            <Controller
+              name={behandlerCheckbox}
+              control={control}
+              render={({ field }) => (
+                <Checkbox {...field} value={behandlerVaereMedTekst}>
+                  {behandlerVaereMedTekst}
+                </Checkbox>
+              )}
+            />
+          </CheckboxGroup>
 
-          <MotebehovBegrunnelseTextArea
-            id={begrunnelseTextAreaId}
-            isOptional={true}
-            description={sensitivInfoTekst}
-            error={begrunnelseError}
-            begrunnelse={begrunnelse}
-            clearErrors={() => setBegrunnelseError("")}
-            setBegrunnelse={setBegrunnelse}
+          <Controller
+            name={begrunnelseTextArea}
+            control={control}
+            rules={{
+              maxLength: {
+                value: begrunnelseMaxLength,
+                message: `Maks ${begrunnelseMaxLength} tegn er tillatt.`,
+              },
+            }}
+            render={({ field }) => (
+              <Textarea
+                {...field}
+                id={begrunnelseTextArea}
+                label="Begrunnelse (valgfri)"
+                description={sensitivInfoTekst}
+                maxLength={begrunnelseMaxLength}
+                minRows={4}
+                error={errors[begrunnelseTextArea]?.message}
+              />
+            )}
           />
 
           <ButtonRow>
-            <SubmitButton onSubmit={validateAndSubmit} isLoading={isLoading} />
+            <SubmitButton isLoading={isLoading} />
             <CancelButton />
           </ButtonRow>
         </DialogmotePanel>
