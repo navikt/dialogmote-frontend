@@ -46,6 +46,8 @@ spec:
       rules:
         - application: isdialogmote
           namespace: teamsykefravr
+        - application: sykmeldinger-arbeidsgiver
+          namespace: teamsykmelding
       external:
         - host: nav.no
         - host: dekoratoren.nav.no
@@ -59,7 +61,7 @@ spec:
     - name: SYFOMOTEBEHOV_HOST
       value: https://syfomotebehov.dev-fss-pub.nais.io
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST
-      value: https://sykmeldinger-arbeidsgiver.dev.nav.no
+      value: http://sykmeldinger-arbeidsgiver.teamsykmelding
     - name: OPPLAERING
       value: "true"
     - name: MOCK_BACKEND

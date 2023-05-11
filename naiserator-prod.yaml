@@ -53,7 +53,7 @@ spec:
     - name: SYFOMOTEBEHOV_HOST
       value: https://syfomotebehov.prod-fss-pub.nais.io
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST
-      value: https://sykmeldinger-arbeidsgiver.nav.no
+      value: http://sykmeldinger-arbeidsgiver.teamsykmelding
     - name: OPPLAERING
       value: "false"
     - name: MOCK_BACKEND
@@ -83,6 +83,8 @@ spec:
       rules:
         - application: isdialogmote
           namespace: teamsykefravr
+        - application: sykmeldinger-arbeidsgiver
+          namespace: teamsykmelding
       external:
         - host: www.nav.no
         - host: syfomotebehov.prod-fss-pub.nais.io
