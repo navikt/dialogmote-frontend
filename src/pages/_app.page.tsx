@@ -12,10 +12,10 @@ import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderS
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
-import ErrorBoundary from "@/common/components/error/ErrorBoundary";
 import { displayTestScenarioSelector } from "@/common/publicEnv";
 import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 import { configureLogger } from "@navikt/next-logger";
+import { DMErrorBoundary } from "@/common/components/error/DMErrorBoundary";
 
 configureLogger({
   basePath: "/syk/dialogmoter",
@@ -63,7 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <ErrorBoundary>
+    <DMErrorBoundary>
       <NotificationProvider>
         <QueryClientProvider client={queryClient}>
           <GlobalStyle />
@@ -80,7 +80,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </NotificationProvider>
-    </ErrorBoundary>
+    </DMErrorBoundary>
   );
 }
 

@@ -1,15 +1,13 @@
 import { Options } from "next-connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import { ApiErrorException } from "@/common/api/axios/errors";
+import { AxiosError } from "axios";
 
 export const ncOptions: Options<NextApiRequest, NextApiResponse> = {
-  onError: (
-    error: ApiErrorException,
-    req: NextApiRequest,
-    res: NextApiResponse
-  ) => {
-    if (error.code === 401 || error.code === 403) {
-      res.status(401).json({ message: "Access denied" });
+  onError: (error: AxiosError, req: NextApiRequest, res: NextApiResponse) => {
+    if (error.response && error.response.status) {
+      res.status(error.response.status).end();
+    } else if (error.code) {
+      res.status(parseInt(error.code)).end();
     } else {
       res.status(500).end();
     }
