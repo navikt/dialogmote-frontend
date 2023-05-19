@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { SvarType } from "types/shared/brev";
 
-const SuksessStripeStyled = styled(Alert)`
+const SpacedAlert = styled(Alert)`
   margin-bottom: 2rem;
 `;
 
@@ -19,26 +19,26 @@ const texts = {
 
 const JegKommer = (): ReactElement => {
   return (
-    <SuksessStripeStyled variant="success" aria-live="polite">
+    <SpacedAlert variant="success" aria-live="polite">
       <BodyLong>{texts.svartKommer}</BodyLong>
       <KontaktOssLink linkText={texts.taKontakt} />
-    </SuksessStripeStyled>
+    </SpacedAlert>
   );
 };
 
 const JegVilEndre = (): ReactElement => {
   return (
-    <SuksessStripeStyled variant="success" aria-live="polite">
+    <SpacedAlert variant="warning" aria-live="polite">
       <BodyLong>{texts.svartVilEndre}</BodyLong>
-    </SuksessStripeStyled>
+    </SpacedAlert>
   );
 };
 
 const JegVilAvlyse = (): ReactElement => {
   return (
-    <SuksessStripeStyled variant="success" aria-live="polite">
+    <SpacedAlert variant="warning" aria-live="polite">
       <BodyLong>{texts.svartKommerIkke}</BodyLong>
-    </SuksessStripeStyled>
+    </SpacedAlert>
   );
 };
 

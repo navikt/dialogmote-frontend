@@ -20,7 +20,7 @@ const KnappStyled = styled(Button)`
   width: fit-content;
 `;
 
-const SvarStyled = styled(DialogmotePanel)`
+const FormPanel = styled(DialogmotePanel)`
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -155,7 +155,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <form>
-      <SvarStyled title={texts.title}>
+      <FormPanel title={texts.title}>
         {error.length > 0 && (
           <ErrorSummary heading={texts.feiloppsummeringTittel}>
             {error.map((error, index) => {
@@ -231,7 +231,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
         >
           {texts.sendSvar}
         </KnappStyled>
-      </SvarStyled>
+      </FormPanel>
     </form>
   );
 };

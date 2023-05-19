@@ -1,4 +1,4 @@
-import { Heading } from "@navikt/ds-react";
+import { Heading, Panel } from "@navikt/ds-react";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import DocumentRenderer from "@/common/components/document/DocumentRenderer";
@@ -6,13 +6,13 @@ import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
 import { DocumentComponent } from "types/client/brev";
 import { ReferatDocumentComponent } from "types/shared/brev";
 
-const DocumentWrapperStyled = styled.div`
+const DocumentPanel = styled(Panel)`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  border-radius: 4px;
-  background-color: white;
+  background-color: var(--a-gray-50);
   white-space: pre-wrap;
+  padding: 2rem;
   margin-bottom: 2rem;
 `;
 interface DocumentContainerProps {
@@ -43,7 +43,7 @@ const DocumentContainer = ({
   const isLegacyHeader = document[0]?.type !== "HEADER_H1";
 
   return (
-    <DocumentWrapperStyled className={className}>
+    <DocumentPanel className={className}>
       {isLegacyHeader && (
         <Heading size="xlarge" level="1">
           {title}
@@ -55,7 +55,7 @@ const DocumentContainer = ({
         </section>
       ))}
       {children}
-    </DocumentWrapperStyled>
+    </DocumentPanel>
   );
 };
 
