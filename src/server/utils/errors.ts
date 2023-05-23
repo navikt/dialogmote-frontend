@@ -1,29 +1,24 @@
-import {
-  ApiErrorException,
-  generalError,
-  schemaParsingError,
-} from "@/common/api/axios/errors";
 import { Audience } from "@/common/hooks/routeHooks";
 import { ZodError } from "zod";
+import { logger } from "@navikt/next-logger";
+import { HttpError } from "@/common/utils/errors/HttpError";
 
 export function handleSchemaParsingError(
   audience: Audience,
   schema: string,
   error: ZodError
 ) {
-  throw new ApiErrorException(
-    schemaParsingError(
-      new Error(
-        `${audience} is unable to parse ${schema}-schema: ${error.toString()}`
-      )
-    )
-  );
+  const formattedErrorText = `${audience} is unable to parse ${schema}-schema: ${error.toString()}`;
+  logger.error(formattedErrorText);
+  throw new HttpError(500, formattedErrorText);
 }
 
 export const handleQueryParamError = (
   ...params: (string | string[] | undefined)[]
 ): never => {
-  throw new ApiErrorException(
-    generalError(new Error(`Malformed query params: ${JSON.stringify(params)}`))
-  );
+  const formattedErrorText = `Malformed query params: ${JSON.stringify(
+    params
+  )}`;
+  logger.error(formattedErrorText);
+  throw new HttpError(500, formattedErrorText);
 };

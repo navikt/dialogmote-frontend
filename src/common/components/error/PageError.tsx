@@ -1,42 +1,76 @@
-import { useRouter } from "next/router";
-import styled from "styled-components";
+import React, { ReactNode } from "react";
+import Image from "next/legacy/image";
 import { BodyLong, Heading, Link } from "@navikt/ds-react";
-import { useLandingUrl } from "@/common/hooks/routeHooks";
-import { texts } from "@/common/components/error/texts";
-import RouterLenke from "@/common/components/navigation/RouterLenke";
-import { Events } from "@/common/amplitude/events";
 
-export const PageError = ({ text, details }: Props): JSX.Element => {
-  const landingUrl = useLandingUrl();
-  const router = useRouter();
+import pageErrorDad from "../../images/page-error-dad.svg";
+import notFoundMom from "../../images/not-found-mom.svg";
+import styled from "styled-components";
 
-  const PaddedSpan = styled.span`
-    margin-right: 4px;
-  `;
+const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  --navds-content-container-max-width: 50rem;
+  padding: 1rem;
+
+  @media only screen and (max-width: 960px) {
+    flex-direction: column;
+  }
+`;
+
+const ErrorImage = styled(Image)`
+  margin-right: var(--a-spacing-8);
+  flex: 1 1 50%;
+
+  @media only screen and (max-width: 960px) {
+    max-height: 240px;
+    margin-bottom: var(--a-spacing-4);
+  }
+`;
+
+interface Props {
+  graphic?: "dad" | "mom";
+  text?: string;
+  details?: ReactNode;
+  action?: ReactNode | null;
+  noReload?: boolean;
+}
+
+const PageError = ({
+  graphic = "dad",
+  text,
+  details,
+  noReload = false,
+}: Props): JSX.Element => {
+  const errorText = text ?? "Det har oppstått en uventet feil";
 
   return (
-    <div>
-      <Heading spacing size="large" level="1">
-        {texts.pageError.title}
-      </Heading>
-      <Heading spacing size="small" level="2">
-        {text ?? texts.pageError.defaultErrorMsg}
-      </Heading>
-      <BodyLong spacing>
-        <PaddedSpan>{texts.pageError.reloadPageMsgOne}</PaddedSpan>
-        <Link role="button" onClick={() => router.reload()}>
-          <PaddedSpan>{texts.pageError.reloadPageMsgTwo}</PaddedSpan>
-        </Link>
-        {details ?? texts.pageError.defaultDetails}
-      </BodyLong>
-      <RouterLenke href={landingUrl} trackingName={Events.ErrorWithEscapeRoute}>
-        {texts.pageError.backToLandingPage}
-      </RouterLenke>
-    </div>
+    <ErrorContainer role="status" aria-live="polite">
+      {graphic === "dad" ? (
+        <ErrorImage src={pageErrorDad} alt="" />
+      ) : (
+        <ErrorImage src={notFoundMom} alt="" />
+      )}
+      <div>
+        <Heading spacing size="large" level="1">
+          Oops!
+        </Heading>
+        <Heading spacing size="small" level="2">
+          {errorText}
+        </Heading>
+        <BodyLong spacing={!details}>
+          {!noReload && (
+            <>
+              Du kan prøve å{" "}
+              <Link href={window.location.href}>laste siden på nytt</Link>.
+            </>
+          )}
+        </BodyLong>
+        {details ?? (
+          <BodyLong spacing>Vi jobber allerede med å fikse feilen.</BodyLong>
+        )}
+      </div>
+    </ErrorContainer>
   );
 };
 
-interface Props {
-  text?: string;
-  details?: string;
-}
+export default PageError;

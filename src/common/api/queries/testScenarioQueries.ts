@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { get, post } from "../axios/axios";
-import { ApiErrorException } from "../axios/errors";
 import { useRouter } from "next/router";
 import { TestScenario } from "@/server/data/mock/getMockDb";
 
@@ -24,7 +23,7 @@ export const useActiveTestScenario = () => {
   const fetchActiveTestScenario = () =>
     get<TestScenario>(`${router.basePath}/api/scenario/activescenario`);
 
-  return useQuery<TestScenario, ApiErrorException>(
+  return useQuery<TestScenario, Error>(
     ["active-test-scenario"],
     fetchActiveTestScenario
   );
