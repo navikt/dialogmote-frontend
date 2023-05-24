@@ -2,8 +2,25 @@ import { createDocumentComponent } from "../../../../mocks/data/factories/brev";
 import DocumentContainer from "../DocumentContainer";
 import { render, screen } from "../../../../test/testUtils";
 import { waitFor } from "@testing-library/react";
+import { testServer } from "../../../../mocks/testServer";
+import { rest } from "msw";
+import mockRouter from "next-router-mock";
 
 describe("DocumentContainer", () => {
+  const requestResolver = jest.fn();
+
+  beforeEach(() => {
+    mockRouter.setCurrentUrl("/sykmeldt");
+    requestResolver.mockRestore();
+
+    testServer.use(
+      rest.post("/api/sykmeldt/brev/brev_uuid/lest", async (_req, res, ctx) => {
+        requestResolver();
+        return res(ctx.status(200));
+      })
+    );
+  });
+
   test("should render", () => {
     const document = [
       createDocumentComponent({ texts: ["test-text-1"] }),
@@ -47,7 +64,7 @@ describe("DocumentContainer", () => {
   test("should invoke mutation.mutate when lestDato is undefined", async () => {
     const document = [createDocumentComponent(), createDocumentComponent()];
 
-    const { requestBodySpy } = render(
+    render(
       <DocumentContainer
         document={document}
         brevUuid="brev_uuid"
@@ -58,14 +75,14 @@ describe("DocumentContainer", () => {
     );
 
     await waitFor(() => {
-      expect(requestBodySpy).toHaveBeenCalledTimes(1);
+      expect(requestResolver).toHaveBeenCalledTimes(1);
     });
   });
 
-  test("should not invoke mutation.mutate when lestDato is defined", () => {
+  test("should not invoke mutation.mutate when lestDato is defined", async () => {
     const document = [createDocumentComponent(), createDocumentComponent()];
 
-    const { requestBodySpy } = render(
+    render(
       <DocumentContainer
         document={document}
         brevUuid="brev_uuid"
@@ -76,6 +93,8 @@ describe("DocumentContainer", () => {
       </DocumentContainer>
     );
 
-    expect(requestBodySpy).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(requestResolver).not.toHaveBeenCalled();
+    });
   });
 });
