@@ -3,7 +3,6 @@ import { render, RenderOptions, screen, Screen } from "@testing-library/react";
 import React, { ReactElement, ReactNode } from "react";
 import open from "open";
 import userEvent from "@testing-library/user-event";
-import { testServer } from "../mocks/testServer";
 import { NotificationProvider } from "@/context/NotificationContext";
 
 const AllTheProviders = ({ children }: { children: ReactNode }) => {
@@ -26,14 +25,7 @@ const customRender = (
   ui: ReactElement,
   options?: Omit<RenderOptions, "wrapper">
 ) => {
-  const requestBodySpy = jest.fn();
-
-  testServer.events.on("request:match", (req) => {
-    requestBodySpy(req.body);
-  });
-
   return {
-    requestBodySpy,
     user: userEvent.setup({ delay: null }),
     ...render(ui, { wrapper: AllTheProviders, ...options }),
   };
