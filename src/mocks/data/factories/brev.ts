@@ -31,10 +31,3 @@ export const createInnkallelseBrev = (props?: Partial<Brev>): Brev => {
     ...props,
   };
 };
-
-export const createReferatBrev = (props?: Partial<Brev>): Brev => {
-  return {
-    ...createInnkallelseBrev({ brevType: "INNKALT" }),
-    ...props,
-  };
-};

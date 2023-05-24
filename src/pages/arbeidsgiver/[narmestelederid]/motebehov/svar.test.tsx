@@ -4,6 +4,7 @@ import mockRouter from "next-router-mock";
 import { rest } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import SvarBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
+import { sykmeldtFixture } from "../../../../mocks/data/fixtures/sykmeldt";
 describe("svar page arbeidsgiver", () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl("/arbeidsgiver?narmestelederid=123");
@@ -44,12 +45,12 @@ describe("svar page arbeidsgiver", () => {
 
     await waitFor(() =>
       expect(requestResolver).toHaveBeenCalledWith({
-        arbeidstakerFnr: "",
+        arbeidstakerFnr: sykmeldtFixture.fnr,
         motebehovSvar: {
           forklaring: "Dette er en begrunnelse",
           harMotebehov: true,
         },
-        virksomhetsnummer: "",
+        virksomhetsnummer: sykmeldtFixture.orgnummer,
       })
     );
   });

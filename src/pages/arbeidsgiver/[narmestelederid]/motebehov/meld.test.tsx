@@ -4,6 +4,8 @@ import mockRouter from "next-router-mock";
 import { rest } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import MeldBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
+import { sykmeldtFixture } from "../../../../mocks/data/fixtures/sykmeldt";
+
 describe("meld page arbeidsgiver", () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl("/arbeidsgiver?narmestelederid=123");
@@ -27,7 +29,7 @@ describe("meld page arbeidsgiver", () => {
     );
     await user.click(
       checkboxGroup.getByRole("checkbox", {
-        name: "Jeg har behov for et møte med NAV og den ansatte.",
+        name: `Jeg har behov for et møte med NAV og ${sykmeldtFixture.navn}`,
       })
     );
     await user.click(
@@ -49,13 +51,13 @@ describe("meld page arbeidsgiver", () => {
 
     await waitFor(() =>
       expect(requestResolver).toHaveBeenCalledWith({
-        arbeidstakerFnr: "",
+        arbeidstakerFnr: sykmeldtFixture.fnr,
         motebehovSvar: {
           forklaring:
             "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri). Dette er en begrunnelse",
           harMotebehov: true,
         },
-        virksomhetsnummer: "",
+        virksomhetsnummer: sykmeldtFixture.orgnummer,
       })
     );
   });
