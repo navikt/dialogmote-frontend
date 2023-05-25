@@ -3,8 +3,7 @@ import { isMockBackend } from "@/common/publicEnv";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { getSykmeldt } from "@/server/service/sykmeldtService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
-import { getTokenX } from "@/server/auth/tokenx";
-import serverEnv from "@/server/utils/serverEnv";
+import { getSykmeldingerArbeidsgiverTokenX } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { logger } from "@navikt/next-logger";
 
@@ -17,17 +16,12 @@ export const fetchSykmeldtAG = async (
     // eslint-disable-next-line
     res.sykmeldt = getMockDb(req).sykmeldt!;
   } else {
-    const idportenToken = req.idportenToken;
-
-    const tokenx = await getTokenX(
-      idportenToken,
-      serverEnv.SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
-    );
+    const token = await getSykmeldingerArbeidsgiverTokenX(req);
 
     logger.info("Sykemeldinger AG tokenx exchange OK");
 
     const { narmestelederid } = <{ narmestelederid: string }>req.query;
-    const sykmeldtRes = await getSykmeldt(narmestelederid, tokenx);
+    const sykmeldtRes = await getSykmeldt(narmestelederid, token);
 
     if (sykmeldtRes.success) {
       res.sykmeldt = sykmeldtRes.data;

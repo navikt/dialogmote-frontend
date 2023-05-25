@@ -4,8 +4,10 @@ import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { getMotebehovSM } from "@/server/service/motebehovService";
 import { getBrevSM } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
-import { getTokenX } from "@/server/auth/tokenx";
-import serverEnv from "@/server/utils/serverEnv";
+import {
+  getIsdialogmoteTokenX,
+  getMotebehovTokenX,
+} from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { logger } from "@navikt/next-logger";
 
@@ -18,23 +20,16 @@ export const fetchConcurrentDataSM = async (
     res.motebehov = getMockDb(req).motebehov;
     res.brevArray = getMockDb(req).brev;
   } else {
-    const token = req.idportenToken;
-    const motebehovTokenXPromise = getTokenX(
-      token,
-      serverEnv.SYFOMOTEBEHOV_CLIENT_ID
-    );
-    const isDialogmoteTokenXPromise = getTokenX(
-      token,
-      serverEnv.ISDIALOGMOTE_CLIENT_ID
-    );
-    const [motebehovTokenX, isDialogmoteTokenX] = await Promise.all([
-      motebehovTokenXPromise,
-      isDialogmoteTokenXPromise,
+    const motebehovTokenPromise = getMotebehovTokenX(req);
+    const isDialogmoteTokenPromise = getIsdialogmoteTokenX(req);
+    const [motebehovToken, isDialogmoteToken] = await Promise.all([
+      motebehovTokenPromise,
+      isDialogmoteTokenPromise,
     ]);
     logger.info("Exchanging SM tokenx ok");
 
-    const motebehovPromise = getMotebehovSM(motebehovTokenX);
-    const isDialogmotePromise = getBrevSM(isDialogmoteTokenX);
+    const motebehovPromise = getMotebehovSM(motebehovToken);
+    const isDialogmotePromise = getBrevSM(isDialogmoteToken);
 
     const [motebehovRes, isDialogmoteRes] = await Promise.all([
       motebehovPromise,

@@ -1,8 +1,11 @@
 import { grant } from "./tokenx.grant";
 import { logger } from "@navikt/next-logger";
 import { HttpError } from "@/common/utils/errors/HttpError";
+import serverEnv from "@/server/utils/serverEnv";
+import { NextApiRequest } from "next";
+import { getIdportenToken } from "@/server/auth/idporten/idportenToken";
 
-export async function getTokenX(
+async function getTokenX(
   subjectToken: string,
   audience: string
 ): Promise<string> {
@@ -23,4 +26,26 @@ export async function getTokenX(
   }
 
   return tokenX.access_token;
+}
+
+export async function getMotebehovTokenX(req: NextApiRequest): Promise<string> {
+  const idPortenToken = await getIdportenToken(req);
+  return getTokenX(idPortenToken, serverEnv.SYFOMOTEBEHOV_CLIENT_ID);
+}
+
+export async function getIsdialogmoteTokenX(
+  req: NextApiRequest
+): Promise<string> {
+  const idPortenToken = await getIdportenToken(req);
+  return getTokenX(idPortenToken, serverEnv.ISDIALOGMOTE_CLIENT_ID);
+}
+
+export async function getSykmeldingerArbeidsgiverTokenX(
+  req: NextApiRequest
+): Promise<string> {
+  const idPortenToken = await getIdportenToken(req);
+  return getTokenX(
+    idPortenToken,
+    serverEnv.SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
+  );
 }
