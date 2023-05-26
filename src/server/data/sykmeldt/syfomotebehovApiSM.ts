@@ -3,7 +3,7 @@ import { NextApiResponse } from "next";
 import { isMockBackend } from "@/common/publicEnv";
 import { post } from "@/common/api/axios/axios";
 import serverEnv from "@/server/utils/serverEnv";
-import { getTokenX } from "@/server/auth/tokenx";
+import { getMotebehovTokenX } from "@/server/auth/tokenx";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { v4 as uuidv4 } from "uuid";
@@ -39,17 +39,13 @@ export const postMotebehovSM = async (
 
     return next();
   } else {
-    const token = req.idportenToken;
-    const motebehovTokenX = await getTokenX(
-      token,
-      serverEnv.SYFOMOTEBEHOV_CLIENT_ID
-    );
+    const token = await getMotebehovTokenX(req);
 
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
       svar,
       {
-        accessToken: motebehovTokenX,
+        accessToken: token,
       }
     );
   }

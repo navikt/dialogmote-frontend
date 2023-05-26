@@ -6,10 +6,8 @@ import { combineDialogmoteDataAG } from "@/server/data/arbeidsgiver/combineDialo
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
 import { DialogmoteData } from "types/shared/dialogmote";
-import getIdportenToken from "@/server/auth/idporten/idportenToken";
 
 const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
-  .use(getIdportenToken)
   .use(fetchSykmeldtAG)
   .use(fetchConcurrentDataAG)
   .use(combineDialogmoteDataAG)

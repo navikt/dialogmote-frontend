@@ -5,10 +5,8 @@ import { combineDialogmoteDataSM } from "@/server/data/sykmeldt/combineDialogmot
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { DialogmoteData } from "types/shared/dialogmote";
-import getIdportenToken from "@/server/auth/idporten/idportenToken";
 
 const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
-  .use(getIdportenToken)
   .use(fetchConcurrentDataSM)
   .use(combineDialogmoteDataSM)
   .get(async (req, res: NextApiResponseSM) => {

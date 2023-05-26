@@ -1,16 +1,11 @@
-import { NextApiResponse } from "next";
-import { IAuthenticatedRequest } from "@/server/api/IAuthenticatedRequest";
+import { NextApiRequest } from "next";
 import { isMockBackend } from "@/common/publicEnv";
 import { validateToken } from "./verifyIdportenToken";
 import { HttpError } from "@/common/utils/errors/HttpError";
 
-async function getIdportenToken(
-  req: IAuthenticatedRequest,
-  _res: NextApiResponse,
-  next: (e?: Error) => void
-) {
+export async function getIdportenToken(req: NextApiRequest) {
   if (isMockBackend) {
-    return next();
+    return "sometoken";
   }
 
   const bearerToken = req.headers["authorization"];
@@ -19,8 +14,5 @@ async function getIdportenToken(
     throw new HttpError(401, "Login required");
   }
 
-  req.idportenToken = bearerToken.replace("Bearer ", "");
-  next();
+  return bearerToken.replace("Bearer ", "");
 }
-
-export default getIdportenToken;

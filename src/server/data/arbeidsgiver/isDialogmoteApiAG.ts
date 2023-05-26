@@ -5,7 +5,7 @@ import { isDevelopment, isMockBackend, isOpplaering } from "@/common/publicEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import { SvarRespons } from "types/shared/brev";
-import { getTokenX } from "@/server/auth/tokenx";
+import { getIsdialogmoteTokenX } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
 
 const brevApiAG = (path?: string): string => {
@@ -23,14 +23,11 @@ export const fetchBrevPdfAG = async (
   if (isMockBackend) {
     res.pdf = pdfMock;
   } else {
-    const tokenX = await getTokenX(
-      req.idportenToken,
-      serverEnv.ISDIALOGMOTE_CLIENT_ID
-    );
+    const token = await getIsdialogmoteTokenX(req);
 
     const { uuid } = req.query;
     res.pdf = await get(brevApiAG(`/${uuid}/pdf`), {
-      accessToken: tokenX,
+      accessToken: token,
       responseType: "arraybuffer",
     });
   }
@@ -53,14 +50,11 @@ export const postBrevLestAG = async (
   if (isMockBackend || isOpplaering) {
     return next();
   } else {
-    const tokenX = await getTokenX(
-      req.idportenToken,
-      serverEnv.ISDIALOGMOTE_CLIENT_ID
-    );
+    const token = await getIsdialogmoteTokenX(req);
 
     const { uuid } = req.query;
     await post(brevApiAG(`/${uuid}/les`), undefined, {
-      accessToken: tokenX,
+      accessToken: token,
     });
   }
 
@@ -87,15 +81,12 @@ export const postBrevSvarAG = async (
   if (isMockBackend || isOpplaering) {
     return next();
   } else {
-    const tokenX = await getTokenX(
-      req.idportenToken,
-      serverEnv.ISDIALOGMOTE_CLIENT_ID
-    );
+    const token = await getIsdialogmoteTokenX(req);
 
     const { uuid } = req.query;
     const svar: SvarRespons = req.body;
     await post(brevApiAG(`/${uuid}/respons`), svar, {
-      accessToken: tokenX,
+      accessToken: token,
     });
   }
 
