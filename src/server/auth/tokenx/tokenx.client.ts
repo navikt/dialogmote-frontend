@@ -1,4 +1,4 @@
-import { Client } from "openid-client";
+import { Client, custom } from "openid-client";
 import { getIssuer } from "./tokenx.issuer";
 import serverEnv from "../../utils/serverEnv";
 
@@ -17,6 +17,10 @@ export async function getClient(): Promise<Client> {
     },
     { keys: [JSON.parse(serverEnv.TOKEN_X_PRIVATE_JWK)] }
   );
+
+  custom.setHttpOptionsDefaults({
+    timeout: 5000,
+  });
 
   return _client;
 }
