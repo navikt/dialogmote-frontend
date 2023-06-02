@@ -15,7 +15,7 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
-  const { mutate, isLoading } = useSvarPaMotebehovSM("svar");
+  const { mutate, isLoading } = useSvarPaMotebehovSM();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     mutate(motebehovSvar);

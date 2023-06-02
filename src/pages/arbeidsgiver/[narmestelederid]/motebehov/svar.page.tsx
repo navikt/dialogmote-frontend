@@ -19,7 +19,7 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
-  const { mutate, isLoading } = useSvarPaMotebehovAG("svar");
+  const { mutate, isLoading } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
