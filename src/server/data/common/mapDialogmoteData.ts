@@ -13,7 +13,9 @@ export const mapDialogmoteData = (
   const brevArraySorted = brevArray?.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   );
-  const latestBrev = brevArraySorted ? brevArraySorted[0] : undefined;
+  const latestBrev = brevArraySorted
+    ? brevArraySorted.filter((value) => value.brevType !== "REFERAT_ENDRET")[0]
+    : undefined;
   const isLastestBrevReferat =
     latestBrev?.brevType === "REFERAT" ||
     latestBrev?.brevType === "REFERAT_ENDRET";
