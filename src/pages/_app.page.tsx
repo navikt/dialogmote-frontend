@@ -12,13 +12,24 @@ import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderS
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
-import { displayTestScenarioSelector } from "@/common/publicEnv";
+import { isDemoOrLocal } from "@/common/publicEnv";
 import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 import { configureLogger } from "@navikt/next-logger";
 import { DMErrorBoundary } from "@/common/components/error/DMErrorBoundary";
+import { initFaro, pinoLevelToFaroLevel } from "../faro/initFaro";
+
+// eslint-disable-next-line
+declare const window: any;
 
 configureLogger({
   basePath: "/syk/dialogmoter",
+  onLog: (log) => {
+    if (typeof window !== "undefined" && window.faro !== "undefined") {
+      window.faro.api.pushLog(log.messages, {
+        level: pinoLevelToFaroLevel(log.level.label),
+      });
+    }
+  },
 });
 
 const GlobalStyle = createGlobalStyle`
@@ -40,7 +51,7 @@ const minutesToMillis = (minutes: number) => {
 };
 
 const TestScenarioDevTools = () => {
-  if (displayTestScenarioSelector) {
+  if (isDemoOrLocal) {
     return <TestScenarioSelector />;
   }
   return null;
@@ -51,6 +62,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     initAmplitude();
+    initFaro();
   }, []);
 
   const queryClient = new QueryClient({

@@ -4,12 +4,12 @@ import getMockDb, {
   TestScenario,
 } from "server/data/mock/getMockDb";
 import { getMockSetupForScenario } from "server/data/mock/activeMockData";
-import { displayTestScenarioSelector } from "@/common/publicEnv";
+import { isDemoOrLocal } from "@/common/publicEnv";
 import { TEST_SESSION_ID } from "@/common/api/axios/axios";
 import { handleQueryParamError } from "@/server/utils/errors";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (!displayTestScenarioSelector) {
+  if (!isDemoOrLocal) {
     return res.status(404).end();
   }
 

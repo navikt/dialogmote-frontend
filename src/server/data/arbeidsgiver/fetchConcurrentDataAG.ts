@@ -1,5 +1,4 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend } from "@/common/publicEnv";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { getMotebehovAG } from "@/server/service/motebehovService";
 import { getBrevAG } from "@/server/service/brevService";
@@ -10,6 +9,7 @@ import {
   getIsdialogmoteTokenX,
   getMotebehovTokenX,
 } from "@/server/auth/tokenx";
+import { isMockBackend } from "@/server/utils/serverEnv";
 
 export const fetchConcurrentDataAG = async (
   req: IAuthenticatedRequest,

@@ -1,12 +1,12 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
 import { NextApiResponse } from "next";
-import serverEnv from "../../utils/serverEnv";
-import { isDevelopment, isMockBackend, isOpplaering } from "@/common/publicEnv";
+import serverEnv, { isMockBackend } from "../../utils/serverEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { get, post } from "@/common/api/axios/axios";
 import { SvarRespons } from "types/shared/brev";
 import { getIsdialogmoteTokenX } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
+import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
 
 const brevApiAG = (path?: string): string => {
   const host = `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev`;
@@ -40,14 +40,14 @@ export const postBrevLestAG = async (
   res: NextApiResponse,
   next: () => void
 ) => {
-  if (isDevelopment) {
+  if (isLocal) {
     const { uuid } = req.query;
     const brevToUpdate = getMockDb(req).brev.find((b) => b.uuid === uuid);
     if (brevToUpdate) {
       brevToUpdate.lestDato = new Date().toISOString();
     }
   }
-  if (isMockBackend || isOpplaering) {
+  if (isDemoOrLocal) {
     return next();
   } else {
     const token = await getIsdialogmoteTokenX(req);
@@ -66,7 +66,7 @@ export const postBrevSvarAG = async (
   res: NextApiResponse,
   next: () => void
 ) => {
-  if (isDevelopment) {
+  if (isLocal) {
     const { uuid } = req.query;
     const brevToUpdate = getMockDb(req).brev.find((b) => b.uuid === uuid);
     const svar: SvarRespons = req.body;
@@ -78,7 +78,7 @@ export const postBrevSvarAG = async (
       };
     }
   }
-  if (isMockBackend || isOpplaering) {
+  if (isDemoOrLocal) {
     return next();
   } else {
     const token = await getIsdialogmoteTokenX(req);

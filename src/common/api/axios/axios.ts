@@ -1,6 +1,6 @@
 import axios, { AxiosError, ResponseType } from "axios";
 import { loginUser } from "@/common/utils/urlUtils";
-import { displayTestScenarioSelector } from "@/common/publicEnv";
+import { isDemoOrLocal } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
 import { logApiError } from "@/server/utils/logUtils";
 
@@ -35,7 +35,7 @@ const defaultRequestHeaders = (
     headers[ORGNUMMER_HEADER] = options?.orgnummer;
   }
 
-  if (displayTestScenarioSelector && typeof window !== "undefined") {
+  if (isDemoOrLocal && typeof window !== "undefined") {
     let sessionId = localStorage.getItem(TEST_SESSION_ID);
     if (!sessionId) {
       sessionId = uuidv4();

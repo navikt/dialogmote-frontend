@@ -4,13 +4,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8080",
     "lint": "next lint",
     "prettier": "prettier --write ./src/**",
     "prepare": "husky install",
     "test": "jest"
   },
   "dependencies": {
+    "@grafana/faro-web-sdk": "^1.1.0",
     "@navikt/aksel-icons": "^2.8.3",
     "@navikt/dinesykmeldte-sidemeny": "^3.0.0",
     "@navikt/ds-css": "^2.9.2",

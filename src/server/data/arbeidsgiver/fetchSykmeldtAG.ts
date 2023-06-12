@@ -1,11 +1,11 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend } from "@/common/publicEnv";
 import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { getSykmeldt } from "@/server/service/sykmeldtService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import { getSykmeldingerArbeidsgiverTokenX } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { logger } from "@navikt/next-logger";
+import { isMockBackend } from "@/server/utils/serverEnv";
 
 export const fetchSykmeldtAG = async (
   req: IAuthenticatedRequest,

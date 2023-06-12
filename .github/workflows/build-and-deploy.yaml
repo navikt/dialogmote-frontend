@@ -1,0 +1,10 @@
+name: Build & Deploy
+on: push
+
+jobs:
+  next-app:
+    uses: navikt/teamesyfo-github-actions-workflows/.github/workflows/next-app.yaml@main
+    secrets: inherit
+    with:
+      app: dialogmote-frontend
+      base-path: /syk/dialogmoter
