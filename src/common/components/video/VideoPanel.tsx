@@ -25,6 +25,7 @@ const VideoPanel = () => {
         height="auto"
         onPlay={() => trackEvent(Events.SpillerAvDialogmotefilm)}
         controls
+        crossOrigin="anonymous"
         poster={getPublicAsset("/video/poster.jpg")}
       >
         <source src={getPublicAsset("/video/film.mp4")} type="video/mp4" />
