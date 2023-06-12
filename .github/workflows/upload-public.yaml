@@ -1,8 +1,5 @@
 name: Upload rarely changed public files to NAV CDN
-on:
-  push:
-    paths:
-      - public/**
+on: push
 
 jobs:
   build:
