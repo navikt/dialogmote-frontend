@@ -24,4 +24,6 @@ export interface IServerEnvironmentVariables {
 // TODO: Add assertions on required env variables
 const serverEnv = process.env as unknown as IServerEnvironmentVariables;
 
+export const isMockBackend = serverEnv.MOCK_BACKEND === "true";
+
 export default serverEnv;

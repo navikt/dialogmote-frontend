@@ -1,5 +1,4 @@
 import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { isMockBackend } from "@/common/publicEnv";
 import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { getMotebehovSM } from "@/server/service/motebehovService";
 import { getBrevSM } from "@/server/service/brevService";
@@ -10,6 +9,7 @@ import {
 } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { logger } from "@navikt/next-logger";
+import { isMockBackend } from "@/server/utils/serverEnv";
 
 export const fetchConcurrentDataSM = async (
   req: IAuthenticatedRequest,

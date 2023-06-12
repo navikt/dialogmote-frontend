@@ -1,9 +1,9 @@
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { getAsset } from "@/common/utils/getAssetPath";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
 import { BodyShort } from "@navikt/ds-react";
+import { getPublicAsset } from "@/common/utils/getAssetPath";
 
 const texts = {
   title: "En film om dialogmøter",
@@ -25,19 +25,21 @@ const VideoPanel = () => {
         height="auto"
         onPlay={() => trackEvent(Events.SpillerAvDialogmotefilm)}
         controls
-        poster={getAsset("/video/poster.jpg")}
+        poster={getPublicAsset("/video/poster.jpg")}
       >
-        <source src={getAsset("/video/film.mp4")} type="video/mp4" />
+        <source src={getPublicAsset("/video/film.mp4")} type="video/mp4" />
         <track
           label="Norsk bokmål"
           kind="captions"
           srcLang="nb"
-          src={getAsset("/video/subtitle.vtt")}
+          src={getPublicAsset("/video/subtitle.vtt")}
           default
         />
         <p>
           {texts.browserNotSupported}{" "}
-          <a href={getAsset("/video/film.mp4")}>{texts.navigateToMovie}</a>
+          <a href={getPublicAsset("/video/film.mp4")}>
+            {texts.navigateToMovie}
+          </a>
         </p>
       </video>
     </DialogmotePanel>

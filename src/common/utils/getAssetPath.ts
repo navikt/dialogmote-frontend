@@ -1,3 +1,5 @@
-export const getAsset = (path: string) => {
-  return `/syk/dialogmoter${path}`;
+import { cdnPublicPath } from "@/common/publicEnv";
+
+export const getPublicAsset = (path: string) => {
+  return `${cdnPublicPath}${path}`;
 };

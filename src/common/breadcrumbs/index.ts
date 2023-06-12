@@ -9,11 +9,18 @@ import {
   referatBreadcrumbSM,
 } from "./breadcrumbPaths";
 
+type Breadcrumb = {
+  url: string;
+  title: string;
+  analyticsTitle?: string;
+  handleInApp?: boolean;
+};
+
 export function createBreadcrumbsAG(
   pathname: string,
   sykmeldtName: string,
   narmestelederid: string
-) {
+): Breadcrumb[] {
   switch (pathname) {
     case "/arbeidsgiver/[narmestelederid]":
       return landingBreadcrumbAG(sykmeldtName, narmestelederid);

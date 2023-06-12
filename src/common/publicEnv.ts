@@ -1,21 +1,24 @@
-import getConfig from "next/config";
+export const basePath = process.env.NEXT_PUBLIC_BASEPATH as string;
 
-const { publicRuntimeConfig } = getConfig();
-
-export const isOpplaering: boolean = process.env["OPPLAERING"] === "true";
-export const isMockBackend: boolean = process.env["MOCK_BACKEND"] === "true";
-export const environment: string = process.env["ENVIRONMENT"] as string;
-export const basePath = publicRuntimeConfig.basePath as string;
 export const dineSykemeldteRoot =
-  publicRuntimeConfig.dineSykemeldteRoot as string;
-export const dittSykefravarRoot =
-  publicRuntimeConfig.dittSykefravarRoot as string;
+  process.env.NEXT_PUBLIC_DINE_SYKMELDTE_URL || "";
 
-export const minSideRoot = publicRuntimeConfig.minSideRoot as string;
-export const isDevelopment: boolean = process.env["NODE_ENV"] === "development";
+export const dittSykefravarRoot =
+  process.env.NEXT_PUBLIC_DITT_SYKEFRAVAER_URL || "";
+
+export const cdnPublicPath: string | undefined = process.env
+  .NEXT_PUBLIC_ASSET_PREFIX
+  ? `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/public`
+  : process.env.NEXT_PUBLIC_BASEPATH ?? "";
+
+export const minSideRoot = process.env.NEXT_PUBLIC_MIN_SIDE_ROOT as string;
 export const oppfolgingsplanUrlSM: string = process.env
   .NEXT_PUBLIC_OPPFOLGINGSPLAN_PATH_SM as string;
 export const oppfolgingsplanUrlAG: string = process.env
   .NEXT_PUBLIC_OPPFOLGINGSPLAN_PATH_AG as string;
-export const displayTestScenarioSelector: boolean =
-  publicRuntimeConfig.displayTestScenarioSelector === "true";
+
+export const isDemoOrLocal =
+  process.env.NEXT_PUBLIC_IS_DEVELOPMENT === "true" ||
+  process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === "demo";
+
+export const isLocal = process.env.NEXT_PUBLIC_IS_DEVELOPMENT === "true";

@@ -1,8 +1,7 @@
 import { IAuthenticatedRequest } from "@/server/api/IAuthenticatedRequest";
 import { NextApiResponse } from "next";
-import { isMockBackend } from "@/common/publicEnv";
 import { post } from "@/common/api/axios/axios";
-import serverEnv from "@/server/utils/serverEnv";
+import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import { getMotebehovTokenX } from "@/server/auth/tokenx";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import getMockDb from "@/server/data/mock/getMockDb";
