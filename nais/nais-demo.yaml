@@ -1,10 +1,11 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: dialogmote-frontend-demo
+  name: {{appname}}-demo
   namespace: team-esyfo
   labels:
     team: team-esyfo
+    branchState: {{branchState}}
 spec:
   image: {{ image }}
   replicas:
@@ -40,7 +41,7 @@ spec:
       cpu: 200m
       memory: 256Mi
   ingresses:
-    - "https://demo.ekstern.dev.nav.no/syk/dialogmoter"
+    - {{ingress}}
   accessPolicy:
     outbound:
       rules:
