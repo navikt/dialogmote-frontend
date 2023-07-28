@@ -20,6 +20,7 @@ import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { Controller, useForm } from "react-hook-form";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
+import { useAudience } from "@/common/hooks/routeHooks";
 
 const begrunnelseMaxLength = 1000;
 
@@ -59,6 +60,7 @@ export const SvarBehovContent = ({
     watch,
   } = useForm<FormValues>();
   const errorList = useErrorSummaryFormatter(errors);
+  const { isAudienceSykmeldt } = useAudience();
 
   const isNeiSelected = watch(motebehovRadioGroup) === "Nei";
 
@@ -77,7 +79,7 @@ export const SvarBehovContent = ({
         <Link href={DIALOGMOTE_INFO_URL}>Les om dialogmøte.</Link>
       </Ingress>
 
-      <HuskOppfolgingsplanGuidePanel />
+      {!isAudienceSykmeldt && <HuskOppfolgingsplanGuidePanel />}
 
       <BodyLong spacing>
         Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.
