@@ -39,8 +39,11 @@ export async function validateToken(bearerToken: string): Promise<boolean> {
     return false;
   }
 
-  if (verified.payload.acr !== "Level4") {
-    logger.error("token does not have acr Level4");
+  if (
+    verified.payload.acr !== "Level4" &&
+    verified.payload.acr !== "idporten-loa-high"
+  ) {
+    logger.warn("token does not have acr Level4 or idporten-loa-high");
     return false;
   }
 
