@@ -49,9 +49,10 @@ spec:
           namespace: teamsykefravr
         - application: sykmeldinger-arbeidsgiver
           namespace: teamsykmelding
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
         - host: nav.no
-        - host: dekoratoren.nav.no
   env:
     - name: NPM_CONFIG_CACHE
       value: /tmp

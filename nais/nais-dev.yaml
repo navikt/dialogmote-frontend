@@ -85,6 +85,8 @@ spec:
           namespace: teamsykefravr
         - application: sykmeldinger-arbeidsgiver
           namespace: teamsykmelding
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
         - host: dekoratoren.dev.nav.no
         - host: syfomotebehov.dev-fss-pub.nais.io

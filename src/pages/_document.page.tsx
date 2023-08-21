@@ -11,6 +11,7 @@ import Document, {
   NextScript,
 } from "next/document";
 import serverEnv from "@/server/utils/serverEnv";
+import { createBreadcrumbsAG, createBreadcrumbsSM } from "@/common/breadcrumbs";
 
 interface Props {
   Decorator: DecoratorComponents;
@@ -32,6 +33,13 @@ export default class MyDocument extends Document<Props> {
         redirectToApp: true,
         level: "Level4",
         urlLookupTable: false,
+        breadcrumbs: isAudienceSykmeldt
+          ? createBreadcrumbsSM(ctx.pathname)
+          : createBreadcrumbsAG(
+              ctx.pathname,
+              "Den sykmeldte",
+              ctx.query.narmestelederid as string
+            ),
       },
     });
 
