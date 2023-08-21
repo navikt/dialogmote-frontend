@@ -1,8 +1,7 @@
 import { ServerStyleSheet } from "styled-components";
 import {
-  Components,
+  DecoratorComponents,
   fetchDecoratorReact,
-  Props,
 } from "@navikt/nav-dekoratoren-moduler/ssr";
 import Document, {
   DocumentContext,
@@ -12,21 +11,37 @@ import Document, {
   NextScript,
 } from "next/document";
 import serverEnv from "@/server/utils/serverEnv";
+import { createBreadcrumbsAG, createBreadcrumbsSM } from "@/common/breadcrumbs";
 
-export default class MyDocument extends Document<{ Decorator: Components }> {
+interface Props {
+  Decorator: DecoratorComponents;
+  language: string;
+}
+
+export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
     const isAudienceSykmeldt = ctx.pathname.startsWith("/sykmeldt");
 
-    const decoratorParams: Props = {
+    const Decorator = await fetchDecoratorReact({
       env: serverEnv.DECORATOR_ENV,
-      context: isAudienceSykmeldt ? "privatperson" : "arbeidsgiver",
-      chatbot: true,
-      redirectToApp: true,
-      level: "Level4",
-    };
-    const Decorator = await fetchDecoratorReact(decoratorParams);
+      params: {
+        context: isAudienceSykmeldt ? "privatperson" : "arbeidsgiver",
+        chatbot: true,
+        feedback: false,
+        redirectToApp: true,
+        level: "Level4",
+        urlLookupTable: false,
+        breadcrumbs: isAudienceSykmeldt
+          ? createBreadcrumbsSM(ctx.pathname)
+          : createBreadcrumbsAG(
+              ctx.pathname,
+              "Den sykmeldte",
+              ctx.query.narmestelederid as string
+            ),
+      },
+    });
 
     try {
       ctx.renderPage = () =>
