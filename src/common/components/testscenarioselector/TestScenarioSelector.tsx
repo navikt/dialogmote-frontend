@@ -59,12 +59,6 @@ export const TestScenarioSelector = () => {
   >();
 
   useEffect(() => {
-    if (Modal.setAppElement) {
-      Modal.setAppElement("#__next");
-    }
-  }, []);
-
-  useEffect(() => {
     if (activeTestScenario.isSuccess) {
       setSelectedScenario(activeTestScenario.data);
     }
@@ -79,7 +73,7 @@ export const TestScenarioSelector = () => {
         aria-label="Testdatavelger"
         onClose={() => setOpen(false)}
       >
-        <Modal.Content>
+        <Modal.Body>
           <Content>
             <Heading spacing level="1" size="large">
               Velg testscenario
@@ -151,7 +145,7 @@ export const TestScenarioSelector = () => {
               </Button>
             </Row>
           </Content>
-        </Modal.Content>
+        </Modal.Body>
       </Modal>
 
       <MockdataWrapper onClick={() => setOpen(!open)}>
