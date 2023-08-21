@@ -1,6 +1,6 @@
 import { Button, Heading, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import styled from "styled-components";
-import Sun from "@navikt/ds-icons/svg/Sun.svg";
+import SunImage from "../../images/sun.svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Row } from "../wrappers/Row";
@@ -155,7 +155,7 @@ export const TestScenarioSelector = () => {
       </Modal>
 
       <MockdataWrapper onClick={() => setOpen(!open)}>
-        <Image src={Sun} width={50} height={50} alt={""} color={"#FF0000"} />
+        <Image src={SunImage} alt="" width={40} height={40} />
       </MockdataWrapper>
     </>
   );

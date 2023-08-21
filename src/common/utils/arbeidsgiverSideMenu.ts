@@ -1,4 +1,4 @@
-import { People } from "@navikt/ds-icons";
+import { PersonIcon } from "@navikt/aksel-icons";
 import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
 import { DialogmoteData } from "../../types/shared/dialogmote";
 
@@ -9,7 +9,7 @@ export const getAgSideMenuHeader = (dialogmoteData?: DialogmoteData) => {
       subtitle: `Fødselsnr: ${addSpaceAfterEverySixthCharacter(
         dialogmoteData?.sykmeldt?.fnr
       )}`,
-      Icon: People,
+      Icon: PersonIcon,
     };
   }
 
