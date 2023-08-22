@@ -2,46 +2,32 @@ import CircledIcon from "@/common/components/icon/CircledIcon";
 import { Heading, Panel } from "@navikt/ds-react";
 import { HeadingProps } from "@navikt/ds-react/esm/typography/Heading";
 import React, { ReactNode } from "react";
-import styled from "styled-components";
-
-const PanelStyled = styled(Panel)`
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const HeaderStyled = styled(Heading)`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
 
 interface Props {
   title?: string;
   icon?: ReactNode;
-  className?: string;
   titleSize?: HeadingProps["size"];
   children: ReactNode;
+  className?: string;
 }
 
 const DialogmotePanel = ({
   title,
   icon,
-  className,
   titleSize = "medium",
+  className,
   children,
 }: Props) => {
   return (
-    <PanelStyled className={className} border>
+    <Panel className={`mb-8 flex flex-col gap-4 ${className}`} border>
       {(title || icon) && (
-        <HeaderStyled size={titleSize} level="2">
+        <Heading className="flex items-center gap-4" size={titleSize} level="2">
           {icon && <CircledIcon icon={icon} />}
           {title}
-        </HeaderStyled>
+        </Heading>
       )}
       {children}
-    </PanelStyled>
+    </Panel>
   );
 };
 

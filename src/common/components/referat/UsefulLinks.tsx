@@ -1,17 +1,12 @@
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Alert, Heading, Link } from "@navikt/ds-react";
-import styled from "styled-components";
 import { InfoUrl } from "types/client/infoUrl";
 import { Referat } from "types/shared/brev";
 
 const texts = {
   title: "Du kan finne mer informasjon på nav.no:",
 };
-
-const AlertStyled = styled(Alert)`
-  margin-bottom: 2rem;
-`;
 
 interface Props {
   referat: Referat;
@@ -29,7 +24,7 @@ const UsefulLinks = ({ referat }: Props) => {
   }
 
   return (
-    <AlertStyled variant="info" size="medium">
+    <Alert className="mb-8" variant="info" size="medium">
       <Heading spacing size="small" level="2">
         {texts.title}
       </Heading>
@@ -49,7 +44,7 @@ const UsefulLinks = ({ referat }: Props) => {
           );
         })}
       </ul>
-    </AlertStyled>
+    </Alert>
   );
 };
 

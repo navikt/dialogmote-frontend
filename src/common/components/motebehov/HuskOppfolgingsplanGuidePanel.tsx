@@ -2,7 +2,6 @@ import { BodyLong, GuidePanel, Heading, Link } from "@navikt/ds-react";
 import React from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
-import styled from "styled-components";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
 export const texts = {
@@ -24,16 +23,12 @@ export const texts = {
   },
 };
 
-const StyledGuidePanel = styled(GuidePanel)`
-  margin-bottom: 2rem;
-`;
-
 export const HuskOppfolgingsplanGuidePanel = () => {
   const { isAudienceSykmeldt } = useAudience();
   const narmestelederid = useNarmesteLederId();
 
   return (
-    <StyledGuidePanel poster>
+    <GuidePanel className="mb-8" poster>
       <Heading spacing level="2" size="medium">
         {texts.old.forDuSvarer.tittel}
       </Heading>
@@ -56,6 +51,6 @@ export const HuskOppfolgingsplanGuidePanel = () => {
           </BodyLong>
         </li>
       </ul>
-    </StyledGuidePanel>
+    </GuidePanel>
   );
 };

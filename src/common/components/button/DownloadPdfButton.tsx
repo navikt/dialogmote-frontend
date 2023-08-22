@@ -2,16 +2,11 @@ import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import NextLink from "next/link";
 import React from "react";
-import styled from "styled-components";
 import { Button } from "@navikt/ds-react";
 
 const texts = {
   button: "Åpne som pdf",
 };
-
-const MarginStyled = styled.div`
-  margin-bottom: 2rem;
-`;
 
 interface Props {
   trackingName: Events;
@@ -21,7 +16,7 @@ interface Props {
 const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
   const { trackEvent } = useAmplitude();
   return (
-    <MarginStyled>
+    <div className="mb-8">
       <NextLink href={pdfUrl} passHref>
         <Button
           onClick={() => {
@@ -31,7 +26,7 @@ const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
           {texts.button}
         </Button>
       </NextLink>
-    </MarginStyled>
+    </div>
   );
 };
 

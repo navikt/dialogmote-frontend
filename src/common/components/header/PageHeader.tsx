@@ -1,22 +1,16 @@
 import { Heading } from "@navikt/ds-react";
-import styled from "styled-components";
 
 interface Props {
   title: string;
 }
 
-const MarginStyled = styled.div`
-  margin-top: -0.4rem;
-  margin-bottom: 2rem;
-`;
-
 const PageHeader = ({ title }: Props) => {
   return (
-    <MarginStyled>
+    <div className="-mt-2 mb-8">
       <Heading size="xlarge" level="1">
         {title}
       </Heading>
-    </MarginStyled>
+    </div>
   );
 };
 

@@ -1,36 +1,13 @@
 import { Button, Heading, Modal, Radio, RadioGroup } from "@navikt/ds-react";
-import styled from "styled-components";
 import SunImage from "../../images/sun.svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { Row } from "../wrappers/Row";
-import { SpacedDiv } from "../wrappers/SpacedDiv";
 import { TestScenario } from "server/data/mock/getMockDb";
 import {
   useActiveTestScenario,
   useSetActiveTestScenario,
 } from "@/common/api/queries/testScenarioQueries";
-
-const MockdataWrapper = styled.div`
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 999999;
-  height: 3rem;
-  width: 3rem;
-  background-color: #9bd0b0;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #8bbb9e;
-  }
-`;
+import styles from "./testscenarioselector.module.css";
 
 interface RadioProps {
   value: TestScenario;
@@ -45,10 +22,6 @@ const RadioWithHelpText = ({ value, helpText, children }: RadioProps) => {
     </div>
   );
 };
-
-const Content = styled.div`
-  padding: 3rem;
-`;
 
 export const TestScenarioSelector = () => {
   const activeTestScenario = useActiveTestScenario();
@@ -74,12 +47,12 @@ export const TestScenarioSelector = () => {
         onClose={() => setOpen(false)}
       >
         <Modal.Body>
-          <Content>
+          <div className="p-12">
             <Heading spacing level="1" size="large">
               Velg testscenario
             </Heading>
 
-            <SpacedDiv marginBottom={"1rem"}>
+            <div className="mb-4">
               <RadioGroup
                 legend="Velg testscenario"
                 value={selectedScenario}
@@ -127,9 +100,9 @@ export const TestScenarioSelector = () => {
                   Endret Dialogmøte
                 </RadioWithHelpText>
               </RadioGroup>
-            </SpacedDiv>
+            </div>
 
-            <Row>
+            <div className="flex flex-row flex-wrap">
               <Button
                 variant={"primary"}
                 disabled={!setActiveTestScenario}
@@ -143,14 +116,18 @@ export const TestScenarioSelector = () => {
               <Button variant={"tertiary"} onClick={() => setOpen(false)}>
                 Avbryt
               </Button>
-            </Row>
-          </Content>
+            </div>
+          </div>
         </Modal.Body>
       </Modal>
 
-      <MockdataWrapper onClick={() => setOpen(!open)}>
+      <div
+        id="TestScenarioSelector"
+        onClick={() => setOpen(!open)}
+        className={styles.testscenariocontainer}
+      >
         <Image src={SunImage} alt="" width={40} height={40} />
-      </MockdataWrapper>
+      </div>
     </>
   );
 };

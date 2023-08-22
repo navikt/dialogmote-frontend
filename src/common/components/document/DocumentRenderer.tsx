@@ -4,15 +4,10 @@ import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
 import { DocumentComponent } from "types/client/brev";
 import { ReferatDocumentComponent } from "types/shared/brev";
-import styled from "styled-components";
 
 interface Props {
   documentComponent: DocumentComponent | ReferatDocumentComponent;
 }
-
-const StyledLink = styled(Link)`
-  word-break: break-word;
-`;
 
 const DocumentRenderer = ({ documentComponent }: Props) => {
   const { type, title, texts } = documentComponent;
@@ -61,7 +56,8 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             </Heading>
           )}
           {texts.map((text, index) => (
-            <StyledLink
+            <Link
+              className="break-words"
               key={index}
               href={text}
               onClick={() =>
@@ -69,7 +65,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
               }
             >
               {text}
-            </StyledLink>
+            </Link>
           ))}
         </>
       );

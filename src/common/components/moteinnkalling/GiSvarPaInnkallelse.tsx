@@ -1,6 +1,5 @@
 import { Events } from "@/common/amplitude/events";
 import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import {
   Alert,
@@ -12,24 +11,9 @@ import {
   Textarea,
 } from "@navikt/ds-react";
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
-import styled from "styled-components";
 import { SvarType } from "types/shared/brev";
 import { commonTexts } from "@/common/constants/commonTexts";
-
-const KnappStyled = styled(Button)`
-  width: fit-content;
-`;
-
-const FormPanel = styled(DialogmotePanel)`
-  padding-top: 2rem;
-  display: flex;
-  flex-direction: column;
-`;
-
-const SmallText = styled.text`
-  font-size: 16px;
-  line-height: 22px;
-`;
+import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 
 const texts = {
   title: "Gi oss ditt svar",
@@ -93,7 +77,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   };
 
   const begrunnelseDescriptionSmallText = (
-    <SmallText>{commonTexts.noSensitiveInfo}</SmallText>
+    <text className="text-base leading-6">{commonTexts.noSensitiveInfo}</text>
   );
 
   const begrunnelseFieldName: InputFieldType =
@@ -155,7 +139,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   return (
     <form>
-      <FormPanel title={texts.title}>
+      <DialogmotePanel className="pt-8 flex flex-col" title={texts.title}>
         {error.length > 0 && (
           <ErrorSummary heading={texts.feiloppsummeringTittel}>
             {error.map((error, index) => {
@@ -220,7 +204,8 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
           <Alert variant="error">{texts.errorMessage}</Alert>
         )}
 
-        <KnappStyled
+        <Button
+          className="w-fit"
           type="submit"
           disabled={sendSvarQuery.isLoading}
           loading={sendSvarQuery.isLoading}
@@ -230,8 +215,8 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
           }}
         >
           {texts.sendSvar}
-        </KnappStyled>
-      </FormPanel>
+        </Button>
+      </DialogmotePanel>
     </form>
   );
 };

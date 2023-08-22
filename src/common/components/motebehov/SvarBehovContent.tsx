@@ -16,7 +16,6 @@ import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { Controller, useForm } from "react-hook-form";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
@@ -140,10 +139,10 @@ export const SvarBehovContent = ({
             )}
           />
 
-          <ButtonRow>
+          <div className="inline-flex pt-4 gap-4">
             <SubmitButton isLoading={isLoading} />
             <CancelButton />
-          </ButtonRow>
+          </div>
         </DialogmotePanel>
       </form>
     </>
