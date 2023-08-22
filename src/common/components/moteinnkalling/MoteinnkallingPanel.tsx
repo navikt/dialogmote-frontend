@@ -1,6 +1,5 @@
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { Events } from "@/common/amplitude/events";
-import styled from "styled-components";
 import { Alert, BodyShort, Button } from "@navikt/ds-react";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Brev } from "types/shared/brev";
@@ -43,10 +42,6 @@ const getTexts = (brevType: BrevType) => {
   }
 };
 
-const ButtonWrapperStyled = styled.div`
-  width: fit-content;
-`;
-
 const DialogmotePanelContet = ({
   moteinnkalling,
 }: {
@@ -87,7 +82,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
     return (
       <DialogmotePanel title={texts.title}>
         <DialogmotePanelContet moteinnkalling={moteinnkalling} />
-        <ButtonWrapperStyled>
+        <div className="w-fit">
           <NextLink href={`${landingUrl}/moteinnkalling`} passHref>
             <Button
               onClick={() => {
@@ -100,7 +95,7 @@ const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
               {texts.buttonText}
             </Button>
           </NextLink>
-        </ButtonWrapperStyled>
+        </div>
       </DialogmotePanel>
     );
   }

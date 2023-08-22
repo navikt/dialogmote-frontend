@@ -5,21 +5,8 @@ import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { MotebehovSkjemaType } from "types/shared/motebehov";
 import NextLink from "next/link";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
-import styled from "styled-components";
 import { Chat2Icon } from "@navikt/aksel-icons";
 import CircledIcon from "@/common/components/icon/CircledIcon";
-
-const ContainedLinkPanel = styled(LinkPanel)`
-  width: fit-content;
-  margin-bottom: 1rem;
-  background: #f7f7f7;
-`;
-
-const IconAndTextWrapper = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-`;
 
 interface Props {
   skjemaType: MotebehovSkjemaType;
@@ -37,8 +24,8 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
 
   return (
     <NextLink href={path} passHref>
-      <ContainedLinkPanel
-        forwardedAs="div"
+      <LinkPanel
+        className="w-fit mb-4 bg-ds-gray-50"
         border
         onClick={() => {
           trackEvent(
@@ -46,11 +33,11 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
           );
         }}
       >
-        <IconAndTextWrapper>
+        <div className="inline-flex items-center gap-4">
           <CircledIcon icon={<Chat2Icon fontSize="1.5rem" />} />
           <LinkPanel.Title>{children}</LinkPanel.Title>
-        </IconAndTextWrapper>
-      </ContainedLinkPanel>
+        </div>
+      </LinkPanel>
     </NextLink>
   );
 };

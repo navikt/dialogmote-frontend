@@ -1,10 +1,10 @@
-import { ServerStyleSheet } from "styled-components";
 import {
   DecoratorComponents,
   fetchDecoratorReact,
 } from "@navikt/nav-dekoratoren-moduler/ssr";
 import Document, {
   DocumentContext,
+  DocumentInitialProps,
   Head,
   Html,
   Main,
@@ -13,6 +13,15 @@ import Document, {
 import serverEnv from "@/server/utils/serverEnv";
 import { createBreadcrumbsAG, createBreadcrumbsSM } from "@/common/breadcrumbs";
 
+// The 'head'-field of the document initialProps contains data from <head> (meta-tags etc)
+const getDocumentParameter = (
+  initialProps: DocumentInitialProps,
+  name: string
+): string => {
+  return initialProps.head?.find((element) => element?.props?.name === name)
+    ?.props?.content;
+};
+
 interface Props {
   Decorator: DecoratorComponents;
   language: string;
@@ -20,8 +29,8 @@ interface Props {
 
 export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
+    const initialProps = await Document.getInitialProps(ctx);
+
     const isAudienceSykmeldt = ctx.pathname.startsWith("/sykmeldt");
 
     const Decorator = await fetchDecoratorReact({
@@ -43,27 +52,9 @@ export default class MyDocument extends Document<Props> {
       },
     });
 
-    try {
-      ctx.renderPage = () =>
-        originalRenderPage({
-          enhanceApp: (App) => (props) =>
-            sheet.collectStyles(<App {...props} />),
-        });
+    const language = getDocumentParameter(initialProps, "lang");
 
-      const initialProps = await Document.getInitialProps(ctx);
-      return {
-        ...initialProps,
-        Decorator,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
-      };
-    } finally {
-      sheet.seal();
-    }
+    return { ...initialProps, Decorator, language };
   }
 
   render() {

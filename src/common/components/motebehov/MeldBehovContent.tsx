@@ -4,7 +4,6 @@ import { Events } from "@/common/amplitude/events";
 import { Checkbox, CheckboxGroup, Ingress, Textarea } from "@navikt/ds-react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
-import { ButtonRow } from "@/common/components/button/ButtonRow";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
@@ -124,10 +123,10 @@ export const MeldBehovContent = ({
             )}
           />
 
-          <ButtonRow>
+          <div className="inline-flex pt-4 gap-4">
             <SubmitButton isLoading={isLoading} />
             <CancelButton />
-          </ButtonRow>
+          </div>
         </DialogmotePanel>
       </form>
     </>

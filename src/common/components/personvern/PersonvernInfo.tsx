@@ -1,17 +1,7 @@
 import { BodyLong, Link } from "@navikt/ds-react";
-import styled from "styled-components";
 import { PERSONVERN_URL } from "../../constants/staticUrls";
 import { Events } from "@/common/amplitude/events";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-
-const BottomInfoStyled = styled.section`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: auto;
-  text-align: center;
-  margin-bottom: 2rem;
-`;
 
 const texts = {
   bottomText: "Vi bruker opplysningene også til å gjøre selve tjenesten bedre.",
@@ -22,7 +12,7 @@ const PersonvernInfo = () => {
   const { trackEvent } = useAmplitude();
 
   return (
-    <BottomInfoStyled>
+    <section className="flex items-center flex-col mt-auto text-center mb-8">
       <BodyLong>{texts.bottomText}</BodyLong>
       <Link
         href={PERSONVERN_URL}
@@ -30,7 +20,7 @@ const PersonvernInfo = () => {
       >
         {texts.bottomUrl}
       </Link>
-    </BottomInfoStyled>
+    </section>
   );
 };
 

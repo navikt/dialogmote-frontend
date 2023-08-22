@@ -1,12 +1,7 @@
 import React, { ReactElement } from "react";
 import { Alert, BodyLong } from "@navikt/ds-react";
-import styled from "styled-components";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { SvarType } from "types/shared/brev";
-
-const SpacedAlert = styled(Alert)`
-  margin-bottom: 2rem;
-`;
 
 const texts = {
   svartKommer: "Du har svart at du kommer til dette dialogmøtet.",
@@ -19,26 +14,26 @@ const texts = {
 
 const JegKommer = (): ReactElement => {
   return (
-    <SpacedAlert variant="success" aria-live="polite">
+    <Alert className="mb-8" variant="success" aria-live="polite">
       <BodyLong>{texts.svartKommer}</BodyLong>
       <KontaktOssLink linkText={texts.taKontakt} />
-    </SpacedAlert>
+    </Alert>
   );
 };
 
 const JegVilEndre = (): ReactElement => {
   return (
-    <SpacedAlert variant="warning" aria-live="polite">
+    <Alert className="mb-8" variant="warning" aria-live="polite">
       <BodyLong>{texts.svartVilEndre}</BodyLong>
-    </SpacedAlert>
+    </Alert>
   );
 };
 
 const JegVilAvlyse = (): ReactElement => {
   return (
-    <SpacedAlert variant="warning" aria-live="polite">
+    <Alert className="mb-8" variant="warning" aria-live="polite">
       <BodyLong>{texts.svartKommerIkke}</BodyLong>
-    </SpacedAlert>
+    </Alert>
   );
 };
 

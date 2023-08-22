@@ -1,11 +1,6 @@
 import { ReactElement, useEffect, useRef } from "react";
 import { useNotifications } from "@/context/NotificationContext";
-import styled from "styled-components";
 import { SingleNotification } from "@/common/components/notificationbar/SingleNotification";
-
-const NotificationBarWrapper = styled.div`
-  width: 100%;
-`;
 
 export const NotificationBar = (): ReactElement | null => {
   const { notification } = useNotifications();
@@ -25,8 +20,8 @@ export const NotificationBar = (): ReactElement | null => {
   if (!notification) return null;
 
   return (
-    <NotificationBarWrapper ref={notificationBarRef} tabIndex={-1}>
+    <div className="w-full" ref={notificationBarRef} tabIndex={-1}>
       <SingleNotification notification={notification} />
-    </NotificationBarWrapper>
+    </div>
   );
 };

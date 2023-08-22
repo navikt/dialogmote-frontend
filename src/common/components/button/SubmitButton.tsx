@@ -1,14 +1,9 @@
-import styled from "styled-components";
 import { Button } from "@navikt/ds-react";
 import React from "react";
 
 const texts = {
   sendSvar: "Send svar",
 };
-
-const StyledButton = styled(Button)`
-  width: 8rem;
-`;
 
 interface Props {
   onSubmit?: () => void;
@@ -17,7 +12,8 @@ interface Props {
 
 export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
   return (
-    <StyledButton
+    <Button
+      className="w-32"
       onClick={(e: React.MouseEvent) => {
         if (onSubmit) {
           e.preventDefault();
@@ -30,6 +26,6 @@ export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
       loading={isLoading}
     >
       {texts.sendSvar}
-    </StyledButton>
+    </Button>
   );
 };
