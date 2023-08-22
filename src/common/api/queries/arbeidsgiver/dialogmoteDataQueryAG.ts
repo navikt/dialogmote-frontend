@@ -11,7 +11,10 @@ export const useDialogmoteDataAG = () => {
   const apiBasePath = useApiBasePath();
 
   const fetchDialogmoteData = () =>
-    get<DialogmoteData>(`${apiBasePath}/${narmestelederid}`);
+    get<DialogmoteData>(
+      `${apiBasePath}/${narmestelederid}`,
+      "fetchDialogmoteDataAGException"
+    );
 
   return useQuery<DialogmoteData, Error>(
     [DIALOGMOTEDATA_AG],

@@ -2,7 +2,10 @@ import axios, { AxiosError, ResponseType } from "axios";
 import { loginUser } from "@/common/utils/urlUtils";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
-import { logApiError } from "@/server/utils/logUtils";
+import axiosBetterStacktrace from "axios-better-stacktrace";
+import { ErrorType, logError } from "../../utils/logUtils";
+
+axiosBetterStacktrace(axios);
 
 interface AxiosOptions {
   accessToken?: string;
@@ -47,17 +50,18 @@ const defaultRequestHeaders = (
   return headers;
 };
 
-function handleError(error: AxiosError, url: string, httpMethod: string) {
+function handleError(error: AxiosError, errorType: ErrorType) {
   if (error.response && error.response.status === 401) {
     loginUser();
   } else {
-    logApiError(error, url, httpMethod);
+    logError(error, errorType);
     throw error;
   }
 }
 
 export const get = <ResponseData>(
   url: string,
+  errorType: ErrorType,
   options?: AxiosOptions
 ): Promise<ResponseData> => {
   return axios
@@ -68,12 +72,13 @@ export const get = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      handleError(error, url, "GET");
+      handleError(error, errorType);
     });
 };
 
 export const post = <ResponseData>(
   url: string,
+  errorType: ErrorType,
   // eslint-disable-next-line
   data?: any,
   options?: AxiosOptions
@@ -86,6 +91,6 @@ export const post = <ResponseData>(
     })
     .then((response) => response.data)
     .catch(function (error) {
-      handleError(error, url, "POST");
+      handleError(error, errorType);
     });
 };

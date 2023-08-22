@@ -8,7 +8,8 @@ export const DIALOGMOTEDATA_SM = "dialogmotedata-sykmeldt";
 export const useDialogmoteDataSM = () => {
   const apiBasePath = useApiBasePath();
 
-  const fetchDialogmoteData = () => get<DialogmoteData>(apiBasePath);
+  const fetchDialogmoteData = () =>
+    get<DialogmoteData>(apiBasePath, "fetchDialogmoteDataSMException");
 
   return useQuery<DialogmoteData, Error>(
     [DIALOGMOTEDATA_SM],

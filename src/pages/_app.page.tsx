@@ -16,20 +16,10 @@ import { isDemoOrLocal } from "@/common/publicEnv";
 import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 import { configureLogger } from "@navikt/next-logger";
 import { DMErrorBoundary } from "@/common/components/error/DMErrorBoundary";
-import { initFaro, pinoLevelToFaroLevel } from "../faro/initFaro";
-
-// eslint-disable-next-line
-declare const window: any;
+import { initFaro } from "../faro/initFaro";
 
 configureLogger({
   basePath: "/syk/dialogmoter",
-  onLog: (log) => {
-    if (typeof window !== "undefined" && window.faro !== "undefined") {
-      window.faro.api.pushLog(log.messages, {
-        level: pinoLevelToFaroLevel(log.level.label),
-      });
-    }
-  },
 });
 
 const GlobalStyle = createGlobalStyle`

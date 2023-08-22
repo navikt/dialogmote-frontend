@@ -11,7 +11,7 @@ export async function getMotebehovAG(
   const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
 
   return motebehovSchema.safeParse(
-    await get(url, {
+    await get(url, "getMotebehovAGException", {
       accessToken,
     })
   );
@@ -21,6 +21,7 @@ export async function getMotebehovSM(accessToken: string) {
   return motebehovSchema.safeParse(
     await get(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov/all`,
+      "getMotebehovSMException",
       {
         accessToken,
       }

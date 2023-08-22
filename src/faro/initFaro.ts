@@ -2,8 +2,8 @@ import {
   Faro,
   getWebInstrumentations,
   initializeFaro,
-  LogLevel,
 } from "@grafana/faro-web-sdk";
+import { TracingInstrumentation } from "@grafana/faro-web-tracing";
 
 export const initFaro = (): Faro | null => {
   if (!process.env.NEXT_PUBLIC_TELEMETRY_URL || typeof window === "undefined")
@@ -19,23 +19,7 @@ export const initFaro = (): Faro | null => {
       ...getWebInstrumentations({
         captureConsole: false,
       }),
+      new TracingInstrumentation(),
     ],
   });
 };
-
-export function pinoLevelToFaroLevel(pinoLevel: string): LogLevel {
-  switch (pinoLevel) {
-    case "trace":
-      return LogLevel.TRACE;
-    case "debug":
-      return LogLevel.DEBUG;
-    case "info":
-      return LogLevel.INFO;
-    case "warn":
-      return LogLevel.WARN;
-    case "error":
-      return LogLevel.ERROR;
-    default:
-      throw new Error(`Unknown level: ${pinoLevel}`);
-  }
-}

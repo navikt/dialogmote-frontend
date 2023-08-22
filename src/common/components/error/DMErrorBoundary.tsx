@@ -1,16 +1,14 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { ReactNode } from "react";
-import { logger } from "@navikt/next-logger";
 import PageError from "./PageError";
+import { logError } from "@/common/utils/logUtils";
 
 interface Props {
   children: ReactNode;
 }
 
-const errorHandler = (error: Error, info: { componentStack: string }) => {
-  logger.error(
-    `ErrorBoundary: ${error.stack}. ** Component stack **: ${info.componentStack}`
-  );
+const errorHandler = (error: Error) => {
+  logError(error, "ErrorBoundaryException");
 };
 
 export const DMErrorBoundary = ({ children }: Props) => {

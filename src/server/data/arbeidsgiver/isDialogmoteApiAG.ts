@@ -26,7 +26,7 @@ export const fetchBrevPdfAG = async (
     const token = await getIsdialogmoteTokenX(req);
 
     const { uuid } = req.query;
-    res.pdf = await get(brevApiAG(`/${uuid}/pdf`), {
+    res.pdf = await get(brevApiAG(`/${uuid}/pdf`), "fetchBrevPdfAGException", {
       accessToken: token,
       responseType: "arraybuffer",
     });
@@ -53,9 +53,14 @@ export const postBrevLestAG = async (
     const token = await getIsdialogmoteTokenX(req);
 
     const { uuid } = req.query;
-    await post(brevApiAG(`/${uuid}/les`), undefined, {
-      accessToken: token,
-    });
+    await post(
+      brevApiAG(`/${uuid}/les`),
+      "postBrevLestAGException",
+      undefined,
+      {
+        accessToken: token,
+      }
+    );
   }
 
   next();
@@ -85,7 +90,7 @@ export const postBrevSvarAG = async (
 
     const { uuid } = req.query;
     const svar: SvarRespons = req.body;
-    await post(brevApiAG(`/${uuid}/respons`), svar, {
+    await post(brevApiAG(`/${uuid}/respons`), "postBrevSvarAGException", svar, {
       accessToken: token,
     });
   }

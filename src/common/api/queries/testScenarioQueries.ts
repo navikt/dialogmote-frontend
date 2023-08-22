@@ -8,7 +8,11 @@ export const useSetActiveTestScenario = () => {
   const queryClient = useQueryClient();
 
   const setActiveTestScenario = (mockSetup: TestScenario) =>
-    post(`${router.basePath}/api/scenario/activescenario`, mockSetup);
+    post(
+      `${router.basePath}/api/scenario/activescenario`,
+      "setActiveTestScenarioException",
+      mockSetup
+    );
 
   return useMutation(setActiveTestScenario, {
     onSuccess: async () => {
@@ -21,7 +25,10 @@ export const useActiveTestScenario = () => {
   const router = useRouter();
 
   const fetchActiveTestScenario = () =>
-    get<TestScenario>(`${router.basePath}/api/scenario/activescenario`);
+    get<TestScenario>(
+      `${router.basePath}/api/scenario/activescenario`,
+      "fetchActiveTestScenarioException"
+    );
 
   return useQuery<TestScenario, Error>(
     ["active-test-scenario"],

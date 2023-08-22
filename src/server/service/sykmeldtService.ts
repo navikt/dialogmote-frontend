@@ -9,7 +9,7 @@ export async function getSykmeldt(
   const url = `${serverEnv.SYKMELDINGER_ARBEIDSGIVER_HOST}/api/v2/dinesykmeldte/${narmestelederid}`;
 
   return sykmeldtSchema.safeParse(
-    await get(url, {
+    await get(url, "getSykmeldtException", {
       accessToken,
     })
   );

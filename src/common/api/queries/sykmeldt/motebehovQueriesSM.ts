@@ -13,7 +13,7 @@ export const useSvarPaMotebehovSM = () => {
     useNotifications();
 
   const postSvar = (svar: MotebehovSvarRequest) =>
-    post(`${basepath}/motebehov`, svar);
+    post(`${basepath}/motebehov`, "svarPaaMotebehovSMException", svar);
 
   return useMutation(postSvar, {
     onMutate: () => {
