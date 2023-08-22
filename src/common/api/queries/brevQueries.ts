@@ -13,7 +13,8 @@ const queryToInvalidate = (isAudienceSykmeldt: boolean) =>
 export const useMutateBrevLest = () => {
   const basepath = useApiBasePath();
 
-  const postLestBrev = (uuid: string) => post(`${basepath}/brev/${uuid}/lest`);
+  const postLestBrev = (uuid: string) =>
+    post(`${basepath}/brev/${uuid}/lest`, "postLestBrevException");
 
   return useMutation(postLestBrev);
 };
@@ -24,7 +25,7 @@ export const useSvarPaInnkallelse = (uuid: string) => {
   const basepath = useApiBasePath();
 
   const postSvar = (svar: SvarResponsRequest) =>
-    post(`${basepath}/brev/${uuid}/svar`, svar);
+    post(`${basepath}/brev/${uuid}/svar`, "svarPaaInnkallingException", svar);
 
   return useMutation(postSvar, {
     onSuccess: async () => {

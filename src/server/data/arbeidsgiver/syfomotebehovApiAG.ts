@@ -18,6 +18,7 @@ export const postMotebehovAG = async (
     const svar: MotebehovSvarRequestAG = req.body;
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov`,
+      "postMotebehovAGException",
       svar,
       {
         accessToken: token,

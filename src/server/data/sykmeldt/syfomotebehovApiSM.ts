@@ -42,6 +42,7 @@ export const postMotebehovSM = async (
 
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
+      "postMotebehovSMException",
       svar,
       {
         accessToken: token,
