@@ -27,7 +27,7 @@ interface Props {
   behandlerVaereMedTekst: string;
   sensitivInfoTekst: string;
   meldMotebehov: (svar: MotebehovSvarRequest) => void;
-  isLoading: boolean;
+  isSubmitting: boolean;
 }
 
 export const MeldBehovContent = ({
@@ -35,7 +35,7 @@ export const MeldBehovContent = ({
   behandlerVaereMedTekst,
   sensitivInfoTekst,
   meldMotebehov,
-  isLoading,
+  isSubmitting,
 }: Props) => {
   const { trackEvent } = useAmplitude();
   const {
@@ -124,7 +124,7 @@ export const MeldBehovContent = ({
           />
 
           <div className="inline-flex pt-4 gap-4">
-            <SubmitButton isLoading={isLoading} />
+            <SubmitButton isLoading={isSubmitting} />
             <CancelButton />
           </div>
         </DialogmotePanel>

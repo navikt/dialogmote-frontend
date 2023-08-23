@@ -25,6 +25,7 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
   return (
     <NextLink href={path} passHref>
       <LinkPanel
+        as="div"
         className="w-fit mb-4 bg-ds-gray-50"
         border
         onClick={() => {

@@ -1,6 +1,4 @@
-import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import React, { ReactElement } from "react";
-import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 import { commonTexts } from "@/common/constants/commonTexts";
@@ -17,7 +15,6 @@ export const texts = {
 };
 
 const MeldBehov = (): ReactElement => {
-  const dialogmoteData = useDialogmoteDataSM();
   const { mutate, isLoading } = useSvarPaMotebehovSM();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
@@ -25,17 +22,15 @@ const MeldBehov = (): ReactElement => {
   };
 
   return (
-    <PageContainer header={false}>
-      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-        <MeldBehovContent
-          motebehovTekst={texts.behovForMote}
-          behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
-          sensitivInfoTekst={commonTexts.noSensitiveInfo}
-          meldMotebehov={submitSvar}
-          isLoading={isLoading}
-        />
-      </DialogmotePage>
-    </PageContainer>
+    <DialogmotePage title={texts.title}>
+      <MeldBehovContent
+        motebehovTekst={texts.behovForMote}
+        behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
+        sensitivInfoTekst={commonTexts.noSensitiveInfo}
+        meldMotebehov={submitSvar}
+        isSubmitting={isLoading}
+      />
+    </DialogmotePage>
   );
 };
 

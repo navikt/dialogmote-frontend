@@ -9,6 +9,7 @@ import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import React from "react";
 import { UseQueryResult } from "@tanstack/react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
+import { SkeletonWrapper } from "@/common/skeleton/SkeletonWrapper";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
@@ -22,31 +23,32 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
   const brevuuid = useBrevUuid();
   const pdfPath = usePdfPath();
 
-  if (dialogmoteData.isSuccess) {
-    const referat = dialogmoteData.data.referater.find(
-      (value) => value.uuid === brevuuid
-    );
-    if (!referat) {
-      return <NoReferatAlert />;
-    }
+  const referat = dialogmoteData.data?.referater.find(
+    (value) => value.uuid === brevuuid
+  );
 
-    return (
-      <>
-        <DocumentContainer
-          title={texts.title}
-          document={referat.document}
-          lestDato={referat.lestDato}
-          brevUuid={referat.uuid}
-        />
-
-        <DownloadPdfButton
-          trackingName={Events.LastNedReferat}
-          pdfUrl={pdfPath}
-        />
-        <UsefulLinks referat={referat} />
-        <KontaktOssVeileder />
-      </>
-    );
+  if (dialogmoteData.isSuccess && !referat) {
+    return <NoReferatAlert />;
   }
-  return null;
+
+  return (
+    <SkeletonWrapper
+      displaySkeleton={dialogmoteData.isLoading}
+      skeletonProps={{ height: "75rem" }}
+    >
+      <DocumentContainer
+        title={texts.title}
+        document={referat?.document || []}
+        lestDato={referat?.lestDato}
+        brevUuid={referat?.uuid || "123"}
+      />
+
+      <DownloadPdfButton
+        trackingName={Events.LastNedReferat}
+        pdfUrl={pdfPath}
+      />
+      <UsefulLinks referat={referat} />
+      <KontaktOssVeileder />
+    </SkeletonWrapper>
+  );
 };

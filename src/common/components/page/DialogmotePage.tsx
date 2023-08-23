@@ -1,35 +1,29 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
-import PageHeader from "@/common/components/header/PageHeader";
-import AppSpinner from "@/common/components/spinner/AppSpinner";
+import styles from "./DialogmotePage.module.css";
+import { PageHeading } from "@/common/components/header/PageHeading";
 
 interface Props {
   title: string;
   hideHeader?: boolean;
-  isLoading: boolean;
   children: ReactNode;
 }
 
-export const DialogmotePage = ({
-  title,
-  hideHeader,
-  isLoading,
-  children,
-}: Props) => {
-  if (isLoading) {
-    return <AppSpinner />;
-  }
-
+export const DialogmotePage = ({ title, hideHeader, children }: Props) => {
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-      </Head>
+    <div className={styles.content}>
+      <div className={styles.innercontent}>
+        <Head>
+          <title>{title}</title>
+        </Head>
 
-      {!hideHeader && <PageHeader title={title} />}
-      {children}
-      <PersonvernInfo />
-    </>
+        {!hideHeader && <PageHeading title={title} />}
+
+        {children}
+
+        <PersonvernInfo />
+      </div>
+    </div>
   );
 };
