@@ -23,15 +23,15 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
   const brevuuid = useBrevUuid();
   const pdfPath = usePdfPath();
 
-  const referat = dialogmoteData.data?.referater.find(
-    (value) => value.uuid === brevuuid
-  );
-
   if (dialogmoteData.isLoading) {
     return <Skeleton variant="rectangle" width="100%" height="75rem" />;
   }
 
   if (dialogmoteData.isSuccess) {
+    const referat = dialogmoteData.data.referater.find(
+      (value) => value.uuid === brevuuid
+    );
+
     if (!referat) {
       return <NoReferatAlert />;
     }
