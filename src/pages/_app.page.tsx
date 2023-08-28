@@ -1,4 +1,3 @@
-import "@navikt/dinesykmeldte-sidemeny/dist/style.css";
 import "../styles/globals.css";
 import type { AppContext, AppProps } from "next/app";
 import App from "next/app";

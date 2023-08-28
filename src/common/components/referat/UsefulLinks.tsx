@@ -9,13 +9,11 @@ const texts = {
 };
 
 interface Props {
-  referat?: Referat;
+  referat: Referat;
 }
 
 const UsefulLinks = ({ referat }: Props) => {
   const { trackEvent } = useAmplitude();
-
-  if (!referat) return null;
 
   const infoUrls = referat.document
     .map((documentComponent) => documentComponent.infoUrl)

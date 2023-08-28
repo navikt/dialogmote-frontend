@@ -31,25 +31,29 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
     return <Skeleton variant="rectangle" width="100%" height="75rem" />;
   }
 
-  if (dialogmoteData.isSuccess && !referat) {
-    return <NoReferatAlert />;
+  if (dialogmoteData.isSuccess) {
+    if (!referat) {
+      return <NoReferatAlert />;
+    }
+
+    return (
+      <>
+        <DocumentContainer
+          title={texts.title}
+          document={referat.document}
+          lestDato={referat.lestDato}
+          brevUuid={referat.uuid}
+        />
+
+        <DownloadPdfButton
+          trackingName={Events.LastNedReferat}
+          pdfUrl={pdfPath}
+        />
+        <UsefulLinks referat={referat} />
+        <KontaktOssVeileder />
+      </>
+    );
   }
 
-  return (
-    <>
-      <DocumentContainer
-        title={texts.title}
-        document={referat?.document || []}
-        lestDato={referat?.lestDato}
-        brevUuid={referat?.uuid || "123"}
-      />
-
-      <DownloadPdfButton
-        trackingName={Events.LastNedReferat}
-        pdfUrl={pdfPath}
-      />
-      <UsefulLinks referat={referat} />
-      <KontaktOssVeileder />
-    </>
-  );
+  return null;
 };

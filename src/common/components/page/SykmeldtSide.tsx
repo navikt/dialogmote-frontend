@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import Head from "next/head";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import styles from "./SykmeldtSide.module.css";
 import { PageHeading } from "@/common/components/header/PageHeading";
@@ -14,11 +13,7 @@ export const SykmeldtSide = ({ title, hideHeader, children }: Props) => {
   return (
     <div className={styles.content}>
       <div className={styles.innercontent}>
-        <Head>
-          <title>{title}</title>
-        </Head>
-
-        {!hideHeader && <PageHeading title={title} />}
+        <PageHeading title={title} hideHeader={hideHeader} />
 
         {children}
 
