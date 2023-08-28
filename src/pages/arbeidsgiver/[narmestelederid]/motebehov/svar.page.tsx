@@ -1,16 +1,14 @@
 import React, { ReactElement } from "react";
-import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { SvarBehovContent } from "@/common/components/motebehov/SvarBehovContent";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import { commonTexts } from "@/common/constants/commonTexts";
-import { getAgSideMenuHeader } from "@/common/utils/arbeidsgiverSideMenu";
 import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 
 const texts = {
   title: "Meld behov for møte",
@@ -31,15 +29,13 @@ const SvarBehov = (): ReactElement => {
   };
 
   return (
-    <PageContainer header={getAgSideMenuHeader(dialogmoteData.data)}>
-      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-        <SvarBehovContent
-          svarMotebehov={submitSvar}
-          begrunnelseDescription={commonTexts.noSensitiveInfo}
-          isLoading={isLoading}
-        />
-      </DialogmotePage>
-    </PageContainer>
+    <ArbeidsgiverSide title={texts.title}>
+      <SvarBehovContent
+        svarMotebehov={submitSvar}
+        begrunnelseDescription={commonTexts.noSensitiveInfo}
+        isSubmitting={isLoading}
+      />
+    </ArbeidsgiverSide>
   );
 };
 

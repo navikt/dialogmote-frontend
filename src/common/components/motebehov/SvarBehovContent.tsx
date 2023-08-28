@@ -43,13 +43,13 @@ type FormValues = {
 interface Props {
   begrunnelseDescription: string;
   svarMotebehov: (svar: MotebehovSvarRequest) => void;
-  isLoading: boolean;
+  isSubmitting: boolean;
 }
 
 export const SvarBehovContent = ({
   begrunnelseDescription,
   svarMotebehov,
-  isLoading,
+  isSubmitting,
 }: Props): ReactElement => {
   const { trackEvent } = useAmplitude();
   const {
@@ -140,7 +140,7 @@ export const SvarBehovContent = ({
           />
 
           <div className="inline-flex pt-4 gap-4">
-            <SubmitButton isLoading={isLoading} />
+            <SubmitButton isLoading={isSubmitting} />
             <CancelButton />
           </div>
         </DialogmotePanel>

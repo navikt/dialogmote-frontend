@@ -1,27 +1,19 @@
 import React, { ReactElement } from "react";
-import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { MoteinnkallingContent } from "@/common/components/moteinnkalling/MoteinnkallingContent";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 
 const Moteinnkalling = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
 
   return (
-    <PageContainer header={false}>
-      <DialogmotePage
-        title={"Innkalling til Dialogmøte"}
-        hideHeader={true}
+    <SykmeldtSide title={"Innkalling til Dialogmøte"} hideHeader={true}>
+      <MoteinnkallingContent
         isLoading={dialogmoteData.isLoading}
-      >
-        {dialogmoteData.isSuccess ? (
-          <MoteinnkallingContent
-            moteinnkalling={dialogmoteData.data.moteinnkalling}
-          />
-        ) : null}
-      </DialogmotePage>
-    </PageContainer>
+        moteinnkalling={dialogmoteData.data?.moteinnkalling}
+      />
+    </SykmeldtSide>
   );
 };
 

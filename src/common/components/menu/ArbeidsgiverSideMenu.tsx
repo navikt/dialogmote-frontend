@@ -1,13 +1,15 @@
-import { SideMenu, RootPages } from "@navikt/dinesykmeldte-sidemeny";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import { RootPages, SideMenu } from "@navikt/dinesykmeldte-sidemeny";
+import { Sykmeldt } from "../../../types/shared/sykmeldt";
 
-export const ArbeidsgiverSideMenu = (): JSX.Element => {
-  const dialogmoteData = useDialogmoteDataAG();
+interface Props {
+  sykmeldt?: Sykmeldt;
+}
 
+export const ArbeidsgiverSideMenu = ({ sykmeldt }: Props): JSX.Element => {
   return (
     <SideMenu
-      sykmeldtName={dialogmoteData.data?.sykmeldt?.navn ?? ""}
-      sykmeldtId={dialogmoteData.data?.sykmeldt?.narmestelederId ?? ""}
+      sykmeldtName={sykmeldt?.navn ?? ""}
+      sykmeldtId={sykmeldt?.narmestelederId ?? ""}
       activePage={RootPages.Dialogmoter}
       routes={{
         Soknader: 0,

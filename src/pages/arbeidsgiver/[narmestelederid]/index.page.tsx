@@ -1,21 +1,17 @@
 import React from "react";
 import type { NextPage } from "next";
 import { UseQueryResult } from "@tanstack/react-query";
-import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
-import {
-  getAgSideMenuHeader,
-  getSykmeldt,
-} from "@/common/utils/arbeidsgiverSideMenu";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
+import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import { Skeleton } from "@navikt/ds-react";
 
 const texts = {
   title: "Dialogmøter",
@@ -28,36 +24,39 @@ interface Props {
 }
 
 const Content = ({ dialogmoteData }: Props) => {
-  if (dialogmoteData.isSuccess) {
+  if (dialogmoteData.isLoading) {
     return (
-      <>
-        <MotebehovPanelAG motebehov={dialogmoteData.data.motebehov} />
-        <MoteinnkallingPanel
-          moteinnkalling={dialogmoteData.data.moteinnkalling}
-        />
-        <ReferaterPanel referater={dialogmoteData.data.referater}>
-          <InfoTilArbeidsgiver />
-        </ReferaterPanel>
-      </>
+      <Skeleton
+        className="mb-8"
+        variant="rectangle"
+        width="100%"
+        height="14rem"
+      />
     );
   }
-  return null;
+
+  return (
+    <>
+      <MotebehovPanelAG motebehov={dialogmoteData.data?.motebehov} />
+      <MoteinnkallingPanel
+        moteinnkalling={dialogmoteData.data?.moteinnkalling}
+      />
+      <ReferaterPanel referater={dialogmoteData.data?.referater}>
+        <InfoTilArbeidsgiver />
+      </ReferaterPanel>
+    </>
+  );
 };
 
 const Home: NextPage = () => {
   const dialogmoteData = useDialogmoteDataAG();
 
   return (
-    <PageContainer
-      sykmeldt={getSykmeldt(dialogmoteData.data)}
-      header={getAgSideMenuHeader(dialogmoteData.data)}
-      navigation={!dialogmoteData.isLoading && <ArbeidsgiverSideMenu />}
-    >
-      <DialogmotePage title={texts.title} isLoading={dialogmoteData.isLoading}>
-        <Content dialogmoteData={dialogmoteData} />
-        <VideoPanel />
-      </DialogmotePage>
-    </PageContainer>
+    <ArbeidsgiverSide title={texts.title}>
+      <Content dialogmoteData={dialogmoteData} />
+      <VideoPanel />
+      <PersonvernInfo />
+    </ArbeidsgiverSide>
   );
 };
 

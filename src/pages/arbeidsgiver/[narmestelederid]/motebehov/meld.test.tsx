@@ -22,6 +22,12 @@ describe("meld page arbeidsgiver", () => {
 
     const { user } = render(<MeldBehov />);
 
+    await screen.findByRole("heading", {
+      level: 1,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      name: sykmeldtFixture.navn!,
+    });
+
     const checkboxGroup = within(
       await screen.findByRole("group", {
         name: "Meld behov for møte",

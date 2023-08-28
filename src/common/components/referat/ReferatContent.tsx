@@ -9,6 +9,7 @@ import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import React from "react";
 import { UseQueryResult } from "@tanstack/react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
+import { Skeleton } from "@navikt/ds-react";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
@@ -22,10 +23,15 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
   const brevuuid = useBrevUuid();
   const pdfPath = usePdfPath();
 
+  if (dialogmoteData.isLoading) {
+    return <Skeleton variant="rectangle" width="100%" height="75rem" />;
+  }
+
   if (dialogmoteData.isSuccess) {
     const referat = dialogmoteData.data.referater.find(
       (value) => value.uuid === brevuuid
     );
+
     if (!referat) {
       return <NoReferatAlert />;
     }
@@ -48,5 +54,6 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
       </>
     );
   }
+
   return null;
 };
