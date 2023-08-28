@@ -9,7 +9,7 @@ import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import React from "react";
 import { UseQueryResult } from "@tanstack/react-query";
 import { DialogmoteData } from "types/shared/dialogmote";
-import { SkeletonWrapper } from "@/common/skeleton/SkeletonWrapper";
+import { Skeleton } from "@navikt/ds-react";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
@@ -27,15 +27,16 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
     (value) => value.uuid === brevuuid
   );
 
+  if (dialogmoteData.isLoading) {
+    return <Skeleton variant="rectangle" width="100%" height="75rem" />;
+  }
+
   if (dialogmoteData.isSuccess && !referat) {
     return <NoReferatAlert />;
   }
 
   return (
-    <SkeletonWrapper
-      displaySkeleton={dialogmoteData.isLoading}
-      skeletonProps={{ height: "75rem" }}
-    >
+    <>
       <DocumentContainer
         title={texts.title}
         document={referat?.document || []}
@@ -49,6 +50,6 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
       />
       <UsefulLinks referat={referat} />
       <KontaktOssVeileder />
-    </SkeletonWrapper>
+    </>
   );
 };

@@ -8,7 +8,7 @@ import {
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
-import ArbeidsgiverSide from "@/common/components/wrappers/ArbeidsgiverSide";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 
 export const texts = {
   title: "Meld behov for møte",

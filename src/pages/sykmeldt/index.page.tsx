@@ -8,10 +8,9 @@ import VideoPanel from "@/common/components/video/VideoPanel";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
-import { BodyLong } from "@navikt/ds-react";
+import { BodyLong, Skeleton } from "@navikt/ds-react";
 import { beskyttetSideUtenProps } from "../../auth/beskyttetSide";
 import { MotebehovPanelSM } from "@/common/components/motebehov/panel/MotebehovPanelSM";
-import { SkeletonWrapper } from "@/common/skeleton/SkeletonWrapper";
 
 const texts = {
   title: "Dialogmøter",
@@ -23,17 +22,25 @@ const texts = {
 const Content = () => {
   const dialogmoteData = useDialogmoteDataSM();
 
+  if (dialogmoteData.isLoading) {
+    return (
+      <Skeleton
+        className="mb-8"
+        variant="rectangle"
+        width="100%"
+        height="14rem"
+      />
+    );
+  }
+
   return (
-    <SkeletonWrapper
-      displaySkeleton={dialogmoteData.isLoading}
-      skeletonProps={{ height: "14rem" }}
-    >
+    <>
       <MotebehovPanelSM motebehov={dialogmoteData.data?.motebehov} />
       <MoteinnkallingPanel
         moteinnkalling={dialogmoteData.data?.moteinnkalling}
       />
       <ReferaterPanel referater={dialogmoteData.data?.referater} />
-    </SkeletonWrapper>
+    </>
   );
 };
 

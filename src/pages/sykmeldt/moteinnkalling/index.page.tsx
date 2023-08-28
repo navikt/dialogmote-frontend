@@ -3,27 +3,16 @@ import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDat
 import { MoteinnkallingContent } from "@/common/components/moteinnkalling/MoteinnkallingContent";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
-import { SkeletonWrapper } from "@/common/skeleton/SkeletonWrapper";
 
-const Content = () => {
+const Moteinnkalling = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataSM();
 
   return (
-    <SkeletonWrapper
-      displaySkeleton={dialogmoteData.isLoading}
-      skeletonProps={{ height: "75rem" }}
-    >
+    <SykmeldtSide title={"Innkalling til Dialogmøte"} hideHeader={true}>
       <MoteinnkallingContent
+        isLoading={dialogmoteData.isLoading}
         moteinnkalling={dialogmoteData.data?.moteinnkalling}
       />
-    </SkeletonWrapper>
-  );
-};
-
-const Moteinnkalling = (): ReactElement => {
-  return (
-    <SykmeldtSide title={"Innkalling til Dialogmøte"} hideHeader={true}>
-      <Content />
     </SykmeldtSide>
   );
 };

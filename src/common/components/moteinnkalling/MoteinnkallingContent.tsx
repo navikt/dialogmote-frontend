@@ -3,12 +3,18 @@ import { ErrorWithEscapeRoute } from "@/common/components/error/ErrorWithEscapeR
 import { AvlystMoteinnkalling } from "@/common/components/moteinnkalling/AvlystMoteinnkalling";
 import { PaagaaendeMoteinnkalling } from "@/common/components/moteinnkalling/PaagaaendeMoteinnkalling";
 import { Brev } from "../../../types/shared/brev";
+import { Skeleton } from "@navikt/ds-react";
 
 interface Props {
+  isLoading: boolean;
   moteinnkalling?: Brev;
 }
 
-export const MoteinnkallingContent = ({ moteinnkalling }: Props) => {
+export const MoteinnkallingContent = ({ isLoading, moteinnkalling }: Props) => {
+  if (isLoading) {
+    return <Skeleton variant="rectangle" width="100%" height="75rem" />;
+  }
+
   if (moteinnkalling === undefined) {
     return (
       <ErrorWithEscapeRoute>

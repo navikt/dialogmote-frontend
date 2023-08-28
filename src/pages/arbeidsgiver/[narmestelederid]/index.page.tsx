@@ -9,9 +9,9 @@ import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
-import { SkeletonWrapper } from "@/common/skeleton/SkeletonWrapper";
-import ArbeidsgiverSide from "@/common/components/wrappers/ArbeidsgiverSide";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import { Skeleton } from "@navikt/ds-react";
 
 const texts = {
   title: "Dialogmøter",
@@ -24,11 +24,19 @@ interface Props {
 }
 
 const Content = ({ dialogmoteData }: Props) => {
+  if (dialogmoteData.isLoading) {
+    return (
+      <Skeleton
+        className="mb-8"
+        variant="rectangle"
+        width="100%"
+        height="14rem"
+      />
+    );
+  }
+
   return (
-    <SkeletonWrapper
-      displaySkeleton={dialogmoteData.isLoading}
-      skeletonProps={{ height: "14rem" }}
-    >
+    <>
       <MotebehovPanelAG motebehov={dialogmoteData.data?.motebehov} />
       <MoteinnkallingPanel
         moteinnkalling={dialogmoteData.data?.moteinnkalling}
@@ -36,7 +44,7 @@ const Content = ({ dialogmoteData }: Props) => {
       <ReferaterPanel referater={dialogmoteData.data?.referater}>
         <InfoTilArbeidsgiver />
       </ReferaterPanel>
-    </SkeletonWrapper>
+    </>
   );
 };
 

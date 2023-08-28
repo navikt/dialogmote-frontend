@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
-import styles from "./DialogmotePage.module.css";
+import styles from "./SykmeldtSide.module.css";
 import { PageHeading } from "@/common/components/header/PageHeading";
 
 interface Props {
