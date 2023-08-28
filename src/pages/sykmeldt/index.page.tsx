@@ -5,7 +5,7 @@ import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { BodyLong } from "@navikt/ds-react";
@@ -39,7 +39,7 @@ const Content = () => {
 
 const Home: NextPage = () => {
   return (
-    <DialogmotePage title={texts.title}>
+    <SykmeldtSide title={texts.title}>
       <Content />
 
       <VeilederGuidePanel>
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
       </VeilederGuidePanel>
 
       <VideoPanel />
-    </DialogmotePage>
+    </SykmeldtSide>
   );
 };
 

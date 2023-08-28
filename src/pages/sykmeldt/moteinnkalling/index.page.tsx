@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { MoteinnkallingContent } from "@/common/components/moteinnkalling/MoteinnkallingContent";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { SkeletonWrapper } from "@/common/skeleton/SkeletonWrapper";
 
 const Content = () => {
@@ -22,9 +22,9 @@ const Content = () => {
 
 const Moteinnkalling = (): ReactElement => {
   return (
-    <DialogmotePage title={"Innkalling til Dialogmøte"} hideHeader={true}>
+    <SykmeldtSide title={"Innkalling til Dialogmøte"} hideHeader={true}>
       <Content />
-    </DialogmotePage>
+    </SykmeldtSide>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { SvarBehovContent } from "@/common/components/motebehov/SvarBehovContent";
-import { DialogmotePage } from "@/common/components/page/DialogmotePage";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 import { commonTexts } from "@/common/constants/commonTexts";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
@@ -19,13 +19,13 @@ const SvarBehov = (): ReactElement => {
   };
 
   return (
-    <DialogmotePage title={texts.title}>
+    <SykmeldtSide title={texts.title}>
       <SvarBehovContent
         svarMotebehov={submitSvar}
         begrunnelseDescription={commonTexts.noSensitiveInfo}
         isSubmitting={isLoading}
       />
-    </DialogmotePage>
+    </SykmeldtSide>
   );
 };
 

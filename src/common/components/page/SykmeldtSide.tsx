@@ -10,7 +10,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const DialogmotePage = ({ title, hideHeader, children }: Props) => {
+export const SykmeldtSide = ({ title, hideHeader, children }: Props) => {
   return (
     <div className={styles.content}>
       <div className={styles.innercontent}>
