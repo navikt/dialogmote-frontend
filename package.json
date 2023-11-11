@@ -23,7 +23,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/jwk-to-pem": "^2.0.1",
     "amplitude-js": "^8.16.0",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "axios-better-stacktrace": "^2.1.5",
     "cookie": "^0.4.2",
     "http-errors": "^2.0.0",
