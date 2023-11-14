@@ -12,7 +12,7 @@ const texts = {
 };
 
 const SvarBehov = (): ReactElement => {
-  const { mutate, isLoading } = useSvarPaMotebehovSM();
+  const { mutate, isPending } = useSvarPaMotebehovSM();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     mutate(motebehovSvar);
@@ -23,7 +23,7 @@ const SvarBehov = (): ReactElement => {
       <SvarBehovContent
         svarMotebehov={submitSvar}
         begrunnelseDescription={commonTexts.noSensitiveInfo}
-        isSubmitting={isLoading}
+        isSubmitting={isPending}
       />
     </SykmeldtSide>
   );

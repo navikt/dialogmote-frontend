@@ -15,7 +15,8 @@ export const useSvarPaMotebehovSM = () => {
   const postSvar = (svar: MotebehovSvarRequest) =>
     post(`${basepath}/motebehov`, "svarPaaMotebehovSMException", svar);
 
-  return useMutation(postSvar, {
+  return useMutation({
+    mutationFn: postSvar,
     onMutate: () => {
       clearNotifications();
     },

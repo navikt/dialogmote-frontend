@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
-        cacheTime: minutesToMillis(60),
+        gcTime: minutesToMillis(60),
       },
     },
   });
@@ -66,7 +66,10 @@ function MyApp({ Component, pageProps }: AppProps) {
               <TestScenarioDevTools />
             </>
           </main>
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            buttonPosition="bottom-left"
+          />
         </QueryClientProvider>
       </NotificationProvider>
     </DMErrorBoundary>

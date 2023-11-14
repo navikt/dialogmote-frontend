@@ -14,7 +14,8 @@ export const useSetActiveTestScenario = () => {
       mockSetup
     );
 
-  return useMutation(setActiveTestScenario, {
+  return useMutation({
+    mutationFn: setActiveTestScenario,
     onSuccess: async () => {
       await queryClient.invalidateQueries();
     },
@@ -30,8 +31,8 @@ export const useActiveTestScenario = () => {
       "fetchActiveTestScenarioException"
     );
 
-  return useQuery<TestScenario, Error>(
-    ["active-test-scenario"],
-    fetchActiveTestScenario
-  );
+  return useQuery({
+    queryKey: ["active-test-scenario"],
+    queryFn: fetchActiveTestScenario,
+  });
 };

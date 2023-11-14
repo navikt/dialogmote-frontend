@@ -207,8 +207,8 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
         <Button
           className="w-fit"
           type="submit"
-          disabled={sendSvarQuery.isLoading}
-          loading={sendSvarQuery.isLoading}
+          disabled={sendSvarQuery.isPending}
+          loading={sendSvarQuery.isPending}
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
             validateAndSubmit();

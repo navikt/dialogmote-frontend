@@ -11,11 +11,9 @@ export const useDialogmoteDataSM = () => {
   const fetchDialogmoteData = () =>
     get<DialogmoteData>(apiBasePath, "fetchDialogmoteDataSMException");
 
-  return useQuery<DialogmoteData, Error>(
-    [DIALOGMOTEDATA_SM],
-    fetchDialogmoteData,
-    {
-      useErrorBoundary: true,
-    }
-  );
+  return useQuery({
+    queryKey: [DIALOGMOTEDATA_SM],
+    queryFn: fetchDialogmoteData,
+    throwOnError: true,
+  });
 };

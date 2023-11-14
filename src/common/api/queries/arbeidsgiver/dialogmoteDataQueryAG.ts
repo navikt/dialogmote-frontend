@@ -16,12 +16,10 @@ export const useDialogmoteDataAG = () => {
       "fetchDialogmoteDataAGException"
     );
 
-  return useQuery<DialogmoteData, Error>(
-    [DIALOGMOTEDATA_AG],
-    fetchDialogmoteData,
-    {
-      enabled: !!narmestelederid,
-      useErrorBoundary: true,
-    }
-  );
+  return useQuery({
+    queryKey: [DIALOGMOTEDATA_AG],
+    queryFn: fetchDialogmoteData,
+    enabled: !!narmestelederid,
+    throwOnError: true,
+  });
 };

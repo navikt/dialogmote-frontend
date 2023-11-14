@@ -17,7 +17,7 @@ const texts = {
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
-  const { mutate, isLoading } = useSvarPaMotebehovAG();
+  const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
@@ -33,7 +33,7 @@ const SvarBehov = (): ReactElement => {
       <SvarBehovContent
         svarMotebehov={submitSvar}
         begrunnelseDescription={commonTexts.noSensitiveInfo}
-        isSubmitting={isLoading}
+        isSubmitting={isPending}
       />
     </ArbeidsgiverSide>
   );
