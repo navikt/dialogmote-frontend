@@ -1,12 +1,23 @@
-import { waitFor, within } from "@testing-library/react";
+import { act, waitFor, within } from "@testing-library/react";
 import { render, screen } from "../../../test/testUtils";
 import mockRouter from "next-router-mock";
 import { rest } from "msw";
 import { testServer } from "../../../mocks/testServer";
 import SvarBehov from "@/pages/sykmeldt/motebehov/svar.page";
+import { axe } from "jest-axe";
+
 describe("svar page sykmeldt", () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl("/sykmeldt");
+  });
+
+  it("should have no a11y violations", async () => {
+    const { container } = render(<SvarBehov />);
+
+    await act(async () => {
+      const result = await axe(container);
+      expect(result).toHaveNoViolations();
+    });
   });
 
   it("should post on submit", async () => {

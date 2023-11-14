@@ -7,6 +7,7 @@ import {
 
 describe("dateUtils", () => {
   beforeAll(() => {
+    jest.useFakeTimers();
     jest.setSystemTime(new Date("2020-02-02").getTime());
   });
   afterAll(() => {

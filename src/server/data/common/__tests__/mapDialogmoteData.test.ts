@@ -3,6 +3,7 @@ import { createBrevDTO } from "../../../../mocks/data/factories/brevDTO";
 
 describe("mapDialogmoteData", () => {
   beforeAll(() => {
+    jest.useFakeTimers();
     jest.setSystemTime(new Date("2020-02-02").getTime());
   });
   afterAll(() => {
