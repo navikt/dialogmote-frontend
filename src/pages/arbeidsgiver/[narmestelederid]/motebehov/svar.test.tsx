@@ -1,14 +1,24 @@
-import { waitFor, within } from "@testing-library/react";
+import { act, waitFor, within } from "@testing-library/react";
 import { render, screen } from "../../../../test/testUtils";
 import mockRouter from "next-router-mock";
 import { rest } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import SvarBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
 import { sykmeldtFixture } from "../../../../mocks/data/fixtures/sykmeldt";
+import { axe } from "jest-axe";
 
 describe("svar page arbeidsgiver", () => {
   beforeEach(() => {
     mockRouter.setCurrentUrl("/arbeidsgiver?narmestelederid=123");
+  });
+
+  it("should have no a11y violations", async () => {
+    const { container } = render(<SvarBehov />);
+
+    await act(async () => {
+      const result = await axe(container);
+      expect(result).toHaveNoViolations();
+    });
   });
 
   it("should post on submit", async () => {

@@ -2,7 +2,9 @@ import "@testing-library/jest-dom";
 import "@testing-library/user-event";
 import { testServer } from "../mocks/testServer";
 
-jest.useFakeTimers("modern");
+import { toHaveNoViolations } from "jest-axe";
+
+expect.extend(toHaveNoViolations);
 
 jest.mock("@/common/hooks/useAmplitude", () => ({
   useAmplitude: () => ({ trackEvent: jest.fn() }),
@@ -14,7 +16,6 @@ jest.mock("next/config", () => () => ({
     basePath: "/basepath",
   },
 }));
-
 jest.mock("src/auth/beskyttetSide.ts", () => {
   return jest.fn().mockImplementation((callback) => {
     callback();
