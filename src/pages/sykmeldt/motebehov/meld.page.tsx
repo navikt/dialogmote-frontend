@@ -15,7 +15,7 @@ export const texts = {
 };
 
 const MeldBehov = (): ReactElement => {
-  const { mutate, isLoading } = useSvarPaMotebehovSM();
+  const { mutate, isPending } = useSvarPaMotebehovSM();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     mutate(motebehovSvar);
@@ -28,7 +28,7 @@ const MeldBehov = (): ReactElement => {
         behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
         sensitivInfoTekst={commonTexts.noSensitiveInfo}
         meldMotebehov={submitSvar}
-        isSubmitting={isLoading}
+        isSubmitting={isPending}
       />
     </SykmeldtSide>
   );

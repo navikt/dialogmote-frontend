@@ -31,6 +31,15 @@ const TestScenarioDevTools = () => {
   return null;
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      gcTime: minutesToMillis(60),
+    },
+  },
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   const { isAudienceSykmeldt } = useAudience();
 
@@ -38,15 +47,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     initAmplitude();
     initFaro();
   }, []);
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        cacheTime: minutesToMillis(60),
-      },
-    },
-  });
 
   return (
     <DMErrorBoundary>
@@ -66,7 +66,10 @@ function MyApp({ Component, pageProps }: AppProps) {
               <TestScenarioDevTools />
             </>
           </main>
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            buttonPosition="bottom-left"
+          />
         </QueryClientProvider>
       </NotificationProvider>
     </DMErrorBoundary>

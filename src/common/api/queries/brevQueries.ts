@@ -16,7 +16,7 @@ export const useMutateBrevLest = () => {
   const postLestBrev = (uuid: string) =>
     post(`${basepath}/brev/${uuid}/lest`, "postLestBrevException");
 
-  return useMutation(postLestBrev);
+  return useMutation({ mutationFn: postLestBrev });
 };
 
 export const useSvarPaInnkallelse = (uuid: string) => {
@@ -27,11 +27,12 @@ export const useSvarPaInnkallelse = (uuid: string) => {
   const postSvar = (svar: SvarResponsRequest) =>
     post(`${basepath}/brev/${uuid}/svar`, "svarPaaInnkallingException", svar);
 
-  return useMutation(postSvar, {
+  return useMutation({
+    mutationFn: postSvar,
     onSuccess: async () => {
-      await queryClient.invalidateQueries([
-        queryToInvalidate(isAudienceSykmeldt),
-      ]);
+      await queryClient.invalidateQueries({
+        queryKey: [queryToInvalidate(isAudienceSykmeldt)],
+      });
     },
   });
 };
