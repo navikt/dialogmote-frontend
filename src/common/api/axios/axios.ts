@@ -65,7 +65,7 @@ export const get = <ResponseData>(
   options?: AxiosOptions
 ): Promise<ResponseData> => {
   return axios
-    .get(url, {
+    .get(url + "Hei", {
       headers: defaultRequestHeaders(options),
       responseType: options?.responseType,
       withCredentials: true,
