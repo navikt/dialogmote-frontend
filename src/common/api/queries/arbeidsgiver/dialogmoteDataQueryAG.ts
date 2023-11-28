@@ -12,7 +12,7 @@ export const useDialogmoteDataAG = () => {
 
   const fetchDialogmoteData = () =>
     get<DialogmoteData>(
-      `${apiBasePath}/${narmestelederid}`,
+      `${apiBasePath}/hei/${narmestelederid}`,
       "fetchDialogmoteDataAGException"
     );
 
