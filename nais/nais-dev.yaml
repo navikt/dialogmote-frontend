@@ -87,6 +87,6 @@ spec:
           namespace: teamsykmelding
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: syfomotebehov
       external:
         - host: dekoratoren.dev.nav.no
-        - host: syfomotebehov.dev-fss-pub.nais.io
