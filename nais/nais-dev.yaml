@@ -71,7 +71,7 @@ spec:
     - name: UNLEASH_API_URL
       value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
     - name : SYFOMOTEBEHOV_CLIENT_ID
-      value: "dev-fss:team-esyfo:syfomotebehov"
+      value: "dev-gcp:team-esyfo:syfomotebehov"
     - name : SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
       value: "dev-gcp:teamsykmelding:sykmeldinger-arbeidsgiver"
     - name : ISDIALOGMOTE_CLIENT_ID
