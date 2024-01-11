@@ -51,7 +51,7 @@ spec:
     - name: ISDIALOGMOTE_HOST
       value: http://isdialogmote.teamsykefravr
     - name: SYFOMOTEBEHOV_HOST
-      value: https://syfomotebehov.prod-fss-pub.nais.io
+      value: http://syfomotebehov
     - name: SYKMELDINGER_ARBEIDSGIVER_HOST
       value: http://sykmeldinger-arbeidsgiver.teamsykmelding
     - name: OPPLAERING
@@ -71,7 +71,7 @@ spec:
     - name: UNLEASH_API_URL
       value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
     - name : SYFOMOTEBEHOV_CLIENT_ID
-      value: "prod-fss:team-esyfo:syfomotebehov"
+      value: "prod-gcp:team-esyfo:syfomotebehov"
     - name : SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
       value: "prod-gcp:teamsykmelding:sykmeldinger-arbeidsgiver"
     - name : ISDIALOGMOTE_CLIENT_ID
@@ -87,6 +87,6 @@ spec:
           namespace: teamsykmelding
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: syfomotebehov
       external:
         - host: www.nav.no
-        - host: syfomotebehov.prod-fss-pub.nais.io
