@@ -1,5 +1,7 @@
 name: Build & Deploy
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   next-app:
@@ -10,5 +12,5 @@ jobs:
       packages: write
     secrets: inherit
     with:
-      app: dialogmote-frontend
-      base-path: /syk/dialogmoter
+      app: meroppfolging-frontend
+      base-path: /syk/meroppfolging
