@@ -12,5 +12,5 @@ jobs:
       packages: write
     secrets: inherit
     with:
-      app: meroppfolging-frontend
-      base-path: /syk/meroppfolging
+      app: dialogmote-frontend
+      base-path: /syk/dialogmoter
