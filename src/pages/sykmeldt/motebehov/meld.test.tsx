@@ -38,7 +38,7 @@ describe("meld page sykmeldt", () => {
     );
     await user.click(
       checkboxGroup.getByRole("checkbox", {
-        name: "Jeg har behov for et møte med NAV",
+        name: "Jeg har behov for et møte med NAV og arbeidsgiveren min.",
       })
     );
     await user.click(

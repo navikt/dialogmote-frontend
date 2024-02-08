@@ -22,6 +22,7 @@ const SvarBehov = (): ReactElement => {
     <SykmeldtSide title={texts.title}>
       <SvarBehovContent
         svarMotebehov={submitSvar}
+        motebehovQuestionText="Har du behov for et møte med NAV og arbeidsgiveren din?"
         begrunnelseDescription={commonTexts.noSensitiveInfo}
         isSubmitting={isPending}
       />
