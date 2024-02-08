@@ -8,7 +8,7 @@ import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 
 export const texts = {
   title: "Meld behov for møte",
-  behovForMote: "Jeg har behov for et møte med NAV",
+  behovForMote: "Jeg har behov for et møte med NAV og arbeidsgiveren min.",
   behandlerVaereMedTekst:
     "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri). ",
   apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",

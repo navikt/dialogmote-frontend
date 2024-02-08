@@ -22,7 +22,7 @@ describe("svar page sykmeldt", () => {
 
     const checkboxGroup = within(
       await screen.findByRole("group", {
-        name: "Har dere behov for et møte med NAV?",
+        name: "Har du behov for et møte med NAV og arbeidsgiveren din?",
       })
     );
     await user.click(

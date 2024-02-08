@@ -42,12 +42,14 @@ type FormValues = {
 
 interface Props {
   begrunnelseDescription: string;
+  motebehovQuestionText: string;
   svarMotebehov: (svar: MotebehovSvarRequest) => void;
   isSubmitting: boolean;
 }
 
 export const SvarBehovContent = ({
   begrunnelseDescription,
+  motebehovQuestionText,
   svarMotebehov,
   isSubmitting,
 }: Props): ReactElement => {
@@ -100,7 +102,7 @@ export const SvarBehovContent = ({
               <RadioGroup
                 {...field}
                 id={motebehovRadioGroup}
-                legend="Har dere behov for et møte med NAV?"
+                legend={motebehovQuestionText}
                 error={errors[motebehovRadioGroup]?.message}
               >
                 <Radio value="Ja">Ja, jeg mener det er behov for et møte</Radio>

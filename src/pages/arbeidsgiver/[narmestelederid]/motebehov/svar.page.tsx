@@ -32,6 +32,7 @@ const SvarBehov = (): ReactElement => {
     <ArbeidsgiverSide title={texts.title}>
       <SvarBehovContent
         svarMotebehov={submitSvar}
+        motebehovQuestionText="Har dere behov for et møte med NAV?"
         begrunnelseDescription={commonTexts.noSensitiveInfo}
         isSubmitting={isLoading}
       />
