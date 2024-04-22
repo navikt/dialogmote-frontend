@@ -45,10 +45,6 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: isdialogmote
-          namespace: teamsykefravr
-        - application: sykmeldinger-arbeidsgiver
-          namespace: teamsykmelding
         - application: nav-dekoratoren
           namespace: personbruker
       external:
