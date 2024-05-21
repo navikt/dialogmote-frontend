@@ -1,17 +1,18 @@
 import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 import { createBrevDTO } from "../../../../mocks/data/factories/brevDTO";
+import { describe, it, expect, vi, beforeAll, afterAll } from "vitest";
 
 describe("mapDialogmoteData", () => {
   beforeAll(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date("2020-02-02").getTime());
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2020-02-02").getTime());
   });
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   describe("moteInnkalling", () => {
-    test("should return innkalling even if referat endret after", () => {
+    it("should return innkalling even if referat endret after", () => {
       const moteInnkalling = createBrevDTO({
         brevType: "INNKALT",
         createdAt: "2023-06-05",
@@ -33,7 +34,7 @@ describe("mapDialogmoteData", () => {
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("INNKALT");
     });
 
-    test("should return no innkalling when latest brev is referat", () => {
+    it("should return no innkalling when latest brev is referat", () => {
       const moteInnkalling = createBrevDTO({
         brevType: "INNKALT",
         createdAt: "2023-06-05",
@@ -54,7 +55,7 @@ describe("mapDialogmoteData", () => {
       expect(dialogmoteData.moteinnkalling).toBeUndefined();
     });
 
-    test("should return innkalling when latest brev is innkalling", () => {
+    it("should return innkalling when latest brev is innkalling", () => {
       const referat = createBrevDTO({
         brevType: "REFERAT",
         createdAt: "2023-06-05",
@@ -76,7 +77,7 @@ describe("mapDialogmoteData", () => {
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("INNKALT");
     });
 
-    test("should return innkalling when latest brev is endring", () => {
+    it("should return innkalling when latest brev is endring", () => {
       const referat = createBrevDTO({
         brevType: "REFERAT",
         createdAt: "2023-06-05",
@@ -101,7 +102,7 @@ describe("mapDialogmoteData", () => {
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("NYTT_TID_STED");
     });
 
-    test("should return innkalling when latest brev is avlysning", () => {
+    it("should return innkalling when latest brev is avlysning", () => {
       const referat = createBrevDTO({
         brevType: "REFERAT",
         createdAt: "2023-06-05",
