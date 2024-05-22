@@ -5,9 +5,10 @@ import { waitFor } from "@testing-library/react";
 import { testServer } from "../../../../mocks/testServer";
 import { rest } from "msw";
 import mockRouter from "next-router-mock";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("DocumentContainer", () => {
-  const requestResolver = jest.fn();
+  const requestResolver = vi.fn();
 
   beforeEach(() => {
     mockRouter.setCurrentUrl("/sykmeldt");
@@ -21,7 +22,7 @@ describe("DocumentContainer", () => {
     );
   });
 
-  test("should render", () => {
+  it("should render", () => {
     const document = [
       createDocumentComponent({ texts: ["test-text-1"] }),
       createDocumentComponent(),
@@ -40,7 +41,7 @@ describe("DocumentContainer", () => {
     expect(screen.getByText("test-text-1")).toBeInTheDocument();
   });
 
-  test("should render with legacy header", () => {
+  it("should render with legacy header", () => {
     const document = [
       createDocumentComponent({ type: "PARAGRAPH" }),
       createDocumentComponent(),
@@ -61,7 +62,7 @@ describe("DocumentContainer", () => {
     );
   });
 
-  test("should invoke mutation.mutate when lestDato is undefined", async () => {
+  it("should invoke mutation.mutate when lestDato is undefined", async () => {
     const document = [createDocumentComponent(), createDocumentComponent()];
 
     render(
@@ -79,7 +80,7 @@ describe("DocumentContainer", () => {
     });
   });
 
-  test("should not invoke mutation.mutate when lestDato is defined", async () => {
+  it("should not invoke mutation.mutate when lestDato is defined", async () => {
     const document = [createDocumentComponent(), createDocumentComponent()];
 
     render(

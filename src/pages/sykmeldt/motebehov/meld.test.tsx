@@ -4,7 +4,8 @@ import MeldBehov from "@/pages/sykmeldt/motebehov/meld.page";
 import mockRouter from "next-router-mock";
 import { rest } from "msw";
 import { testServer } from "../../../mocks/testServer";
-import { axe } from "jest-axe";
+import { axe } from "vitest-axe";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("meld page sykmeldt", () => {
   beforeEach(() => {
@@ -21,7 +22,7 @@ describe("meld page sykmeldt", () => {
   });
 
   it("should post on submit", async () => {
-    const requestResolver = jest.fn();
+    const requestResolver = vi.fn();
     testServer.use(
       rest.post("/api/sykmeldt/motebehov", async (req, res, ctx) => {
         requestResolver(await req.json());

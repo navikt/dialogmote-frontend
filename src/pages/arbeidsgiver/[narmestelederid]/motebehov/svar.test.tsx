@@ -5,7 +5,8 @@ import { rest } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import SvarBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
 import { sykmeldtFixture } from "../../../../mocks/data/fixtures/sykmeldt";
-import { axe } from "jest-axe";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { axe } from "vitest-axe";
 
 describe("svar page arbeidsgiver", () => {
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe("svar page arbeidsgiver", () => {
   });
 
   it("should post on submit", async () => {
-    const requestResolver = jest.fn();
+    const requestResolver = vi.fn();
     testServer.use(
       rest.post("/api/arbeidsgiver/motebehov", async (req, res, ctx) => {
         requestResolver(await req.json());
