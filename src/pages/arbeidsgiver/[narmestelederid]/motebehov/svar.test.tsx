@@ -49,7 +49,7 @@ describe("svar page arbeidsgiver", () => {
       }),
       "Dette er en begrunnelse"
     );
-    await screen.findByRole("heading", {
+    await screen.findAllByRole("heading", {
       level: 1,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       name: sykmeldtFixture.navn!,
