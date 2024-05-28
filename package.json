@@ -15,7 +15,7 @@
     "@navikt/dinesykmeldte-sidemeny": "^5.1.0",
     "@navikt/nav-dekoratoren-moduler": "^2.1.6",
     "@navikt/next-logger": "^1.24.0",
-    "@tanstack/react-query": "^5.39.0",
+    "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-query-devtools": "^5.40.0",
     "@navikt/aksel-icons": "^6.8.0",
     "@navikt/ds-css": "^6.8.0",
