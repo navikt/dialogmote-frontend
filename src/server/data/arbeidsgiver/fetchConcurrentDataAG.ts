@@ -1,5 +1,3 @@
-import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
 import { getMotebehovAG } from "@/server/service/motebehovService";
 import { getBrevAG } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
@@ -10,15 +8,24 @@ import {
   getMotebehovTokenX,
 } from "@/server/auth/tokenx";
 import { isMockBackend } from "@/server/utils/serverEnv";
+import { NextApiRequest } from "next";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { Brev } from "../../../types/shared/brev";
 
 export const fetchConcurrentDataAG = async (
-  req: IAuthenticatedRequest,
-  res: NextApiResponseAG,
-  next: () => void
-) => {
+  req: NextApiRequest,
+  fnr: string,
+  orgnummer: string
+): Promise<
+  | {
+      motebehov: MotebehovDTO;
+      brevArray: Brev[];
+    }
+  | undefined
+> => {
   if (isMockBackend) {
-    res.motebehov = getMockDb(req).motebehov;
-    res.brevArray = getMockDb(req).brev;
+    const mockData = getMockDb(req);
+    return { motebehov: mockData.motebehov, brevArray: mockData.brev };
   } else {
     const motebehovTokenPromise = getMotebehovTokenX(req);
     const isDialogmoteTokenPromise = getIsdialogmoteTokenX(req);
@@ -27,14 +34,9 @@ export const fetchConcurrentDataAG = async (
       motebehovTokenPromise,
       isDialogmoteTokenPromise,
     ]);
-    logger.info("Exchanging AG tokenx ok");
 
-    const motebehovPromise = getMotebehovAG(
-      motebehovToken,
-      res.sykmeldt.fnr,
-      res.sykmeldt.orgnummer
-    );
-    const isDialogmotePromise = getBrevAG(isDialogmoteToken, res.sykmeldt.fnr);
+    const motebehovPromise = getMotebehovAG(motebehovToken, fnr, orgnummer);
+    const isDialogmotePromise = getBrevAG(isDialogmoteToken, fnr);
 
     const [motebehovRes, isDialogmoteRes] = await Promise.all([
       motebehovPromise,
@@ -43,8 +45,7 @@ export const fetchConcurrentDataAG = async (
     logger.info("Fetching DM data AG ok");
 
     if (motebehovRes.success && isDialogmoteRes.success) {
-      res.motebehov = motebehovRes.data;
-      res.brevArray = isDialogmoteRes.data;
+      return { motebehov: motebehovRes.data, brevArray: isDialogmoteRes.data };
     } else if (!motebehovRes.success) {
       handleSchemaParsingError("Arbeidsgiver", "Motebehov", motebehovRes.error);
     } else if (!isDialogmoteRes.success) {
@@ -55,6 +56,4 @@ export const fetchConcurrentDataAG = async (
       );
     }
   }
-
-  next();
 };

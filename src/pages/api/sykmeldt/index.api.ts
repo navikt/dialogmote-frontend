@@ -1,16 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import nc from "next-connect";
-import { ncOptions } from "@/server/utils/ncOptions";
-import { combineDialogmoteDataSM } from "@/server/data/sykmeldt/combineDialogmoteDataSM";
+import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
-import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
-import { DialogmoteData } from "types/shared/dialogmote";
 
-const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
-  .use(fetchConcurrentDataSM)
-  .use(combineDialogmoteDataSM)
-  .get(async (req, res: NextApiResponseSM) => {
-    res.status(200).json(res.dialogmoteData);
-  });
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  const data = await fetchConcurrentDataSM(req);
+
+  if (data) {
+    const { motebehov, brevArray } = data;
+    const combinedData = mapDialogmoteData(motebehov, brevArray);
+    res.status(200).json(combinedData);
+  } else {
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+};
 
 export default handler;
