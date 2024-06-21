@@ -52,6 +52,11 @@ export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
     text: "Les mer om arbeidsrettet rehabilitering",
     url: "https://www.nav.no/arbeidsrettet-rehabilitering",
   },
+  EKSPERTBISTAND: {
+    key: "EKSPERTBISTAND",
+    text: "Les mer om tilskudd til ekspertbistand",
+    url: "https://www.nav.no/ekspertbistand",
+  },
   IKKE_BEHOV: undefined,
   OKONOMISK_STOTTE: undefined,
   UNKNOWN: undefined,
