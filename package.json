@@ -70,7 +70,7 @@
     "eslint-plugin-testing-library": "^6.3.0",
     "husky": "^9.1.6",
     "identity-obj-proxy": "^3.0.0",
-    "jsdom": "^24.1.1",
+    "jsdom": "^25.0.0",
     "lint-staged": "^15.2.10",
     "msw": "^1.2.1",
     "next-router-mock": "^0.9.13",
