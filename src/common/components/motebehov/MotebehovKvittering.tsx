@@ -19,8 +19,8 @@ interface Props {
 const MotebehovKvittering = ({ motebehov }: Props) => {
   const behandlerVaereMedTekst =
     motebehov.skjemaType === "MELD_BEHOV"
-      ? MeldBehovTextsSM.behandlerVaereMedTekst
-      : MeldBehovTextsAG.behandlerVaereMedTekst;
+      ? MeldBehovTextsSM.checkboxLabelOnskerBehandlerMed
+      : MeldBehovTextsAG.checkboxLabelOnskerBehandlerMed;
 
   const onskerAtBehandlerBlirMed = motebehov.svar?.forklaring?.includes(
     behandlerVaereMedTekst

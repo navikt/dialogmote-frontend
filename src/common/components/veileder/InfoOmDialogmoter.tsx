@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Events } from "@/common/amplitude/events";
-import { DIALOGMOTE_INFO_URL } from "@/common/constants/staticUrls";
+import { ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL } from "@/common/constants/staticUrls";
 import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { BodyLong, Link } from "@navikt/ds-react";
 
@@ -22,7 +22,7 @@ const InfoOmDialogmote = ({ children }: Props) => {
       <BodyLong>
         {texts.text1}
         <Link
-          href={DIALOGMOTE_INFO_URL}
+          href={ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL}
           target="_blank"
           onClick={() => trackEvent(Events.LesMerOmDialogmoter)}
         >

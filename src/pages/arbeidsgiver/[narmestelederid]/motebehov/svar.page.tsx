@@ -1,19 +1,44 @@
 import React, { ReactElement } from "react";
-import { SvarBehovContent } from "@/common/components/motebehov/SvarBehovContent";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
-import { commonTexts } from "@/common/constants/commonTexts";
 import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
+import { ArbeidsgiverSvarPaaBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
+import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import {
+  ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL,
+  ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
+} from "@/common/constants/staticUrls";
 
 const texts = {
-  title: "Meld behov for møte",
+  title: "Har dere behov for et møte med NAV?",
+  topBodyText:
+    "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
+  // Not used, delete?
   apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",
 };
+
+export const arbeidsgiverLesMerLenkerSentence = (
+  <>
+    Les mer om{" "}
+    <Link href={ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL} target="_blank">
+      dialogmøte med NAV
+      <ExternalLinkIcon title="åpner i ny fane-ikon" />
+    </Link>{" "}
+    og{" "}
+    <Link href={ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL} target="_blank">
+      virkemidler og tiltak
+      <ExternalLinkIcon title="åpner i ny fane-ikon" />
+    </Link>{" "}
+    vi kan bistå med. (Lenkene åpner i en ny fane.)
+  </>
+);
 
 const SvarBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
@@ -30,12 +55,15 @@ const SvarBehov = (): ReactElement => {
 
   return (
     <ArbeidsgiverSide title={texts.title}>
-      <SvarBehovContent
-        svarMotebehov={submitSvar}
-        motebehovQuestionText="Har dere behov for et møte med NAV?"
-        begrunnelseDescription={commonTexts.noSensitiveInfo}
-        isSubmitting={isPending}
-      />
+      <BodyLong size="large" className="mb-6">
+        {texts.topBodyText}
+      </BodyLong>
+
+      <BodyShort className="mb-6">{arbeidsgiverLesMerLenkerSentence}</BodyShort>
+
+      <ArbeidsgiverSvarPaaBehovGuidePanel />
+
+      <SvarBehovForm isSubmitting={isPending} onSubmitForm={submitSvar} />
     </ArbeidsgiverSide>
   );
 };

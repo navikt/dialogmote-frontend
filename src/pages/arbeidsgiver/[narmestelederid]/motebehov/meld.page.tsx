@@ -1,21 +1,25 @@
 import React, { ReactElement } from "react";
-import { MeldBehovContent } from "@/common/components/motebehov/MeldBehovContent";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
-import { commonTexts } from "@/common/constants/commonTexts";
 import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import { BodyLong, BodyShort } from "@navikt/ds-react";
+import { arbeidsgiverLesMerLenkerSentence } from "./svar.page";
+import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
+import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 
 export const texts = {
-  title: "Meld behov for møte",
-  behovForMoteTekst: "Jeg har behov for et møte med NAV og ",
-  behandlerVaereMedTekst:
-    "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri). ",
-  begrunnelseLabel: "Begrunnelse (valgfri)",
+  title: "Meld behov for et møte med NAV",
+  topBodyText:
+    "Som arbeidsgiver kan du når som helst i sykefraværsperioden be om et dialogmøte med NAV og den sykemeldte. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
+  checkboxLabelHarBehovStart: "Jeg har behov for et møte med NAV og ",
+  checkboxLabelOnskerBehandlerMed:
+    "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri).",
+  // Not used, delete?
   apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",
 };
 
@@ -24,7 +28,7 @@ const MeldBehov = (): ReactElement => {
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
-  const motebehovTekst = `${texts.behovForMoteTekst} ${ansattName}`;
+  const motebehovTekst = `${texts.checkboxLabelHarBehovStart} ${ansattName}`;
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
@@ -37,12 +41,21 @@ const MeldBehov = (): ReactElement => {
 
   return (
     <ArbeidsgiverSide title={texts.title}>
-      <MeldBehovContent
-        motebehovTekst={motebehovTekst}
-        behandlerVaereMedTekst={texts.behandlerVaereMedTekst}
-        sensitivInfoTekst={commonTexts.noSensitiveInfo}
-        meldMotebehov={submitSvar}
+      <BodyLong size="large" className="mb-6">
+        {texts.topBodyText}
+      </BodyLong>
+
+      <BodyShort className="mb-6">{arbeidsgiverLesMerLenkerSentence}</BodyShort>
+
+      <ArbeidsgiverMeldBehovGuidePanel />
+
+      <MeldBehovForm
+        checkboxLabelHarBehov={motebehovTekst}
+        checkboxLabelOnskerAtBehandlerBlirMed={
+          texts.checkboxLabelOnskerBehandlerMed
+        }
         isSubmitting={isPending}
+        onSubmitForm={submitSvar}
       />
     </ArbeidsgiverSide>
   );

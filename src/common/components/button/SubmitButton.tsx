@@ -1,19 +1,15 @@
 import { Button } from "@navikt/ds-react";
 import React from "react";
 
-const texts = {
-  sendSvar: "Send svar",
-};
-
 interface Props {
-  onSubmit?: () => void;
   isLoading: boolean;
+  onSubmit?: () => void;
+  label: string;
 }
 
-export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
+export const SubmitButton = ({ onSubmit, isLoading, label }: Props) => {
   return (
     <Button
-      className="w-32"
       onClick={(e: React.MouseEvent) => {
         if (onSubmit) {
           e.preventDefault();
@@ -25,7 +21,7 @@ export const SubmitButton = ({ onSubmit, isLoading }: Props) => {
       type="submit"
       loading={isLoading}
     >
-      {texts.sendSvar}
+      {label}
     </Button>
   );
 };

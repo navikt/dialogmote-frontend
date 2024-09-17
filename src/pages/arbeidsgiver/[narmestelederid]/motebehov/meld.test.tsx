@@ -62,7 +62,7 @@ describe("meld page arbeidsgiver", () => {
     );
     await user.click(
       screen.getByRole("button", {
-        name: "Send svar",
+        name: "Meld behov",
       })
     );
 

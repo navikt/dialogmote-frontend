@@ -55,7 +55,7 @@ describe("meld page sykmeldt", () => {
     );
     await user.click(
       screen.getByRole("button", {
-        name: "Send svar",
+        name: "Meld behov",
       })
     );
 
