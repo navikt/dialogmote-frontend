@@ -19,8 +19,6 @@ export const texts = {
   checkboxLabelHarBehovStart: "Jeg ønsker et møte med NAV og ",
   checkboxLabelOnskerBehandlerMed:
     "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri).",
-  // Not used, delete?
-  apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",
 };
 
 const MeldBehov = (): ReactElement => {
