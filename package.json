@@ -27,7 +27,7 @@
     "axios-better-stacktrace": "^2.1.7",
     "cookie": "^0.6.0",
     "http-errors": "^2.0.0",
-    "jose": "^5.9.2",
+    "jose": "^5.9.3",
     "jsonwebtoken": "^9.0.2",
     "jwk-to-pem": "^2.0.6",
     "jwt-decode": "^3.1.2",
