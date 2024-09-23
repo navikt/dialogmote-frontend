@@ -46,7 +46,7 @@ describe("meld page arbeidsgiver", () => {
     );
     await user.click(
       checkboxGroup.getByRole("checkbox", {
-        name: `Jeg har behov for et møte med NAV og ${sykmeldtFixture.navn}`,
+        name: `Jeg ønsker et møte med NAV og ${sykmeldtFixture.navn}`,
       })
     );
     await user.click(
@@ -62,7 +62,7 @@ describe("meld page arbeidsgiver", () => {
     );
     await user.click(
       screen.getByRole("button", {
-        name: "Meld behov",
+        name: "Send inn",
       })
     );
 

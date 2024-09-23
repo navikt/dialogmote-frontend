@@ -6,14 +6,14 @@ import { ARBEIDSGIVER_OPPFOLGING_INFO_URL } from "@/common/constants/staticUrls"
 
 export const texts = {
   headingSvarBehov: "Før du svarer",
-  headingMeldBehov: "Før du melder behov",
+  headingMeldBehov: "Før du ber om dialogmøte",
   gjorDetteForSvarBehovInfo:
-    "Før et dialogmøte med NAV skal arbeidsgiver og den ansatte ha avholdt et «dialogmøte 1», og dere skal sammen ha laget en oppfølgingsplan.",
+    "Før et dialogmøte med NAV bør arbeidsgiver og den ansatte ha avholdt «dialogmøte 1», og dere bør sammen ha laget en oppfølgingsplan.",
   gjorDetteForMeldBehovInfo:
-    "Før du melder behov for et dialogmøte med NAV bør arbeidsgiver og den ansatte ha avholdt et «dialogmøte 1», og dere skal sammen ha laget en oppfølgingsplan.",
+    "Arbeidsgiver og den ansatte bør først avholde «dialogmøte 1», og dere bør sammen ha laget en oppfølgingsplan.",
   lesMerOmDinePlikterLink: "Les mer om dine plikter som arbeidsgiver",
   oppfolgingsPlanDelOgOpprettInfo:
-    "Oppfølgingsplanen skal deles med NAV i forkant av møtet. Er oppfølgingsplan ikke laget? Du kan starte å utarbeide en oppfølgingsplan fra menypunktet «Oppfølgingsplaner» til venstre.",
+    "Oppfølgingsplanen skal deles med NAV i forkant av møtet. Er oppfølgingsplan ikke laget? Du kan starte å utarbeide en oppfølgingsplan fra menypunktet «Oppfølgingsplaner».",
   svarBehovOkASvareNeiInfo:
     "Om du mener at det ikke er behov for et dialogmøte med NAV, er det helt i orden at du svarer nei, og gir oss en begrunnelse.",
 };

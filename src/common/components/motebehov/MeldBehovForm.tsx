@@ -27,7 +27,7 @@ const texts = {
       "Du må velge ja eller nei for å kunne sende inn skjemaet.",
     maxLengthBegrunnelse: `Maks ${BEGRUNNELSE_MAX_LENGTH} tegn er tillatt.`,
   },
-  buttonMeldBehov: "Meld behov",
+  buttonSendInn: "Send inn",
 };
 
 const motebehovCheckbox = "motebehovCheckbox";
@@ -147,7 +147,7 @@ function MeldBehovForm({
           <div className="inline-flex pt-4 gap-4">
             <SubmitButton
               isLoading={isSubmitting}
-              label={texts.buttonMeldBehov}
+              label={texts.buttonSendInn}
             />
             <CancelButton />
           </div>

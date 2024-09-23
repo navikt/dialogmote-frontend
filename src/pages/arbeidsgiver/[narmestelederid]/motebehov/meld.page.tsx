@@ -13,10 +13,10 @@ import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/S
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 
 export const texts = {
-  title: "Meld behov for et møte med NAV",
+  title: "Be om dialogmøte med NAV",
   topBodyText:
     "Som arbeidsgiver kan du når som helst i sykefraværsperioden be om et dialogmøte med NAV og den sykemeldte. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
-  checkboxLabelHarBehovStart: "Jeg har behov for et møte med NAV og ",
+  checkboxLabelHarBehovStart: "Jeg ønsker et møte med NAV og ",
   checkboxLabelOnskerBehandlerMed:
     "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri).",
   // Not used, delete?

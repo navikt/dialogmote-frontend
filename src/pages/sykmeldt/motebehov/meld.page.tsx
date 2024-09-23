@@ -11,8 +11,7 @@ export const texts = {
   title: "Meld behov for møte",
   topBodyText:
     "Du kan når som helst i sykefraværsperioden be om at NAV avholder et dialogmøte med deg og din arbeidsgiver. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
-  checkboxLabelHarBehov:
-    "Jeg har behov for et møte med NAV og arbeidsgiveren min.",
+  checkboxLabelHarBehov: "Jeg ønsker et møte med NAV og arbeidsgiveren min.",
   checkboxLabelOnskerBehandlerMed:
     "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri).",
   // Not used, delete?
