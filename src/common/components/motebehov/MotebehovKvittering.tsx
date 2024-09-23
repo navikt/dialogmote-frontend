@@ -4,6 +4,7 @@ import { texts as MeldBehovTextsSM } from "@/pages/sykmeldt/motebehov/meld.page"
 import { texts as MeldBehovTextsAG } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
 import { getFullDateFormat } from "@/common/utils/dateUtils";
 import { Motebehov } from "types/shared/motebehov";
+import { useAudience } from "@/common/hooks/routeHooks";
 
 const texts = {
   heading: "Svaret ditt om behov for møte",
@@ -17,10 +18,12 @@ interface Props {
 }
 
 const MotebehovKvittering = ({ motebehov }: Props) => {
+  const { audience } = useAudience();
+
   const behandlerVaereMedTekst =
-    motebehov.skjemaType === "MELD_BEHOV"
-      ? MeldBehovTextsSM.checkboxLabelOnskerBehandlerMed
-      : MeldBehovTextsAG.checkboxLabelOnskerBehandlerMed;
+    audience === "Arbeidsgiver"
+      ? MeldBehovTextsAG.checkboxLabelOnskerBehandlerMed
+      : MeldBehovTextsSM.checkboxLabelOnskerBehandlerMed;
 
   const onskerAtBehandlerBlirMed = motebehov.svar?.forklaring?.includes(
     behandlerVaereMedTekst
