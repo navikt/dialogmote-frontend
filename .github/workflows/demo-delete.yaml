@@ -1,5 +1,7 @@
 name: Demo delete
-on: delete
+on:
+  delete:
+  workflow_dispatch:
 
 jobs:
   branch-delete:
