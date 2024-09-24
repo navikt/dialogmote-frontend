@@ -1,15 +1,37 @@
 import React, { ReactElement } from "react";
-import { SvarBehovContent } from "@/common/components/motebehov/SvarBehovContent";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { commonTexts } from "@/common/constants/commonTexts";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
+import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
+import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import {
+  ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
+  SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL,
+} from "@/common/constants/staticUrls";
 
 const texts = {
-  title: "Meld behov for møte",
-  apiError: "Det oppsto en teknisk feil. Vennligst prøv igjen senere.",
+  title: "Har du behov for et møte med NAV og arbeidsgiver?",
+  topBodyText:
+    "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
 };
+
+export const sykmeldtLesMerLenkerSentence = (
+  <>
+    Les mer om{" "}
+    <Link href={SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL} target="_blank">
+      dialogmøte med NAV
+      <ExternalLinkIcon title="åpner i ny fane-ikon" />
+    </Link>{" "}
+    og{" "}
+    <Link href={ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL} target="_blank">
+      virkemidler og tiltak
+      <ExternalLinkIcon title="åpner i ny fane-ikon" />
+    </Link>{" "}
+    vi kan bistå med. (Lenkene åpner i en ny fane.)
+  </>
+);
 
 const SvarBehov = (): ReactElement => {
   const { mutate, isPending } = useSvarPaMotebehovSM();
@@ -20,12 +42,13 @@ const SvarBehov = (): ReactElement => {
 
   return (
     <SykmeldtSide title={texts.title}>
-      <SvarBehovContent
-        svarMotebehov={submitSvar}
-        motebehovQuestionText="Har du behov for et møte med NAV og arbeidsgiveren din?"
-        begrunnelseDescription={commonTexts.noSensitiveInfo}
-        isSubmitting={isPending}
-      />
+      <BodyLong size="large" className="mb-6">
+        {texts.topBodyText}
+      </BodyLong>
+
+      <BodyShort className="mb-6">{sykmeldtLesMerLenkerSentence}</BodyShort>
+
+      <SvarBehovForm isSubmitting={isPending} onSubmitForm={submitSvar} />
     </SykmeldtSide>
   );
 };
