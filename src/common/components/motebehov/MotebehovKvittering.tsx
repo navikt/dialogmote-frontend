@@ -18,12 +18,11 @@ interface Props {
 }
 
 const MotebehovKvittering = ({ motebehov }: Props) => {
-  const { audience } = useAudience();
+  const { isAudienceSykmeldt } = useAudience();
 
-  const behandlerVaereMedTekst =
-    audience === "Arbeidsgiver"
-      ? MeldBehovTextsAG.checkboxLabelOnskerBehandlerMed
-      : MeldBehovTextsSM.checkboxLabelOnskerBehandlerMed;
+  const behandlerVaereMedTekst = isAudienceSykmeldt
+    ? MeldBehovTextsSM.checkboxLabelOnskerBehandlerMed
+    : MeldBehovTextsAG.checkboxLabelOnskerBehandlerMed;
 
   const onskerAtBehandlerBlirMed = motebehov.svar?.forklaring?.includes(
     behandlerVaereMedTekst

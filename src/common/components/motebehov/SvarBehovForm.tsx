@@ -59,7 +59,7 @@ interface Props {
 function SvarBehovForm({ isSubmitting, onSubmitForm }: Props) {
   const { trackEvent } = useAmplitude();
 
-  const { audience } = useAudience();
+  const { isAudienceSykmeldt } = useAudience();
 
   const {
     control,
@@ -104,7 +104,7 @@ function SvarBehovForm({ isSubmitting, onSubmitForm }: Props) {
                 {...field}
                 id={motebehovRadioGroup}
                 legend={
-                  audience === "Sykmeldt"
+                  isAudienceSykmeldt
                     ? texts.formLabels.legendRadioHarBehovSykmeldt
                     : texts.formLabels.legendRadioHarBehovArbeidsgiver
                 }
