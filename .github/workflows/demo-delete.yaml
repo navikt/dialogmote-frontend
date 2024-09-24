@@ -6,6 +6,8 @@ on:
 jobs:
   branch-delete:
     uses: navikt/teamesyfo-github-actions-workflows/.github/workflows/next-app-demo-delete.yaml@main
+    permissions:
+      id-token: write
     secrets: inherit
     with:
       app: dialogmote-frontend
