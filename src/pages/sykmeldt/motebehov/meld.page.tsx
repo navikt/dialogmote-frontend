@@ -8,7 +8,7 @@ import { sykmeldtLesMerLenkerSentence } from "./svar.page";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 
 export const texts = {
-  title: "Meld behov for møte",
+  title: "Be om dialogmøte med NAV",
   topBodyText:
     "Du kan når som helst i sykefraværsperioden be om at NAV avholder et dialogmøte med deg og din arbeidsgiver. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
   checkboxLabelHarBehov: "Jeg ønsker et møte med NAV og arbeidsgiveren min.",
