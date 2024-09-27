@@ -19,10 +19,14 @@ const texts = {
     "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
   formLabels: {
     legendRadioHarBehovSykmeldt:
-      "Har du behov for et møte med NAV og arbeidsgiveren din?",
-    legendRadioHarBehovArbeidsgiver: "Har dere behov for et møte med NAV?",
-    radioYes: "Ja, jeg mener det er behov for et møte",
-    radioNo: "Nei, jeg mener det ikke er behov for et møte",
+      "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+    legendRadioHarBehovArbeidsgiver:
+      "Har dere behov for et dialogmøte med NAV?",
+    desciptionRadioHarBehovArbeidsgiver:
+      "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
+    radioYesSykmeldt: "Ja, jeg ønsker et dialogmøte",
+    radioYesArbeidsgiver: "Ja, jeg tror vi kan ha nytte av et dialogmøte",
+    radioNo: "Nei, jeg mener det ikke er behov for et dialogmøte",
     begrunnelseIfYes: "Begrunnelse (valgfri)",
     begrunnelseIfNo: "Begrunnelse",
   },
@@ -108,9 +112,17 @@ function SvarBehovForm({ isSubmitting, onSubmitForm }: Props) {
                     ? texts.formLabels.legendRadioHarBehovSykmeldt
                     : texts.formLabels.legendRadioHarBehovArbeidsgiver
                 }
+                description={
+                  !isAudienceSykmeldt &&
+                  "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv."
+                }
                 error={errors[motebehovRadioGroup]?.message}
               >
-                <Radio value="Ja">{texts.formLabels.radioYes}</Radio>
+                <Radio value="Ja">
+                  {isAudienceSykmeldt
+                    ? texts.formLabels.radioYesSykmeldt
+                    : texts.formLabels.radioYesArbeidsgiver}
+                </Radio>
                 <Radio value="Nei">{texts.formLabels.radioNo}</Radio>
               </RadioGroup>
             )}
