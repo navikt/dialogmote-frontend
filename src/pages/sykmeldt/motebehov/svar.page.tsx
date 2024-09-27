@@ -14,7 +14,7 @@ import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDat
 import { KanIkkeSvarePaaSvarBehov } from "@/common/components/motebehov/KanIkkeSvarePaaSvarBehov";
 
 const texts = {
-  title: "Har du behov for et møte med NAV og arbeidsgiver?",
+  title: "Ønsker du et dialogmøte med NAV?",
   topBodyText:
     "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
 };
