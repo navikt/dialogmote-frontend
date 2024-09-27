@@ -17,7 +17,7 @@ import {
 } from "@/common/constants/staticUrls";
 
 const texts = {
-  title: "Har dere behov for et møte med NAV?",
+  title: "Har dere behov for et dialogmøte med NAV?",
   topBodyText:
     "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
 };
