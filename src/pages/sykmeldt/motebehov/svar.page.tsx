@@ -15,6 +15,14 @@ const texts = {
   title: "Ønsker du et dialogmøte med NAV?",
   topBodyText:
     "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
+  formLabels: {
+    legendRadioHarBehov:
+      "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+    radioYes: "Ja, jeg ønsker et dialogmøte.",
+    radioNo: "Nei, jeg mener det ikke er behov for et dialogmøte.",
+    checkboxOnskerBehandlerMedLabel:
+      "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
+  },
 };
 
 export const sykmeldtLesMerLenkerSentence = (
@@ -48,7 +56,18 @@ const SvarBehov = (): ReactElement => {
 
       <BodyShort className="mb-6">{sykmeldtLesMerLenkerSentence}</BodyShort>
 
-      <SvarBehovForm isSubmitting={isPending} onSubmitForm={submitSvar} />
+      <SvarBehovForm
+        formLabels={{
+          radioHarBehovLegend: texts.formLabels.legendRadioHarBehov,
+          radioYesLabel: texts.formLabels.radioYes,
+          radioNoLabel: texts.formLabels.radioNo,
+          checkboxOnskerBehandlerMedLabel:
+            texts.formLabels.checkboxOnskerBehandlerMedLabel,
+        }}
+        isBegrunnelseRequiredAlsoIfYes={false}
+        isSubmitting={isPending}
+        onSubmitForm={submitSvar}
+      />
     </SykmeldtSide>
   );
 };

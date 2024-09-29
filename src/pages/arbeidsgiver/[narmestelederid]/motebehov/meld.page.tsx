@@ -16,17 +16,21 @@ export const texts = {
   title: "Be om dialogmøte med NAV",
   topBodyText:
     "Som arbeidsgiver kan du når som helst i sykefraværsperioden be om et dialogmøte med NAV og den sykemeldte. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
-  checkboxLabelHarBehovStart: "Jeg ønsker et møte med NAV og ",
-  checkboxLabelOnskerBehandlerMed:
-    "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri).",
+  formLabels: {
+    begrunnelseLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+    begrunnelseDescription:
+      "Dette hjelper oss å forberede møtet. Er det noe du ønsker å foreslå? Er det noe du ønsker at NAV bistår med?",
+    checkboxOnskerBehandlerMedLabel:
+      "Jeg ønsker at den som har sykmeldt den ansatte (lege/behandler) også deltar i møtet.",
+  },
 };
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
-  const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
-  const motebehovTekst = `${texts.checkboxLabelHarBehovStart} ${ansattName}`;
+  // const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
+  // const motebehovTekst = `${texts.formLabels.checkboxLabelHarBehovStart} ${ansattName}`;
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
@@ -48,10 +52,12 @@ const MeldBehov = (): ReactElement => {
       <ArbeidsgiverMeldBehovGuidePanel />
 
       <MeldBehovForm
-        checkboxLabelHarBehov={motebehovTekst}
-        checkboxLabelOnskerAtBehandlerBlirMed={
-          texts.checkboxLabelOnskerBehandlerMed
-        }
+        formLabels={{
+          begrunnelseLabel: texts.formLabels.begrunnelseLabel,
+          begrunnelseDescription: texts.formLabels.begrunnelseDescription,
+          checkboxOnskerBehandlerMedLabel:
+            texts.formLabels.checkboxOnskerBehandlerMedLabel,
+        }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
       />

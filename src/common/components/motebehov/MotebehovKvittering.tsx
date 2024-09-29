@@ -21,8 +21,8 @@ const MotebehovKvittering = ({ motebehov }: Props) => {
   const { isAudienceSykmeldt } = useAudience();
 
   const behandlerVaereMedTekst = isAudienceSykmeldt
-    ? MeldBehovTextsSM.checkboxLabelOnskerBehandlerMed
-    : MeldBehovTextsAG.checkboxLabelOnskerBehandlerMed;
+    ? MeldBehovTextsSM.formLabels.checkboxOnskerBehandlerMedLabel
+    : MeldBehovTextsAG.formLabels.checkboxOnskerBehandlerMedLabel;
 
   const onskerAtBehandlerBlirMed = motebehov.svar?.forklaring?.includes(
     behandlerVaereMedTekst
