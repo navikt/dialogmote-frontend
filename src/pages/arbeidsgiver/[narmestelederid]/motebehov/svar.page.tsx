@@ -20,6 +20,21 @@ const texts = {
   title: "Har dere behov for et dialogmøte med NAV?",
   topBodyText:
     "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
+  formLabels: {
+    radioHarBehovLegend: "Har dere behov for et dialogmøte med NAV?",
+    radioHarBehovDescription:
+      "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
+    radioYes: "Ja, jeg tror vi kan ha nytte av et dialogmøte.",
+    radioNo: "Nei, jeg mener det ikke er behov for et dialogmøte.",
+    // begrunnelseLabelIfYes:
+    //   "Hvorfor tror du dere kan ha nytte av et dialogmøte?",
+    begrunnelseDescriptionIfYes:
+      "Dette hjelper oss å forberede møtet. Er det noe du ønsker å foreslå? Er det noe du ønsker at NAV bistår med?",
+    begrunnelseDescriptionIfNo:
+      "Hvorfor mener du det ikke er behov for et dialogmøte?",
+    checkboxOnskerBehandlerMedLabel:
+      "Jeg ønsker at den som har sykmeldt den ansatte (lege/behandler) også deltar i møtet.",
+  },
 };
 
 export const arbeidsgiverLesMerLenkerSentence = (
@@ -61,7 +76,25 @@ const SvarBehov = (): ReactElement => {
 
       <ArbeidsgiverSvarPaaBehovGuidePanel />
 
-      <SvarBehovForm isSubmitting={isPending} onSubmitForm={submitSvar} />
+      <SvarBehovForm
+        formLabels={{
+          radioHarBehovLegend: texts.formLabels.radioHarBehovLegend,
+          radioHarBehovDescription: texts.formLabels.radioHarBehovDescription,
+          radioYesLabel: texts.formLabels.radioYes,
+          radioNoLabel: texts.formLabels.radioNo,
+          // begrunnelseLabelIfYes: texts.formLabels.begrunnelseLabelIfYes,
+          // begrunnelseLabelIfNo: texts.formLabels.begrunnelseLabelIfNo,
+          begrunnelseDescriptionIfYes:
+            texts.formLabels.begrunnelseDescriptionIfYes,
+          begrunnelseDescriptionIfNo:
+            texts.formLabels.begrunnelseDescriptionIfNo,
+          checkboxOnskerBehandlerMedLabel:
+            texts.formLabels.checkboxOnskerBehandlerMedLabel,
+        }}
+        isBegrunnelseRequiredAlsoIfYes
+        isSubmitting={isPending}
+        onSubmitForm={submitSvar}
+      />
     </ArbeidsgiverSide>
   );
 };

@@ -11,9 +11,11 @@ export const texts = {
   title: "Be om dialogmøte med NAV",
   topBodyText:
     "Du kan når som helst i sykefraværsperioden be om at NAV avholder et dialogmøte med deg og din arbeidsgiver. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
-  checkboxLabelHarBehov: "Jeg ønsker et møte med NAV og arbeidsgiveren min.",
-  checkboxLabelOnskerBehandlerMed:
-    "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri).",
+  formLabels: {
+    begrunnelseLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+    checkboxOnskerBehandlerMedLabel:
+      "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
+  },
 };
 
 const MeldBehov = (): ReactElement => {
@@ -32,10 +34,11 @@ const MeldBehov = (): ReactElement => {
       <BodyShort className="mb-6">{sykmeldtLesMerLenkerSentence}</BodyShort>
 
       <MeldBehovForm
-        checkboxLabelHarBehov={texts.checkboxLabelHarBehov}
-        checkboxLabelOnskerAtBehandlerBlirMed={
-          texts.checkboxLabelOnskerBehandlerMed
-        }
+        formLabels={{
+          begrunnelseLabel: texts.formLabels.begrunnelseLabel,
+          checkboxOnskerBehandlerMedLabel:
+            texts.formLabels.checkboxOnskerBehandlerMedLabel,
+        }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
       />
