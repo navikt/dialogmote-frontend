@@ -19,7 +19,7 @@
     "@navikt/next-logger": "^1.32.0",
     "@tanstack/react-query": "^5.56.2",
     "@tanstack/react-query-devtools": "^5.58.0",
-    "@navikt/dinesykmeldte-sidemeny": "^6.0.32",
+    "@navikt/dinesykmeldte-sidemeny": "^6.0.33",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/jwk-to-pem": "^2.0.3",
     "amplitude-js": "^8.16.0",
