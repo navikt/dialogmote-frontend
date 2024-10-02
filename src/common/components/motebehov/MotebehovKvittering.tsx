@@ -1,10 +1,11 @@
 import React from "react";
 import { BodyLong, Heading, Label } from "@navikt/ds-react";
-import { texts as MeldBehovTextsSM } from "@/pages/sykmeldt/motebehov/meld.page";
-import { texts as MeldBehovTextsAG } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
+
 import { getFullDateFormat } from "@/common/utils/dateUtils";
 import { Motebehov } from "types/shared/motebehov";
 import { useAudience } from "@/common/hooks/routeHooks";
+import { commonTextsForSMSvarAndMeld } from "@/pages/sykmeldt/motebehov/svar.page";
+import { commonTextsForAGSvarAndMeld } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
 
 const texts = {
   heading: "Svaret ditt om behov for møte",
@@ -21,8 +22,8 @@ const MotebehovKvittering = ({ motebehov }: Props) => {
   const { isAudienceSykmeldt } = useAudience();
 
   const behandlerVaereMedTekst = isAudienceSykmeldt
-    ? MeldBehovTextsSM.formLabels.checkboxOnskerBehandlerMedLabel
-    : MeldBehovTextsAG.formLabels.checkboxOnskerBehandlerMedLabel;
+    ? commonTextsForSMSvarAndMeld.formLabels.checkboxOnskerBehandlerMedLabel
+    : commonTextsForAGSvarAndMeld.formLabels.checkboxOnskerBehandlerMedLabel;
 
   const onskerAtBehandlerBlirMed = motebehov.svar?.forklaring?.includes(
     behandlerVaereMedTekst

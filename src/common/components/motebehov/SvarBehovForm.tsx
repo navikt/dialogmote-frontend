@@ -18,36 +18,38 @@ import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatte
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { commonTexts } from "@/common/constants/commonTexts";
 
-const MAX_LENGTH_TEXT_AREAS = 1000;
+const MAX_LENGTH_SVAR_BEGRUNNELSE = 1000;
+const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
+const MAX_LENGTH_HVA_SLAGS_TOLK = 100;
 
 const RADIO_VALUE_YES = "Ja";
 const RADIO_VALUE_NO = "Nei";
 
-const texts = {
-  aboutRequiredFields:
-    "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
+export const commonTextsForSvarAndMeld = {
   formLabels: {
-    begrunnelseLabelRequiredIfYes: "Begrunnelse (må fylles ut)",
-    begrunnelseLabelRequiredIfNo: "Begrunnelse (må fylles ut)",
-    begrunnelseLabelOptional: "Begrunnelse (valgfri)",
-    checkboxesLegend: "Andre valg",
     onskerBehandlerMedBegrunnelseLabel:
       "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
-    checkboxBehovForTolkLabel: "Vi har behov for tolk.",
-    hvaSlagsTolkLabel: "Hva slags tolk har dere behov for? (Må fylles ut)",
-    hvaSlagsTolkDescription: "For eksempel polsk eller tegnspråk.",
+    hvaSlagsTolkDescription: "Oppgi for eksempel et språk eller tegnspråktolk.",
+  },
+};
+
+const texts = {
+  formLabels: {
+    svarBegrunnelseLabelRequired: "Begrunnelse (må fylles ut)",
+    svarBegrunnelseLabelOptional: "Begrunnelse (valgfri)",
+    checkboxesLegend: "Andre valg",
   },
   validation: {
     requiredYesOrNo: "Du må velge ja eller nei for å kunne sende inn skjemaet.",
-    requiredBegrunnelse:
+    requiredSvarBegrunnelse:
       "Du må gi en begrunnelse for hvorfor du svarte ja eller nei.",
-    requiredBegrunnelseIfAnswerNo:
+    requiredSvarBegrunnelseIfAnswerNo:
       "Du må gi en begrunnelse dersom du mener det ikke er behov for møte.",
-    maxLengthTextAreas: `Maks ${MAX_LENGTH_TEXT_AREAS} tegn er tillatt.`,
-    requiredBegrunnelseOnskerBehandlerTextArea:
+    maxLengthSvarBegrunnelse: `Maks ${MAX_LENGTH_SVAR_BEGRUNNELSE} tegn er tillatt i dette feltet.`,
+    requiredOnskerBehandlerBegrunnelse:
       "Du må begrunne hvorfor du ønsker at behandler deltar.",
-    requiredHvaSlagsTolkTextField:
-      "Du må oppgi hva slags tolk dere har behov for.",
+    maxLengthOnskerBehandlerBegrunnelse: `Maks ${MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE} tegn er tillatt i dette feltet.`,
+    requiredHvaSlagsTolk: "Du må oppgi hva slags tolk dere har behov for.",
   },
   alertSvarNeiInfo:
     "Selv om du svarer nei, kan det hende vi likevel kommer til at det er nødvendig med et møte. Svaret ditt brukes når vi vurderer behovet.",
@@ -55,18 +57,18 @@ const texts = {
 };
 
 const motebehovRadioGroup = "motebehovRadioGroup";
-const begrunnelseTextArea = "begrunnelseTextArea";
-const behandlerCheckbox = "behandlerCheckbox";
-const behandlerBegrunnelseTextArea = "onskerBehandlerBegrunnelseTextArea";
-const tolkCheckbox = "tolkCheckbox";
-const hvaSlagsTolkTextField = "hvaSlagsgTolkTextField";
+const svarBegrunnelseTextArea = "svarBegrunnelseTextArea";
+const onskerBehandlerCheckbox = "onskerBehandlerCheckbox";
+const onskerBehandlerBegrunnelseTextArea = "onskerBehandlerBegrunnelseTextArea";
+const harBehovForTolkCheckbox = "harBehovForTolkCheckbox";
+const hvaSlagsTolkTextField = "hvaSlagsTolkTextField";
 
 type FormValues = {
   [motebehovRadioGroup]: typeof RADIO_VALUE_YES | typeof RADIO_VALUE_NO | null;
-  [begrunnelseTextArea]: string;
-  [behandlerCheckbox]: boolean;
-  [behandlerBegrunnelseTextArea]: string;
-  [tolkCheckbox]: boolean;
+  [svarBegrunnelseTextArea]: string;
+  [onskerBehandlerCheckbox]: boolean;
+  [onskerBehandlerBegrunnelseTextArea]: string;
+  [harBehovForTolkCheckbox]: boolean;
   [hvaSlagsTolkTextField]: string;
 };
 
@@ -75,14 +77,16 @@ interface FormLabelProps {
   radioHarBehovDescription?: string;
   radioYesLabel: string;
   radioNoLabel: string;
-  begrunnelseDescriptionIfYes?: string;
-  begrunnelseDescriptionIfNo?: string;
-  checkboxOnskerBehandlerMedLabel: string;
+  svarBegrunnelseDescriptionIfYes?: string;
+  svarBegrunnelseDescriptionIfNo?: string;
+  checkboxOnskerBehandlerLabel: string;
+  checkboxHarBehovForTolkLabel: string;
+  hvaSlagsTolkLabel: string;
 }
 
 interface Props {
   formLabels: FormLabelProps;
-  isBegrunnelseRequiredAlsoIfYes: boolean;
+  isSvarBegrunnelseRequiredAlsoIfYes: boolean;
   isSubmitting: boolean;
   onSubmitForm: (svar: MotebehovSvarRequest) => void;
 }
@@ -93,11 +97,13 @@ function SvarBehovForm({
     radioHarBehovDescription,
     radioYesLabel: radioYes,
     radioNoLabel: radioNo,
-    begrunnelseDescriptionIfYes,
-    begrunnelseDescriptionIfNo,
-    checkboxOnskerBehandlerMedLabel,
+    svarBegrunnelseDescriptionIfYes,
+    svarBegrunnelseDescriptionIfNo,
+    checkboxOnskerBehandlerLabel,
+    checkboxHarBehovForTolkLabel,
+    hvaSlagsTolkLabel,
   },
-  isBegrunnelseRequiredAlsoIfYes,
+  isSvarBegrunnelseRequiredAlsoIfYes,
   isSubmitting,
   onSubmitForm,
 }: Props) {
@@ -113,34 +119,38 @@ function SvarBehovForm({
   const currentMotebehovAnswer = watch(motebehovRadioGroup);
   const isNoSelected = currentMotebehovAnswer === RADIO_VALUE_NO;
 
-  const isOnskerBehandlerDeltarChecked = watch(behandlerCheckbox);
-  const isHarBehovForTolkChecked = watch(tolkCheckbox);
+  const isOnskerBehandlerDeltarChecked = watch(onskerBehandlerCheckbox);
+  const isHarBehovForTolkChecked = watch(harBehovForTolkCheckbox);
 
   const isSvarBegrunnelseFieldRequired =
-    isBegrunnelseRequiredAlsoIfYes || isNoSelected;
+    isSvarBegrunnelseRequiredAlsoIfYes || isNoSelected;
 
-  const begrunnelseLabel = isSvarBegrunnelseFieldRequired
-    ? isNoSelected
-      ? texts.formLabels.begrunnelseLabelRequiredIfNo
-      : texts.formLabels.begrunnelseLabelRequiredIfYes
-    : texts.formLabels.begrunnelseLabelOptional;
+  const svarBegrunnelseLabel = isSvarBegrunnelseFieldRequired
+    ? texts.formLabels.svarBegrunnelseLabelRequired
+    : texts.formLabels.svarBegrunnelseLabelOptional;
 
-  const begrunnelseDescriptionFirstPart = isNoSelected
-    ? begrunnelseDescriptionIfNo
-    : begrunnelseDescriptionIfYes;
+  const svarBegrunnelseDescriptionFirstPart = isNoSelected
+    ? svarBegrunnelseDescriptionIfNo
+    : svarBegrunnelseDescriptionIfYes;
 
-  const begrunnelseDescription = `${
-    begrunnelseDescriptionFirstPart ? begrunnelseDescriptionFirstPart + " " : ""
+  const svarBegrunnelseDescription = `${
+    svarBegrunnelseDescriptionFirstPart
+      ? svarBegrunnelseDescriptionFirstPart + " "
+      : ""
   }${commonTexts.noSensitiveInfo}`;
 
-  const begrunnelseRequiredValidationText = isBegrunnelseRequiredAlsoIfYes
-    ? texts.validation.requiredBegrunnelse
-    : texts.validation.requiredBegrunnelseIfAnswerNo;
+  const requiredSvarBegrunnelseValidationText =
+    isSvarBegrunnelseRequiredAlsoIfYes
+      ? texts.validation.requiredSvarBegrunnelse
+      : texts.validation.requiredSvarBegrunnelseIfAnswerNo;
 
-  function onSubmit({ motebehovRadioGroup, begrunnelseTextArea }: FormValues) {
+  function onSubmit({
+    motebehovRadioGroup,
+    svarBegrunnelseTextArea,
+  }: FormValues) {
     onSubmitForm({
       harMotebehov: motebehovRadioGroup === RADIO_VALUE_YES,
-      forklaring: begrunnelseTextArea,
+      forklaring: svarBegrunnelseTextArea,
     });
     trackEvent(Events.SendSvarBehov);
   }
@@ -156,7 +166,7 @@ function SvarBehovForm({
           name={motebehovRadioGroup}
           rules={{
             required: {
-              value: isNoSelected || isBegrunnelseRequiredAlsoIfYes,
+              value: isSvarBegrunnelseFieldRequired,
               message: texts.validation.requiredYesOrNo,
             },
           }}
@@ -184,63 +194,65 @@ function SvarBehovForm({
         {/* <BodyShort>{begrunnelseDescriptionFirstPart}</BodyShort> */}
 
         <Controller
-          name={begrunnelseTextArea}
+          name={svarBegrunnelseTextArea}
           control={control}
           rules={{
             maxLength: {
-              value: MAX_LENGTH_TEXT_AREAS,
-              message: texts.validation.maxLengthTextAreas,
+              value: MAX_LENGTH_SVAR_BEGRUNNELSE,
+              message: texts.validation.maxLengthSvarBegrunnelse,
             },
             required: {
               value: isSvarBegrunnelseFieldRequired,
-              message: begrunnelseRequiredValidationText,
+              message: requiredSvarBegrunnelseValidationText,
             },
           }}
           render={({ field }) => (
             <Textarea
               {...field}
-              id={begrunnelseTextArea}
-              label={begrunnelseLabel}
-              description={begrunnelseDescription}
-              maxLength={MAX_LENGTH_TEXT_AREAS}
+              id={svarBegrunnelseTextArea}
+              label={svarBegrunnelseLabel}
+              description={svarBegrunnelseDescription}
+              maxLength={MAX_LENGTH_SVAR_BEGRUNNELSE}
               minRows={4}
-              error={errors[begrunnelseTextArea]?.message}
+              error={errors[svarBegrunnelseTextArea]?.message}
             />
           )}
         />
 
         <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
           <Controller
-            name={behandlerCheckbox}
+            name={onskerBehandlerCheckbox}
             control={control}
             render={({ field }) => (
-              <Checkbox {...field}>{checkboxOnskerBehandlerMedLabel}</Checkbox>
+              <Checkbox {...field}>{checkboxOnskerBehandlerLabel}</Checkbox>
             )}
           />
 
           {isOnskerBehandlerDeltarChecked && (
             <Controller
-              name={behandlerBegrunnelseTextArea}
+              name={onskerBehandlerBegrunnelseTextArea}
               control={control}
               rules={{
                 maxLength: {
-                  value: MAX_LENGTH_TEXT_AREAS,
-                  message: texts.validation.maxLengthTextAreas,
+                  value: MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE,
+                  message: texts.validation.maxLengthOnskerBehandlerBegrunnelse,
                 },
                 required: {
                   value: isOnskerBehandlerDeltarChecked,
-                  message:
-                    texts.validation.requiredBegrunnelseOnskerBehandlerTextArea,
+                  message: texts.validation.requiredOnskerBehandlerBegrunnelse,
                 },
               }}
               render={({ field }) => (
                 <Textarea
                   {...field}
-                  id={behandlerBegrunnelseTextArea}
-                  label={texts.formLabels.onskerBehandlerMedBegrunnelseLabel}
-                  maxLength={MAX_LENGTH_TEXT_AREAS}
+                  id={onskerBehandlerBegrunnelseTextArea}
+                  label={
+                    commonTextsForSvarAndMeld.formLabels
+                      .onskerBehandlerMedBegrunnelseLabel
+                  }
+                  maxLength={MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE}
                   minRows={4}
-                  error={errors[behandlerBegrunnelseTextArea]?.message}
+                  error={errors[onskerBehandlerBegrunnelseTextArea]?.message}
                   className="mt-3 mb-4"
                 />
               )}
@@ -248,12 +260,10 @@ function SvarBehovForm({
           )}
 
           <Controller
-            name={tolkCheckbox}
+            name={harBehovForTolkCheckbox}
             control={control}
             render={({ field }) => (
-              <Checkbox {...field}>
-                {texts.formLabels.checkboxBehovForTolkLabel}
-              </Checkbox>
+              <Checkbox {...field}>{checkboxHarBehovForTolkLabel}</Checkbox>
             )}
           />
 
@@ -262,22 +272,20 @@ function SvarBehovForm({
               name={hvaSlagsTolkTextField}
               control={control}
               rules={{
-                maxLength: {
-                  value: MAX_LENGTH_TEXT_AREAS,
-                  message: texts.validation.maxLengthTextAreas,
-                },
                 required: {
                   value: isHarBehovForTolkChecked,
-                  message: texts.validation.requiredHvaSlagsTolkTextField,
+                  message: texts.validation.requiredHvaSlagsTolk,
                 },
               }}
               render={({ field }) => (
                 <TextField
                   {...field}
                   id={hvaSlagsTolkTextField}
-                  label={texts.formLabels.hvaSlagsTolkLabel}
-                  description={texts.formLabels.hvaSlagsTolkDescription}
-                  maxLength={100}
+                  label={hvaSlagsTolkLabel}
+                  description={
+                    commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription
+                  }
+                  maxLength={MAX_LENGTH_HVA_SLAGS_TOLK}
                   error={errors[hvaSlagsTolkTextField]?.message}
                   className="mt-3 mb-2"
                 />
