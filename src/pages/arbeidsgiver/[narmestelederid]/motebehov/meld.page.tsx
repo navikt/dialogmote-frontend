@@ -8,20 +8,21 @@ import {
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import { BodyLong, BodyShort } from "@navikt/ds-react";
-import { arbeidsgiverLesMerLenkerSentence } from "./svar.page";
+import {
+  arbeidsgiverLesMerLenkerSentence,
+  commonTextsForAGSvarAndMeld,
+} from "./svar.page";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 
-export const texts = {
+const texts = {
   title: "Be om dialogmøte med NAV",
   topBodyText:
     "Som arbeidsgiver kan du når som helst i sykefraværsperioden be om et dialogmøte med NAV og den sykemeldte. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
   formLabels: {
     begrunnelseLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
     begrunnelseDescription:
-      "Dette hjelper oss å forberede møtet. Er det noe du ønsker å foreslå? Er det noe du ønsker at NAV bistår med?",
-    checkboxOnskerBehandlerMedLabel:
-      "Jeg ønsker at den som har sykmeldt den ansatte (lege/behandler) også deltar i møtet.",
+      "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med?",
   },
 };
 
@@ -55,8 +56,13 @@ const MeldBehov = (): ReactElement => {
         formLabels={{
           begrunnelseLabel: texts.formLabels.begrunnelseLabel,
           begrunnelseDescription: texts.formLabels.begrunnelseDescription,
-          checkboxOnskerBehandlerMedLabel:
-            texts.formLabels.checkboxOnskerBehandlerMedLabel,
+          checkboxOnskerBehandlerLabel:
+            commonTextsForAGSvarAndMeld.formLabels
+              .checkboxOnskerBehandlerMedLabel,
+          checkboxHarBehovForTolkLabel:
+            commonTextsForAGSvarAndMeld.formLabels.checkboxBehovForTolkLabel,
+          hvaSlagsTolkLabel:
+            commonTextsForAGSvarAndMeld.formLabels.hvaSlagsTolkLabel,
         }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
