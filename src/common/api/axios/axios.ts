@@ -52,7 +52,8 @@ function handleError(error: AxiosError, errorType: ErrorType) {
     loginUser();
   } else {
     logError(error, errorType);
-    throw error;
+
+    throw new Error(error.message);
   }
 }
 
