@@ -10,11 +10,28 @@ import {
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
   SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL,
 } from "@/common/constants/staticUrls";
+import { commonTextsForSvarAGAndSM } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
+
+export const commonTextsForSMSvarAndMeld = {
+  formLabels: {
+    checkboxOnskerBehandlerMedLabel:
+      "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
+    checkboxBehovForTolkLabel: "Jeg har behov for tolk.",
+    hvaSlagsTolkLabel: "Hva slags tolk har du behov for? (Må fylles ut)",
+  },
+};
 
 const texts = {
-  title: "Har du behov for et møte med NAV og arbeidsgiver?",
-  topBodyText:
-    "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
+  title: "Ønsker du et dialogmøte med NAV?",
+  formLabels: {
+    legendRadioHarBehov:
+      "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+    radioYes: "Ja, jeg ønsker et dialogmøte.",
+    radioNo: "Nei, jeg mener det ikke er behov for et dialogmøte.",
+    svarBegrunnelseDescriptionIfYes: "Hva ønsker du å ta opp i møtet?",
+    svarBegrunnelseDescriptionIfNo:
+      "Hvorfor mener du det ikke er behov for et dialogmøte?",
+  },
 };
 
 export const sykmeldtLesMerLenkerSentence = (
@@ -43,12 +60,32 @@ const SvarBehov = (): ReactElement => {
   return (
     <SykmeldtSide title={texts.title}>
       <BodyLong size="large" className="mb-6">
-        {texts.topBodyText}
+        {commonTextsForSvarAGAndSM.topBodyText}
       </BodyLong>
 
       <BodyShort className="mb-6">{sykmeldtLesMerLenkerSentence}</BodyShort>
 
-      <SvarBehovForm isSubmitting={isPending} onSubmitForm={submitSvar} />
+      <SvarBehovForm
+        formLabels={{
+          radioHarBehovLegend: texts.formLabels.legendRadioHarBehov,
+          radioYesLabel: texts.formLabels.radioYes,
+          radioNoLabel: texts.formLabels.radioNo,
+          svarBegrunnelseDescriptionIfYes:
+            texts.formLabels.svarBegrunnelseDescriptionIfYes,
+          svarBegrunnelseDescriptionIfNo:
+            texts.formLabels.svarBegrunnelseDescriptionIfNo,
+          checkboxOnskerBehandlerLabel:
+            commonTextsForSMSvarAndMeld.formLabels
+              .checkboxOnskerBehandlerMedLabel,
+          checkboxHarBehovForTolkLabel:
+            commonTextsForSMSvarAndMeld.formLabels.checkboxBehovForTolkLabel,
+          hvaSlagsTolkLabel:
+            commonTextsForSMSvarAndMeld.formLabels.hvaSlagsTolkLabel,
+        }}
+        isSvarBegrunnelseRequiredAlsoIfYes={false}
+        isSubmitting={isPending}
+        onSubmitForm={submitSvar}
+      />
     </SykmeldtSide>
   );
 };
