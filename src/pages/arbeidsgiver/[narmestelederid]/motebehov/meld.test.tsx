@@ -5,7 +5,8 @@ import { rest } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import MeldBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
 import { sykmeldtFixture } from "../../../../mocks/data/fixtures/sykmeldt";
-import { axe } from "jest-axe";
+import { axe } from "vitest-axe";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("meld page arbeidsgiver", () => {
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe("meld page arbeidsgiver", () => {
   });
 
   it("should post on submit", async () => {
-    const requestResolver = jest.fn();
+    const requestResolver = vi.fn();
     testServer.use(
       rest.post(`api/arbeidsgiver/motebehov`, async (req, res, ctx) => {
         requestResolver(await req.json());
@@ -32,7 +33,7 @@ describe("meld page arbeidsgiver", () => {
 
     const { user } = render(<MeldBehov />);
 
-    await screen.findByRole("heading", {
+    await screen.findAllByRole("heading", {
       level: 1,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       name: sykmeldtFixture.navn!,
@@ -45,7 +46,7 @@ describe("meld page arbeidsgiver", () => {
     );
     await user.click(
       checkboxGroup.getByRole("checkbox", {
-        name: `Jeg har behov for et møte med NAV og ${sykmeldtFixture.navn}`,
+        name: `Jeg ønsker et møte med NAV og ${sykmeldtFixture.navn}`,
       })
     );
     await user.click(
@@ -61,7 +62,7 @@ describe("meld page arbeidsgiver", () => {
     );
     await user.click(
       screen.getByRole("button", {
-        name: "Send svar",
+        name: "Send inn",
       })
     );
 

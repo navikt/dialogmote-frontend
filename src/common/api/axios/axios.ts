@@ -2,10 +2,7 @@ import axios, { AxiosError, ResponseType } from "axios";
 import { loginUser } from "@/common/utils/urlUtils";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
-import axiosBetterStacktrace from "axios-better-stacktrace";
 import { ErrorType, logError } from "../../utils/logUtils";
-
-axiosBetterStacktrace(axios);
 
 interface AxiosOptions {
   accessToken?: string;
@@ -55,7 +52,8 @@ function handleError(error: AxiosError, errorType: ErrorType) {
     loginUser();
   } else {
     logError(error, errorType);
-    throw error;
+
+    throw new Error(error.message);
   }
 }
 

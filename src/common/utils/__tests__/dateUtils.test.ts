@@ -4,18 +4,19 @@ import {
   isDateInPast,
   minutesToMillis,
 } from "../dateUtils";
+import { afterAll, beforeAll, describe, expect, vi, it } from "vitest";
 
 describe("dateUtils", () => {
   beforeAll(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date("2020-02-02").getTime());
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2020-02-02").getTime());
   });
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   describe("getLongDateFormat", () => {
-    test("should return long date format", () => {
+    it("should return long date format", () => {
       const formatedDate = getLongDateFormat(Date.now());
 
       expect(formatedDate).toBe("2. februar 2020");
@@ -23,7 +24,7 @@ describe("dateUtils", () => {
   });
 
   describe("getFullDateFormat", () => {
-    test("should return full date format", () => {
+    it("should return full date format", () => {
       const formatedDate = getFullDateFormat(Date.now());
 
       expect(formatedDate).toBe("søndag 2. februar 2020");
@@ -31,27 +32,27 @@ describe("dateUtils", () => {
   });
 
   describe("isDateInPast", () => {
-    test("should return true when date param is the past", () => {
+    it("should return true when date param is the past", () => {
       const pastDate = new Date("2010-02-02");
 
       expect(isDateInPast(pastDate)).toBe(true);
     });
 
-    test("should return false when date param is present", () => {
+    it("should return false when date param is present", () => {
       const presentDate = new Date();
 
       expect(isDateInPast(presentDate)).toBe(false);
     });
 
-    test("should return false when date param is the future", () => {
+    it("should return false when date param is the future", () => {
       const futureDate = new Date("2021-02-02");
 
       expect(isDateInPast(futureDate)).toBe(false);
     });
   });
 
-  describe("minutesToMillis", () => {
-    test("should convert to millis from minutes", () => {
+  describe("minuitoMillis", () => {
+    it("should convert to millis from minutes", () => {
       const minutes = 60;
 
       expect(minutesToMillis(minutes)).toBe(3600000);

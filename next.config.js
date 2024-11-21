@@ -7,6 +7,9 @@ const moduleExports = {
   pageExtensions: ["page.tsx", "page.ts", "page.js", "api.ts"],
   output: "standalone",
   productionBrowserSourceMaps: true,
+  experimental: {
+    optimizePackageImports: ["@navikt/ds-react", "@navikt/aksel-icons"],
+  },
 };
 
 module.exports = moduleExports;

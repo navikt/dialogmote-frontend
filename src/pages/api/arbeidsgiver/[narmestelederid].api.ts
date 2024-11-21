@@ -1,18 +1,32 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import nc from "next-connect";
-import { ncOptions } from "@/server/utils/ncOptions";
-import { NextApiResponseAG } from "@/server/data/types/next/NextApiResponseAG";
-import { combineDialogmoteDataAG } from "@/server/data/arbeidsgiver/combineDialogmoteDataAG";
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
-import { DialogmoteData } from "types/shared/dialogmote";
+import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 
-const handler = nc<NextApiRequest, NextApiResponse<DialogmoteData>>(ncOptions)
-  .use(fetchSykmeldtAG)
-  .use(fetchConcurrentDataAG)
-  .use(combineDialogmoteDataAG)
-  .get(async (req, res: NextApiResponseAG) => {
-    res.json(res.dialogmoteData);
-  });
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
+  const sykmeldtDTO = await fetchSykmeldtAG(req);
 
+  if (!sykmeldtDTO) {
+    res.status(500).json("Could not get sykmelding");
+    return;
+  }
+
+  const data = await fetchConcurrentDataAG(
+    req,
+    sykmeldtDTO.fnr,
+    sykmeldtDTO.orgnummer
+  );
+
+  if (data) {
+    const { motebehov, brevArray } = data;
+    const mappedData = mapDialogmoteData(motebehov, brevArray, sykmeldtDTO);
+
+    res.json(mappedData);
+  } else {
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+};
 export default handler;

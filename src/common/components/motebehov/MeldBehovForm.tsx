@@ -1,16 +1,34 @@
-import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { BodyLong, Checkbox, CheckboxGroup, Textarea } from "@navikt/ds-react";
+
 import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Events } from "@/common/amplitude/events";
-import { Checkbox, CheckboxGroup, Ingress, Textarea } from "@navikt/ds-react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
-import { Controller, useForm } from "react-hook-form";
+import { Events } from "@/common/amplitude/events";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
+import { MotebehovSvarRequest } from "types/shared/motebehov";
+import { commonTexts } from "@/common/constants/commonTexts";
 
-const begrunnelseMaxLength = 1000;
+const BEGRUNNELSE_MAX_LENGTH = 1000;
+
+const texts = {
+  aboutRequiredFields:
+    "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
+  formLabels: {
+    checkboxesLegend: "Meld behov for møte",
+    textAreaBegrunnelse: "Begrunnelse (valgfri)",
+  },
+  validation: {
+    requiredHarBehovCheckbox:
+      "Du må krysse av for møtebehov for å kunne sende inn skjemaet.",
+    mustAnswerYesOrNo:
+      "Du må velge ja eller nei for å kunne sende inn skjemaet.",
+    maxLengthBegrunnelse: `Maks ${BEGRUNNELSE_MAX_LENGTH} tegn er tillatt.`,
+  },
+  buttonSendInn: "Send inn",
+};
 
 const motebehovCheckbox = "motebehovCheckbox";
 const behandlerCheckbox = "behandlerCheckbox";
@@ -23,26 +41,26 @@ type FormValues = {
 };
 
 interface Props {
-  motebehovTekst: string;
-  behandlerVaereMedTekst: string;
-  sensitivInfoTekst: string;
-  meldMotebehov: (svar: MotebehovSvarRequest) => void;
+  checkboxLabelHarBehov: string;
+  checkboxLabelOnskerAtBehandlerBlirMed: string;
   isSubmitting: boolean;
+  onSubmitForm: (svar: MotebehovSvarRequest) => void;
 }
 
-export const MeldBehovContent = ({
-  motebehovTekst,
-  behandlerVaereMedTekst,
-  sensitivInfoTekst,
-  meldMotebehov,
+function MeldBehovForm({
+  checkboxLabelHarBehov,
+  checkboxLabelOnskerAtBehandlerBlirMed,
   isSubmitting,
-}: Props) => {
+  onSubmitForm,
+}: Props) {
   const { trackEvent } = useAmplitude();
+
   const {
     control,
     formState: { errors },
     handleSubmit,
   } = useForm<FormValues>();
+
   const errorList = useErrorSummaryFormatter(errors);
 
   function onSubmit({
@@ -50,52 +68,55 @@ export const MeldBehovContent = ({
     motebehovCheckbox,
     begrunnelseTextArea,
   }: FormValues) {
-    const behandlerBliMedTekst = !!behandlerCheckbox
-      ? behandlerVaereMedTekst
-      : "";
+    const forklaring = !!behandlerCheckbox
+      ? `${checkboxLabelOnskerAtBehandlerBlirMed} ${begrunnelseTextArea}`
+      : begrunnelseTextArea;
 
-    meldMotebehov({
+    onSubmitForm({
       harMotebehov: !!motebehovCheckbox,
-      forklaring: `${behandlerBliMedTekst}${begrunnelseTextArea}`,
+      forklaring,
     });
     trackEvent(Events.SendMeldBehov);
   }
 
   return (
     <>
-      <Ingress spacing>
-        Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.
-      </Ingress>
+      <BodyLong size="medium" spacing>
+        {texts.aboutRequiredFields}
+      </BodyLong>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogmotePanel>
           <MotebehovErrorSummary errors={errorList} />
 
-          <CheckboxGroup legend="Meld behov for møte" hideLegend>
+          <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
             <Controller
               name={motebehovCheckbox}
               control={control}
               rules={{
-                required:
-                  "Du må krysse av for møtebehov for å kunne sende inn skjemaet.",
+                required: texts.validation.requiredHarBehovCheckbox,
               }}
               render={({ field }) => (
                 <Checkbox
                   {...field}
                   id={motebehovCheckbox}
-                  value={motebehovTekst}
+                  value={checkboxLabelHarBehov}
                   error={!!errors[motebehovCheckbox]}
                 >
-                  {motebehovTekst}
+                  {checkboxLabelHarBehov}
                 </Checkbox>
               )}
             />
+
             <Controller
               name={behandlerCheckbox}
               control={control}
               render={({ field }) => (
-                <Checkbox {...field} value={behandlerVaereMedTekst}>
-                  {behandlerVaereMedTekst}
+                <Checkbox
+                  {...field}
+                  value={checkboxLabelOnskerAtBehandlerBlirMed}
+                >
+                  {checkboxLabelOnskerAtBehandlerBlirMed}
                 </Checkbox>
               )}
             />
@@ -106,17 +127,17 @@ export const MeldBehovContent = ({
             control={control}
             rules={{
               maxLength: {
-                value: begrunnelseMaxLength,
-                message: `Maks ${begrunnelseMaxLength} tegn er tillatt.`,
+                value: BEGRUNNELSE_MAX_LENGTH,
+                message: texts.validation.maxLengthBegrunnelse,
               },
             }}
             render={({ field }) => (
               <Textarea
                 {...field}
                 id={begrunnelseTextArea}
-                label="Begrunnelse (valgfri)"
-                description={sensitivInfoTekst}
-                maxLength={begrunnelseMaxLength}
+                label={texts.formLabels.textAreaBegrunnelse}
+                description={commonTexts.noSensitiveInfo}
+                maxLength={BEGRUNNELSE_MAX_LENGTH}
                 minRows={4}
                 error={errors[begrunnelseTextArea]?.message}
               />
@@ -124,11 +145,16 @@ export const MeldBehovContent = ({
           />
 
           <div className="inline-flex pt-4 gap-4">
-            <SubmitButton isLoading={isSubmitting} />
+            <SubmitButton
+              isLoading={isSubmitting}
+              label={texts.buttonSendInn}
+            />
             <CancelButton />
           </div>
         </DialogmotePanel>
       </form>
     </>
   );
-};
+}
+
+export default MeldBehovForm;

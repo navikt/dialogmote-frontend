@@ -50,6 +50,7 @@ const documentComponentKey = union([
   literal("MIDLERTIDIG_LONNSTILSKUDD"),
   literal("OKONOMISK_STOTTE"),
   literal("INGEN_RETTIGHETER"),
+  literal("EKSPERTBISTAND"),
 ]);
 
 const documentComponentKeyWithUnknown = union([

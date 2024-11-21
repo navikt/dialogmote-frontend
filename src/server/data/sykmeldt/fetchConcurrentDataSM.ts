@@ -1,5 +1,3 @@
-import { IAuthenticatedRequest } from "../../api/IAuthenticatedRequest";
-import { NextApiResponseSM } from "@/server/data/types/next/NextApiResponseSM";
 import { getMotebehovSM } from "@/server/service/motebehovService";
 import { getBrevSM } from "@/server/service/brevService";
 import { handleSchemaParsingError } from "@/server/utils/errors";
@@ -8,17 +6,23 @@ import {
   getMotebehovTokenX,
 } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
-import { logger } from "@navikt/next-logger";
+import { NextApiRequest } from "next";
 import { isMockBackend } from "@/server/utils/serverEnv";
+import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { Brev } from "../../../types/shared/brev";
 
 export const fetchConcurrentDataSM = async (
-  req: IAuthenticatedRequest,
-  res: NextApiResponseSM,
-  next: () => void
-) => {
+  req: NextApiRequest
+): Promise<
+  | {
+      motebehov: MotebehovDTO;
+      brevArray: Brev[];
+    }
+  | undefined
+> => {
   if (isMockBackend) {
-    res.motebehov = getMockDb(req).motebehov;
-    res.brevArray = getMockDb(req).brev;
+    const mockData = getMockDb(req);
+    return { motebehov: mockData.motebehov, brevArray: mockData.brev };
   } else {
     const motebehovTokenPromise = getMotebehovTokenX(req);
     const isDialogmoteTokenPromise = getIsdialogmoteTokenX(req);
@@ -26,7 +30,6 @@ export const fetchConcurrentDataSM = async (
       motebehovTokenPromise,
       isDialogmoteTokenPromise,
     ]);
-    logger.info("Exchanging SM tokenx ok");
 
     const motebehovPromise = getMotebehovSM(motebehovToken);
     const isDialogmotePromise = getBrevSM(isDialogmoteToken);
@@ -35,11 +38,9 @@ export const fetchConcurrentDataSM = async (
       motebehovPromise,
       isDialogmotePromise,
     ]);
-    logger.info("Fetching DM data SM ok");
 
     if (motebehovRes.success && isDialogmoteRes.success) {
-      res.motebehov = motebehovRes.data;
-      res.brevArray = isDialogmoteRes.data;
+      return { motebehov: motebehovRes.data, brevArray: isDialogmoteRes.data };
     } else if (!motebehovRes.success) {
       handleSchemaParsingError("Sykmeldt", "Motebehov", motebehovRes.error);
     } else if (!isDialogmoteRes.success) {
@@ -50,6 +51,4 @@ export const fetchConcurrentDataSM = async (
       );
     }
   }
-
-  next();
 };
