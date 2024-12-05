@@ -55,7 +55,7 @@
     "@types/jest-axe": "^3.5.9",
     "@types/node": "^20.14.9",
     "@types/on-headers": "^1.0.3",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.13",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
