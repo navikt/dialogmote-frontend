@@ -147,10 +147,18 @@ function SvarBehovForm({
   function onSubmit({
     motebehovRadioGroup,
     svarBegrunnelseTextArea,
+    onskerBehandlerCheckbox,
+    onskerBehandlerBegrunnelseTextArea,
+    harBehovForTolkCheckbox,
+    hvaSlagsTolkTextField,
   }: FormValues) {
     onSubmitForm({
       harMotebehov: motebehovRadioGroup === RADIO_VALUE_YES,
-      forklaring: svarBegrunnelseTextArea,
+      begrunnelse: svarBegrunnelseTextArea,
+      onskerAtBehandlerDeltar: onskerBehandlerCheckbox,
+      onskerAtBehandlerDeltarBegrunnelse: onskerBehandlerBegrunnelseTextArea,
+      harBehovForTolk: harBehovForTolkCheckbox,
+      hvaSlagsTolk: hvaSlagsTolkTextField,
     });
     trackEvent(Events.SendSvarBehov);
   }

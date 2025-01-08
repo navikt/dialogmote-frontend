@@ -24,7 +24,7 @@ const handler = async (
       virksomhetsnummer: data.sykmeldt!.orgnummer,
       motebehovSvar: {
         harMotebehov: svar.harMotebehov,
-        forklaring: svar.forklaring || null,
+        forklaring: svar.begrunnelse || null,
       },
       behandletTidspunkt: null,
       behandletVeilederIdent: null,
@@ -35,6 +35,8 @@ const handler = async (
     };
   } else {
     const token = await getMotebehovTokenX(req);
+
+    // TODO: Add validation?
 
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,

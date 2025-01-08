@@ -13,6 +13,8 @@ const handler = async (
   } else {
     const token = await getMotebehovTokenX(req);
 
+    // TODO: Add validation?
+
     const svar: MotebehovSvarRequestAG = req.body;
     await post(
       `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov`,

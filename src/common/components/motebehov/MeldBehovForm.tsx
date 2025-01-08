@@ -91,18 +91,17 @@ function MeldBehovForm({
   function onSubmit({
     behovBegrunnelseTextArea,
     onskerBehandlerCheckbox,
-  }: // TODO: Submit these fields as well
-  // onskerBehandlerBegrunnelseTextArea,
-  // tolkCheckbox,
-  // hvaSlagsgTolkTextField,
-  FormValues) {
-    const forklaring = !!onskerBehandlerCheckbox
-      ? `${commonTextsForSvarAndMeld.formLabels.onskerBehandlerMedBegrunnelseLabel} ${behovBegrunnelseTextArea}`
-      : behovBegrunnelseTextArea;
-
+    onskerBehandlerBegrunnelseTextArea,
+    harBehovForTolkCheckbox,
+    hvaSlagsTolkTextField,
+  }: FormValues) {
     onSubmitForm({
       harMotebehov: true,
-      forklaring,
+      begrunnelse: behovBegrunnelseTextArea,
+      onskerAtBehandlerDeltar: onskerBehandlerCheckbox,
+      onskerAtBehandlerDeltarBegrunnelse: onskerBehandlerBegrunnelseTextArea,
+      harBehovForTolk: harBehovForTolkCheckbox,
+      hvaSlagsTolk: hvaSlagsTolkTextField,
     });
     trackEvent(Events.SendMeldBehov);
   }
