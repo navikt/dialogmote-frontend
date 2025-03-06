@@ -2,7 +2,7 @@ export interface IServerEnvironmentVariables {
   LOG_LEVEL: "fatal" | "error" | "warn" | "info" | "debug" | "trace";
   ISDIALOGMOTE_HOST: string;
   SYFOMOTEBEHOV_HOST: string;
-  SYKMELDINGER_ARBEIDSGIVER_HOST: string;
+  DINESYKMELDTE_BACKEND_HOST: string;
   TOKEN_X_WELL_KNOWN_URL: string;
   TOKEN_X_CLIENT_ID: string;
   TOKEN_X_PRIVATE_JWK: string;
@@ -17,7 +17,7 @@ export interface IServerEnvironmentVariables {
   UNLEASH_API_URL: string;
   IDPORTEN_CLIENT_ID: string;
   SYFOMOTEBEHOV_CLIENT_ID: string;
-  SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID: string;
+  DINESYKMELDTE_BACKEND_CLIEND_ID: string;
   ISDIALOGMOTE_CLIENT_ID: string;
 }
 

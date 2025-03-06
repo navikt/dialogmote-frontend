@@ -59,8 +59,8 @@ spec:
       value: http://isdialogmote.teamsykefravr
     - name: SYFOMOTEBEHOV_HOST
       value: https://syfomotebehov.dev-fss-pub.nais.io
-    - name: SYKMELDINGER_ARBEIDSGIVER_HOST
-      value: http://sykmeldinger-arbeidsgiver.teamsykmelding
+    - name: DINESYKMELDTE_BACKEND_HOST
+      value: http://dinesykmeldte-backend
     - name: OPPLAERING
       value: "true"
     - name: MOCK_BACKEND

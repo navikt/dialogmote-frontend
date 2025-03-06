@@ -52,8 +52,8 @@ spec:
       value: http://isdialogmote.teamsykefravr
     - name: SYFOMOTEBEHOV_HOST
       value: http://syfomotebehov
-    - name: SYKMELDINGER_ARBEIDSGIVER_HOST
-      value: http://sykmeldinger-arbeidsgiver.teamsykmelding
+    - name: DINESYKMELDTE_BACKEND_HOST
+      value: http://dinesykmeldte-backend
     - name: OPPLAERING
       value: "false"
     - name: MOCK_BACKEND
@@ -72,8 +72,8 @@ spec:
       value: https://unleash.nais.io/api/client/features?tag[]=simple:dialogmote
     - name : SYFOMOTEBEHOV_CLIENT_ID
       value: "dev-gcp:team-esyfo:syfomotebehov"
-    - name : SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
-      value: "dev-gcp:teamsykmelding:sykmeldinger-arbeidsgiver"
+    - name : DINESYKMELDTE_BACKEND_CLIEND_ID
+      value: "dev-gcp:team-esyfo:dinesykmeldte-backend"
     - name : ISDIALOGMOTE_CLIENT_ID
       value: "dev-gcp:teamsykefravr:isdialogmote"
     - name: DISPLAY_TESTSCENARIO_SELECTOR
@@ -88,5 +88,6 @@ spec:
         - application: nav-dekoratoren
           namespace: personbruker
         - application: syfomotebehov
+        - application: dinesykmeldte-backend
       external:
         - host: dekoratoren.dev.nav.no
