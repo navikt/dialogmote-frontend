@@ -40,12 +40,9 @@ export async function getIsdialogmoteTokenX(
   return getTokenX(idPortenToken, serverEnv.ISDIALOGMOTE_CLIENT_ID);
 }
 
-export async function getSykmeldingerArbeidsgiverTokenX(
+export async function getDinesykmeldteBackendTokenX(
   req: NextApiRequest
 ): Promise<string> {
   const idPortenToken = await getIdportenToken(req);
-  return getTokenX(
-    idPortenToken,
-    serverEnv.SYKMELDINGER_ARBEIDSGIVER_CLIENT_ID
-  );
+  return getTokenX(idPortenToken, serverEnv.DINESYKMELDTE_BACKEND_CLIEND_ID);
 }
