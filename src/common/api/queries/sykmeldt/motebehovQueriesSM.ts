@@ -34,3 +34,17 @@ export const useSvarPaMotebehovSM = () => {
     },
   });
 };
+
+export const useFerdigstillMotebehovSM = () => {
+  const basepath = useApiBasePath();
+
+  const postFerdigstillMotebehov = () =>
+    post(
+      `${basepath}/motebehov/ferdigstill`,
+      "ferdigstillMotebehovSMException"
+    );
+
+  return useMutation({
+    mutationFn: postFerdigstillMotebehov,
+  });
+};
