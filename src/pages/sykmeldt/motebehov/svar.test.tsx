@@ -6,6 +6,10 @@ import { testServer } from "../../../mocks/testServer";
 import SvarBehov from "@/pages/sykmeldt/motebehov/svar.page";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  createDialogmoteSM,
+  createSvarBehovSM,
+} from "../../../mocks/data/factories/dialogmote";
 
 describe("svar page sykmeldt", () => {
   beforeEach(() => {
@@ -27,6 +31,9 @@ describe("svar page sykmeldt", () => {
       rest.post("/api/sykmeldt/motebehov", async (req, res, ctx) => {
         requestResolver(await req.json());
         return res(ctx.status(200));
+      }),
+      rest.get("/api/sykmeldt", (req, res, ctx) => {
+        return res(ctx.json(createSvarBehovSM()));
       })
     );
 
@@ -60,5 +67,20 @@ describe("svar page sykmeldt", () => {
         harMotebehov: true,
       })
     );
+  });
+
+  it("displays error message if unable to display form", async () => {
+    testServer.use(
+      rest.get("/api/sykmeldt", (req, res, ctx) => {
+        return res(ctx.json(createDialogmoteSM()));
+      })
+    );
+
+    render(<SvarBehov />);
+
+    const bodyLongElement = await screen.findByText(
+      "Du har mottatt et varsel du ikke skal ha. Du skal derfor ikke svare på om du har behov for dialogmøte."
+    );
+    expect(bodyLongElement).toBeInTheDocument();
   });
 });

@@ -22,13 +22,8 @@ export const KanIkkeSvarePaaSvarBehov = ({ title }: Props) => {
         <BodyLong spacing>Hei!</BodyLong>
 
         <BodyLong spacing>
-          Det er ikke mulig for deg å sende inn skjema om behov for Dialogmøte
-          nå.
-        </BodyLong>
-
-        <BodyLong>
-          Dersom du har fått et varsel om å svare på behov for Dialogmøte, så
-          kan du se bort fra dette.
+          Du har mottatt et varsel du ikke skal ha. Du skal derfor ikke svare på
+          om du har behov for dialogmøte.
         </BodyLong>
       </GuidePanel>
 

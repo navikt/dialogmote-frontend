@@ -10,6 +10,19 @@ export const createDialogmoteSM = (
   };
 };
 
+export const createSvarBehovSM = (
+  props?: Partial<DialogmoteData>
+): DialogmoteData => {
+  return {
+    referater: [],
+    motebehov: {
+      skjemaType: "SVAR_BEHOV",
+      svar: null,
+    },
+    ...props,
+  };
+};
+
 export const createDialogmoteAG = (
   props?: Partial<DialogmoteData>
 ): DialogmoteData => {
