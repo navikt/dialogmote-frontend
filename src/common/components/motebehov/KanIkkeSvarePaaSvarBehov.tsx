@@ -19,9 +19,7 @@ export const KanIkkeSvarePaaSvarBehov = ({ title }: Props) => {
   return (
     <SykmeldtSide title={title} hideHeader={true} hidePersonvern={true}>
       <GuidePanel className="mb-6" poster={true}>
-        <BodyLong spacing>Hei!</BodyLong>
-
-        <BodyLong spacing>
+        <BodyLong>
           Du har mottatt et varsel du ikke skal ha. Du skal derfor ikke svare på
           om du har behov for dialogmøte.
         </BodyLong>
