@@ -6,10 +6,16 @@ import { PageHeading } from "@/common/components/header/PageHeading";
 interface Props {
   title: string;
   hideHeader?: boolean;
+  hidePersonvern?: boolean;
   children: ReactNode;
 }
 
-export const SykmeldtSide = ({ title, hideHeader, children }: Props) => {
+export const SykmeldtSide = ({
+  title,
+  hideHeader,
+  hidePersonvern,
+  children,
+}: Props) => {
   return (
     <div className={styles.content}>
       <div className={styles.innercontent}>
@@ -17,7 +23,7 @@ export const SykmeldtSide = ({ title, hideHeader, children }: Props) => {
 
         {children}
 
-        <PersonvernInfo />
+        {!hidePersonvern && <PersonvernInfo />}
       </div>
     </div>
   );

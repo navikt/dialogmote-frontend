@@ -3,13 +3,15 @@ import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
-import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
+import { BodyLong, BodyShort, Link, Skeleton } from "@navikt/ds-react";
 import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
 import {
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
   SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL,
 } from "@/common/constants/staticUrls";
+import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
+import { KanIkkeSvarePaaSvarBehov } from "@/common/components/motebehov/KanIkkeSvarePaaSvarBehov";
 
 const texts = {
   title: "Har du behov for et møte med NAV og arbeidsgiver?",
@@ -33,15 +35,14 @@ export const sykmeldtLesMerLenkerSentence = (
   </>
 );
 
-const SvarBehov = (): ReactElement => {
+const SvarBehovContent = () => {
   const { mutate, isPending } = useSvarPaMotebehovSM();
-
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     mutate(motebehovSvar);
   };
 
   return (
-    <SykmeldtSide title={texts.title}>
+    <>
       <BodyLong size="large" className="mb-6">
         {texts.topBodyText}
       </BodyLong>
@@ -49,6 +50,31 @@ const SvarBehov = (): ReactElement => {
       <BodyShort className="mb-6">{sykmeldtLesMerLenkerSentence}</BodyShort>
 
       <SvarBehovForm isSubmitting={isPending} onSubmitForm={submitSvar} />
+    </>
+  );
+};
+
+const SvarBehov = (): ReactElement => {
+  const dialogmoteData = useDialogmoteDataSM();
+
+  if (dialogmoteData.isLoading) {
+    return (
+      <SykmeldtSide title={texts.title} hideHeader={true}>
+        <Skeleton variant="rectangle" width="100%" height="50rem" />
+      </SykmeldtSide>
+    );
+  }
+
+  if (
+    dialogmoteData.isSuccess &&
+    dialogmoteData.data.motebehov?.skjemaType != "SVAR_BEHOV"
+  ) {
+    return <KanIkkeSvarePaaSvarBehov title={texts.title} />;
+  }
+
+  return (
+    <SykmeldtSide title={texts.title}>
+      <SvarBehovContent />
     </SykmeldtSide>
   );
 };

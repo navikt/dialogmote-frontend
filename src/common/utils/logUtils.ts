@@ -39,6 +39,7 @@ export type ErrorType =
   | "svarPaaMotebehovSMException"
   | "postMotebehovAGException"
   | "postMotebehovSMException"
+  | "ferdigstillMotebehovSMException"
   | "ErrorBoundaryException";
 
 export const logError = (error: Error, errorType: ErrorType) => {
