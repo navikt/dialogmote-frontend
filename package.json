@@ -47,7 +47,7 @@
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
+    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/amplitude-js": "^8.16.5",
     "@types/cookie": "^1.0.0",
