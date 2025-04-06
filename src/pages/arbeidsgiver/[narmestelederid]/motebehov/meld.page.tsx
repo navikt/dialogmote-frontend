@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import {
-  MotebehovSvarRequest,
+  MotebehovFormSubmissionDTO,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
@@ -33,11 +33,11 @@ const MeldBehov = (): ReactElement => {
   // const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
   // const motebehovTekst = `${texts.formLabels.checkboxLabelHarBehovStart} ${ansattName}`;
 
-  const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
+  const submitSvar = (motebehovSvar: MotebehovFormSubmissionDTO) => {
     const svar: MotebehovSvarRequestAG = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
-      motebehovSvar: motebehovSvar,
+      formSubmission: motebehovSvar,
     };
     mutate(svar);
   };

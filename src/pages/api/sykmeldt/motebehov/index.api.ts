@@ -37,7 +37,7 @@ const handler = async (
     const token = await getMotebehovTokenX(req);
 
     await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
       "postMotebehovSMException",
       svar,
       {

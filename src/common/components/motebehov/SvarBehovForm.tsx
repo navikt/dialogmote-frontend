@@ -8,15 +8,17 @@ import {
   TextField,
 } from "@navikt/ds-react";
 
-import { useAmplitude } from "@/common/hooks/useAmplitude";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { Events } from "@/common/amplitude/events";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { commonTexts } from "@/common/constants/commonTexts";
+import {
+  FormSnapshotDto,
+  getSelectedRadioOption,
+} from "@/common/utils/formRequestUtils";
+import { MotebehovFormSubmissionDTO } from "../../../types/shared/motebehov";
 
 const MAX_LENGTH_SVAR_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
@@ -56,14 +58,15 @@ const texts = {
   buttonSendSvar: "Send svar",
 };
 
-const motebehovRadioGroup = "motebehovRadioGroup";
-const svarBegrunnelseTextArea = "svarBegrunnelseTextArea";
-const onskerBehandlerCheckbox = "onskerBehandlerCheckbox";
-const onskerBehandlerBegrunnelseTextArea = "onskerBehandlerBegrunnelseTextArea";
-const harBehovForTolkCheckbox = "harBehovForTolkCheckbox";
-const hvaSlagsTolkTextField = "hvaSlagsTolkTextField";
+const motebehovRadioGroup = "harBehovRadioGroup";
+const svarBegrunnelseTextArea = "begrunnelseText";
+const onskerBehandlerCheckbox = "onskerSykmelderDeltarCheckbox";
+const onskerBehandlerBegrunnelseTextArea =
+  "onskerSykmelderDeltarBegrunnelseText";
+const harBehovForTolkCheckbox = "onskerTolkCheckbox";
+const hvaSlagsTolkTextField = "tolkSprakText";
 
-type FormValues = {
+export type SvarBehovFormValues = {
   [motebehovRadioGroup]: typeof RADIO_VALUE_YES | typeof RADIO_VALUE_NO | null;
   [svarBegrunnelseTextArea]: string;
   [onskerBehandlerCheckbox]: boolean;
@@ -88,7 +91,7 @@ interface Props {
   formLabels: FormLabelProps;
   isSvarBegrunnelseRequiredAlsoIfYes: boolean;
   isSubmitting: boolean;
-  onSubmitForm: (svar: MotebehovSvarRequest) => void;
+  onSubmitForm: (svar: MotebehovFormSubmissionDTO) => void;
 }
 
 function SvarBehovForm({
@@ -107,14 +110,12 @@ function SvarBehovForm({
   isSubmitting,
   onSubmitForm,
 }: Props) {
-  const { trackEvent } = useAmplitude();
-
   const {
     control,
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm<FormValues>();
+  } = useForm<SvarBehovFormValues>();
 
   const currentMotebehovAnswer = watch(motebehovRadioGroup);
   const isNoSelected = currentMotebehovAnswer === RADIO_VALUE_NO;
@@ -144,15 +145,87 @@ function SvarBehovForm({
       ? texts.validation.requiredSvarBegrunnelse
       : texts.validation.requiredSvarBegrunnelseIfAnswerNo;
 
-  function onSubmit({
-    motebehovRadioGroup,
-    svarBegrunnelseTextArea,
-  }: FormValues) {
-    onSubmitForm({
-      harMotebehov: motebehovRadioGroup === RADIO_VALUE_YES,
-      forklaring: svarBegrunnelseTextArea,
+  function onSubmit(data: SvarBehovFormValues) {
+    const formSnapshots: FormSnapshotDto["fieldSnapshots"] = [];
+
+    if (data[motebehovRadioGroup] !== null) {
+      const motebehovRadioGroupSnapshot = getSelectedRadioOption(
+        [
+          { optionId: RADIO_VALUE_YES, optionLabel: radioYes },
+          { optionId: RADIO_VALUE_NO, optionLabel: radioNo },
+        ],
+        data[motebehovRadioGroup]
+      );
+
+      if (motebehovRadioGroupSnapshot !== null) {
+        formSnapshots.push({
+          fieldType: "RADIO_GROUP",
+          fieldId: motebehovRadioGroup,
+          fieldLabel: radioHarBehovLegend,
+          ...motebehovRadioGroupSnapshot,
+          description: radioHarBehovDescription,
+        });
+      }
+    }
+
+    formSnapshots.push({
+      fieldType: "TEXT",
+      fieldId: svarBegrunnelseTextArea,
+      fieldLabel: svarBegrunnelseLabel,
+      wasOptional: !isSvarBegrunnelseFieldRequired,
+      textValue: data[svarBegrunnelseTextArea],
+      description: svarBegrunnelseDescription,
     });
-    trackEvent(Events.SendSvarBehov);
+
+    formSnapshots.push({
+      fieldType: "CHECKBOX_SINGLE",
+      fieldId: onskerBehandlerCheckbox,
+      fieldLabel: checkboxOnskerBehandlerLabel,
+      wasChecked: data[onskerBehandlerCheckbox] || false,
+    });
+
+    if (isOnskerBehandlerDeltarChecked) {
+      formSnapshots.push({
+        fieldType: "TEXT",
+        fieldId: onskerBehandlerBegrunnelseTextArea,
+        fieldLabel:
+          commonTextsForSvarAndMeld.formLabels
+            .onskerBehandlerMedBegrunnelseLabel,
+        wasOptional: false,
+        textValue: data[onskerBehandlerBegrunnelseTextArea],
+      });
+    }
+
+    formSnapshots.push({
+      fieldType: "CHECKBOX_SINGLE",
+      fieldId: harBehovForTolkCheckbox,
+      fieldLabel: checkboxHarBehovForTolkLabel,
+      wasChecked: data[harBehovForTolkCheckbox] || false,
+    });
+
+    if (isHarBehovForTolkChecked) {
+      formSnapshots.push({
+        fieldType: "TEXT",
+        fieldId: hvaSlagsTolkTextField,
+        fieldLabel: hvaSlagsTolkLabel,
+        wasOptional: false,
+        textValue: data[hvaSlagsTolkTextField],
+        description:
+          commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription,
+      });
+    }
+
+    const request: FormSnapshotDto = {
+      formIdentifier: "motebehov-svar", //TODO
+      formSemanticVersion: "1.0.0",
+      fieldSnapshots: formSnapshots,
+    };
+
+    console.log("formSnapshots: ", JSON.stringify(request, null, 2));
+    onSubmitForm({
+      harMotebehov: data[motebehovRadioGroup] === RADIO_VALUE_YES,
+      formSnapshot: request,
+    });
   }
 
   const errorList = useErrorSummaryFormatter(errors);
@@ -166,12 +239,11 @@ function SvarBehovForm({
           name={motebehovRadioGroup}
           rules={{
             required: {
-              value: isSvarBegrunnelseFieldRequired,
+              value: true,
               message: texts.validation.requiredYesOrNo,
             },
           }}
           control={control}
-          defaultValue={null}
           render={({ field }) => (
             <RadioGroup
               {...field}
@@ -184,6 +256,7 @@ function SvarBehovForm({
               <Radio value={RADIO_VALUE_NO}>{radioNo}</Radio>
             </RadioGroup>
           )}
+          defaultValue={null}
         />
 
         {/* TODO: Move to receipt part */}
@@ -226,6 +299,7 @@ function SvarBehovForm({
             render={({ field }) => (
               <Checkbox {...field}>{checkboxOnskerBehandlerLabel}</Checkbox>
             )}
+            defaultValue={false}
           />
 
           {isOnskerBehandlerDeltarChecked && (
@@ -265,6 +339,7 @@ function SvarBehovForm({
             render={({ field }) => (
               <Checkbox {...field}>{checkboxHarBehovForTolkLabel}</Checkbox>
             )}
+            defaultValue={false}
           />
 
           {isHarBehovForTolkChecked && (
@@ -290,6 +365,7 @@ function SvarBehovForm({
                   className="mt-3 mb-2"
                 />
               )}
+              defaultValue={""}
             />
           )}
         </CheckboxGroup>

@@ -1,16 +1,15 @@
 import { Controller, useForm } from "react-hook-form";
 import { Checkbox, CheckboxGroup, Textarea, TextField } from "@navikt/ds-react";
 
-import { useAmplitude } from "@/common/hooks/useAmplitude";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { Events } from "@/common/amplitude/events";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { commonTexts } from "@/common/constants/commonTexts";
 import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
+import { FormSnapshotDto } from "@/common/utils/formRequestUtils";
+import { MotebehovFormSubmissionDTO } from "../../../types/shared/motebehov";
 
 const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
@@ -31,11 +30,12 @@ const texts = {
   buttonSendInn: "Be om møte",
 };
 
-const behovBegrunnelseTextArea = "behovBegrunnelseTextArea";
-const onskerBehandlerCheckbox = "onskerBehandlerCheckbox";
-const onskerBehandlerBegrunnelseTextArea = "onskerBehandlerBegrunnelseTextArea";
-const harBehovForTolkCheckbox = "harBehovForTolkCheckbox";
-const hvaSlagsTolkTextField = "hvaSlagsTolkTextField";
+const behovBegrunnelseTextArea = "begrunnelseText";
+const onskerBehandlerCheckbox = "onskerSykmelderDeltarCheckbox";
+const onskerBehandlerBegrunnelseTextArea =
+  "onskerSykmelderDeltarBegrunnelseText";
+const harBehovForTolkCheckbox = "onskerTolkCheckbox";
+const hvaSlagsTolkTextField = "tolkSprakText";
 
 type FormValues = {
   [behovBegrunnelseTextArea]: string;
@@ -56,7 +56,7 @@ interface FormLabelProps {
 interface Props {
   formLabels: FormLabelProps;
   isSubmitting: boolean;
-  onSubmitForm: (svar: MotebehovSvarRequest) => void;
+  onSubmitForm: (svar: MotebehovFormSubmissionDTO) => void;
 }
 
 function MeldBehovForm({
@@ -70,8 +70,6 @@ function MeldBehovForm({
   isSubmitting,
   onSubmitForm,
 }: Props) {
-  const { trackEvent } = useAmplitude();
-
   const {
     control,
     formState: { errors },
@@ -88,23 +86,65 @@ function MeldBehovForm({
     ? `${begrunnelseDescription} ${commonTexts.noSensitiveInfo}`
     : commonTexts.noSensitiveInfo;
 
-  function onSubmit({
-    behovBegrunnelseTextArea,
-    onskerBehandlerCheckbox,
-  }: // TODO: Submit these fields as well
-  // onskerBehandlerBegrunnelseTextArea,
-  // tolkCheckbox,
-  // hvaSlagsgTolkTextField,
-  FormValues) {
-    const forklaring = !!onskerBehandlerCheckbox
-      ? `${commonTextsForSvarAndMeld.formLabels.onskerBehandlerMedBegrunnelseLabel} ${behovBegrunnelseTextArea}`
-      : behovBegrunnelseTextArea;
+  function onSubmit(data: FormValues) {
+    // console.log("data: ", JSON.stringify(data, null, 2));
 
-    onSubmitForm({
-      harMotebehov: true,
-      forklaring,
+    const formSnapshots: FormSnapshotDto["fieldSnapshots"] = [];
+
+    formSnapshots.push({
+      fieldId: behovBegrunnelseTextArea,
+      fieldLabel: begrunnelseLabel,
+      fieldType: "TEXT",
+      textValue: data[behovBegrunnelseTextArea],
+      description: begrunnelseDescriptionWithNoSensitiveInfoText,
     });
-    trackEvent(Events.SendMeldBehov);
+
+    formSnapshots.push({
+      fieldType: "CHECKBOX_SINGLE",
+      fieldId: onskerBehandlerCheckbox,
+      fieldLabel: checkboxOnskerBehandlerLabel,
+      wasChecked: data[onskerBehandlerCheckbox] || false,
+    });
+
+    if (isOnskerBehandlerDeltarChecked) {
+      formSnapshots.push({
+        fieldType: "TEXT",
+        fieldId: onskerBehandlerBegrunnelseTextArea,
+        fieldLabel:
+          commonTextsForSvarAndMeld.formLabels
+            .onskerBehandlerMedBegrunnelseLabel,
+        wasOptional: false,
+        textValue: data[onskerBehandlerBegrunnelseTextArea],
+      });
+    }
+
+    formSnapshots.push({
+      fieldType: "CHECKBOX_SINGLE",
+      fieldId: harBehovForTolkCheckbox,
+      fieldLabel: checkboxHarBehovForTolkLabel,
+      wasChecked: data[harBehovForTolkCheckbox] || false,
+    });
+
+    if (isHarBehovForTolkChecked) {
+      formSnapshots.push({
+        fieldType: "TEXT",
+        fieldId: hvaSlagsTolkTextField,
+        fieldLabel: hvaSlagsTolkLabel,
+        wasOptional: false,
+        textValue: data[hvaSlagsTolkTextField],
+        description:
+          commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription,
+      });
+    }
+
+    const request: FormSnapshotDto = {
+      formIdentifier: "motebehov-meld", //TODO
+      formSemanticVersion: "1.0.0",
+      fieldSnapshots: formSnapshots,
+    };
+    console.log("formSnapshots: ", JSON.stringify(request, null, 2));
+
+    onSubmitForm({ harMotebehov: true, formSnapshot: request });
   }
 
   return (
@@ -142,6 +182,7 @@ function MeldBehovForm({
             render={({ field }) => (
               <Checkbox {...field}>{checkboxOnskerBehandlerLabel}</Checkbox>
             )}
+            defaultValue={false}
           />
 
           {isOnskerBehandlerDeltarChecked && (
@@ -181,6 +222,7 @@ function MeldBehovForm({
             render={({ field }) => (
               <Checkbox {...field}>{checkboxHarBehovForTolkLabel}</Checkbox>
             )}
+            defaultValue={false}
           />
 
           {isHarBehovForTolkChecked && (
@@ -206,6 +248,7 @@ function MeldBehovForm({
                   className="mt-3 mb-2"
                 />
               )}
+              defaultValue={""}
             />
           )}
         </CheckboxGroup>

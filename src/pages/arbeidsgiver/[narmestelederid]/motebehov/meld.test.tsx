@@ -1,10 +1,9 @@
-import { act, waitFor, within } from "@testing-library/react";
+import { act, waitFor } from "@testing-library/react";
 import { render, screen } from "../../../../test/testUtils";
 import mockRouter from "next-router-mock";
 import { rest } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import MeldBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
-import { sykmeldtFixture } from "../../../../mocks/data/fixtures/sykmeldt";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -22,8 +21,7 @@ describe("meld page arbeidsgiver", () => {
     });
   });
 
-  // TODO: Fix test after finalizing labels
-  it.skip("should post on submit", async () => {
+  it("should post on submit", async () => {
     const requestResolver = vi.fn();
     testServer.use(
       rest.post(`api/arbeidsgiver/motebehov`, async (req, res, ctx) => {
@@ -34,48 +32,52 @@ describe("meld page arbeidsgiver", () => {
 
     const { user } = render(<MeldBehov />);
 
-    await screen.findAllByRole("heading", {
-      level: 1,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      name: sykmeldtFixture.navn!,
-    });
-
-    const checkboxGroup = within(
-      await screen.findByRole("group", {
-        name: "Meld behov for møte",
-      })
-    );
-    await user.click(
-      checkboxGroup.getByRole("checkbox", {
-        name: `Jeg ønsker et møte med NAV og ${sykmeldtFixture.navn}`,
-      })
-    );
-    await user.click(
-      checkboxGroup.getByRole("checkbox", {
-        name: "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri).",
-      })
-    );
     await user.type(
       screen.getByRole("textbox", {
-        name: "Begrunnelse (valgfri)",
+        name: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
       }),
       "Dette er en begrunnelse"
     );
     await user.click(
       screen.getByRole("button", {
-        name: "Send inn",
+        name: "Be om møte",
       })
     );
 
     await waitFor(() =>
       expect(requestResolver).toHaveBeenCalledWith({
-        arbeidstakerFnr: sykmeldtFixture.fnr,
-        motebehovSvar: {
-          forklaring:
-            "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri). Dette er en begrunnelse",
+        arbeidstakerFnr: "12345678912345",
+        virksomhetsnummer: "123456789",
+        formSubmission: {
           harMotebehov: true,
+          formSnapshot: {
+            formIdentifier: "motebehov-meld",
+            formSemanticVersion: "1.0.0",
+            fieldSnapshots: [
+              {
+                fieldId: "begrunnelseText",
+                fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+                fieldType: "TEXT",
+                textValue: "Dette er en begrunnelse",
+                description:
+                  "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
+              },
+              {
+                fieldType: "CHECKBOX_SINGLE",
+                fieldId: "onskerSykmelderDeltarCheckbox",
+                fieldLabel:
+                  "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
+                wasChecked: false,
+              },
+              {
+                fieldType: "CHECKBOX_SINGLE",
+                fieldId: "onskerTolkCheckbox",
+                fieldLabel: "Vi har behov for tolk.",
+                wasChecked: false,
+              },
+            ],
+          },
         },
-        virksomhetsnummer: sykmeldtFixture.orgnummer,
       })
     );
   });

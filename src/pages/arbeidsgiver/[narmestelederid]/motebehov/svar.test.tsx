@@ -22,7 +22,6 @@ describe("svar page arbeidsgiver", () => {
     });
   });
 
-  // TODO: Fix after finalazing form labels
   it.skip("should post on submit", async () => {
     const requestResolver = vi.fn();
     testServer.use(
