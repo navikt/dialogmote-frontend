@@ -25,7 +25,7 @@ describe("mapDialogmoteData", () => {
       const dialogmoteData = mapDialogmoteData(
         {
           visMotebehov: false,
-          skjemaType: null,
+          skjemaType: "SVAR_BEHOV",
           motebehov: null,
         },
         [moteInnkalling, endretReferat]
@@ -47,7 +47,7 @@ describe("mapDialogmoteData", () => {
       const dialogmoteData = mapDialogmoteData(
         {
           visMotebehov: false,
-          skjemaType: null,
+          skjemaType: "SVAR_BEHOV",
           motebehov: null,
         },
         [moteInnkalling, referat]
@@ -68,7 +68,7 @@ describe("mapDialogmoteData", () => {
       const dialogmoteData = mapDialogmoteData(
         {
           visMotebehov: false,
-          skjemaType: null,
+          skjemaType: "SVAR_BEHOV",
           motebehov: null,
         },
         [moteInnkalling, referat]
@@ -93,7 +93,7 @@ describe("mapDialogmoteData", () => {
       const dialogmoteData = mapDialogmoteData(
         {
           visMotebehov: false,
-          skjemaType: null,
+          skjemaType: "SVAR_BEHOV",
           motebehov: null,
         },
         [referat, moteInnkalling, moteEndret]
@@ -118,7 +118,7 @@ describe("mapDialogmoteData", () => {
       const dialogmoteData = mapDialogmoteData(
         {
           visMotebehov: false,
-          skjemaType: null,
+          skjemaType: "SVAR_BEHOV",
           motebehov: null,
         },
         [referat, moteInnkalling, moteAvlyst]

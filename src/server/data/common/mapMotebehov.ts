@@ -24,7 +24,7 @@ export const mapMotebehov = (
   const displayMotebehov =
     motebehovStatus.visMotebehov && !isLatestBrevOngoingMoteinnkalling;
 
-  if (displayMotebehov && motebehovStatus.skjemaType) {
+  if (displayMotebehov) {
     return {
       skjemaType: motebehovStatus.skjemaType,
       svar: mapMotebehovSvar(motebehovStatus.motebehov),

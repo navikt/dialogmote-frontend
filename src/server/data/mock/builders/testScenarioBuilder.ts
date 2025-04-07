@@ -9,7 +9,11 @@ export class TestScenarioBuilder {
     this.mockData = {
       sykmeldt: undefined,
       brev: [],
-      motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
+      motebehov: {
+        visMotebehov: false,
+        skjemaType: "MELD_BEHOV",
+        motebehov: null,
+      },
       activeTestScenario: "MELD_BEHOV",
     };
   }

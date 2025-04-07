@@ -10,7 +10,7 @@ export class MotebehovBuilder {
   constructor() {
     this.motebehov = {
       visMotebehov: false,
-      skjemaType: null,
+      skjemaType: "MELD_BEHOV",
       motebehov: null,
     };
   }
