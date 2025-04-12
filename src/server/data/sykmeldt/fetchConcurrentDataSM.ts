@@ -8,14 +8,14 @@ import {
 import getMockDb from "@/server/data/mock/getMockDb";
 import { NextApiRequest } from "next";
 import { isMockBackend } from "@/server/utils/serverEnv";
-import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import { Brev } from "../../../types/shared/brev";
 
 export const fetchConcurrentDataSM = async (
   req: NextApiRequest
 ): Promise<
   | {
-      motebehov: MotebehovDTO;
+      motebehov: MotebehovStatusDTO;
       brevArray: Brev[];
     }
   | undefined
