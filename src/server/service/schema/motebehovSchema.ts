@@ -18,7 +18,7 @@ const motebehov = object({
   tildeltEnhet: string().nullable(),
   behandletTidspunkt: string().nullable(),
   behandletVeilederIdent: string().nullable(),
-  skjemaType: skjemaType.nullable(),
+  skjemaType: skjemaType,
 });
 
 export const motebehovStatusSchema = object({
