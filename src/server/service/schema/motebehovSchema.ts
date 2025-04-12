@@ -21,12 +21,12 @@ const motebehov = object({
   skjemaType: skjemaType.nullable(),
 });
 
-export const motebehovSchema = object({
+export const motebehovStatusSchema = object({
   visMotebehov: boolean(),
   skjemaType: skjemaType.nullable(),
   motebehov: motebehov.nullable(),
 });
 
-export type MotebehovDTO = z.infer<typeof motebehovSchema>;
+export type MotebehovStatusDTO = z.infer<typeof motebehovStatusSchema>;
 export type MotebehovDataDTO = z.infer<typeof motebehov>;
 export type MotebehovSkjemaTypeDTO = z.infer<typeof skjemaType>;

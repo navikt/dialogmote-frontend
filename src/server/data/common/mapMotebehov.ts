@@ -1,6 +1,6 @@
 import {
   MotebehovDataDTO,
-  MotebehovDTO,
+  MotebehovStatusDTO,
 } from "@/server/service/schema/motebehovSchema";
 import { Motebehov, MotebehovSvar } from "types/shared/motebehov";
 
@@ -18,7 +18,7 @@ const mapMotebehovSvar = (
 };
 
 export const mapMotebehov = (
-  motebehovStatus: MotebehovDTO,
+  motebehovStatus: MotebehovStatusDTO,
   isLatestBrevOngoingMoteinnkalling: boolean
 ): Motebehov | undefined => {
   const displayMotebehov =

@@ -9,7 +9,7 @@ import {
 } from "@/server/auth/tokenx";
 import { isMockBackend } from "@/server/utils/serverEnv";
 import { NextApiRequest } from "next";
-import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import { Brev } from "../../../types/shared/brev";
 
 export const fetchConcurrentDataAG = async (
@@ -18,7 +18,7 @@ export const fetchConcurrentDataAG = async (
   orgnummer: string
 ): Promise<
   | {
-      motebehov: MotebehovDTO;
+      motebehov: MotebehovStatusDTO;
       brevArray: Brev[];
     }
   | undefined
