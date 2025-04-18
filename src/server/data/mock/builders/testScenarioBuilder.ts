@@ -1,4 +1,4 @@
-import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import { Brev } from "types/shared/brev";
 import { MockSetup, TestScenario } from "@/server/data/mock/getMockDb";
 
@@ -9,7 +9,11 @@ export class TestScenarioBuilder {
     this.mockData = {
       sykmeldt: undefined,
       brev: [],
-      motebehov: { visMotebehov: false, skjemaType: null, motebehov: null },
+      motebehov: {
+        visMotebehov: false,
+        skjemaType: "MELD_BEHOV",
+        motebehov: null,
+      },
       activeTestScenario: "MELD_BEHOV",
     };
   }
@@ -32,7 +36,7 @@ export class TestScenarioBuilder {
     return this;
   }
 
-  withMotebehov(motebehov: MotebehovDTO) {
+  withMotebehov(motebehov: MotebehovStatusDTO) {
     this.mockData.motebehov = motebehov;
     return this;
   }
