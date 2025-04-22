@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { BodyLong, BodyShort, Link, Skeleton } from "@navikt/ds-react";
 import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
@@ -13,6 +12,7 @@ import {
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { KanIkkeSvarePaaSvarBehov } from "@/common/components/motebehov/KanIkkeSvarePaaSvarBehov";
 import { commonTextsForSvarAGAndSM } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
+import { MotebehovSvarRequest } from "../../../types/shared/motebehov";
 
 export const commonTextsForSMSvarAndMeld = {
   formLabels: {
@@ -86,6 +86,7 @@ const SvarBehovContent = () => {
         isSvarBegrunnelseRequiredAlsoIfYes={false}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
+        formIdentifier={"motebehov-arbeidstaker-svar"}
       />
     </>
   );

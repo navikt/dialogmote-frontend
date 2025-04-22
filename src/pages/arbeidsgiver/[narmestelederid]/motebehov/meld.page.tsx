@@ -30,14 +30,11 @@ const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
-  // const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
-  // const motebehovTekst = `${texts.formLabels.checkboxLabelHarBehovStart} ${ansattName}`;
-
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
-      motebehovSvar: motebehovSvar,
+      formSubmission: motebehovSvar,
     };
     mutate(svar);
   };
@@ -66,6 +63,7 @@ const MeldBehov = (): ReactElement => {
         }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
+        formIdentifier={"motebehov-arbeidsgiver-meld"}
       />
     </ArbeidsgiverSide>
   );

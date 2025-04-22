@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { BodyLong, BodyShort } from "@navikt/ds-react";
@@ -9,6 +8,7 @@ import {
   sykmeldtLesMerLenkerSentence,
 } from "./svar.page";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
+import { MotebehovSvarRequest } from "../../../types/shared/motebehov";
 
 const texts = {
   title: "Be om dialogmøte med NAV",
@@ -47,6 +47,7 @@ const MeldBehov = (): ReactElement => {
         }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
+        formIdentifier={"motebehov-arbeidstaker-meld"}
       />
     </SykmeldtSide>
   );

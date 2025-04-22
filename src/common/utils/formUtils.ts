@@ -10,13 +10,16 @@ export function getSelectedRadioOption(
   RadioGroupFieldSnapshot,
   "selectedOptionId" | "selectedOptionLabel" | "options"
 > | null {
+  const selectedOption = options.find(
+    ({ optionId }) => optionId === selectedKey
+  );
+
+  if (!selectedOption) return null;
+
   const fieldOptions = options.map((option) => ({
     ...option,
     wasSelected: option.optionId === selectedKey,
   }));
-  const selectedOption = fieldOptions.find(({ wasSelected }) => wasSelected);
-
-  if (selectedOption === undefined) return null;
 
   return {
     selectedOptionId: selectedOption.optionId,

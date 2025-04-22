@@ -69,7 +69,7 @@ const SvarBehov = (): ReactElement => {
     const svar: MotebehovSvarRequestAG = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
-      motebehovSvar: motebehovSvar,
+      formSubmission: motebehovSvar,
     };
     mutate(svar);
   };
@@ -105,6 +105,7 @@ const SvarBehov = (): ReactElement => {
         isSvarBegrunnelseRequiredAlsoIfYes
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
+        formIdentifier={"motebehov-arbeidsgiver-svar"}
       />
     </ArbeidsgiverSide>
   );
