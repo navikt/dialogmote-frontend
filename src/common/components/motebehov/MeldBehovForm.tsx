@@ -179,7 +179,9 @@ function MeldBehovForm({
             name={onskerBehandlerCheckbox}
             control={control}
             render={({ field }) => (
-              <Checkbox {...field}>{checkboxOnskerBehandlerLabel}</Checkbox>
+              <Checkbox {...field} checked={field.value}>
+                {checkboxOnskerBehandlerLabel}
+              </Checkbox>
             )}
             defaultValue={false}
           />
@@ -219,7 +221,9 @@ function MeldBehovForm({
             name={harBehovForTolkCheckbox}
             control={control}
             render={({ field }) => (
-              <Checkbox {...field}>{checkboxHarBehovForTolkLabel}</Checkbox>
+              <Checkbox {...field} checked={field.value}>
+                {checkboxHarBehovForTolkLabel}
+              </Checkbox>
             )}
             defaultValue={false}
           />
