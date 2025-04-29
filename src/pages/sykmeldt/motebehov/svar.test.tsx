@@ -7,6 +7,7 @@ import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import SvarBehov from "@/pages/sykmeldt/motebehov/svar.page";
 import { createSvarBehovSM } from "../../../mocks/data/factories/dialogmote";
+import { svarMotebehovSMFixture } from "../../../mocks/data/fixtures/form";
 
 describe("svar page sykmeldt", () => {
   beforeEach(() => {
@@ -219,13 +220,9 @@ describe("svar page sykmeldt", () => {
         }),
         "Dette er en begrunnelse"
       );
-      const checkboxGroup = within(
-        await screen.findByRole("group", {
-          name: "Andre valg",
-        })
-      );
+
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
         })
       );
@@ -236,7 +233,7 @@ describe("svar page sykmeldt", () => {
         "Behandler må være med"
       );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg har behov for tolk.",
         })
       );
@@ -258,67 +255,7 @@ describe("svar page sykmeldt", () => {
           formSnapshot: {
             formIdentifier: "motebehov-arbeidstaker-svar",
             formSemanticVersion: "1.0.0",
-            fieldSnapshots: [
-              {
-                fieldId: "harBehovRadioGroup",
-                fieldLabel:
-                  "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
-                fieldType: "RADIO_GROUP",
-                options: [
-                  {
-                    optionId: "Ja",
-                    optionLabel: "Ja, jeg ønsker et dialogmøte.",
-                    wasSelected: true,
-                  },
-                  {
-                    optionId: "Nei",
-                    optionLabel:
-                      "Nei, jeg mener det ikke er behov for et dialogmøte.",
-                    wasSelected: false,
-                  },
-                ],
-                selectedOptionId: "Ja",
-                selectedOptionLabel: "Ja, jeg ønsker et dialogmøte.",
-              },
-              {
-                description:
-                  "Hva ønsker du å ta opp i møtet? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-                fieldId: "begrunnelseText",
-                fieldLabel: "Begrunnelse (valgfri)",
-                fieldType: "TEXT",
-                value: "Dette er en begrunnelse",
-                wasRequired: false,
-              },
-              {
-                fieldId: "onskerSykmelderDeltarCheckbox",
-                fieldLabel:
-                  "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-                fieldType: "CHECKBOX_SINGLE",
-                value: true,
-              },
-              {
-                fieldId: "onskerSykmelderDeltarBegrunnelseText",
-                fieldLabel:
-                  "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
-                fieldType: "TEXT",
-                value: "Behandler må være med",
-                wasRequired: true,
-              },
-              {
-                fieldId: "onskerTolkCheckbox",
-                fieldLabel: "Jeg har behov for tolk.",
-                fieldType: "CHECKBOX_SINGLE",
-                value: true,
-              },
-              {
-                description: "Oppgi for eksempel et språk eller tegnspråktolk.",
-                fieldId: "tolkSprakText",
-                fieldLabel: "Hva slags tolk har du behov for? (Må fylles ut)",
-                fieldType: "TEXT",
-                value: "Engelsk tolk",
-                wasRequired: true,
-              },
-            ],
+            fieldSnapshots: svarMotebehovSMFixture,
           },
         })
       );
@@ -343,16 +280,13 @@ describe("svar page sykmeldt", () => {
         name: "Ja, jeg ønsker et dialogmøte.",
       })
     );
-    const checkboxGroup = within(
-      await screen.findByRole("group", { name: "Andre valg" })
-    );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
       })
     );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg har behov for tolk.",
       })
     );

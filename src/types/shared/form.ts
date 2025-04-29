@@ -13,14 +13,15 @@ const MOTEBEHOV_FORM_IDENTIFIER = [
 ] as const;
 export type MotebehovFormIdentifier = typeof MOTEBEHOV_FORM_IDENTIFIER[number];
 
+export type FieldSnapshotComponent =
+  | TextFieldSnapshot
+  | SingleCheckboxFieldSnapshot
+  | RadioGroupFieldSnapshot;
+
 export type FormSnapshotDto = {
   formIdentifier: MotebehovFormIdentifier;
   formSemanticVersion: string;
-  fieldSnapshots: (
-    | TextFieldSnapshot
-    | SingleCheckboxFieldSnapshot
-    | RadioGroupFieldSnapshot
-  )[];
+  fieldSnapshots: FieldSnapshotComponent[];
 };
 
 interface FieldSnapshotBase {

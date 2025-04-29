@@ -6,6 +6,7 @@ import { testServer } from "../../../../mocks/testServer";
 import MeldBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { meldMotebehovAGFixture } from "../../../../mocks/data/fixtures/form";
 
 describe("meld page arbeidsgiver", () => {
   beforeEach(() => {
@@ -141,47 +142,7 @@ describe("meld page arbeidsgiver", () => {
           formSubmission: {
             harMotebehov: true,
             formSnapshot: {
-              fieldSnapshots: [
-                {
-                  description:
-                    "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-                  fieldId: "begrunnelseText",
-                  fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
-                  fieldType: "TEXT",
-                  value: "Dette er en begrunnelse",
-                },
-                {
-                  fieldId: "onskerSykmelderDeltarCheckbox",
-                  fieldLabel:
-                    "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
-                  fieldType: "CHECKBOX_SINGLE",
-                  value: true,
-                },
-                {
-                  fieldId: "onskerSykmelderDeltarBegrunnelseText",
-                  fieldLabel:
-                    "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
-                  fieldType: "TEXT",
-                  value: "Behandler må være med",
-                  wasRequired: true,
-                },
-                {
-                  fieldId: "onskerTolkCheckbox",
-                  fieldLabel: "Vi har behov for tolk.",
-                  fieldType: "CHECKBOX_SINGLE",
-                  value: true,
-                },
-                {
-                  description:
-                    "Oppgi for eksempel et språk eller tegnspråktolk.",
-                  fieldId: "tolkSprakText",
-                  fieldLabel:
-                    "Hva slags tolk har dere behov for? (Må fylles ut)",
-                  fieldType: "TEXT",
-                  value: "Engelsk tolk",
-                  wasRequired: true,
-                },
-              ],
+              fieldSnapshots: meldMotebehovAGFixture,
               formIdentifier: "motebehov-arbeidsgiver-meld",
               formSemanticVersion: "1.0.0",
             },

@@ -6,6 +6,7 @@ import { rest } from "msw";
 import { testServer } from "../../../mocks/testServer";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { meldMotebehovSMFixture } from "../../../mocks/data/fixtures/form";
 
 describe("meld page sykmeldt", () => {
   beforeEach(() => {
@@ -136,45 +137,7 @@ describe("meld page sykmeldt", () => {
           formSnapshot: {
             formIdentifier: "motebehov-arbeidstaker-meld",
             formSemanticVersion: "1.0.0",
-            fieldSnapshots: [
-              {
-                fieldId: "begrunnelseText",
-                fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
-                fieldType: "TEXT",
-                value: "Dette er en begrunnelse",
-                description:
-                  "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-              },
-              {
-                fieldType: "CHECKBOX_SINGLE",
-                fieldId: "onskerSykmelderDeltarCheckbox",
-                fieldLabel:
-                  "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-                value: true,
-              },
-              {
-                fieldType: "TEXT",
-                fieldId: "onskerSykmelderDeltarBegrunnelseText",
-                fieldLabel:
-                  "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
-                wasRequired: true,
-                value: "Behandler må være med",
-              },
-              {
-                fieldType: "CHECKBOX_SINGLE",
-                fieldId: "onskerTolkCheckbox",
-                fieldLabel: "Jeg har behov for tolk.",
-                value: true,
-              },
-              {
-                fieldType: "TEXT",
-                fieldId: "tolkSprakText",
-                fieldLabel: "Hva slags tolk har du behov for? (Må fylles ut)",
-                wasRequired: true,
-                value: "Engelsk tolk",
-                description: "Oppgi for eksempel et språk eller tegnspråktolk.",
-              },
-            ],
+            fieldSnapshots: meldMotebehovSMFixture,
           },
         })
       );
