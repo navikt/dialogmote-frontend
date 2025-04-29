@@ -8,7 +8,7 @@ export async function getMotebehovAG(
   fnr: string,
   orgnummer: string
 ) {
-  const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
+  const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
 
   return motebehovSchema.safeParse(
     await get(url, "getMotebehovAGException", {
@@ -20,7 +20,7 @@ export async function getMotebehovAG(
 export async function getMotebehovSM(accessToken: string) {
   return motebehovSchema.safeParse(
     await get(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov/all`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
       "getMotebehovSMException",
       {
         accessToken,

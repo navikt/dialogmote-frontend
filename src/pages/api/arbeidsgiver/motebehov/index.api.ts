@@ -5,6 +5,10 @@ import { getMotebehovTokenX } from "@/server/auth/tokenx";
 import { post } from "@/common/api/axios/axios";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { v4 as uuidv4 } from "uuid";
+import {
+  meldMotebehovAGFixture,
+  svarMotebehovAGFixture,
+} from "mocks/data/fixtures/form";
 
 const handler = async (
   req: NextApiRequest,
@@ -14,21 +18,33 @@ const handler = async (
 
   if (isMockBackend) {
     const data = getMockDb(req);
-    getMockDb(req).motebehov.motebehov = {
+    getMockDb(req).motebehov.motebehovWithFormValues = {
       id: uuidv4(),
       opprettetDato: new Date().toISOString(),
       aktorId: "12345",
       arbeidstakerFnr: "12345678901",
       virksomhetsnummer: "123456789",
-      motebehovSvar: {
-        harMotebehov: svar.formSubmission.harMotebehov,
-        forklaring: "placeholder-tekst", //TODO: Update when receipt is ready
-      },
       behandletTidspunkt: null,
       behandletVeilederIdent: null,
+      tildeltEnhet: null,
       opprettetAv: "12345678901",
       skjemaType: data.motebehov.skjemaType,
-      tildeltEnhet: null,
+      innmelderType: "ARBEIDSGIVER",
+      formValues: {
+        harMotebehov: svar.formSubmission.harMotebehov,
+        formSnapshot:
+          data.motebehov.skjemaType === "SVAR_BEHOV"
+            ? {
+                formIdentifier: "motebehov-arbeidsgiver-svar",
+                formSemanticVersion: "1.0.0",
+                fieldSnapshots: svarMotebehovAGFixture,
+              }
+            : {
+                formIdentifier: "motebehov-arbeidsgiver-meld",
+                formSemanticVersion: "1.0.0",
+                fieldSnapshots: meldMotebehovAGFixture,
+              },
+      },
     };
   } else {
     const token = await getMotebehovTokenX(req);

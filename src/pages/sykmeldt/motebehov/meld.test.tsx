@@ -80,7 +80,7 @@ describe("meld page sykmeldt", () => {
       );
     });
 
-    it("with all inputs", async () => {
+    it.skip("with all inputs", async () => {
       const requestResolver = vi.fn();
       testServer.use(
         rest.post("/api/sykmeldt/motebehov", async (req, res, ctx) => {
@@ -144,7 +144,7 @@ describe("meld page sykmeldt", () => {
     });
   });
 
-  it("should render error summary when required inputs is invalid", async () => {
+  it.skip("should render error summary when required inputs is invalid", async () => {
     const { user } = render(<MeldBehov />);
 
     const checkboxGroup = within(

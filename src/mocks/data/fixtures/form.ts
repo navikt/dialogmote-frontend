@@ -1,4 +1,4 @@
-import { FormSnapshotDto } from "@/types/shared/form";
+import { FormSnapshotDto } from "@/server/service/schema/formSnapshotSchema";
 
 export const meldMotebehovSMFixture: FormSnapshotDto["fieldSnapshots"] = [
   {

@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { Checkbox, CheckboxGroup, Textarea, TextField } from "@navikt/ds-react";
+import { Checkbox, Textarea, TextField } from "@navikt/ds-react";
 
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
@@ -8,8 +8,9 @@ import { CancelButton } from "@/common/components/button/CancelButton";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
 import { commonTexts } from "@/common/constants/commonTexts";
 import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
-import { FormSnapshotDto, MotebehovFormIdentifier } from "types/shared/form";
+import { MotebehovFormIdentifier } from "types/shared/form";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
+import { FormSnapshotDto } from "@/server/service/schema/formSnapshotSchema";
 
 const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;

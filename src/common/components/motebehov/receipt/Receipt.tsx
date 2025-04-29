@@ -3,10 +3,7 @@ import { getFullDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
 import { Motebehov } from "@/types/shared/motebehov";
 import ReceiptRenderer from "@/common/components/motebehov/receipt/ReceiptRenderer";
-import {
-  meldMotebehovSMFixture,
-  svarMotebehovSMFixture,
-} from "../../../../mocks/data/fixtures/form";
+import { svarMotebehovSMFixture } from "../../../../mocks/data/fixtures/form";
 
 interface Props {
   motebehov: Motebehov;

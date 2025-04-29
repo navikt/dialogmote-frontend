@@ -18,17 +18,17 @@ export type FieldSnapshotComponent =
   | SingleCheckboxFieldSnapshot
   | RadioGroupFieldSnapshot;
 
-export type FormSnapshotDto = {
-  formIdentifier: MotebehovFormIdentifier;
-  formSemanticVersion: string;
-  fieldSnapshots: FieldSnapshotComponent[];
-};
+// export type FormSnapshotDto = {
+//   formIdentifier: MotebehovFormIdentifier;
+//   formSemanticVersion: string;
+//   fieldSnapshots: FieldSnapshotComponent[];
+// };
 
 interface FieldSnapshotBase {
   fieldId: string;
   fieldLabel: string;
   fieldType: FormSnapshotFieldTypes;
-  description?: string;
+  description?: string | null;
 }
 
 interface TextFieldSnapshot extends FieldSnapshotBase {

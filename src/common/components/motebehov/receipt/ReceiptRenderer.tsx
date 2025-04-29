@@ -1,4 +1,5 @@
-import { FieldSnapshotComponent, FormSnapshotDto } from "@/types/shared/form";
+import { FormSnapshotDto } from "@/server/service/schema/formSnapshotSchema";
+import { FieldSnapshotComponent } from "@/types/shared/form";
 import { FormSummary } from "@navikt/ds-react";
 
 function ReceiptComponent({
