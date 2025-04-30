@@ -30,12 +30,12 @@ const motebehovWithFormValues = object({
   formValues: motebehovFormValues,
 });
 
-export const motebehovSchema = object({
+export const motebehovStatusSchema = object({
   visMotebehov: boolean(),
   skjemaType: skjemaType,
   motebehovWithFormValues: motebehovWithFormValues.nullable(),
 });
 
-export type MotebehovDTO = z.infer<typeof motebehovSchema>;
+export type MotebehovDTO = z.infer<typeof motebehovStatusSchema>;
 export type MotebehovDataDTO = z.infer<typeof motebehovWithFormValues>;
 export type MotebehovSkjemaTypeDTO = z.infer<typeof skjemaType>;
