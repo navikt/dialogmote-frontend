@@ -6,8 +6,8 @@ import { post } from "@/common/api/axios/axios";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { v4 as uuidv4 } from "uuid";
 import {
-  meldMotebehovAGFixture,
-  svarMotebehovAGFixture,
+  meldMotebehovAGOutputFixture,
+  svarMotebehovAGOutputFixture,
 } from "mocks/data/fixtures/form";
 
 const handler = async (
@@ -37,12 +37,12 @@ const handler = async (
             ? {
                 formIdentifier: "motebehov-arbeidsgiver-svar",
                 formSemanticVersion: "1.0.0",
-                fieldSnapshots: svarMotebehovAGFixture,
+                fieldSnapshots: svarMotebehovAGOutputFixture,
               }
             : {
                 formIdentifier: "motebehov-arbeidsgiver-meld",
                 formSemanticVersion: "1.0.0",
-                fieldSnapshots: meldMotebehovAGFixture,
+                fieldSnapshots: meldMotebehovAGOutputFixture,
               },
       },
     };

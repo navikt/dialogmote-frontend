@@ -16,7 +16,7 @@ import { commonTexts } from "@/common/constants/commonTexts";
 import { getSelectedRadioOption } from "@/common/utils/formUtils";
 import { MotebehovFormIdentifier } from "@/types/shared/form";
 import { MotebehovSvarRequest } from "@/types/shared/motebehov";
-import { FormSnapshotDto } from "@/server/service/schema/formSnapshotSchema";
+import { FormSnapshotInputDto } from "@/server/service/schema/formSnapshotSchema";
 
 const MAX_LENGTH_SVAR_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
@@ -147,7 +147,7 @@ function SvarBehovForm({
       : texts.validation.requiredSvarBegrunnelseIfAnswerNo;
 
   function onSubmit(data: SvarBehovFormValues) {
-    const formSnapshots: FormSnapshotDto["fieldSnapshots"] = [];
+    const formSnapshots: FormSnapshotInputDto["fieldSnapshots"] = [];
 
     if (data[motebehovRadioGroup] !== null) {
       const motebehovRadioGroupSnapshot = getSelectedRadioOption(
@@ -218,7 +218,7 @@ function SvarBehovForm({
       }
     }
 
-    const request: FormSnapshotDto = {
+    const request: FormSnapshotInputDto = {
       formIdentifier: formIdentifier,
       formSemanticVersion: "1.0.0",
       fieldSnapshots: formSnapshots,

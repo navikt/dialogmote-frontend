@@ -3,14 +3,14 @@ import { getFullDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
 import { Motebehov } from "@/types/shared/motebehov";
 import ReceiptRenderer from "@/common/components/motebehov/receipt/ReceiptRenderer";
-import { svarMotebehovSMFixture } from "../../../../mocks/data/fixtures/form";
+import { svarMotebehovSMOutputFixture } from "../../../../mocks/data/fixtures/form";
 
 interface Props {
   motebehov: Motebehov;
 }
 
 function Receipt({ motebehov }: Props) {
-  const fieldSnapshots = svarMotebehovSMFixture;
+  const fieldSnapshots = svarMotebehovSMOutputFixture;
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { union, object, literal, boolean, string, z } from "zod";
-import { formSnapshotSchema } from "./formSnapshotSchema";
+import { formSnapshotOutputSchema } from "./formSnapshotSchema";
 
 const skjemaType = union([literal("MELD_BEHOV"), literal("SVAR_BEHOV")]);
 
@@ -7,12 +7,7 @@ const innmelderType = union([literal("ARBEIDSTAKER"), literal("ARBEIDSGIVER")]);
 
 const motebehovFormValues = object({
   harMotebehov: boolean(),
-  formSnapshot: formSnapshotSchema.nullable(),
-  // begrunnelse: string().nullable(),
-  // onskerSykmelderDeltar: boolean().nullable(),
-  // onskerSykmelderDeltarBegrunnelse: string().nullable(),
-  // onskerTolk: boolean().nullable(),
-  // tolkSprak: string().nullable(),
+  formSnapshot: formSnapshotOutputSchema.nullable(),
 });
 
 const motebehovWithFormValues = object({

@@ -1,6 +1,9 @@
-import { FormSnapshotDto } from "@/server/service/schema/formSnapshotSchema";
+import {
+  FormSnapshotInputDto,
+  FormSnapshotOutputDto,
+} from "@/server/service/schema/formSnapshotSchema";
 
-export const meldMotebehovSMFixture: FormSnapshotDto["fieldSnapshots"] = [
+export const meldMotebehovSMFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
     fieldId: "begrunnelseText",
     fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
@@ -40,7 +43,10 @@ export const meldMotebehovSMFixture: FormSnapshotDto["fieldSnapshots"] = [
   },
 ];
 
-export const svarMotebehovSMFixture: FormSnapshotDto["fieldSnapshots"] = [
+export const meldMotebehovSMOutputFixture: FormSnapshotOutputDto["fieldSnapshots"] =
+  meldMotebehovSMFixture.map(convertMockInputFieldToMockOutputField);
+
+export const svarMotebehovSMFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
     fieldId: "harBehovRadioGroup",
     fieldLabel: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
@@ -100,7 +106,10 @@ export const svarMotebehovSMFixture: FormSnapshotDto["fieldSnapshots"] = [
   },
 ];
 
-export const meldMotebehovAGFixture: FormSnapshotDto["fieldSnapshots"] = [
+export const svarMotebehovSMOutputFixture: FormSnapshotOutputDto["fieldSnapshots"] =
+  svarMotebehovSMFixture.map(convertMockInputFieldToMockOutputField);
+
+export const meldMotebehovAGFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
     description:
       "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
@@ -139,7 +148,10 @@ export const meldMotebehovAGFixture: FormSnapshotDto["fieldSnapshots"] = [
   },
 ];
 
-export const svarMotebehovAGFixture: FormSnapshotDto["fieldSnapshots"] = [
+export const meldMotebehovAGOutputFixture: FormSnapshotOutputDto["fieldSnapshots"] =
+  meldMotebehovAGFixture.map(convertMockInputFieldToMockOutputField);
+
+export const svarMotebehovAGFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
     description:
       "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
@@ -199,3 +211,24 @@ export const svarMotebehovAGFixture: FormSnapshotDto["fieldSnapshots"] = [
     wasRequired: true,
   },
 ];
+
+export const svarMotebehovAGOutputFixture: FormSnapshotOutputDto["fieldSnapshots"] =
+  svarMotebehovAGFixture.map(convertMockInputFieldToMockOutputField);
+
+function convertMockInputFieldToMockOutputField(
+  fieldSnapshot: FormSnapshotInputDto["fieldSnapshots"][number]
+): FormSnapshotOutputDto["fieldSnapshots"][number] {
+  return fieldSnapshot.fieldType === "RADIO_GROUP" ||
+    fieldSnapshot.fieldType === "TEXT"
+    ? {
+        ...fieldSnapshot,
+        wasRequired: fieldSnapshot.wasRequired ?? true,
+        description: fieldSnapshot.description ?? null,
+      }
+    : fieldSnapshot.fieldType === "CHECKBOX_SINGLE"
+    ? {
+        ...fieldSnapshot,
+        description: fieldSnapshot.description ?? null,
+      }
+    : fieldSnapshot;
+}
