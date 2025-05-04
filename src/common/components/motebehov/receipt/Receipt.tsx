@@ -1,24 +1,21 @@
-import { BodyShort } from "@navikt/ds-react";
-import { getFullDateFormat } from "@/common/utils/dateUtils";
 import React from "react";
-import { Motebehov } from "@/types/shared/motebehov";
+import { BodyShort } from "@navikt/ds-react";
+
+import { getFullDateFormat } from "@/common/utils/dateUtils";
 import ReceiptRenderer from "@/common/components/motebehov/receipt/ReceiptRenderer";
-import { svarMotebehovSMOutputFixture } from "../../../../mocks/data/fixtures/form";
+import { FormSnapshotOutputDto } from "@/server/service/schema/formSnapshotSchema";
 
 interface Props {
-  motebehov: Motebehov;
+  opprettetDato: string;
+  formSnapshot: FormSnapshotOutputDto;
 }
 
-function Receipt({ motebehov }: Props) {
-  const fieldSnapshots = svarMotebehovSMOutputFixture;
+function Receipt({ opprettetDato, formSnapshot }: Props) {
+  const fieldSnapshots = formSnapshot.fieldSnapshots;
 
   return (
     <>
-      {motebehov.svar?.opprettetDato && (
-        <BodyShort spacing>
-          Sendt: {getFullDateFormat(motebehov.svar?.opprettetDato)}
-        </BodyShort>
-      )}
+      <BodyShort spacing>Sendt: {getFullDateFormat(opprettetDato)}</BodyShort>
 
       <ReceiptRenderer fieldSnapshots={fieldSnapshots} />
     </>
