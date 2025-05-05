@@ -7,7 +7,7 @@ function ReceiptComponent({
 }: {
   fieldSnapshot: FieldSnapshotComponent;
 }) {
-  const { fieldType, fieldLabel } = fieldSnapshot;
+  const { fieldType, label: fieldLabel } = fieldSnapshot;
 
   switch (fieldType) {
     case "TEXT":

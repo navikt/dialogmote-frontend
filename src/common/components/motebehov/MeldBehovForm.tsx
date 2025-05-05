@@ -94,7 +94,7 @@ function MeldBehovForm({
 
     formSnapshots.push({
       fieldId: behovBegrunnelseTextArea,
-      fieldLabel: begrunnelseLabel,
+      label: begrunnelseLabel,
       fieldType: "TEXT",
       value: data[behovBegrunnelseTextArea],
       description: begrunnelseDescriptionWithNoSensitiveInfoText,
@@ -103,7 +103,7 @@ function MeldBehovForm({
     formSnapshots.push({
       fieldType: "CHECKBOX_SINGLE",
       fieldId: onskerBehandlerCheckbox,
-      fieldLabel: checkboxOnskerBehandlerLabel,
+      label: checkboxOnskerBehandlerLabel,
       value: data[onskerBehandlerCheckbox],
     });
 
@@ -111,7 +111,7 @@ function MeldBehovForm({
       formSnapshots.push({
         fieldType: "TEXT",
         fieldId: onskerBehandlerBegrunnelseTextArea,
-        fieldLabel:
+        label:
           commonTextsForSvarAndMeld.formLabels
             .onskerBehandlerMedBegrunnelseLabel,
         wasRequired: true,
@@ -122,7 +122,7 @@ function MeldBehovForm({
     formSnapshots.push({
       fieldType: "CHECKBOX_SINGLE",
       fieldId: harBehovForTolkCheckbox,
-      fieldLabel: checkboxHarBehovForTolkLabel,
+      label: checkboxHarBehovForTolkLabel,
       value: data[harBehovForTolkCheckbox],
     });
 
@@ -130,7 +130,7 @@ function MeldBehovForm({
       formSnapshots.push({
         fieldType: "TEXT",
         fieldId: hvaSlagsTolkTextField,
-        fieldLabel: hvaSlagsTolkLabel,
+        label: hvaSlagsTolkLabel,
         wasRequired: true,
         value: data[hvaSlagsTolkTextField],
         description:

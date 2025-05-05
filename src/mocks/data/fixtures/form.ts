@@ -6,40 +6,39 @@ import {
 export const meldMotebehovSMFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
     fieldId: "begrunnelseText",
-    fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Dette er en begrunnelse",
+    label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
     description:
       "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
+    value: "Dette er en begrunnelse",
   },
   {
-    fieldType: "CHECKBOX_SINGLE",
     fieldId: "onskerSykmelderDeltarCheckbox",
-    fieldLabel:
+    fieldType: "CHECKBOX_SINGLE",
+    label:
       "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
     value: true,
   },
   {
-    fieldType: "TEXT",
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
-    fieldLabel:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+    fieldType: "TEXT",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
     value: "Behandler må være med",
   },
   {
-    fieldType: "CHECKBOX_SINGLE",
     fieldId: "onskerTolkCheckbox",
-    fieldLabel: "Jeg har behov for tolk.",
+    fieldType: "CHECKBOX_SINGLE",
+    label: "Jeg har behov for tolk.",
     value: true,
   },
   {
-    fieldType: "TEXT",
     fieldId: "tolkSprakText",
-    fieldLabel: "Hva slags tolk har du behov for? (Må fylles ut)",
+    fieldType: "TEXT",
+    label: "Hva slags tolk har du behov for? (Må fylles ut)",
+    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
     wasRequired: true,
     value: "Engelsk tolk",
-    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
   },
 ];
 
@@ -49,7 +48,7 @@ export const meldMotebehovSMOutputFixture: FormSnapshotOutputDto["fieldSnapshots
 export const svarMotebehovSMFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
     fieldId: "harBehovRadioGroup",
-    fieldLabel: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+    label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
     fieldType: "RADIO_GROUP",
     options: [
       {
@@ -67,42 +66,41 @@ export const svarMotebehovSMFixture: FormSnapshotInputDto["fieldSnapshots"] = [
     selectedOptionLabel: "Ja, jeg ønsker et dialogmøte.",
   },
   {
+    fieldId: "begrunnelseText",
+    fieldType: "TEXT",
+    label: "Begrunnelse (valgfri)",
     description:
       "Hva ønsker du å ta opp i møtet? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-    fieldId: "begrunnelseText",
-    fieldLabel: "Begrunnelse (valgfri)",
-    fieldType: "TEXT",
-    value: "Dette er en begrunnelse",
     wasRequired: false,
+    value: "Dette er en begrunnelse",
   },
   {
     fieldId: "onskerSykmelderDeltarCheckbox",
-    fieldLabel:
-      "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
     fieldType: "CHECKBOX_SINGLE",
+    label:
+      "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
     value: true,
   },
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
-    fieldLabel:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Behandler må være med",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
+    value: "Behandler må være med",
   },
   {
     fieldId: "onskerTolkCheckbox",
-    fieldLabel: "Jeg har behov for tolk.",
     fieldType: "CHECKBOX_SINGLE",
+    label: "Jeg har behov for tolk.",
     value: true,
   },
   {
-    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
     fieldId: "tolkSprakText",
-    fieldLabel: "Hva slags tolk har du behov for? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Engelsk tolk",
+    label: "Hva slags tolk har du behov for? (Må fylles ut)",
+    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
     wasRequired: true,
+    value: "Engelsk tolk",
   },
 ];
 
@@ -111,40 +109,39 @@ export const svarMotebehovSMOutputFixture: FormSnapshotOutputDto["fieldSnapshots
 
 export const meldMotebehovAGFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
+    fieldId: "begrunnelseText",
+    fieldType: "TEXT",
+    label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
     description:
       "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-    fieldId: "begrunnelseText",
-    fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
-    fieldType: "TEXT",
     value: "Dette er en begrunnelse",
   },
   {
     fieldId: "onskerSykmelderDeltarCheckbox",
-    fieldLabel: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
     fieldType: "CHECKBOX_SINGLE",
+    label: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
     value: true,
   },
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
-    fieldLabel:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Behandler må være med",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
+    value: "Behandler må være med",
   },
   {
     fieldId: "onskerTolkCheckbox",
-    fieldLabel: "Vi har behov for tolk.",
     fieldType: "CHECKBOX_SINGLE",
+    label: "Vi har behov for tolk.",
     value: true,
   },
   {
-    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
     fieldId: "tolkSprakText",
-    fieldLabel: "Hva slags tolk har dere behov for? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Engelsk tolk",
+    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
+    label: "Hva slags tolk har dere behov for? (Må fylles ut)",
     wasRequired: true,
+    value: "Engelsk tolk",
   },
 ];
 
@@ -153,11 +150,11 @@ export const meldMotebehovAGOutputFixture: FormSnapshotOutputDto["fieldSnapshots
 
 export const svarMotebehovAGFixture: FormSnapshotInputDto["fieldSnapshots"] = [
   {
+    fieldId: "harBehovRadioGroup",
+    fieldType: "RADIO_GROUP",
+    label: "Har dere behov for et dialogmøte med NAV?",
     description:
       "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
-    fieldId: "harBehovRadioGroup",
-    fieldLabel: "Har dere behov for et dialogmøte med NAV?",
-    fieldType: "RADIO_GROUP",
     options: [
       {
         optionId: "Ja",
@@ -174,41 +171,40 @@ export const svarMotebehovAGFixture: FormSnapshotInputDto["fieldSnapshots"] = [
     selectedOptionLabel: "Ja, vi har behov for et dialogmøte.",
   },
   {
+    fieldId: "begrunnelseText",
+    fieldType: "TEXT",
+    label: "Begrunnelse (må fylles ut)",
     description:
       "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-    fieldId: "begrunnelseText",
-    fieldLabel: "Begrunnelse (må fylles ut)",
-    fieldType: "TEXT",
-    value: "Dette er en begrunnelse",
     wasRequired: true,
+    value: "Dette er en begrunnelse",
   },
   {
     fieldId: "onskerSykmelderDeltarCheckbox",
-    fieldLabel: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
     fieldType: "CHECKBOX_SINGLE",
+    label: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
     value: true,
   },
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
-    fieldLabel:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Behandler må være med",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
+    value: "Behandler må være med",
   },
   {
     fieldId: "onskerTolkCheckbox",
-    fieldLabel: "Vi har behov for tolk.",
     fieldType: "CHECKBOX_SINGLE",
+    label: "Vi har behov for tolk.",
     value: true,
   },
   {
-    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
     fieldId: "tolkSprakText",
-    fieldLabel: "Hva slags tolk har dere behov for? (Må fylles ut)",
     fieldType: "TEXT",
-    value: "Engelsk tolk",
+    label: "Hva slags tolk har dere behov for? (Må fylles ut)",
+    description: "Oppgi for eksempel et språk eller tegnspråktolk.",
     wasRequired: true,
+    value: "Engelsk tolk",
   },
 ];
 

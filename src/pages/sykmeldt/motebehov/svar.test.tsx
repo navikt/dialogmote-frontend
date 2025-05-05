@@ -69,9 +69,8 @@ describe("svar page sykmeldt", () => {
             fieldSnapshots: [
               {
                 fieldId: "harBehovRadioGroup",
-                fieldLabel:
-                  "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
                 fieldType: "RADIO_GROUP",
+                label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
                 options: [
                   {
                     optionId: "Ja",
@@ -90,11 +89,11 @@ describe("svar page sykmeldt", () => {
                   "Nei, jeg mener det ikke er behov for et dialogmøte.",
               },
               {
+                fieldId: "begrunnelseText",
+                fieldType: "TEXT",
+                label: "Begrunnelse (må fylles ut)",
                 description:
                   "Hvorfor mener du det ikke er behov for et dialogmøte? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-                fieldId: "begrunnelseText",
-                fieldLabel: "Begrunnelse (må fylles ut)",
-                fieldType: "TEXT",
                 value: "Ingen grunn til å ha møte",
                 wasRequired: true,
               },
@@ -143,9 +142,8 @@ describe("svar page sykmeldt", () => {
             fieldSnapshots: [
               {
                 fieldId: "harBehovRadioGroup",
-                fieldLabel:
-                  "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
                 fieldType: "RADIO_GROUP",
+                label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
                 options: [
                   {
                     optionId: "Ja",
@@ -163,25 +161,25 @@ describe("svar page sykmeldt", () => {
                 selectedOptionLabel: "Ja, jeg ønsker et dialogmøte.",
               },
               {
+                fieldId: "begrunnelseText",
+                fieldType: "TEXT",
+                label: "Begrunnelse (valgfri)",
                 description:
                   "Hva ønsker du å ta opp i møtet? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-                fieldId: "begrunnelseText",
-                fieldLabel: "Begrunnelse (valgfri)",
-                fieldType: "TEXT",
                 value: "",
                 wasRequired: false,
               },
               {
                 fieldId: "onskerSykmelderDeltarCheckbox",
-                fieldLabel:
-                  "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
                 fieldType: "CHECKBOX_SINGLE",
+                label:
+                  "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
                 value: false,
               },
               {
                 fieldId: "onskerTolkCheckbox",
-                fieldLabel: "Jeg har behov for tolk.",
                 fieldType: "CHECKBOX_SINGLE",
+                label: "Jeg har behov for tolk.",
                 value: false,
               },
             ],

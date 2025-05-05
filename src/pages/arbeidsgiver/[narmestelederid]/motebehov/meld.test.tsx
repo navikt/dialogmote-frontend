@@ -58,23 +58,23 @@ describe("meld page arbeidsgiver", () => {
               fieldSnapshots: [
                 {
                   fieldId: "begrunnelseText",
-                  fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                   fieldType: "TEXT",
+                  label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                   value: "Dette er en begrunnelse",
                   description:
                     "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
                 },
                 {
-                  fieldType: "CHECKBOX_SINGLE",
                   fieldId: "onskerSykmelderDeltarCheckbox",
-                  fieldLabel:
+                  fieldType: "CHECKBOX_SINGLE",
+                  label:
                     "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
                   value: false,
                 },
                 {
-                  fieldType: "CHECKBOX_SINGLE",
                   fieldId: "onskerTolkCheckbox",
-                  fieldLabel: "Vi har behov for tolk.",
+                  fieldType: "CHECKBOX_SINGLE",
+                  label: "Vi har behov for tolk.",
                   value: false,
                 },
               ],

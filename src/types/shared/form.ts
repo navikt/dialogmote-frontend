@@ -26,8 +26,8 @@ export type FieldSnapshotComponent =
 
 interface FieldSnapshotBase {
   fieldId: string;
-  fieldLabel: string;
   fieldType: FormSnapshotFieldTypes;
+  label: string;
   description?: string | null;
 }
 

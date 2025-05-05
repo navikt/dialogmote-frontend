@@ -75,8 +75,8 @@ describe("svar page arbeidsgiver", () => {
               fieldSnapshots: [
                 {
                   fieldId: "harBehovRadioGroup",
-                  fieldLabel: "Har dere behov for et dialogmøte med NAV?",
                   fieldType: "RADIO_GROUP",
+                  label: "Har dere behov for et dialogmøte med NAV?",
                   description:
                     "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
                   options: [
@@ -97,11 +97,11 @@ describe("svar page arbeidsgiver", () => {
                     "Nei, vi har ikke behov for et dialogmøte nå.",
                 },
                 {
+                  fieldId: "begrunnelseText",
+                  fieldType: "TEXT",
+                  label: "Begrunnelse (må fylles ut)",
                   description:
                     "Hvorfor mener du det ikke er behov for et dialogmøte? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-                  fieldId: "begrunnelseText",
-                  fieldLabel: "Begrunnelse (må fylles ut)",
-                  fieldType: "TEXT",
                   value: "Ingen grunn til å ha møte",
                   wasRequired: true,
                 },
@@ -159,11 +159,11 @@ describe("svar page arbeidsgiver", () => {
               formSemanticVersion: "1.0.0",
               fieldSnapshots: [
                 {
+                  fieldId: "harBehovRadioGroup",
+                  fieldType: "RADIO_GROUP",
+                  label: "Har dere behov for et dialogmøte med NAV?",
                   description:
                     "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
-                  fieldId: "harBehovRadioGroup",
-                  fieldLabel: "Har dere behov for et dialogmøte med NAV?",
-                  fieldType: "RADIO_GROUP",
                   options: [
                     {
                       optionId: "Ja",
@@ -181,25 +181,25 @@ describe("svar page arbeidsgiver", () => {
                   selectedOptionLabel: "Ja, vi har behov for et dialogmøte.",
                 },
                 {
+                  fieldId: "begrunnelseText",
+                  fieldType: "TEXT",
+                  label: "Begrunnelse (må fylles ut)",
                   description:
                     "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-                  fieldId: "begrunnelseText",
-                  fieldLabel: "Begrunnelse (må fylles ut)",
-                  fieldType: "TEXT",
                   value: "Dette er en begrunnelse",
                   wasRequired: true,
                 },
                 {
                   fieldId: "onskerSykmelderDeltarCheckbox",
-                  fieldLabel:
-                    "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
                   fieldType: "CHECKBOX_SINGLE",
+                  label:
+                    "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
                   value: false,
                 },
                 {
                   fieldId: "onskerTolkCheckbox",
-                  fieldLabel: "Vi har behov for tolk.",
                   fieldType: "CHECKBOX_SINGLE",
+                  label: "Vi har behov for tolk.",
                   value: false,
                 },
               ],

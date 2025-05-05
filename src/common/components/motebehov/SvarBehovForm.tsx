@@ -162,7 +162,7 @@ function SvarBehovForm({
         formSnapshots.push({
           fieldType: "RADIO_GROUP",
           fieldId: motebehovRadioGroup,
-          fieldLabel: radioHarBehovLegend,
+          label: radioHarBehovLegend,
           ...motebehovRadioGroupSnapshot,
           description: radioHarBehovDescription,
         });
@@ -172,7 +172,7 @@ function SvarBehovForm({
     formSnapshots.push({
       fieldType: "TEXT",
       fieldId: svarBegrunnelseTextArea,
-      fieldLabel: svarBegrunnelseLabel,
+      label: svarBegrunnelseLabel,
       wasRequired: isSvarBegrunnelseFieldRequired,
       value: data[svarBegrunnelseTextArea],
       description: svarBegrunnelseDescription,
@@ -182,7 +182,7 @@ function SvarBehovForm({
       formSnapshots.push({
         fieldType: "CHECKBOX_SINGLE",
         fieldId: onskerBehandlerCheckbox,
-        fieldLabel: checkboxOnskerBehandlerLabel,
+        label: checkboxOnskerBehandlerLabel,
         value: data[onskerBehandlerCheckbox],
       });
 
@@ -190,7 +190,7 @@ function SvarBehovForm({
         formSnapshots.push({
           fieldType: "TEXT",
           fieldId: onskerBehandlerBegrunnelseTextArea,
-          fieldLabel:
+          label:
             commonTextsForSvarAndMeld.formLabels
               .onskerBehandlerMedBegrunnelseLabel,
           wasRequired: true,
@@ -201,7 +201,7 @@ function SvarBehovForm({
       formSnapshots.push({
         fieldType: "CHECKBOX_SINGLE",
         fieldId: harBehovForTolkCheckbox,
-        fieldLabel: checkboxHarBehovForTolkLabel,
+        label: checkboxHarBehovForTolkLabel,
         value: data[harBehovForTolkCheckbox],
       });
 
@@ -209,7 +209,7 @@ function SvarBehovForm({
         formSnapshots.push({
           fieldType: "TEXT",
           fieldId: hvaSlagsTolkTextField,
-          fieldLabel: hvaSlagsTolkLabel,
+          label: hvaSlagsTolkLabel,
           wasRequired: true,
           value: data[hvaSlagsTolkTextField],
           description:

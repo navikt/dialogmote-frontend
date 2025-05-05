@@ -55,23 +55,23 @@ describe("meld page sykmeldt", () => {
             fieldSnapshots: [
               {
                 fieldId: "begrunnelseText",
-                fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                 fieldType: "TEXT",
+                label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                 value: "Dette er en begrunnelse",
                 description:
                   "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
               },
               {
-                fieldType: "CHECKBOX_SINGLE",
                 fieldId: "onskerSykmelderDeltarCheckbox",
-                fieldLabel:
+                fieldType: "CHECKBOX_SINGLE",
+                label:
                   "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
                 value: false,
               },
               {
-                fieldType: "CHECKBOX_SINGLE",
                 fieldId: "onskerTolkCheckbox",
-                fieldLabel: "Jeg har behov for tolk.",
+                fieldType: "CHECKBOX_SINGLE",
+                label: "Jeg har behov for tolk.",
                 value: false,
               },
             ],

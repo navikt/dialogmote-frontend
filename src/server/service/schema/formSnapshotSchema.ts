@@ -15,7 +15,7 @@ const formSnapshotIdentifierSchema = z.enum([
 
 const baseFieldSnapshotSchema = z.object({
   fieldId: z.string(),
-  fieldLabel: z.string(),
+  label: z.string(),
 });
 
 const textFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
