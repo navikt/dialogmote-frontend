@@ -1,6 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import {
   Checkbox,
+  CheckboxGroup,
   Radio,
   RadioGroup,
   Textarea,
@@ -289,7 +290,7 @@ function SvarBehovForm({
         />
 
         {isYesSelected && (
-          <>
+          <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
             <Controller
               name={onskerBehandlerCheckbox}
               control={control}
@@ -372,7 +373,7 @@ function SvarBehovForm({
                 defaultValue={""}
               />
             )}
-          </>
+          </CheckboxGroup>
         )}
 
         <div className="inline-flex pt-4 gap-4">

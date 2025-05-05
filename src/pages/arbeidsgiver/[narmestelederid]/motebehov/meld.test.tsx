@@ -84,7 +84,7 @@ describe("meld page arbeidsgiver", () => {
       );
     });
 
-    it.skip("with all inputs", async () => {
+    it("with all inputs", async () => {
       const requestResolver = vi.fn();
       testServer.use(
         rest.post(`api/arbeidsgiver/motebehov`, async (req, res, ctx) => {
@@ -152,7 +152,7 @@ describe("meld page arbeidsgiver", () => {
     });
   });
 
-  it.skip("should render error summary when required inputs is invalid", async () => {
+  it("should render error summary when required inputs is invalid", async () => {
     const { user } = render(<MeldBehov />);
 
     const checkboxGroup = within(

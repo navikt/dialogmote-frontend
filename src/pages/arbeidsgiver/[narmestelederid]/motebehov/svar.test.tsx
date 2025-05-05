@@ -209,7 +209,7 @@ describe("svar page arbeidsgiver", () => {
       );
     });
 
-    it.skip("with motebehov and all inputs", async () => {
+    it("with motebehov and all inputs", async () => {
       const requestResolver = vi.fn();
       testServer.use(
         rest.post("/api/arbeidsgiver/motebehov", async (req, res, ctx) => {
@@ -287,7 +287,7 @@ describe("svar page arbeidsgiver", () => {
     });
   });
 
-  it.skip("should render error summary when required inputs is invalid", async () => {
+  it("should render error summary when required inputs is invalid", async () => {
     testServer.use(
       rest.get("/api/arbeidsgiver", (_req, res, ctx) => {
         return res(ctx.json(createSvarBehovSM()));
