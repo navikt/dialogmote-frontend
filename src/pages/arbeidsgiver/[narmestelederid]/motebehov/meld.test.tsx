@@ -62,7 +62,7 @@ describe("meld page arbeidsgiver", () => {
                   label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                   value: "Dette er en begrunnelse",
                   description:
-                    "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
+                    "Hva ønsker du å ta opp i møtet? Hva tenker du at Nav kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
                 },
                 {
                   fieldId: "onskerSykmelderDeltarCheckbox",

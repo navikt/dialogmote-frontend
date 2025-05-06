@@ -16,7 +16,7 @@ import { Skeleton } from "@navikt/ds-react";
 const texts = {
   title: "Dialogmøter",
   infoOmDialogmoter:
-    "I et dialogmøte går vi gjennom situasjonen og planlegger veien videre. De som deltar, er du, arbeidstakeren og en veileder fra NAV-kontoret, eventuelt også den som sykmelder arbeidstakeren.",
+    "I et dialogmøte går vi gjennom situasjonen og planlegger veien videre. De som deltar, er du, arbeidstakeren og en veileder fra Nav-kontoret, eventuelt også den som sykmelder arbeidstakeren.",
 };
 
 interface Props {

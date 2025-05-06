@@ -7,9 +7,9 @@ const texts = {
   svartKommer: "Du har svart at du kommer til dette dialogmøtet.",
   taKontakt: "Ta kontakt hvis tidspunktet likevel ikke passer.",
   svartVilEndre:
-    "Du har svart at du ønsker å endre tidspunkt eller sted for dette dialogmøtet.\n\nNAV-kontoret vil vurdere ønsket ditt. Du får et nytt varsel hvis møtet endres. Hvis du ikke får et nytt varsel, er det fortsatt tidspunktet og stedet i denne innkallingen som gjelder.",
+    "Du har svart at du ønsker å endre tidspunkt eller sted for dette dialogmøtet.\n\nNav-kontoret vil vurdere ønsket ditt. Du får et nytt varsel hvis møtet endres. Hvis du ikke får et nytt varsel, er det fortsatt tidspunktet og stedet i denne innkallingen som gjelder.",
   svartKommerIkke:
-    "Du har svart at du ønsker å avlyse dette dialogmøtet.\n\nNAV-kontoret vil vurdere ønsket ditt. Du får et nytt varsel hvis møtet avlyses. Hvis du ikke får noe nytt varsel, må du fortsatt stille til møtet i denne innkallingen.\n\nSelv om du ønsker å avlyse, kan det hende NAV-kontoret likevel konkluderer med at et møte er nødvendig.",
+    "Du har svart at du ønsker å avlyse dette dialogmøtet.\n\nNav-kontoret vil vurdere ønsket ditt. Du får et nytt varsel hvis møtet avlyses. Hvis du ikke får noe nytt varsel, må du fortsatt stille til møtet i denne innkallingen.\n\nSelv om du ønsker å avlyse, kan det hende Nav-kontoret likevel konkluderer med at et møte er nødvendig.",
 };
 
 const JegKommer = (): ReactElement => {

@@ -24,10 +24,10 @@ export const commonTextsForSMSvarAndMeld = {
 };
 
 const texts = {
-  title: "Ønsker du et dialogmøte med NAV?",
+  title: "Ønsker du et dialogmøte med Nav?",
   formLabels: {
     legendRadioHarBehov:
-      "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+      "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
     radioYes: "Ja, jeg ønsker et dialogmøte.",
     radioNo: "Nei, jeg mener det ikke er behov for et dialogmøte.",
     svarBegrunnelseDescriptionIfYes: "Hva ønsker du å ta opp i møtet?",
@@ -40,7 +40,7 @@ export const sykmeldtLesMerLenkerSentence = (
   <>
     Les mer om{" "}
     <Link href={SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL} target="_blank">
-      dialogmøte med NAV
+      dialogmøte med Nav
       <ExternalLinkIcon title="åpner i ny fane-ikon" />
     </Link>{" "}
     og{" "}

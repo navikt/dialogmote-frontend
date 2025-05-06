@@ -13,7 +13,7 @@ const HvaErEtDialogmoteSM = () => {
       </Heading>
 
       <BodyLong>
-        I dialogmøtet skal du, arbeidsgiveren og veilederen din i NAV sammen
+        I dialogmøtet skal du, arbeidsgiveren og veilederen din i Nav sammen
         finne muligheter som kan bidra til at du får en best mulig
         arbeidshverdag ut fra din helsesituasjon. Målet er å lage en plan for å
         komme tilbake i jobb. Hvis det er behov, kan behandleren din også delta.
@@ -48,7 +48,7 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
         </Heading>
 
         <BodyLong>
-          Innen du har vært sykmeldt i 6 måneder, kan du forvente at NAV
+          Innen du har vært sykmeldt i 6 måneder, kan du forvente at Nav
           vurderer om det skal gjennomføres et dialogmøte. Hvis du trenger et
           slikt møte før eller senere, kan du be om det nedenfor.
         </BodyLong>
@@ -67,7 +67,7 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
 
         <BodyLong>
           Når du har vært sykmeldt i 4 måneder ber vi deg og lederen din om å
-          svare på om dere trenger et dialogmøte med NAV. Veilederen bruker
+          svare på om dere trenger et dialogmøte med Nav. Veilederen bruker
           svarene til å vurdere om møtet skal avholdes eller ikke.
         </BodyLong>
 
