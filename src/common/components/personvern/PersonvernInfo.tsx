@@ -5,7 +5,7 @@ import { useAmplitude } from "@/common/hooks/useAmplitude";
 
 const texts = {
   bottomText: "Vi bruker opplysningene også til å gjøre selve tjenesten bedre.",
-  bottomUrl: "Les mer om hvordan NAV behandler personopplysninger.",
+  bottomUrl: "Les mer om hvordan Nav behandler personopplysninger.",
 };
 
 const PersonvernInfo = () => {

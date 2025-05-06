@@ -73,7 +73,7 @@ export const TestScenarioSelector = () => {
                 <RadioWithHelpText
                   value={"SVAR_BEHOV"}
                   helpText={
-                    "Jeg har fått spørsmål om jeg trenger dialogmøte fra NAV"
+                    "Jeg har fått spørsmål om jeg trenger dialogmøte fra Nav"
                   }
                 >
                   Svar på møtebehov

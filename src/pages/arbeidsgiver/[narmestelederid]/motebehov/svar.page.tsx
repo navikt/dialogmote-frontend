@@ -18,7 +18,7 @@ import {
 
 export const commonTextsForSvarAGAndSM = {
   topBodyText:
-    "Senest innen 26 ukers sykefravær kaller NAV inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
+    "Senest innen 26 ukers sykefravær kaller Nav inn til et dialogmøte, med mindre det er åpenbart unødvendig. Vi ber om at du fyller ut og sender inn skjemaet nedenfor for å hjelpe oss å vurdere behovet for et slikt møte.",
 };
 
 export const commonTextsForAGSvarAndMeld = {
@@ -31,15 +31,15 @@ export const commonTextsForAGSvarAndMeld = {
 };
 
 const texts = {
-  title: "Har dere behov for et dialogmøte med NAV?",
+  title: "Har dere behov for et dialogmøte med Nav?",
   formLabels: {
-    radioHarBehovLegend: "Har dere behov for et dialogmøte med NAV?",
+    radioHarBehovLegend: "Har dere behov for et dialogmøte med Nav?",
     radioHarBehovDescription:
       "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
     radioYes: "Ja, vi har behov for et dialogmøte.",
     radioNo: "Nei, vi har ikke behov for et dialogmøte nå.",
     svarBegrunnelseDescriptionIfYes:
-      "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med?",
+      "Hva ønsker du å ta opp i møtet? Hva tenker du at Nav kan bistå med?",
     svarBegrunnelseDescriptionIfNo:
       "Hvorfor mener du det ikke er behov for et dialogmøte?",
   },
@@ -49,7 +49,7 @@ export const arbeidsgiverLesMerLenkerSentence = (
   <>
     Les mer om{" "}
     <Link href={ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL} target="_blank">
-      dialogmøte med NAV
+      dialogmøte med Nav
       <ExternalLinkIcon title="åpner i ny fane-ikon" />
     </Link>{" "}
     og{" "}
