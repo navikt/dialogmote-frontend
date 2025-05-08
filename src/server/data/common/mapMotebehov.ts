@@ -10,8 +10,8 @@ const mapMotebehovSvar = (
   if (!motebehovData) return null;
 
   return {
-    harMotebehov: motebehovData.motebehovSvar.harMotebehov,
-    forklaring: motebehovData.motebehovSvar.forklaring,
+    harMotebehov: motebehovData.formValues.harMotebehov,
+    formSnapshot: motebehovData.formValues.formSnapshot,
     opprettetDato: motebehovData.opprettetDato,
     virksomhetsnummer: motebehovData.virksomhetsnummer,
   };
@@ -27,7 +27,7 @@ export const mapMotebehov = (
   if (displayMotebehov && motebehovStatus.skjemaType) {
     return {
       skjemaType: motebehovStatus.skjemaType,
-      svar: mapMotebehovSvar(motebehovStatus.motebehov),
+      svar: mapMotebehovSvar(motebehovStatus.motebehovWithFormValues),
     };
   }
 

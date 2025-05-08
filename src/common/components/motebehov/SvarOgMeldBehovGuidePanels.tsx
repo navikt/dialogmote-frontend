@@ -8,14 +8,14 @@ export const texts = {
   headingSvarBehov: "Før du svarer",
   headingMeldBehov: "Før du ber om dialogmøte",
   gjorDetteForSvarBehovInfo:
-    "Før et dialogmøte med NAV bør arbeidsgiver og den ansatte ha avholdt «dialogmøte 1», og dere bør sammen ha laget en oppfølgingsplan.",
+    "Før et dialogmøte med Nav bør arbeidsgiver og den ansatte ha avholdt «dialogmøte 1», og dere bør sammen ha laget en oppfølgingsplan.",
   gjorDetteForMeldBehovInfo:
     "Arbeidsgiver og den ansatte bør først avholde «dialogmøte 1», og dere bør sammen ha laget en oppfølgingsplan.",
   lesMerOmDinePlikterLink: "Les mer om dine plikter som arbeidsgiver",
   oppfolgingsPlanDelOgOpprettInfo:
-    "Oppfølgingsplanen skal deles med NAV i forkant av møtet. Er oppfølgingsplan ikke laget? Du kan starte å utarbeide en oppfølgingsplan fra menypunktet «Oppfølgingsplaner».",
+    "Oppfølgingsplanen skal deles med Nav i forkant av møtet. Er oppfølgingsplan ikke laget? Du kan starte å utarbeide en oppfølgingsplan fra menypunktet «Oppfølgingsplaner».",
   svarBehovOkASvareNeiInfo:
-    "Om du mener at det ikke er behov for et dialogmøte med NAV, er det helt i orden at du svarer nei, og gir oss en begrunnelse.",
+    "Om du mener at det ikke er behov for et dialogmøte med Nav, er det helt i orden at du svarer nei, og gir oss en begrunnelse.",
 };
 
 export const ArbeidsgiverSvarPaaBehovGuidePanel = () => (

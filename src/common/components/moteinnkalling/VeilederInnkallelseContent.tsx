@@ -5,9 +5,9 @@ import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { Events } from "@/common/amplitude/events";
 
 const texts = {
-  veilederText1: "Har du blitt kalt inn til et videomøte med NAV? ",
+  veilederText1: "Har du blitt kalt inn til et videomøte med Nav? ",
   veilederText2: "Les denne veiledningen, så du er forberedt til møtestart. ",
-  veilederLink1: "Slik deltar du i videomøte med NAV.",
+  veilederLink1: "Slik deltar du i videomøte med Nav.",
 };
 
 function VeilederInnkallelseContent(): ReactElement {

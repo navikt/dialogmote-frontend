@@ -6,6 +6,7 @@ import { rest } from "msw";
 import { testServer } from "../../../mocks/testServer";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { meldMotebehovSMFixture } from "../../../mocks/data/fixtures/form";
 
 describe("meld page sykmeldt", () => {
   beforeEach(() => {
@@ -54,23 +55,23 @@ describe("meld page sykmeldt", () => {
             fieldSnapshots: [
               {
                 fieldId: "begrunnelseText",
-                fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                 fieldType: "TEXT",
+                label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
                 value: "Dette er en begrunnelse",
                 description:
                   "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
               },
               {
-                fieldType: "CHECKBOX_SINGLE",
                 fieldId: "onskerSykmelderDeltarCheckbox",
-                fieldLabel:
+                fieldType: "CHECKBOX_SINGLE",
+                label:
                   "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
                 value: false,
               },
               {
-                fieldType: "CHECKBOX_SINGLE",
                 fieldId: "onskerTolkCheckbox",
-                fieldLabel: "Jeg har behov for tolk.",
+                fieldType: "CHECKBOX_SINGLE",
+                label: "Jeg har behov for tolk.",
                 value: false,
               },
             ],
@@ -97,13 +98,8 @@ describe("meld page sykmeldt", () => {
         "Dette er en begrunnelse"
       );
 
-      const checkboxGroup = within(
-        await screen.findByRole("group", {
-          name: "Andre valg",
-        })
-      );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
         })
       );
@@ -114,7 +110,7 @@ describe("meld page sykmeldt", () => {
         "Behandler må være med"
       );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg har behov for tolk.",
         })
       );
@@ -136,45 +132,7 @@ describe("meld page sykmeldt", () => {
           formSnapshot: {
             formIdentifier: "motebehov-arbeidstaker-meld",
             formSemanticVersion: "1.0.0",
-            fieldSnapshots: [
-              {
-                fieldId: "begrunnelseText",
-                fieldLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
-                fieldType: "TEXT",
-                value: "Dette er en begrunnelse",
-                description:
-                  "Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
-              },
-              {
-                fieldType: "CHECKBOX_SINGLE",
-                fieldId: "onskerSykmelderDeltarCheckbox",
-                fieldLabel:
-                  "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-                value: true,
-              },
-              {
-                fieldType: "TEXT",
-                fieldId: "onskerSykmelderDeltarBegrunnelseText",
-                fieldLabel:
-                  "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
-                wasRequired: true,
-                value: "Behandler må være med",
-              },
-              {
-                fieldType: "CHECKBOX_SINGLE",
-                fieldId: "onskerTolkCheckbox",
-                fieldLabel: "Jeg har behov for tolk.",
-                value: true,
-              },
-              {
-                fieldType: "TEXT",
-                fieldId: "tolkSprakText",
-                fieldLabel: "Hva slags tolk har du behov for? (Må fylles ut)",
-                wasRequired: true,
-                value: "Engelsk tolk",
-                description: "Oppgi for eksempel et språk eller tegnspråktolk.",
-              },
-            ],
+            fieldSnapshots: meldMotebehovSMFixture,
           },
         })
       );
@@ -184,16 +142,13 @@ describe("meld page sykmeldt", () => {
   it("should render error summary when required inputs is invalid", async () => {
     const { user } = render(<MeldBehov />);
 
-    const checkboxGroup = within(
-      await screen.findByRole("group", { name: "Andre valg" })
-    );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
       })
     );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg har behov for tolk.",
       })
     );
