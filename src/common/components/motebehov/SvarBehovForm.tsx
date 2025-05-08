@@ -1,7 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import {
   Checkbox,
-  CheckboxGroup,
   Radio,
   RadioGroup,
   Textarea,
@@ -38,7 +37,6 @@ const texts = {
   formLabels: {
     svarBegrunnelseLabelRequired: "Begrunnelse (må fylles ut)",
     svarBegrunnelseLabelOptional: "Begrunnelse (valgfri)",
-    checkboxesLegend: "Andre valg",
   },
   validation: {
     requiredYesOrNo: "Du må velge ja eller nei for å kunne sende inn skjemaet.",
@@ -290,7 +288,7 @@ function SvarBehovForm({
         />
 
         {isYesSelected && (
-          <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
+          <>
             <Controller
               name={onskerBehandlerCheckbox}
               control={control}
@@ -373,7 +371,7 @@ function SvarBehovForm({
                 defaultValue={""}
               />
             )}
-          </CheckboxGroup>
+          </>
         )}
 
         <div className="inline-flex pt-4 gap-4">

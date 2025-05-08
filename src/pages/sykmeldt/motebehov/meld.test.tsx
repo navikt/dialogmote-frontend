@@ -98,13 +98,8 @@ describe("meld page sykmeldt", () => {
         "Dette er en begrunnelse"
       );
 
-      const checkboxGroup = within(
-        await screen.findByRole("group", {
-          name: "Andre valg",
-        })
-      );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
         })
       );
@@ -115,7 +110,7 @@ describe("meld page sykmeldt", () => {
         "Behandler må være med"
       );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg har behov for tolk.",
         })
       );
@@ -147,16 +142,13 @@ describe("meld page sykmeldt", () => {
   it("should render error summary when required inputs is invalid", async () => {
     const { user } = render(<MeldBehov />);
 
-    const checkboxGroup = within(
-      await screen.findByRole("group", { name: "Andre valg" })
-    );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
       })
     );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg har behov for tolk.",
       })
     );

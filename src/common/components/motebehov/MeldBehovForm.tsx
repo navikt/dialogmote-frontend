@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { Checkbox, CheckboxGroup, Textarea, TextField } from "@navikt/ds-react";
+import { Checkbox, Textarea, TextField } from "@navikt/ds-react";
 
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
@@ -17,9 +17,6 @@ const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
 const MAX_LENGTH_HVA_SLAGS_TOLK = 100;
 
 const texts = {
-  formLabels: {
-    checkboxesLegend: "Andre valg",
-  },
   validation: {
     requiredBehovBegrunnelse: "Du må oppgi hvorfor du ønsker et dialogmøte.",
     maxLengthBehovBegrunnelse: `Maks ${MAX_LENGTH_BEHOV_BEGRUNNELSE} tegn er tillatt i dette feltet.`,
@@ -175,87 +172,85 @@ function MeldBehovForm({
           )}
         />
 
-        <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
-          <Controller
-            name={onskerBehandlerCheckbox}
-            control={control}
-            render={({ field }) => (
-              <Checkbox {...field} checked={field.value}>
-                {checkboxOnskerBehandlerLabel}
-              </Checkbox>
-            )}
-            defaultValue={false}
-          />
-
-          {isOnskerBehandlerDeltarChecked && (
-            <Controller
-              name={onskerBehandlerBegrunnelseTextArea}
-              control={control}
-              rules={{
-                maxLength: {
-                  value: MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE,
-                  message: texts.validation.maxLengthOnskerBehandlerBegrunnelse,
-                },
-                required: {
-                  value: isOnskerBehandlerDeltarChecked,
-                  message: texts.validation.requiredOnskerBehandlerBegrunnelse,
-                },
-              }}
-              render={({ field }) => (
-                <Textarea
-                  {...field}
-                  id={onskerBehandlerBegrunnelseTextArea}
-                  label={
-                    commonTextsForSvarAndMeld.formLabels
-                      .onskerBehandlerMedBegrunnelseLabel
-                  }
-                  maxLength={MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE}
-                  minRows={4}
-                  error={errors[onskerBehandlerBegrunnelseTextArea]?.message}
-                  className="mt-3 mb-4"
-                />
-              )}
-            />
+        <Controller
+          name={onskerBehandlerCheckbox}
+          control={control}
+          render={({ field }) => (
+            <Checkbox {...field} checked={field.value}>
+              {checkboxOnskerBehandlerLabel}
+            </Checkbox>
           )}
+          defaultValue={false}
+        />
 
+        {isOnskerBehandlerDeltarChecked && (
           <Controller
-            name={harBehovForTolkCheckbox}
+            name={onskerBehandlerBegrunnelseTextArea}
             control={control}
+            rules={{
+              maxLength: {
+                value: MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE,
+                message: texts.validation.maxLengthOnskerBehandlerBegrunnelse,
+              },
+              required: {
+                value: isOnskerBehandlerDeltarChecked,
+                message: texts.validation.requiredOnskerBehandlerBegrunnelse,
+              },
+            }}
             render={({ field }) => (
-              <Checkbox {...field} checked={field.value}>
-                {checkboxHarBehovForTolkLabel}
-              </Checkbox>
+              <Textarea
+                {...field}
+                id={onskerBehandlerBegrunnelseTextArea}
+                label={
+                  commonTextsForSvarAndMeld.formLabels
+                    .onskerBehandlerMedBegrunnelseLabel
+                }
+                maxLength={MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE}
+                minRows={4}
+                error={errors[onskerBehandlerBegrunnelseTextArea]?.message}
+                className="mt-3 mb-4"
+              />
             )}
-            defaultValue={false}
           />
+        )}
 
-          {isHarBehovForTolkChecked && (
-            <Controller
-              name={hvaSlagsTolkTextField}
-              control={control}
-              rules={{
-                required: {
-                  value: isHarBehovForTolkChecked,
-                  message: texts.validation.requiredHvaSlagsTolk,
-                },
-              }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  id={hvaSlagsTolkTextField}
-                  label={hvaSlagsTolkLabel}
-                  description={
-                    commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription
-                  }
-                  maxLength={MAX_LENGTH_HVA_SLAGS_TOLK}
-                  error={errors[hvaSlagsTolkTextField]?.message}
-                  className="mt-3 mb-2"
-                />
-              )}
-              defaultValue={""}
-            />
+        <Controller
+          name={harBehovForTolkCheckbox}
+          control={control}
+          render={({ field }) => (
+            <Checkbox {...field} checked={field.value}>
+              {checkboxHarBehovForTolkLabel}
+            </Checkbox>
           )}
-        </CheckboxGroup>
+          defaultValue={false}
+        />
+
+        {isHarBehovForTolkChecked && (
+          <Controller
+            name={hvaSlagsTolkTextField}
+            control={control}
+            rules={{
+              required: {
+                value: isHarBehovForTolkChecked,
+                message: texts.validation.requiredHvaSlagsTolk,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                id={hvaSlagsTolkTextField}
+                label={hvaSlagsTolkLabel}
+                description={
+                  commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription
+                }
+                maxLength={MAX_LENGTH_HVA_SLAGS_TOLK}
+                error={errors[hvaSlagsTolkTextField]?.message}
+                className="mt-3 mb-2"
+              />
+            )}
+            defaultValue={""}
+          />
+        )}
 
         <div className="inline-flex pt-4 gap-4">
           <SubmitButton isLoading={isSubmitting} label={texts.buttonSendInn} />

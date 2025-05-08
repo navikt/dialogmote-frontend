@@ -239,11 +239,8 @@ describe("svar page arbeidsgiver", () => {
         }),
         "Dette er en begrunnelse"
       );
-      const checkboxGroup = within(
-        await screen.findByRole("group", { name: "Andre valg" })
-      );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
         })
       );
@@ -254,7 +251,7 @@ describe("svar page arbeidsgiver", () => {
         "Behandler må være med"
       );
       await user.click(
-        checkboxGroup.getByRole("checkbox", {
+        screen.getByRole("checkbox", {
           name: "Vi har behov for tolk.",
         })
       );
@@ -305,16 +302,13 @@ describe("svar page arbeidsgiver", () => {
         name: "Ja, vi har behov for et dialogmøte.",
       })
     );
-    const checkboxGroup = within(
-      await screen.findByRole("group", { name: "Andre valg" })
-    );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
       })
     );
     await user.click(
-      checkboxGroup.getByRole("checkbox", {
+      screen.getByRole("checkbox", {
         name: "Vi har behov for tolk.",
       })
     );
