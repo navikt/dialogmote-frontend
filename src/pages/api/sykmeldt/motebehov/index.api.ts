@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { MotebehovSvarRequest } from "../../../../types/shared/motebehov";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { v4 as uuidv4 } from "uuid";
 import { getMotebehovTokenX } from "@/server/auth/tokenx";
 import { post } from "@/common/api/axios/axios";
+import { MotebehovSvarRequest } from "../../../../types/shared/motebehov";
 
 const handler = async (
   req: NextApiRequest,
@@ -24,7 +24,7 @@ const handler = async (
       virksomhetsnummer: data.sykmeldt!.orgnummer,
       motebehovSvar: {
         harMotebehov: svar.harMotebehov,
-        forklaring: svar.forklaring || null,
+        forklaring: "placeholder-tekst", //TODO: Update when receipt is ready
       },
       behandletTidspunkt: null,
       behandletVeilederIdent: null,
@@ -37,7 +37,7 @@ const handler = async (
     const token = await getMotebehovTokenX(req);
 
     await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
+      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
       "postMotebehovSMException",
       svar,
       {

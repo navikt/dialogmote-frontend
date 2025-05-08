@@ -21,7 +21,8 @@
       "@/server/*": ["server/*"],
       "@/pages/*": ["pages/*"],
       "@/context/*": ["context/*"],
-      "@/fixtures/*": ["fixtures/*"]
+      "@/fixtures/*": ["fixtures/*"],
+      "@/types/*": ["types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "setup.d.ts"],

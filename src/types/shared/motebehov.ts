@@ -1,5 +1,7 @@
 import { MotebehovSkjemaTypeDTO } from "@/server/service/schema/motebehovSchema";
 
+import { FormSnapshotDto } from "./form";
+
 export type MotebehovSkjemaType = MotebehovSkjemaTypeDTO;
 
 export interface MotebehovSvar {
@@ -16,11 +18,11 @@ export interface Motebehov {
 
 export type MotebehovSvarRequest = {
   harMotebehov: boolean;
-  forklaring?: string;
+  formSnapshot: FormSnapshotDto;
 };
 
 export type MotebehovSvarRequestAG = {
   arbeidstakerFnr: string;
   virksomhetsnummer: string;
-  motebehovSvar: MotebehovSvarRequest;
+  formSubmission: MotebehovSvarRequest;
 };

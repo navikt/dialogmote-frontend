@@ -1,159 +1,267 @@
 import { Controller, useForm } from "react-hook-form";
-import { BodyLong, Checkbox, CheckboxGroup, Textarea } from "@navikt/ds-react";
+import { Checkbox, CheckboxGroup, Textarea, TextField } from "@navikt/ds-react";
 
-import { useAmplitude } from "@/common/hooks/useAmplitude";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { Events } from "@/common/amplitude/events";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { commonTexts } from "@/common/constants/commonTexts";
+import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
+import { FormSnapshotDto, MotebehovFormIdentifier } from "types/shared/form";
+import { MotebehovSvarRequest } from "types/shared/motebehov";
 
-const BEGRUNNELSE_MAX_LENGTH = 1000;
+const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;
+const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
+const MAX_LENGTH_HVA_SLAGS_TOLK = 100;
 
 const texts = {
-  aboutRequiredFields:
-    "Alle felt må fylles ut, bortsett fra de som er markert som valgfrie.",
   formLabels: {
-    checkboxesLegend: "Meld behov for møte",
-    textAreaBegrunnelse: "Begrunnelse (valgfri)",
+    checkboxesLegend: "Andre valg",
   },
   validation: {
-    requiredHarBehovCheckbox:
-      "Du må krysse av for møtebehov for å kunne sende inn skjemaet.",
-    mustAnswerYesOrNo:
-      "Du må velge ja eller nei for å kunne sende inn skjemaet.",
-    maxLengthBegrunnelse: `Maks ${BEGRUNNELSE_MAX_LENGTH} tegn er tillatt.`,
+    requiredBehovBegrunnelse: "Du må oppgi hvorfor du ønsker et dialogmøte.",
+    maxLengthBehovBegrunnelse: `Maks ${MAX_LENGTH_BEHOV_BEGRUNNELSE} tegn er tillatt i dette feltet.`,
+    requiredOnskerBehandlerBegrunnelse:
+      "Du må begrunne hvorfor du ønsker at behandler deltar.",
+    maxLengthOnskerBehandlerBegrunnelse: `Maks ${MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE} tegn er tillatt i dette feltet.`,
+    requiredHvaSlagsTolk: "Du må oppgi hva slags tolk dere har behov for.",
   },
-  buttonSendInn: "Send inn",
+  buttonSendInn: "Be om møte",
 };
 
-const motebehovCheckbox = "motebehovCheckbox";
-const behandlerCheckbox = "behandlerCheckbox";
-const begrunnelseTextArea = "begrunnelseTextArea";
+const behovBegrunnelseTextArea = "begrunnelseText";
+const onskerBehandlerCheckbox = "onskerSykmelderDeltarCheckbox";
+const onskerBehandlerBegrunnelseTextArea =
+  "onskerSykmelderDeltarBegrunnelseText";
+const harBehovForTolkCheckbox = "onskerTolkCheckbox";
+const hvaSlagsTolkTextField = "tolkSprakText";
 
 type FormValues = {
-  [motebehovCheckbox]: boolean;
-  [behandlerCheckbox]: boolean;
-  [begrunnelseTextArea]: string;
+  [behovBegrunnelseTextArea]: string;
+  [onskerBehandlerCheckbox]: boolean;
+  [onskerBehandlerBegrunnelseTextArea]: string;
+  [harBehovForTolkCheckbox]: boolean;
+  [hvaSlagsTolkTextField]: string;
 };
 
+interface FormLabelProps {
+  begrunnelseLabel: string;
+  begrunnelseDescription?: string;
+  checkboxOnskerBehandlerLabel: string;
+  checkboxHarBehovForTolkLabel: string;
+  hvaSlagsTolkLabel: string;
+}
+
 interface Props {
-  checkboxLabelHarBehov: string;
-  checkboxLabelOnskerAtBehandlerBlirMed: string;
+  formLabels: FormLabelProps;
   isSubmitting: boolean;
   onSubmitForm: (svar: MotebehovSvarRequest) => void;
+  formIdentifier: MotebehovFormIdentifier;
 }
 
 function MeldBehovForm({
-  checkboxLabelHarBehov,
-  checkboxLabelOnskerAtBehandlerBlirMed,
+  formLabels: {
+    begrunnelseLabel,
+    begrunnelseDescription,
+    checkboxOnskerBehandlerLabel,
+    checkboxHarBehovForTolkLabel,
+    hvaSlagsTolkLabel,
+  },
   isSubmitting,
   onSubmitForm,
+  formIdentifier,
 }: Props) {
-  const { trackEvent } = useAmplitude();
-
   const {
     control,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm<FormValues>();
 
   const errorList = useErrorSummaryFormatter(errors);
 
-  function onSubmit({
-    behandlerCheckbox,
-    motebehovCheckbox,
-    begrunnelseTextArea,
-  }: FormValues) {
-    const forklaring = !!behandlerCheckbox
-      ? `${checkboxLabelOnskerAtBehandlerBlirMed} ${begrunnelseTextArea}`
-      : begrunnelseTextArea;
+  const isOnskerBehandlerDeltarChecked = watch(onskerBehandlerCheckbox);
+  const isHarBehovForTolkChecked = watch(harBehovForTolkCheckbox);
 
-    onSubmitForm({
-      harMotebehov: !!motebehovCheckbox,
-      forklaring,
+  const begrunnelseDescriptionWithNoSensitiveInfoText = begrunnelseDescription
+    ? `${begrunnelseDescription} ${commonTexts.noSensitiveInfo}`
+    : commonTexts.noSensitiveInfo;
+
+  function onSubmit(data: FormValues) {
+    const formSnapshots: FormSnapshotDto["fieldSnapshots"] = [];
+
+    formSnapshots.push({
+      fieldId: behovBegrunnelseTextArea,
+      fieldLabel: begrunnelseLabel,
+      fieldType: "TEXT",
+      value: data[behovBegrunnelseTextArea],
+      description: begrunnelseDescriptionWithNoSensitiveInfoText,
     });
-    trackEvent(Events.SendMeldBehov);
+
+    formSnapshots.push({
+      fieldType: "CHECKBOX_SINGLE",
+      fieldId: onskerBehandlerCheckbox,
+      fieldLabel: checkboxOnskerBehandlerLabel,
+      value: data[onskerBehandlerCheckbox],
+    });
+
+    if (isOnskerBehandlerDeltarChecked) {
+      formSnapshots.push({
+        fieldType: "TEXT",
+        fieldId: onskerBehandlerBegrunnelseTextArea,
+        fieldLabel:
+          commonTextsForSvarAndMeld.formLabels
+            .onskerBehandlerMedBegrunnelseLabel,
+        wasRequired: true,
+        value: data[onskerBehandlerBegrunnelseTextArea],
+      });
+    }
+
+    formSnapshots.push({
+      fieldType: "CHECKBOX_SINGLE",
+      fieldId: harBehovForTolkCheckbox,
+      fieldLabel: checkboxHarBehovForTolkLabel,
+      value: data[harBehovForTolkCheckbox],
+    });
+
+    if (isHarBehovForTolkChecked) {
+      formSnapshots.push({
+        fieldType: "TEXT",
+        fieldId: hvaSlagsTolkTextField,
+        fieldLabel: hvaSlagsTolkLabel,
+        wasRequired: true,
+        value: data[hvaSlagsTolkTextField],
+        description:
+          commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription,
+      });
+    }
+
+    const formSnapshotDto: FormSnapshotDto = {
+      formIdentifier: formIdentifier,
+      formSemanticVersion: "1.0.0",
+      fieldSnapshots: formSnapshots,
+    };
+
+    onSubmitForm({ harMotebehov: true, formSnapshot: formSnapshotDto });
   }
 
   return (
-    <>
-      <BodyLong size="medium" spacing>
-        {texts.aboutRequiredFields}
-      </BodyLong>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <DialogmotePanel>
+        <MotebehovErrorSummary errors={errorList} />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogmotePanel>
-          <MotebehovErrorSummary errors={errorList} />
-
-          <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
-            <Controller
-              name={motebehovCheckbox}
-              control={control}
-              rules={{
-                required: texts.validation.requiredHarBehovCheckbox,
-              }}
-              render={({ field }) => (
-                <Checkbox
-                  {...field}
-                  id={motebehovCheckbox}
-                  value={checkboxLabelHarBehov}
-                  error={!!errors[motebehovCheckbox]}
-                >
-                  {checkboxLabelHarBehov}
-                </Checkbox>
-              )}
+        <Controller
+          name={behovBegrunnelseTextArea}
+          control={control}
+          rules={{
+            required: texts.validation.requiredBehovBegrunnelse,
+            maxLength: {
+              value: MAX_LENGTH_BEHOV_BEGRUNNELSE,
+              message: texts.validation.maxLengthBehovBegrunnelse,
+            },
+          }}
+          render={({ field }) => (
+            <Textarea
+              {...field}
+              id={behovBegrunnelseTextArea}
+              label={begrunnelseLabel}
+              description={begrunnelseDescriptionWithNoSensitiveInfoText}
+              maxLength={MAX_LENGTH_BEHOV_BEGRUNNELSE}
+              minRows={4}
+              error={errors[behovBegrunnelseTextArea]?.message}
             />
+          )}
+        />
 
-            <Controller
-              name={behandlerCheckbox}
-              control={control}
-              render={({ field }) => (
-                <Checkbox
-                  {...field}
-                  value={checkboxLabelOnskerAtBehandlerBlirMed}
-                >
-                  {checkboxLabelOnskerAtBehandlerBlirMed}
-                </Checkbox>
-              )}
-            />
-          </CheckboxGroup>
-
+        <CheckboxGroup legend={texts.formLabels.checkboxesLegend} hideLegend>
           <Controller
-            name={begrunnelseTextArea}
+            name={onskerBehandlerCheckbox}
             control={control}
-            rules={{
-              maxLength: {
-                value: BEGRUNNELSE_MAX_LENGTH,
-                message: texts.validation.maxLengthBegrunnelse,
-              },
-            }}
             render={({ field }) => (
-              <Textarea
-                {...field}
-                id={begrunnelseTextArea}
-                label={texts.formLabels.textAreaBegrunnelse}
-                description={commonTexts.noSensitiveInfo}
-                maxLength={BEGRUNNELSE_MAX_LENGTH}
-                minRows={4}
-                error={errors[begrunnelseTextArea]?.message}
-              />
+              <Checkbox {...field} checked={field.value}>
+                {checkboxOnskerBehandlerLabel}
+              </Checkbox>
             )}
+            defaultValue={false}
           />
 
-          <div className="inline-flex pt-4 gap-4">
-            <SubmitButton
-              isLoading={isSubmitting}
-              label={texts.buttonSendInn}
+          {isOnskerBehandlerDeltarChecked && (
+            <Controller
+              name={onskerBehandlerBegrunnelseTextArea}
+              control={control}
+              rules={{
+                maxLength: {
+                  value: MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE,
+                  message: texts.validation.maxLengthOnskerBehandlerBegrunnelse,
+                },
+                required: {
+                  value: isOnskerBehandlerDeltarChecked,
+                  message: texts.validation.requiredOnskerBehandlerBegrunnelse,
+                },
+              }}
+              render={({ field }) => (
+                <Textarea
+                  {...field}
+                  id={onskerBehandlerBegrunnelseTextArea}
+                  label={
+                    commonTextsForSvarAndMeld.formLabels
+                      .onskerBehandlerMedBegrunnelseLabel
+                  }
+                  maxLength={MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE}
+                  minRows={4}
+                  error={errors[onskerBehandlerBegrunnelseTextArea]?.message}
+                  className="mt-3 mb-4"
+                />
+              )}
             />
-            <CancelButton />
-          </div>
-        </DialogmotePanel>
-      </form>
-    </>
+          )}
+
+          <Controller
+            name={harBehovForTolkCheckbox}
+            control={control}
+            render={({ field }) => (
+              <Checkbox {...field} checked={field.value}>
+                {checkboxHarBehovForTolkLabel}
+              </Checkbox>
+            )}
+            defaultValue={false}
+          />
+
+          {isHarBehovForTolkChecked && (
+            <Controller
+              name={hvaSlagsTolkTextField}
+              control={control}
+              rules={{
+                required: {
+                  value: isHarBehovForTolkChecked,
+                  message: texts.validation.requiredHvaSlagsTolk,
+                },
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  id={hvaSlagsTolkTextField}
+                  label={hvaSlagsTolkLabel}
+                  description={
+                    commonTextsForSvarAndMeld.formLabels.hvaSlagsTolkDescription
+                  }
+                  maxLength={MAX_LENGTH_HVA_SLAGS_TOLK}
+                  error={errors[hvaSlagsTolkTextField]?.message}
+                  className="mt-3 mb-2"
+                />
+              )}
+              defaultValue={""}
+            />
+          )}
+        </CheckboxGroup>
+
+        <div className="inline-flex pt-4 gap-4">
+          <SubmitButton isLoading={isSubmitting} label={texts.buttonSendInn} />
+          <CancelButton />
+        </div>
+      </DialogmotePanel>
+    </form>
   );
 }
 
