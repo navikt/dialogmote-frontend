@@ -1,4 +1,4 @@
-import { FormSnapshotOutputDto } from "@/server/service/schema/formSnapshotSchema";
+import { FormSnapshotResponseDto } from "@/server/service/schema/formSnapshotSchema";
 import { FieldSnapshotComponent } from "@/types/shared/form";
 import { FormSummary } from "@navikt/ds-react";
 
@@ -39,7 +39,7 @@ function ReceiptComponent({
 }
 
 interface Props {
-  fieldSnapshots: FormSnapshotOutputDto["fieldSnapshots"];
+  fieldSnapshots: FormSnapshotResponseDto["fieldSnapshots"];
 }
 
 function ReceiptRenderer({ fieldSnapshots }: Props) {

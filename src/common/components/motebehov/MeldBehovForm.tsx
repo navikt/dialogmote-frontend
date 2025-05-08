@@ -10,7 +10,7 @@ import { commonTexts } from "@/common/constants/commonTexts";
 import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
 import { MotebehovFormIdentifier } from "types/shared/form";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
-import { FormSnapshotInputDto } from "@/server/service/schema/formSnapshotSchema";
+import { FormSnapshotRequestDto } from "@/server/service/schema/formSnapshotSchema";
 
 const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
@@ -87,7 +87,7 @@ function MeldBehovForm({
     : commonTexts.noSensitiveInfo;
 
   function onSubmit(data: FormValues) {
-    const formSnapshots: FormSnapshotInputDto["fieldSnapshots"] = [];
+    const formSnapshots: FormSnapshotRequestDto["fieldSnapshots"] = [];
 
     formSnapshots.push({
       fieldId: behovBegrunnelseTextArea,
@@ -135,7 +135,7 @@ function MeldBehovForm({
       });
     }
 
-    const formSnapshotDto: FormSnapshotInputDto = {
+    const formSnapshotDto: FormSnapshotRequestDto = {
       formIdentifier: formIdentifier,
       formSemanticVersion: "1.0.0",
       fieldSnapshots: formSnapshots,

@@ -7,10 +7,10 @@ const formSnapshotIdentifierSchema = z.enum([
   "motebehov-arbeidstaker-meld",
 ]);
 
-// The use of "input" and "output" in schema names refers to wether the type is sent or retrieved
+// The use of "request" and "response" in schema names refers to wether the type is sent or retrieved
 // from syfomotebehov. There are slight differences in the FormSnapshot type that can be POSTed to
 // syfomotebehov, and the FormSnapshot type that will be retrieved (from GET endpoints). The difference
-// is that some fields are optional (can be undefined) in the input types, but not on the output types,
+// is that some fields are optional (can be undefined) in the request types, but not on the response types,
 // as they get default values or get set to null on the backend when not provided.
 
 const baseFieldSnapshotSchema = z.object({
@@ -24,12 +24,12 @@ const textFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
   value: z.string(),
 });
 
-const textFieldSnapshotInputSchema = textFieldSnapshotSchema.extend({
+const textFieldSnapshotRequestSchema = textFieldSnapshotSchema.extend({
   description: z.string().optional(),
   wasRequired: z.boolean().optional(),
 });
 
-const textFieldSnapshotOuputSchema = textFieldSnapshotSchema.extend({
+const textFieldSnapshotResponseSchema = textFieldSnapshotSchema.extend({
   description: z.string().nullable(),
   wasRequired: z.boolean(),
 });
@@ -39,11 +39,11 @@ const singleCheckboxFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
   value: z.boolean(),
 });
 
-const singleCheckboxFieldSnapshotInputSchema =
+const singleCheckboxFieldSnapshotRequestSchema =
   singleCheckboxFieldSnapshotSchema.extend({
     description: z.string().optional(),
   });
-const singleCheckboxFieldSnapshotOutputSchema =
+const singleCheckboxFieldSnapshotResponseSchema =
   singleCheckboxFieldSnapshotSchema.extend({
     description: z.string().nullable(),
   });
@@ -61,39 +61,42 @@ export const radioGroupFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
   options: z.array(formSnapshotFieldOptionSchema),
 });
 
-const radioGroupFieldSnapshotInputSchema = radioGroupFieldSnapshotSchema.extend(
-  {
+const radioGroupFieldSnapshotRequestSchema =
+  radioGroupFieldSnapshotSchema.extend({
     description: z.string().optional(),
     wasRequired: z.boolean().optional(),
-  }
-);
-const radioGroupFieldSnapshotOutputSchema =
+  });
+const radioGroupFieldSnapshotResponseSchema =
   radioGroupFieldSnapshotSchema.extend({
     description: z.string().nullable(),
     wasRequired: z.boolean(),
   });
 
-export const formSnapshotInputSchema = z.object({
+export const formSnapshotRequestSchema = z.object({
   formIdentifier: formSnapshotIdentifierSchema,
   formSemanticVersion: z.string(),
   fieldSnapshots: z.array(
     z.union([
-      textFieldSnapshotInputSchema,
-      singleCheckboxFieldSnapshotInputSchema,
-      radioGroupFieldSnapshotInputSchema,
+      textFieldSnapshotRequestSchema,
+      singleCheckboxFieldSnapshotRequestSchema,
+      radioGroupFieldSnapshotRequestSchema,
     ])
   ),
 });
 
-export const formSnapshotOutputSchema = formSnapshotInputSchema.extend({
+export const formSnapshotResponseSchema = z.object({
+  formIdentifier: formSnapshotIdentifierSchema,
+  formSemanticVersion: z.string(),
   fieldSnapshots: z.array(
     z.union([
-      textFieldSnapshotOuputSchema,
-      singleCheckboxFieldSnapshotOutputSchema,
-      radioGroupFieldSnapshotOutputSchema,
+      textFieldSnapshotResponseSchema,
+      singleCheckboxFieldSnapshotResponseSchema,
+      radioGroupFieldSnapshotResponseSchema,
     ])
   ),
 });
 
-export type FormSnapshotInputDto = z.infer<typeof formSnapshotInputSchema>;
-export type FormSnapshotOutputDto = z.infer<typeof formSnapshotOutputSchema>;
+export type FormSnapshotRequestDto = z.infer<typeof formSnapshotRequestSchema>;
+export type FormSnapshotResponseDto = z.infer<
+  typeof formSnapshotResponseSchema
+>;

@@ -3,11 +3,11 @@ import { BodyShort } from "@navikt/ds-react";
 
 import { getFullDateFormat } from "@/common/utils/dateUtils";
 import ReceiptRenderer from "@/common/components/motebehov/receipt/ReceiptRenderer";
-import { FormSnapshotOutputDto } from "@/server/service/schema/formSnapshotSchema";
+import { FormSnapshotResponseDto } from "@/server/service/schema/formSnapshotSchema";
 
 interface Props {
   opprettetDato: string;
-  formSnapshot: FormSnapshotOutputDto;
+  formSnapshot: FormSnapshotResponseDto;
 }
 
 function Receipt({ opprettetDato, formSnapshot }: Props) {
