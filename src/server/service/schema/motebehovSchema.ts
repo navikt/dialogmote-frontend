@@ -18,15 +18,15 @@ const motebehov = object({
   tildeltEnhet: string().nullable(),
   behandletTidspunkt: string().nullable(),
   behandletVeilederIdent: string().nullable(),
-  skjemaType: skjemaType.nullable(),
+  skjemaType: skjemaType,
 });
 
-export const motebehovSchema = object({
+export const motebehovStatusSchema = object({
   visMotebehov: boolean(),
-  skjemaType: skjemaType.nullable(),
+  skjemaType: skjemaType,
   motebehov: motebehov.nullable(),
 });
 
-export type MotebehovDTO = z.infer<typeof motebehovSchema>;
+export type MotebehovStatusDTO = z.infer<typeof motebehovStatusSchema>;
 export type MotebehovDataDTO = z.infer<typeof motebehov>;
 export type MotebehovSkjemaTypeDTO = z.infer<typeof skjemaType>;

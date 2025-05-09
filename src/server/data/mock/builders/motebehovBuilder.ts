@@ -1,16 +1,16 @@
 import {
   MotebehovDataDTO,
-  MotebehovDTO,
+  MotebehovStatusDTO,
   MotebehovSkjemaTypeDTO,
 } from "@/server/service/schema/motebehovSchema";
 
 export class MotebehovBuilder {
-  private readonly motebehov: MotebehovDTO;
+  private readonly motebehov: MotebehovStatusDTO;
 
   constructor() {
     this.motebehov = {
       visMotebehov: false,
-      skjemaType: null,
+      skjemaType: "MELD_BEHOV",
       motebehov: null,
     };
   }
@@ -30,7 +30,7 @@ export class MotebehovBuilder {
     return this;
   }
 
-  build(): MotebehovDTO {
+  build(): MotebehovStatusDTO {
     return this.motebehov;
   }
 }

@@ -3,7 +3,7 @@ import { handleQueryParamError } from "../../utils/errors";
 import { NextApiRequest } from "next";
 import { TEST_SESSION_ID } from "@/common/api/axios/axios";
 import { Brev } from "../../../types/shared/brev";
-import { MotebehovDTO } from "@/server/service/schema/motebehovSchema";
+import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 
 export type TestScenario =
@@ -16,7 +16,7 @@ export type TestScenario =
 export interface MockSetup {
   sykmeldt?: SykmeldtDTO; //For arbeidsgiver
   brev: Brev[];
-  motebehov: MotebehovDTO;
+  motebehov: MotebehovStatusDTO;
   activeTestScenario: TestScenario;
 }
 
