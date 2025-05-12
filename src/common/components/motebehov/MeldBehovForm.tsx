@@ -8,9 +8,11 @@ import { CancelButton } from "@/common/components/button/CancelButton";
 import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
 import { commonTexts } from "@/common/constants/commonTexts";
 import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
-import { MotebehovFormIdentifier } from "types/shared/form";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
-import { FormSnapshotRequestDto } from "@/server/service/schema/formSnapshotSchema";
+import {
+  FormSnapshotRequestDto,
+  MotebehovFormIdentifier,
+} from "@/server/service/schema/formSnapshotSchema";
 
 const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;

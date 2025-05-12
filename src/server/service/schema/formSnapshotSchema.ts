@@ -7,6 +7,10 @@ const formSnapshotIdentifierSchema = z.enum([
   "motebehov-arbeidstaker-meld",
 ]);
 
+export type MotebehovFormIdentifier = z.infer<
+  typeof formSnapshotIdentifierSchema
+>;
+
 // The use of "request" and "response" in schema names refers to wether the type is sent or retrieved
 // from syfomotebehov. There are slight differences in the FormSnapshot type that can be POSTed to
 // syfomotebehov, and the FormSnapshot type that will be retrieved (from GET endpoints). The difference
@@ -48,13 +52,17 @@ const singleCheckboxFieldSnapshotResponseSchema =
     description: z.string().nullable(),
   });
 
-export const formSnapshotFieldOptionSchema = z.object({
+const formSnapshotFieldOptionSchema = z.object({
   optionId: z.string(),
   optionLabel: z.string(),
   wasSelected: z.boolean(),
 });
 
-export const radioGroupFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
+export type FieldSnapshotFieldOption = z.infer<
+  typeof formSnapshotFieldOptionSchema
+>;
+
+const radioGroupFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
   fieldType: z.literal("RADIO_GROUP"),
   selectedOptionId: z.string(),
   selectedOptionLabel: z.string(),
@@ -66,6 +74,11 @@ const radioGroupFieldSnapshotRequestSchema =
     description: z.string().optional(),
     wasRequired: z.boolean().optional(),
   });
+
+export type RadioGroupFieldSnapshotRequest = z.infer<
+  typeof radioGroupFieldSnapshotRequestSchema
+>;
+
 const radioGroupFieldSnapshotResponseSchema =
   radioGroupFieldSnapshotSchema.extend({
     description: z.string().nullable(),

@@ -1,13 +1,13 @@
 import {
-  FormSnapshotFieldOption,
-  RadioGroupFieldSnapshot,
-} from "../../types/shared/form";
+  FieldSnapshotFieldOption,
+  RadioGroupFieldSnapshotRequest,
+} from "@/server/service/schema/formSnapshotSchema";
 
 export function getSelectedRadioOption(
-  options: Pick<FormSnapshotFieldOption, "optionId" | "optionLabel">[],
+  options: Pick<FieldSnapshotFieldOption, "optionId" | "optionLabel">[],
   selectedKey: string
 ): Pick<
-  RadioGroupFieldSnapshot,
+  RadioGroupFieldSnapshotRequest,
   "selectedOptionId" | "selectedOptionLabel" | "options"
 > | null {
   const selectedOption = options.find(
