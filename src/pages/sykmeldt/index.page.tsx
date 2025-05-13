@@ -15,7 +15,7 @@ import { MotebehovPanelSM } from "@/common/components/motebehov/panel/MotebehovP
 const texts = {
   title: "Dialogmøter",
   text1:
-    "Ønsker du å snakke med NAV om sykepenger eller noe annet enn det vi skal snakke om i et dialogmøte, kan du ",
+    "Ønsker du å snakke med Nav om sykepenger eller noe annet enn det vi skal snakke om i et dialogmøte, kan du ",
   text2: "kontakte oss på andre måter.",
 };
 

@@ -7,7 +7,7 @@ import { useAmplitude } from "@/common/hooks/useAmplitude";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
 const texts = {
-  alertstripe: "Husk å dele oppfølgingsplanen med NAV før møtet.",
+  alertstripe: "Husk å dele oppfølgingsplanen med Nav før møtet.",
   oppfolgingsplanlink: "Gå til oppfølgingsplanen.",
 };
 

@@ -48,7 +48,7 @@ export const meldMotebehovSMResponseFixture: ResponseFieldSnapshot[] =
 export const svarMotebehovSMFixture: FieldSnapshot[] = [
   {
     fieldId: "harBehovRadioGroup",
-    label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+    label: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
     fieldType: "RADIO_GROUP",
     options: [
       {
@@ -113,7 +113,7 @@ export const meldMotebehovAGFixture: FieldSnapshot[] = [
     fieldType: "TEXT",
     label: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
     description:
-      "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
+      "Hva ønsker du å ta opp i møtet? Hva tenker du at Nav kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
     value: "Dette er en begrunnelse",
   },
   {
@@ -152,7 +152,7 @@ export const svarMotebehovAGFixture: FieldSnapshot[] = [
   {
     fieldId: "harBehovRadioGroup",
     fieldType: "RADIO_GROUP",
-    label: "Har dere behov for et dialogmøte med NAV?",
+    label: "Har dere behov for et dialogmøte med Nav?",
     description:
       "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
     options: [
@@ -175,7 +175,7 @@ export const svarMotebehovAGFixture: FieldSnapshot[] = [
     fieldType: "TEXT",
     label: "Begrunnelse (må fylles ut)",
     description:
-      "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
+      "Hva ønsker du å ta opp i møtet? Hva tenker du at Nav kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
     wasRequired: true,
     value: "Dette er en begrunnelse",
   },

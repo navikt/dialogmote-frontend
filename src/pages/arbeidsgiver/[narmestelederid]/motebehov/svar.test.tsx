@@ -43,7 +43,7 @@ describe("svar page arbeidsgiver", () => {
 
       const radioGroup = within(
         await screen.findByRole("group", {
-          name: "Har dere behov for et dialogmøte med NAV?",
+          name: "Har dere behov for et dialogmøte med Nav?",
         })
       );
       await user.click(
@@ -76,7 +76,7 @@ describe("svar page arbeidsgiver", () => {
                 {
                   fieldId: "harBehovRadioGroup",
                   fieldType: "RADIO_GROUP",
-                  label: "Har dere behov for et dialogmøte med NAV?",
+                  label: "Har dere behov for et dialogmøte med Nav?",
                   description:
                     "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
                   options: [
@@ -128,7 +128,7 @@ describe("svar page arbeidsgiver", () => {
 
       const radioGroup = within(
         await screen.findByRole("group", {
-          name: "Har dere behov for et dialogmøte med NAV?",
+          name: "Har dere behov for et dialogmøte med Nav?",
         })
       );
       await user.click(
@@ -161,7 +161,7 @@ describe("svar page arbeidsgiver", () => {
                 {
                   fieldId: "harBehovRadioGroup",
                   fieldType: "RADIO_GROUP",
-                  label: "Har dere behov for et dialogmøte med NAV?",
+                  label: "Har dere behov for et dialogmøte med Nav?",
                   description:
                     "Du svarer på vegne av arbeidsgiver. Den ansatte har fått det samme spørsmålet og svarer på vegne av seg selv.",
                   options: [
@@ -185,7 +185,7 @@ describe("svar page arbeidsgiver", () => {
                   fieldType: "TEXT",
                   label: "Begrunnelse (må fylles ut)",
                   description:
-                    "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
+                    "Hva ønsker du å ta opp i møtet? Hva tenker du at Nav kan bistå med? Ikke skriv sensitiv informasjon, for eksempel detaljerte opplysninger om helse.",
                   value: "Dette er en begrunnelse",
                   wasRequired: true,
                 },
@@ -225,7 +225,7 @@ describe("svar page arbeidsgiver", () => {
 
       const radioGroup = within(
         await screen.findByRole("group", {
-          name: "Har dere behov for et dialogmøte med NAV?",
+          name: "Har dere behov for et dialogmøte med Nav?",
         })
       );
       await user.click(
@@ -294,7 +294,7 @@ describe("svar page arbeidsgiver", () => {
 
     const radioGroup = within(
       await screen.findByRole("group", {
-        name: "Har dere behov for et dialogmøte med NAV?",
+        name: "Har dere behov for et dialogmøte med Nav?",
       })
     );
     await user.click(

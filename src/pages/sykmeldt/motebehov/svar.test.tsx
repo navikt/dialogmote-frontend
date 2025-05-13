@@ -40,7 +40,7 @@ describe("svar page sykmeldt", () => {
 
       const radioGroup = within(
         await screen.findByRole("group", {
-          name: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+          name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
         })
       );
       await user.click(
@@ -70,7 +70,7 @@ describe("svar page sykmeldt", () => {
               {
                 fieldId: "harBehovRadioGroup",
                 fieldType: "RADIO_GROUP",
-                label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+                label: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
                 options: [
                   {
                     optionId: "Ja",
@@ -119,7 +119,7 @@ describe("svar page sykmeldt", () => {
 
       const radioGroup = within(
         await screen.findByRole("group", {
-          name: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+          name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
         })
       );
       await user.click(
@@ -143,7 +143,7 @@ describe("svar page sykmeldt", () => {
               {
                 fieldId: "harBehovRadioGroup",
                 fieldType: "RADIO_GROUP",
-                label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+                label: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
                 options: [
                   {
                     optionId: "Ja",
@@ -204,7 +204,7 @@ describe("svar page sykmeldt", () => {
 
       const radioGroup = within(
         await screen.findByRole("group", {
-          name: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+          name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
         })
       );
       await user.click(
@@ -270,7 +270,7 @@ describe("svar page sykmeldt", () => {
 
     const radioGroup = within(
       await screen.findByRole("group", {
-        name: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
+        name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
       })
     );
     await user.click(

@@ -11,9 +11,9 @@ import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 import { MotebehovSvarRequest } from "../../../types/shared/motebehov";
 
 const texts = {
-  title: "Be om dialogmøte med NAV",
+  title: "Be om dialogmøte med Nav",
   topBodyText:
-    "Du kan når som helst i sykefraværsperioden be om at NAV avholder et dialogmøte med deg og din arbeidsgiver. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
+    "Du kan når som helst i sykefraværsperioden be om at Nav avholder et dialogmøte med deg og din arbeidsgiver. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
   formLabels: {
     begrunnelseLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
   },
