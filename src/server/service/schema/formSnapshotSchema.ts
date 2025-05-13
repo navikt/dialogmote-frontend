@@ -85,16 +85,18 @@ const radioGroupFieldSnapshotResponseSchema =
     wasRequired: z.boolean(),
   });
 
+const fieldSnapshotSchema = z.union([
+  textFieldSnapshotRequestSchema,
+  singleCheckboxFieldSnapshotRequestSchema,
+  radioGroupFieldSnapshotRequestSchema,
+]);
+
+export type FieldSnapshot = z.infer<typeof fieldSnapshotSchema>;
+
 export const formSnapshotRequestSchema = z.object({
   formIdentifier: formSnapshotIdentifierSchema,
   formSemanticVersion: z.string(),
-  fieldSnapshots: z.array(
-    z.union([
-      textFieldSnapshotRequestSchema,
-      singleCheckboxFieldSnapshotRequestSchema,
-      radioGroupFieldSnapshotRequestSchema,
-    ])
-  ),
+  fieldSnapshots: z.array(fieldSnapshotSchema),
 });
 
 export const formSnapshotResponseSchema = z.object({

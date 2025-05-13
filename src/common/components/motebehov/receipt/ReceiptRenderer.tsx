@@ -1,11 +1,10 @@
-import { FormSnapshotResponseDto } from "@/server/service/schema/formSnapshotSchema";
+import {
+  FieldSnapshot,
+  FormSnapshotResponseDto,
+} from "@/server/service/schema/formSnapshotSchema";
 import { FormSummary } from "@navikt/ds-react";
 
-function ReceiptComponent({
-  fieldSnapshot,
-}: {
-  fieldSnapshot: FormSnapshotResponseDto["fieldSnapshots"][number];
-}) {
+function ReceiptComponent({ fieldSnapshot }: { fieldSnapshot: FieldSnapshot }) {
   const { fieldType, label: fieldLabel } = fieldSnapshot;
 
   switch (fieldType) {
