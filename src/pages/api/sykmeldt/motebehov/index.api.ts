@@ -6,8 +6,8 @@ import { getMotebehovTokenX } from "@/server/auth/tokenx";
 import { post } from "@/common/api/axios/axios";
 import { MotebehovSvarRequest } from "../../../../types/shared/motebehov";
 import {
-  meldMotebehovSMOutputFixture,
-  svarMotebehovSMOutputFixture,
+  meldMotebehovSMResponseFixture,
+  svarMotebehovSMResponseFixture,
 } from "mocks/data/fixtures/form";
 
 const handler = async (
@@ -40,12 +40,12 @@ const handler = async (
             ? {
                 formIdentifier: "motebehov-arbeidstaker-svar",
                 formSemanticVersion: "1.0.0",
-                fieldSnapshots: svarMotebehovSMOutputFixture,
+                fieldSnapshots: svarMotebehovSMResponseFixture,
               }
             : {
                 formIdentifier: "motebehov-arbeidstaker-meld",
                 formSemanticVersion: "1.0.0",
-                fieldSnapshots: meldMotebehovSMOutputFixture,
+                fieldSnapshots: meldMotebehovSMResponseFixture,
               },
       },
     };

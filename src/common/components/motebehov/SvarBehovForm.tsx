@@ -16,6 +16,7 @@ import { commonTexts } from "@/common/constants/commonTexts";
 import { getSelectedRadioOption } from "@/common/utils/formUtils";
 import { MotebehovSvarRequest } from "@/types/shared/motebehov";
 import {
+  FieldSnapshot,
   FormSnapshotRequestDto,
   MotebehovFormIdentifier,
 } from "@/server/service/schema/formSnapshotSchema";
@@ -148,7 +149,7 @@ function SvarBehovForm({
       : texts.validation.requiredSvarBegrunnelseIfAnswerNo;
 
   function onSubmit(data: SvarBehovFormValues) {
-    const formSnapshots: FormSnapshotRequestDto["fieldSnapshots"] = [];
+    const fieldSnapshots: FieldSnapshot[] = [];
 
     if (data[motebehovRadioGroup] !== null) {
       const motebehovRadioGroupSnapshot = getSelectedRadioOption(
@@ -160,7 +161,7 @@ function SvarBehovForm({
       );
 
       if (motebehovRadioGroupSnapshot !== null) {
-        formSnapshots.push({
+        fieldSnapshots.push({
           fieldType: "RADIO_GROUP",
           fieldId: motebehovRadioGroup,
           label: radioHarBehovLegend,
@@ -170,7 +171,7 @@ function SvarBehovForm({
       }
     }
 
-    formSnapshots.push({
+    fieldSnapshots.push({
       fieldType: "TEXT",
       fieldId: svarBegrunnelseTextArea,
       label: svarBegrunnelseLabel,
@@ -180,7 +181,7 @@ function SvarBehovForm({
     });
 
     if (isYesSelected) {
-      formSnapshots.push({
+      fieldSnapshots.push({
         fieldType: "CHECKBOX_SINGLE",
         fieldId: onskerBehandlerCheckbox,
         label: checkboxOnskerBehandlerLabel,
@@ -188,7 +189,7 @@ function SvarBehovForm({
       });
 
       if (isOnskerBehandlerDeltarChecked) {
-        formSnapshots.push({
+        fieldSnapshots.push({
           fieldType: "TEXT",
           fieldId: onskerBehandlerBegrunnelseTextArea,
           label:
@@ -199,7 +200,7 @@ function SvarBehovForm({
         });
       }
 
-      formSnapshots.push({
+      fieldSnapshots.push({
         fieldType: "CHECKBOX_SINGLE",
         fieldId: harBehovForTolkCheckbox,
         label: checkboxHarBehovForTolkLabel,
@@ -207,7 +208,7 @@ function SvarBehovForm({
       });
 
       if (isHarBehovForTolkChecked) {
-        formSnapshots.push({
+        fieldSnapshots.push({
           fieldType: "TEXT",
           fieldId: hvaSlagsTolkTextField,
           label: hvaSlagsTolkLabel,
@@ -222,7 +223,7 @@ function SvarBehovForm({
     const request: FormSnapshotRequestDto = {
       formIdentifier: formIdentifier,
       formSemanticVersion: "1.0.0",
-      fieldSnapshots: formSnapshots,
+      fieldSnapshots: fieldSnapshots,
     };
 
     onSubmitForm({

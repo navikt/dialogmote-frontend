@@ -85,30 +85,32 @@ const radioGroupFieldSnapshotResponseSchema =
     wasRequired: z.boolean(),
   });
 
-const fieldSnapshotSchema = z.union([
+const fieldSnapshotRequestSchema = z.union([
   textFieldSnapshotRequestSchema,
   singleCheckboxFieldSnapshotRequestSchema,
   radioGroupFieldSnapshotRequestSchema,
 ]);
 
-export type FieldSnapshot = z.infer<typeof fieldSnapshotSchema>;
+export type FieldSnapshot = z.infer<typeof fieldSnapshotRequestSchema>;
 
 export const formSnapshotRequestSchema = z.object({
   formIdentifier: formSnapshotIdentifierSchema,
   formSemanticVersion: z.string(),
-  fieldSnapshots: z.array(fieldSnapshotSchema),
+  fieldSnapshots: z.array(fieldSnapshotRequestSchema),
 });
+
+const fieldSnapshotResponseSchema = z.union([
+  textFieldSnapshotResponseSchema,
+  singleCheckboxFieldSnapshotResponseSchema,
+  radioGroupFieldSnapshotResponseSchema,
+]);
+
+export type ResponseFieldSnapshot = z.infer<typeof fieldSnapshotResponseSchema>;
 
 export const formSnapshotResponseSchema = z.object({
   formIdentifier: formSnapshotIdentifierSchema,
   formSemanticVersion: z.string(),
-  fieldSnapshots: z.array(
-    z.union([
-      textFieldSnapshotResponseSchema,
-      singleCheckboxFieldSnapshotResponseSchema,
-      radioGroupFieldSnapshotResponseSchema,
-    ])
-  ),
+  fieldSnapshots: z.array(fieldSnapshotResponseSchema),
 });
 
 export type FormSnapshotRequestDto = z.infer<typeof formSnapshotRequestSchema>;

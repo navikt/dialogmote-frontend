@@ -10,6 +10,7 @@ import { commonTexts } from "@/common/constants/commonTexts";
 import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
 import { MotebehovSvarRequest } from "types/shared/motebehov";
 import {
+  FieldSnapshot,
   FormSnapshotRequestDto,
   MotebehovFormIdentifier,
 } from "@/server/service/schema/formSnapshotSchema";
@@ -89,9 +90,9 @@ function MeldBehovForm({
     : commonTexts.noSensitiveInfo;
 
   function onSubmit(data: FormValues) {
-    const formSnapshots: FormSnapshotRequestDto["fieldSnapshots"] = [];
+    const fieldSnapshots: FieldSnapshot[] = [];
 
-    formSnapshots.push({
+    fieldSnapshots.push({
       fieldId: behovBegrunnelseTextArea,
       label: begrunnelseLabel,
       fieldType: "TEXT",
@@ -99,7 +100,7 @@ function MeldBehovForm({
       description: begrunnelseDescriptionWithNoSensitiveInfoText,
     });
 
-    formSnapshots.push({
+    fieldSnapshots.push({
       fieldType: "CHECKBOX_SINGLE",
       fieldId: onskerBehandlerCheckbox,
       label: checkboxOnskerBehandlerLabel,
@@ -107,7 +108,7 @@ function MeldBehovForm({
     });
 
     if (isOnskerBehandlerDeltarChecked) {
-      formSnapshots.push({
+      fieldSnapshots.push({
         fieldType: "TEXT",
         fieldId: onskerBehandlerBegrunnelseTextArea,
         label:
@@ -118,7 +119,7 @@ function MeldBehovForm({
       });
     }
 
-    formSnapshots.push({
+    fieldSnapshots.push({
       fieldType: "CHECKBOX_SINGLE",
       fieldId: harBehovForTolkCheckbox,
       label: checkboxHarBehovForTolkLabel,
@@ -126,7 +127,7 @@ function MeldBehovForm({
     });
 
     if (isHarBehovForTolkChecked) {
-      formSnapshots.push({
+      fieldSnapshots.push({
         fieldType: "TEXT",
         fieldId: hvaSlagsTolkTextField,
         label: hvaSlagsTolkLabel,
@@ -140,7 +141,7 @@ function MeldBehovForm({
     const formSnapshotDto: FormSnapshotRequestDto = {
       formIdentifier: formIdentifier,
       formSemanticVersion: "1.0.0",
-      fieldSnapshots: formSnapshots,
+      fieldSnapshots: fieldSnapshots,
     };
 
     onSubmitForm({ harMotebehov: true, formSnapshot: formSnapshotDto });

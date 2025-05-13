@@ -1,9 +1,9 @@
 import {
-  FormSnapshotRequestDto,
-  FormSnapshotResponseDto,
+  FieldSnapshot,
+  ResponseFieldSnapshot,
 } from "@/server/service/schema/formSnapshotSchema";
 
-export const meldMotebehovSMFixture: FormSnapshotRequestDto["fieldSnapshots"] = [
+export const meldMotebehovSMFixture: FieldSnapshot[] = [
   {
     fieldId: "begrunnelseText",
     fieldType: "TEXT",
@@ -22,8 +22,7 @@ export const meldMotebehovSMFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
     fieldType: "TEXT",
-    label:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
     value: "Behandler må være med",
   },
@@ -43,10 +42,10 @@ export const meldMotebehovSMFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   },
 ];
 
-export const meldMotebehovSMOutputFixture: FormSnapshotResponseDto["fieldSnapshots"] =
-  meldMotebehovSMFixture.map(convertMockInputFieldToMockOutputField);
+export const meldMotebehovSMResponseFixture: ResponseFieldSnapshot[] =
+  meldMotebehovSMFixture.map(convertMockRequestFieldToMockResponseField);
 
-export const svarMotebehovSMFixture: FormSnapshotRequestDto["fieldSnapshots"] = [
+export const svarMotebehovSMFixture: FieldSnapshot[] = [
   {
     fieldId: "harBehovRadioGroup",
     label: "Ønsker du et dialogmøte med NAV og arbeidsgiveren din?",
@@ -85,8 +84,7 @@ export const svarMotebehovSMFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
     fieldType: "TEXT",
-    label:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
     value: "Behandler må være med",
   },
@@ -106,10 +104,10 @@ export const svarMotebehovSMFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   },
 ];
 
-export const svarMotebehovSMOutputFixture: FormSnapshotResponseDto["fieldSnapshots"] =
-  svarMotebehovSMFixture.map(convertMockInputFieldToMockOutputField);
+export const svarMotebehovSMResponseFixture: ResponseFieldSnapshot[] =
+  svarMotebehovSMFixture.map(convertMockRequestFieldToMockResponseField);
 
-export const meldMotebehovAGFixture: FormSnapshotRequestDto["fieldSnapshots"] = [
+export const meldMotebehovAGFixture: FieldSnapshot[] = [
   {
     fieldId: "begrunnelseText",
     fieldType: "TEXT",
@@ -127,8 +125,7 @@ export const meldMotebehovAGFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
     fieldType: "TEXT",
-    label:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
     value: "Behandler må være med",
   },
@@ -148,10 +145,10 @@ export const meldMotebehovAGFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   },
 ];
 
-export const meldMotebehovAGOutputFixture: FormSnapshotResponseDto["fieldSnapshots"] =
-  meldMotebehovAGFixture.map(convertMockInputFieldToMockOutputField);
+export const meldMotebehovAGOutputFixture: ResponseFieldSnapshot[] =
+  meldMotebehovAGFixture.map(convertMockRequestFieldToMockResponseField);
 
-export const svarMotebehovAGFixture: FormSnapshotRequestDto["fieldSnapshots"] = [
+export const svarMotebehovAGFixture: FieldSnapshot[] = [
   {
     fieldId: "harBehovRadioGroup",
     fieldType: "RADIO_GROUP",
@@ -191,8 +188,7 @@ export const svarMotebehovAGFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   {
     fieldId: "onskerSykmelderDeltarBegrunnelseText",
     fieldType: "TEXT",
-    label:
-      "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+    label: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
     wasRequired: true,
     value: "Behandler må være med",
   },
@@ -212,12 +208,12 @@ export const svarMotebehovAGFixture: FormSnapshotRequestDto["fieldSnapshots"] = 
   },
 ];
 
-export const svarMotebehovAGOutputFixture: FormSnapshotResponseDto["fieldSnapshots"] =
-  svarMotebehovAGFixture.map(convertMockInputFieldToMockOutputField);
+export const svarMotebehovAGOutputFixture: ResponseFieldSnapshot[] =
+  svarMotebehovAGFixture.map(convertMockRequestFieldToMockResponseField);
 
-function convertMockInputFieldToMockOutputField(
-  fieldSnapshot: FormSnapshotRequestDto["fieldSnapshots"][number]
-): FormSnapshotResponseDto["fieldSnapshots"][number] {
+function convertMockRequestFieldToMockResponseField(
+  fieldSnapshot: FieldSnapshot
+): ResponseFieldSnapshot {
   return fieldSnapshot.fieldType === "RADIO_GROUP" ||
     fieldSnapshot.fieldType === "TEXT"
     ? {
