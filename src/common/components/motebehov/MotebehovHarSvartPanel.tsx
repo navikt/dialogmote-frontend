@@ -1,31 +1,57 @@
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { BodyLong } from "@navikt/ds-react";
-import { MotebehovSvarAccordion } from "@/common/components/motebehov/MotebehovSvarAccordion";
 import React, { ReactNode } from "react";
-import { Motebehov } from "types/shared/motebehov";
+import { MotebehovSkjemaType, MotebehovSvar } from "types/shared/motebehov";
+import Receipt from "@/common/components/motebehov/receipt/Receipt";
+import { logger } from "@navikt/next-logger";
 
 interface Props {
-  motebehov?: Motebehov;
+  motebehovSvar: MotebehovSvar;
+  skjemaType: MotebehovSkjemaType;
   children?: ReactNode;
 }
 
 const texts = {
-  titleKvittering: "Du har svart på om du ønsker et møte",
+  svarJaTitle: "Du har svart at dere har behov for et dialogmøte",
+  svarNeiTitle: "Du har svart at dere ikke har behov for et dialogmøte",
+  meldTitle: "Du har bedt om et dialogmøte med Nav",
   textSvart:
     "Vi vil bruke svaret ditt når vi vurderer om det er nødvendig med dialogmøte.",
 };
 
-export const MotebehovHarSvartPanel = ({ motebehov, children }: Props) => {
-  if (motebehov?.svar) {
-    return (
-      <DialogmotePanel title={texts.titleKvittering}>
-        <BodyLong>{texts.textSvart}</BodyLong>
+export const MotebehovHarSvartPanel = ({
+  motebehovSvar,
+  skjemaType,
+  children,
+}: Props) => {
+  const opprettetDato = motebehovSvar.opprettetDato;
+  const formSnapshot = motebehovSvar.formSnapshot;
 
-        <MotebehovSvarAccordion motebehov={motebehov} />
+  const harMotebehovForSvarBehovSkjemaType = motebehovSvar.harMotebehov;
 
-        {children}
-      </DialogmotePanel>
+  const panelTitle =
+    skjemaType === "MELD_BEHOV"
+      ? texts.meldTitle
+      : harMotebehovForSvarBehovSkjemaType
+      ? texts.svarJaTitle
+      : texts.svarNeiTitle;
+
+  if (!formSnapshot) {
+    logger.error(
+      "MotebehovHarSvartPanel: formSnapshot is missing, this should not happen."
+    );
+    throw new Error(
+      "Beklager, det oppstod en feil ved henting av svaret ditt."
     );
   }
-  return null;
+
+  return (
+    <DialogmotePanel title={panelTitle}>
+      <BodyLong>{texts.textSvart}</BodyLong>
+
+      <Receipt opprettetDato={opprettetDato} formSnapshot={formSnapshot} />
+
+      {children}
+    </DialogmotePanel>
+  );
 };
