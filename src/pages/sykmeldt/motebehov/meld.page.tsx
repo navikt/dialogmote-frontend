@@ -1,19 +1,22 @@
 import React, { ReactElement } from "react";
 import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { BodyLong, BodyShort } from "@navikt/ds-react";
-import { sykmeldtLesMerLenkerSentence } from "./svar.page";
+import {
+  commonTextsForSMSvarAndMeld,
+  sykmeldtLesMerLenkerSentence,
+} from "./svar.page";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
+import { MotebehovSvarRequest } from "../../../types/shared/motebehov";
 
-export const texts = {
+const texts = {
   title: "Be om dialogmøte med NAV",
   topBodyText:
     "Du kan når som helst i sykefraværsperioden be om at NAV avholder et dialogmøte med deg og din arbeidsgiver. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
-  checkboxLabelHarBehov: "Jeg ønsker et møte med NAV og arbeidsgiveren min.",
-  checkboxLabelOnskerBehandlerMed:
-    "Jeg ønsker at den som sykmelder meg, også skal delta i møtet (valgfri).",
+  formLabels: {
+    begrunnelseLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+  },
 };
 
 const MeldBehov = (): ReactElement => {
@@ -32,12 +35,19 @@ const MeldBehov = (): ReactElement => {
       <BodyShort className="mb-6">{sykmeldtLesMerLenkerSentence}</BodyShort>
 
       <MeldBehovForm
-        checkboxLabelHarBehov={texts.checkboxLabelHarBehov}
-        checkboxLabelOnskerAtBehandlerBlirMed={
-          texts.checkboxLabelOnskerBehandlerMed
-        }
+        formLabels={{
+          begrunnelseLabel: texts.formLabels.begrunnelseLabel,
+          checkboxOnskerBehandlerLabel:
+            commonTextsForSMSvarAndMeld.formLabels
+              .checkboxOnskerBehandlerMedLabel,
+          checkboxHarBehovForTolkLabel:
+            commonTextsForSMSvarAndMeld.formLabels.checkboxBehovForTolkLabel,
+          hvaSlagsTolkLabel:
+            commonTextsForSMSvarAndMeld.formLabels.hvaSlagsTolkLabel,
+        }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
+        formIdentifier={"motebehov-arbeidstaker-meld"}
       />
     </SykmeldtSide>
   );

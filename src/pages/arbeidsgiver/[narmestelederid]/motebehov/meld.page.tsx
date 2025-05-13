@@ -8,31 +8,33 @@ import {
 import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import { BodyLong, BodyShort } from "@navikt/ds-react";
-import { arbeidsgiverLesMerLenkerSentence } from "./svar.page";
+import {
+  arbeidsgiverLesMerLenkerSentence,
+  commonTextsForAGSvarAndMeld,
+} from "./svar.page";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 
-export const texts = {
+const texts = {
   title: "Be om dialogmøte med NAV",
   topBodyText:
     "Som arbeidsgiver kan du når som helst i sykefraværsperioden be om et dialogmøte med NAV og den sykemeldte. Det gjør du ved å fylle ut og sende inn skjemaet nedenfor.",
-  checkboxLabelHarBehovStart: "Jeg ønsker et møte med NAV og ",
-  checkboxLabelOnskerBehandlerMed:
-    "Jeg ønsker at den som sykmelder arbeidstakeren, også skal delta i møtet (valgfri).",
+  formLabels: {
+    begrunnelseLabel: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+    begrunnelseDescription:
+      "Hva ønsker du å ta opp i møtet? Hva tenker du at NAV kan bistå med?",
+  },
 };
 
 const MeldBehov = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
-  const ansattName = dialogmoteData.data?.sykmeldt?.navn || "den ansatte.";
-  const motebehovTekst = `${texts.checkboxLabelHarBehovStart} ${ansattName}`;
-
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarRequestAG = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
-      motebehovSvar: motebehovSvar,
+      formSubmission: motebehovSvar,
     };
     mutate(svar);
   };
@@ -48,12 +50,20 @@ const MeldBehov = (): ReactElement => {
       <ArbeidsgiverMeldBehovGuidePanel />
 
       <MeldBehovForm
-        checkboxLabelHarBehov={motebehovTekst}
-        checkboxLabelOnskerAtBehandlerBlirMed={
-          texts.checkboxLabelOnskerBehandlerMed
-        }
+        formLabels={{
+          begrunnelseLabel: texts.formLabels.begrunnelseLabel,
+          begrunnelseDescription: texts.formLabels.begrunnelseDescription,
+          checkboxOnskerBehandlerLabel:
+            commonTextsForAGSvarAndMeld.formLabels
+              .checkboxOnskerBehandlerMedLabel,
+          checkboxHarBehovForTolkLabel:
+            commonTextsForAGSvarAndMeld.formLabels.checkboxBehovForTolkLabel,
+          hvaSlagsTolkLabel:
+            commonTextsForAGSvarAndMeld.formLabels.hvaSlagsTolkLabel,
+        }}
         isSubmitting={isPending}
         onSubmitForm={submitSvar}
+        formIdentifier={"motebehov-arbeidsgiver-meld"}
       />
     </ArbeidsgiverSide>
   );

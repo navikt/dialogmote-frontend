@@ -32,7 +32,10 @@ export const MotebehovPanelAG = ({ motebehov }: PanelProps) => {
 
   if (motebehov.svar) {
     return (
-      <MotebehovHarSvartPanel motebehov={motebehov}>
+      <MotebehovHarSvartPanel
+        motebehovSvar={motebehov.svar}
+        skjemaType={motebehov.skjemaType}
+      >
         <DelOppfolgingsplanInfoBoks />
       </MotebehovHarSvartPanel>
     );

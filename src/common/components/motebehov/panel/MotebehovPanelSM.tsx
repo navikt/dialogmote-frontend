@@ -30,7 +30,12 @@ export const MotebehovPanelSM = ({ motebehov }: PanelProps) => {
   if (!motebehov) return null;
 
   if (motebehov.svar) {
-    return <MotebehovHarSvartPanel motebehov={motebehov} />;
+    return (
+      <MotebehovHarSvartPanel
+        motebehovSvar={motebehov.svar}
+        skjemaType={motebehov.skjemaType}
+      />
+    );
   }
 
   if (motebehov.skjemaType === "MELD_BEHOV") {

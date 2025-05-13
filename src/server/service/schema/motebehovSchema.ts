@@ -1,32 +1,36 @@
 import { union, object, literal, boolean, string, z } from "zod";
+import { formSnapshotResponseSchema } from "./formSnapshotSchema";
 
 const skjemaType = union([literal("MELD_BEHOV"), literal("SVAR_BEHOV")]);
 
-const motebehovSvar = object({
+const innmelderType = union([literal("ARBEIDSTAKER"), literal("ARBEIDSGIVER")]);
+
+const motebehovFormValues = object({
   harMotebehov: boolean(),
-  forklaring: string().nullable(),
+  formSnapshot: formSnapshotResponseSchema.nullable(),
 });
 
-const motebehov = object({
+const motebehovWithFormValues = object({
   id: string(),
   opprettetDato: string(),
   aktorId: string(),
-  opprettetAv: string().nullable(),
+  opprettetAv: string(),
   arbeidstakerFnr: string(),
   virksomhetsnummer: string(),
-  motebehovSvar: motebehovSvar,
   tildeltEnhet: string().nullable(),
   behandletTidspunkt: string().nullable(),
   behandletVeilederIdent: string().nullable(),
-  skjemaType: skjemaType.nullable(),
+  skjemaType: skjemaType,
+  innmelderType: innmelderType,
+  formValues: motebehovFormValues,
 });
 
-export const motebehovSchema = object({
+export const motebehovStatusSchema = object({
   visMotebehov: boolean(),
-  skjemaType: skjemaType.nullable(),
-  motebehov: motebehov.nullable(),
+  skjemaType: skjemaType,
+  motebehovWithFormValues: motebehovWithFormValues.nullable(),
 });
 
-export type MotebehovDTO = z.infer<typeof motebehovSchema>;
-export type MotebehovDataDTO = z.infer<typeof motebehov>;
+export type MotebehovDTO = z.infer<typeof motebehovStatusSchema>;
+export type MotebehovDataDTO = z.infer<typeof motebehovWithFormValues>;
 export type MotebehovSkjemaTypeDTO = z.infer<typeof skjemaType>;

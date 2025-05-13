@@ -3,7 +3,7 @@ import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
 import { post } from "@/common/api/axios/axios";
 import { useRouter } from "next/router";
 import { useNotifications } from "@/context/NotificationContext";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
+import { MotebehovSvarRequest } from "@/types/shared/motebehov";
 
 export const useSvarPaMotebehovSM = () => {
   const basepath = useApiBasePath();
