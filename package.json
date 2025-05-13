@@ -72,7 +72,7 @@
     "jsdom": "^26.1.0",
     "lint-staged": "^15.5.2",
     "msw": "^1.2.1",
-    "next-router-mock": "^0.9.13",
+    "next-router-mock": "^1.0.2",
     "open": "^10.1.2",
     "postcss": "^8.5.3",
     "prettier": "2.5.1",
