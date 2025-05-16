@@ -1,0 +1,1 @@
+export const MAX_LENGTH_MOTEBEHOV_SVAR_JSON = 50_000;
