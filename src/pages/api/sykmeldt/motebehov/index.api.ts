@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { v4 as uuidv4 } from "uuid";
+import { logger } from "@navikt/next-logger";
+
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import getMockDb from "@/server/data/mock/getMockDb";
-import { v4 as uuidv4 } from "uuid";
 import { getMotebehovTokenX } from "@/server/auth/tokenx";
 import { post } from "@/common/api/axios/axios";
-import { MotebehovSvarRequest } from "../../../../types/shared/motebehov";
+import { MotebehovSvarRequest } from "@/types/shared/motebehov";
+import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import {
   meldMotebehovSMResponseFixture,
   svarMotebehovSMResponseFixture,
@@ -50,6 +53,16 @@ const handler = async (
       },
     };
   } else {
+    const svarLength = JSON.stringify(svar).length;
+
+    if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
+      logger.error(
+        `Motebehov svar request is too large. Size: ${svarLength} characters`
+      );
+      res.status(413).end();
+      return;
+    }
+
     const token = await getMotebehovTokenX(req);
 
     await post(
