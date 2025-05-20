@@ -55,6 +55,8 @@ const handler = async (
   } else {
     const svarLength = JSON.stringify(svar).length;
 
+    logger.info(`Motebehov svar request size: ${svarLength} characters`);
+
     if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
       logger.error(
         `Motebehov svar request is too large. Size: ${svarLength} characters`
