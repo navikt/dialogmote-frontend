@@ -1,7 +1,6 @@
 export const PERSONVERN_URL = "https://www.nav.no/personvern";
 export const KONTAKT_INFO_URL_AG = "https://arbeidsgiver.nav.no/kontakt-oss/";
-export const KONTAKT_INFO_URL_SM =
-  "https://www.nav.no/person/kontakt-oss/nb/skriv-til-oss";
+export const KONTAKT_INFO_URL_SM = "https://www.nav.no/still-sporsmal";
 export const ARBEIDSGIVER_OPPFOLGING_INFO_URL =
   "https://www.nav.no/arbeidsgiver/oppfolging-sykmeldte";
 export const ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL =
