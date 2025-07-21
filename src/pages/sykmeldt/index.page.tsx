@@ -11,6 +11,7 @@ import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { BodyLong, Skeleton } from "@navikt/ds-react";
 import { beskyttetSideUtenProps } from "../../auth/beskyttetSide";
 import { MotebehovPanelSM } from "@/common/components/motebehov/panel/MotebehovPanelSM";
+import UxSignalsPanel from "@/common/components/ux-signals-panel/ux-signals-panel";
 
 const texts = {
   title: "Dialogmøter",
@@ -48,6 +49,9 @@ const Home: NextPage = () => {
   return (
     <SykmeldtSide title={texts.title}>
       <Content />
+
+      {/* For booking interviews July 2025 */}
+      <UxSignalsPanel />
 
       <VeilederGuidePanel>
         <InfoOmDialogmote>
