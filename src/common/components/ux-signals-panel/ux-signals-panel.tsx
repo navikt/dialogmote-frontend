@@ -6,7 +6,6 @@ const UxSignalsPanel = () => {
   return (
     <div
       data-uxsignals-embed="panel-hs78z2ahch"
-      data-uxsignals-mode="demo"
       style={{ marginBottom: "2rem" }}
     />
   );
