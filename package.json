@@ -13,7 +13,7 @@
     "@grafana/faro-web-sdk": "^1.14.3",
     "@grafana/faro-web-tracing": "^1.18.1",
     "@navikt/aksel-icons": "^6.17.0",
-    "@navikt/dinesykmeldte-sidemeny": "^6.0.34",
+    "@navikt/dinesykmeldte-sidemeny": "^7.0.5",
     "@navikt/ds-css": "^6.17.0",
     "@navikt/ds-react": "^6.17.0",
     "@navikt/nav-dekoratoren-moduler": "^3.2.3",
