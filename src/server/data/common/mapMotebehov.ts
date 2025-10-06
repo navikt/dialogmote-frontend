@@ -27,7 +27,7 @@ export const mapMotebehov = (
   if (displayMotebehov) {
     return {
       skjemaType: motebehovStatus.skjemaType,
-      svar: mapMotebehovSvar(motebehovStatus.motebehovWithFormValues),
+      svar: mapMotebehovSvar(motebehovStatus.motebehov),
     };
   }
 

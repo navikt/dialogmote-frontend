@@ -21,7 +21,7 @@ const handler = async (
 
   if (isMockBackend) {
     const data = getMockDb(req);
-    getMockDb(req).motebehov.motebehovWithFormValues = {
+    getMockDb(req).motebehov.motebehov = {
       id: uuidv4(),
       opprettetDato: new Date().toISOString(),
       aktorId: "12345",
