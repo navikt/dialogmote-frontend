@@ -12,7 +12,7 @@ export class TestScenarioBuilder {
       motebehov: {
         visMotebehov: false,
         skjemaType: "MELD_BEHOV",
-        motebehovWithFormValues: null,
+        motebehov: null,
       },
       activeTestScenario: "MELD_BEHOV",
     };

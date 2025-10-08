@@ -11,7 +11,7 @@ export class MotebehovBuilder {
     this.motebehov = {
       visMotebehov: false,
       skjemaType: "MELD_BEHOV",
-      motebehovWithFormValues: null,
+      motebehov: null,
     };
   }
 
@@ -21,7 +21,7 @@ export class MotebehovBuilder {
   }
 
   withMotebehov(motebehov: MotebehovDataDTO): MotebehovBuilder {
-    this.motebehov.motebehovWithFormValues = motebehov;
+    this.motebehov.motebehov = motebehov;
     return this;
   }
 

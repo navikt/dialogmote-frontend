@@ -28,7 +28,7 @@ const motebehovWithFormValues = object({
 export const motebehovStatusSchema = object({
   visMotebehov: boolean(),
   skjemaType: skjemaType,
-  motebehovWithFormValues: motebehovWithFormValues.nullable(),
+  motebehov: motebehovWithFormValues.nullable(),
 });
 
 export type MotebehovStatusDTO = z.infer<typeof motebehovStatusSchema>;
