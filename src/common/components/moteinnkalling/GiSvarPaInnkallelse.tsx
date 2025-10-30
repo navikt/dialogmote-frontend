@@ -1,6 +1,6 @@
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import {
   Alert,
   BodyLong,
@@ -56,7 +56,7 @@ interface Props {
 }
 
 const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
   const sendSvarQuery = useSvarPaInnkallelse(brevUuid);
   const [error, setError] = useState<Array<Error>>([]);
   const [svarType, setSvartype] = useState<SvarType | undefined>(undefined);

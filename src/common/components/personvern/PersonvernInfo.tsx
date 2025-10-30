@@ -1,7 +1,7 @@
 import { BodyLong, Link } from "@navikt/ds-react";
 import { PERSONVERN_URL } from "../../constants/staticUrls";
-import { Events } from "@/common/amplitude/events";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { Events } from "@/common/analytics/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 const texts = {
   bottomText: "Vi bruker opplysningene også til å gjøre selve tjenesten bedre.",
@@ -9,7 +9,7 @@ const texts = {
 };
 
 const PersonvernInfo = () => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   return (
     <section className="flex items-center flex-col mt-auto text-center mb-8">

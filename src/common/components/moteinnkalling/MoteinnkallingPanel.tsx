@@ -1,7 +1,7 @@
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import { Alert, BodyShort, Button } from "@navikt/ds-react";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
 import DittSvarPaInnkallelse from "./DittSvarPaInnkallelse";
@@ -73,7 +73,7 @@ interface Props {
 }
 
 const MoteinnkallingPanel = ({ moteinnkalling }: Props) => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
   const landingUrl = useLandingUrl();
 
   if (moteinnkalling) {

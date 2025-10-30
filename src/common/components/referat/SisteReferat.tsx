@@ -1,6 +1,6 @@
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import { useReferatPath } from "@/common/hooks/routeHooks";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
 import { LinkPanel } from "@navikt/ds-react";
 import NextLink from "next/link";
@@ -20,7 +20,7 @@ const endretDatoText = (endretDato: string) => {
 };
 
 const SisteReferat = ({ referat }: Props) => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   const referatPath = useReferatPath();
   const href = `${referatPath}/${referat.uuid}`;

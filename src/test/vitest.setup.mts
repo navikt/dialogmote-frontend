@@ -11,8 +11,8 @@ import { cleanup } from "@testing-library/react";
 expect.extend(matchers);
 expect.extend(vitestAxeMatchers);
 
-vi.mock("@/common/hooks/useAmplitude", () => ({
-  useAmplitude: () => ({ trackEvent: vi.fn() }),
+vi.mock("@/common/hooks/useAnalytics", () => ({
+  useAnalytics: () => ({ trackEvent: vi.fn() }),
 }));
 
 vi.mock("next/router", () => require("next-router-mock"));

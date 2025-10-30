@@ -1,7 +1,7 @@
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import React from "react";
 import { LinkPanel } from "@navikt/ds-react";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { MotebehovSkjemaType } from "types/shared/motebehov";
 import NextLink from "next/link";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
@@ -15,7 +15,7 @@ interface Props {
 
 export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
   const landingUrl = useLandingUrl();
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   const path =
     skjemaType === "MELD_BEHOV"

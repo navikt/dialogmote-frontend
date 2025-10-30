@@ -1,4 +1,4 @@
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import NoReferatAlert from "@/common/components/referat/NoReferatAlert";

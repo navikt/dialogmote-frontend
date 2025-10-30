@@ -1,4 +1,4 @@
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { useReferatPath } from "@/common/hooks/routeHooks";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
