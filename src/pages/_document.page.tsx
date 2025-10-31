@@ -12,6 +12,7 @@ import Document, {
 } from "next/document";
 import serverEnv from "@/server/utils/serverEnv";
 import { createBreadcrumbsAG, createBreadcrumbsSM } from "@/common/breadcrumbs";
+import { UmamiScript } from "@/common/analytics/umamiScript";
 
 // The 'head'-field of the document initialProps contains data from <head> (meta-tags etc)
 const getDocumentParameter = (
@@ -62,6 +63,7 @@ export default class MyDocument extends Document<Props> {
       <Html lang="nb">
         <Head>
           <Decorator.HeadAssets />
+          <UmamiScript />
         </Head>
         <body>
           <Decorator.Header />
