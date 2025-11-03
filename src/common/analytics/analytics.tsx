@@ -35,8 +35,11 @@ export const sendTrackingEvent = async (
     const log = getAnalyticsInstance("dialogmote");
     await log(eventName, combineEventData(audience, eventData));
   } catch (error) {
-    logger.error(
-      `Could not log event to Analytics. Message: ${(error as Error)?.message}`
-    );
+    const msg =
+      typeof error === "string" ? error : (error as Error)?.message || "";
+    if (msg.includes("Analytics instance not found")) {
+      return; // Ignore, user has not consented to analytics
+    }
+    logger.error(`Analytics logging failed. event=${eventName} message=${msg}`);
   }
 };
