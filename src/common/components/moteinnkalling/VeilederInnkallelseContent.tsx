@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react";
 import { Label, Link } from "@navikt/ds-react";
 import { VIDEOMOTE_INFO_URL } from "@/common/constants/staticUrls";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Events } from "@/common/amplitude/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
+import { Events } from "@/common/analytics/events";
 
 const texts = {
   veilederText1: "Har du blitt kalt inn til et videomøte med Nav? ",
@@ -11,7 +11,7 @@ const texts = {
 };
 
 function VeilederInnkallelseContent(): ReactElement {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
   return (
     <React.Fragment>
       <Label>{texts.veilederText1}</Label>

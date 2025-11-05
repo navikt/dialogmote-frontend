@@ -1,5 +1,5 @@
-import { Events } from "@/common/amplitude/events";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { Events } from "@/common/analytics/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import NextLink from "next/link";
 import React from "react";
 import { Button } from "@navikt/ds-react";
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const DownloadPdfButton = ({ trackingName, pdfUrl }: Props) => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
   return (
     <div className="mb-8">
       <NextLink href={pdfUrl} passHref>

@@ -1,7 +1,7 @@
 import React from "react";
 import { BodyLong, Heading, Link } from "@navikt/ds-react";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Events } from "@/common/amplitude/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
+import { Events } from "@/common/analytics/events";
 import { DocumentComponent } from "types/client/brev";
 import { ReferatDocumentComponent } from "types/shared/brev";
 
@@ -11,7 +11,7 @@ interface Props {
 
 const DocumentRenderer = ({ documentComponent }: Props) => {
   const { type, title, texts } = documentComponent;
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   switch (type) {
     case "HEADER":

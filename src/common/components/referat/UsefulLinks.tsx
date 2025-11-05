@@ -1,5 +1,5 @@
-import { Events } from "@/common/amplitude/events";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { Events } from "@/common/analytics/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { Alert, Heading, Link } from "@navikt/ds-react";
 import { InfoUrl } from "types/client/infoUrl";
 import { Referat } from "types/shared/brev";
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const UsefulLinks = ({ referat }: Props) => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   const infoUrls = referat.document
     .map((documentComponent) => documentComponent.infoUrl)

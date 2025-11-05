@@ -1,7 +1,7 @@
 import React from "react";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
-import { Events } from "@/common/amplitude/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
+import { Events } from "@/common/analytics/events";
 import { BodyShort } from "@navikt/ds-react";
 import { getPublicAsset } from "@/common/utils/getAssetPath";
 
@@ -13,7 +13,7 @@ const texts = {
 };
 
 const VideoPanel = () => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   return (
     <DialogmotePanel title={texts.title}>

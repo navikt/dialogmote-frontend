@@ -1,9 +1,9 @@
 import { Alert, BodyLong, Link } from "@navikt/ds-react";
 import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import React from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
 const texts = {
@@ -12,7 +12,7 @@ const texts = {
 };
 
 export const DelOppfolgingsplanInfoBoks = () => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
   const { isAudienceSykmeldt } = useAudience();
   const narmestelederid = useNarmesteLederId();
 

@@ -1,5 +1,5 @@
-import { Events } from "@/common/amplitude/events";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { Events } from "@/common/analytics/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import NextLink from "next/link";
 import { ReactNode } from "react";
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const RouterLenke = ({ href, trackingName, children }: Props) => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
 
   return (
     <NextLink href={href}>

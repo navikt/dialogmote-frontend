@@ -4,7 +4,6 @@ import App from "next/app";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { initAmplitude } from "@/common/amplitude/amplitude";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
@@ -44,7 +43,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { isAudienceSykmeldt } = useAudience();
 
   useEffect(() => {
-    initAmplitude();
     initFaro();
   }, []);
 

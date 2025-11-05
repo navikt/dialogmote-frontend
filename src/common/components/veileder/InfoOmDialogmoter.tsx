@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import { Events } from "@/common/amplitude/events";
+import { Events } from "@/common/analytics/events";
 import { SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL } from "@/common/constants/staticUrls";
-import { useAmplitude } from "@/common/hooks/useAmplitude";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { BodyLong, Link } from "@navikt/ds-react";
 
 const texts = {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const InfoOmDialogmote = ({ children }: Props) => {
-  const { trackEvent } = useAmplitude();
+  const { trackEvent } = useAnalytics();
   return (
     <section>
       {children}
