@@ -74,7 +74,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
       return (
         <>
           {title && (
-            <Heading size="xsmall" level="3" spacing>
+            <Heading size="xsmall" level="2" spacing>
               {title}
             </Heading>
           )}
