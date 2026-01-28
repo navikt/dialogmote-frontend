@@ -5,7 +5,6 @@ import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
-import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import { BodyLong, BodyShort } from "@navikt/ds-react";
 import {
@@ -68,7 +67,5 @@ const MeldBehov = (): ReactElement => {
     </ArbeidsgiverSide>
   );
 };
-
-export const getServerSideProps = beskyttetSideUtenProps;
 
 export default MeldBehov;

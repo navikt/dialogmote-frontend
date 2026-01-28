@@ -9,7 +9,6 @@ import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { BodyLong, Skeleton } from "@navikt/ds-react";
-import { beskyttetSideUtenProps } from "../../auth/beskyttetSide";
 import { MotebehovPanelSM } from "@/common/components/motebehov/panel/MotebehovPanelSM";
 import UxSignalsPanel from "@/common/components/ux-signals-panel/ux-signals-panel";
 
@@ -66,7 +65,5 @@ const Home: NextPage = () => {
     </SykmeldtSide>
   );
 };
-
-export const getServerSideProps = beskyttetSideUtenProps;
 
 export default Home;

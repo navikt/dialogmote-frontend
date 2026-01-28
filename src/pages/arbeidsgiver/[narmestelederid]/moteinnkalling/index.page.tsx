@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import { MoteinnkallingContent } from "@/common/components/moteinnkalling/MoteinnkallingContent";
 
@@ -16,7 +15,5 @@ const Moteinnkalling = (): ReactElement => {
     </ArbeidsgiverSide>
   );
 };
-
-export const getServerSideProps = beskyttetSideUtenProps;
 
 export default Moteinnkalling;

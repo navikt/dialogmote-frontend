@@ -38,6 +38,7 @@ export default class MyDocument extends Document<Props> {
       params: {
         context: isAudienceSykmeldt ? "privatperson" : "arbeidsgiver",
         chatbot: true,
+        logoutWarning: true,
         feedback: false,
         redirectToApp: true,
         breadcrumbs: isAudienceSykmeldt

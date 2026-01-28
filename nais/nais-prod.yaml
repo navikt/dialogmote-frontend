@@ -18,6 +18,10 @@ spec:
     enabled: true
     sidecar:
       enabled: true
+      autoLogin: true
+      autoLoginIgnorePaths:
+        - /syk/dialogmoter/api/isAlive
+        - /syk/dialogmoter/api/isReady
   liveness:
     path: syk/dialogmoter/api/isAlive
     initialDelay: 20

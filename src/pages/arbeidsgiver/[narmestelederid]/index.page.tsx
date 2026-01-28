@@ -7,7 +7,6 @@ import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
 import { DialogmoteData } from "types/shared/dialogmote";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import { beskyttetSideUtenProps } from "../../../auth/beskyttetSide";
 import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
@@ -59,7 +58,5 @@ const Home: NextPage = () => {
     </ArbeidsgiverSide>
   );
 };
-
-export const getServerSideProps = beskyttetSideUtenProps;
 
 export default Home;

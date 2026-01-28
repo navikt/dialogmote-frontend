@@ -5,7 +5,6 @@ import {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
-import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
 import { ArbeidsgiverSvarPaaBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
@@ -110,7 +109,5 @@ const SvarBehov = (): ReactElement => {
     </ArbeidsgiverSide>
   );
 };
-
-export const getServerSideProps = beskyttetSideUtenProps;
 
 export default SvarBehov;
