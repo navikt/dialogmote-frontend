@@ -45,7 +45,7 @@ export async function tokenXFetchGet<ResponseData>({
 }
 
 export function tokenXFetchGetBytes(
-  args: Omit<TokenXFetchGetBaseArgs, "endpoint"> & { endpoint: string }
+  args: TokenXFetchGetBaseArgs
 ): Promise<Uint8Array> {
   return tokenXFetchGet({
     ...args,
