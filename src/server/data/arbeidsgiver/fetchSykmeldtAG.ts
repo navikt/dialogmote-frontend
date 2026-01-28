@@ -7,6 +7,15 @@ import { isMockBackend } from "@/server/utils/serverEnv";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 import { NextApiRequest } from "next";
 
+const isValidNarmestelederId = (
+  value: string | string[] | undefined
+): value is string => {
+  if (typeof value !== "string") {
+    return false;
+  }
+  return /^[a-zA-Z0-9_-]{1,100}$/.test(value);
+};
+
 export const fetchSykmeldtAG = async (
   req: NextApiRequest
 ): Promise<SykmeldtDTO | undefined> => {
@@ -18,6 +27,12 @@ export const fetchSykmeldtAG = async (
     logger.info("Sykemeldinger AG tokenx exchange OK");
 
     const { narmestelederid } = <{ narmestelederid: string }>req.query;
+    if (!isValidNarmestelederId(narmestelederid)) {
+      logger.warn(
+        "Received invalid narmestelederid in fetchSykmeldtAG; skipping backend fetch"
+      );
+      return undefined;
+    }
     const sykmeldtRes = await getSykmeldt(narmestelederid, token);
 
     if (sykmeldtRes.success) {
