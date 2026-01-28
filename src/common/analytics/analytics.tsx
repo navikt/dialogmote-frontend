@@ -1,12 +1,12 @@
 import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
-import { Events } from "@/common/analytics/events";
-import { Audience } from "@/common/hooks/routeHooks";
 import { logger } from "@navikt/next-logger";
+import type { Events } from "@/common/analytics/events";
+import type { Audience } from "@/common/hooks/routeHooks";
 import { isDemoOrLocal } from "@/common/publicEnv";
 
 const combineEventData = (
   audience: Audience,
-  eventData?: Record<string, string>
+  eventData?: Record<string, string>,
 ) => ({
   team: "eSyfo",
   app: "dialogmote-frontend",
@@ -18,15 +18,15 @@ const combineEventData = (
 export const sendTrackingEvent = async (
   audience: Audience,
   eventName: Events,
-  eventData?: Record<string, string>
+  eventData?: Record<string, string>,
 ): Promise<void> => {
   if (isDemoOrLocal) {
     console.log(
       `Analytics event: ${eventName}, eventProperties:\n${JSON.stringify(
         combineEventData(audience, eventData),
         null,
-        2
-      )}`
+        2,
+      )}`,
     );
     return;
   }

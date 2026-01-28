@@ -9,7 +9,7 @@ export const dittSykefravarRoot =
 export const cdnPublicPath: string | undefined = process.env
   .NEXT_PUBLIC_ASSET_PREFIX
   ? `${process.env.NEXT_PUBLIC_ASSET_PREFIX}/public`
-  : process.env.NEXT_PUBLIC_BASEPATH ?? "";
+  : (process.env.NEXT_PUBLIC_BASEPATH ?? "");
 
 export const minSideRoot = process.env.NEXT_PUBLIC_MIN_SIDE_ROOT as string;
 export const oppfolgingsplanUrlSM: string = process.env

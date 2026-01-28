@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const data = await fetchConcurrentDataSM(req);
 

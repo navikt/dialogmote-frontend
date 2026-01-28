@@ -1,4 +1,4 @@
-import { boolean, z, object, string } from "zod";
+import { boolean, object, string, type z } from "zod";
 
 export const sykmeldtSchema = object({
   narmestelederId: string(),

@@ -3,6 +3,6 @@ declare module "@navikt/next-logger/pages" {
 
   export const loggingRoute: (
     req: NextApiRequest,
-    res: NextApiResponse
+    res: NextApiResponse,
   ) => void;
 }

@@ -1,15 +1,15 @@
-import { getSykmeldt } from "@/server/service/sykmeldtService";
-import { handleSchemaParsingError } from "@/server/utils/errors";
+import { logger } from "@navikt/next-logger";
+import type { NextApiRequest } from "next";
+import { isValidNarmestelederId } from "@/common/utils/validateNarmestelederId";
 import { getDinesykmeldteBackendTokenX } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
-import { logger } from "@navikt/next-logger";
+import type { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
+import { getSykmeldt } from "@/server/service/sykmeldtService";
+import { handleSchemaParsingError } from "@/server/utils/errors";
 import { isMockBackend } from "@/server/utils/serverEnv";
-import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
-import { NextApiRequest } from "next";
-import { isValidNarmestelederId } from "@/common/utils/validateNarmestelederId";
 
 export const fetchSykmeldtAG = async (
-  req: NextApiRequest
+  req: NextApiRequest,
 ): Promise<SykmeldtDTO | undefined> => {
   if (isMockBackend) {
     return getMockDb(req).sykmeldt;
@@ -21,7 +21,7 @@ export const fetchSykmeldtAG = async (
     const { narmestelederid } = <{ narmestelederid: string }>req.query;
     if (!isValidNarmestelederId(narmestelederid)) {
       logger.warn(
-        "Received invalid narmestelederid in fetchSykmeldtAG; skipping backend fetch"
+        "Received invalid narmestelederid in fetchSykmeldtAG; skipping backend fetch",
       );
       return undefined;
     }

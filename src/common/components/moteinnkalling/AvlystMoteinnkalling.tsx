@@ -1,6 +1,5 @@
+import type { Brev } from "types/shared/brev";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
-import React from "react";
-import { Brev } from "types/shared/brev";
 
 const texts = {
   titleAvlysning: "Avlysning av dialogmøte",

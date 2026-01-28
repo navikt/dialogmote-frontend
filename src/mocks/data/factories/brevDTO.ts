@@ -1,4 +1,4 @@
-import { BrevDTO } from "@/server/service/schema/brevSchema";
+import type { BrevDTO } from "@/server/service/schema/brevSchema";
 
 export const createBrevDTO = (props?: Partial<BrevDTO>): BrevDTO => {
   return {

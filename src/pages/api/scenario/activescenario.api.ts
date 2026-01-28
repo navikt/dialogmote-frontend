@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getMockSetupForScenario } from "server/data/mock/activeMockData";
 import getMockDb, {
   assignNewDbSetup,
-  TestScenario,
+  type TestScenario,
 } from "server/data/mock/getMockDb";
-import { getMockSetupForScenario } from "server/data/mock/activeMockData";
-import { isDemoOrLocal } from "@/common/publicEnv";
 import { TEST_SESSION_ID } from "@/common/api/fetch";
+import { isDemoOrLocal } from "@/common/publicEnv";
 import { handleQueryParamError } from "@/server/utils/errors";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

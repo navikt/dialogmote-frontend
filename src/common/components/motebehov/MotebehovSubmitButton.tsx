@@ -1,11 +1,11 @@
-import { Events } from "@/common/analytics/events";
-import { LinkCard } from "@navikt/ds-react";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { MotebehovSkjemaType } from "types/shared/motebehov";
-import NextLink from "next/link";
-import { useLandingUrl } from "@/common/hooks/routeHooks";
 import { Chat2Icon } from "@navikt/aksel-icons";
+import { LinkCard } from "@navikt/ds-react";
+import NextLink from "next/link";
+import type { MotebehovSkjemaType } from "types/shared/motebehov";
+import { Events } from "@/common/analytics/events";
 import CircledIcon from "@/common/components/icon/CircledIcon";
+import { useLandingUrl } from "@/common/hooks/routeHooks";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 interface Props {
   skjemaType: MotebehovSkjemaType;
@@ -38,7 +38,9 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
             href={path}
             onClick={() => {
               trackEvent(
-                skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
+                skjemaType === "MELD_BEHOV"
+                  ? Events.MeldBehov
+                  : Events.SvarBehov,
               );
             }}
           >

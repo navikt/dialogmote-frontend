@@ -1,11 +1,11 @@
-import {
+import type { Motebehov, MotebehovSvar } from "types/shared/motebehov";
+import type {
   MotebehovDataDTO,
   MotebehovStatusDTO,
 } from "@/server/service/schema/motebehovSchema";
-import { Motebehov, MotebehovSvar } from "types/shared/motebehov";
 
 const mapMotebehovSvar = (
-  motebehovData: MotebehovDataDTO | null
+  motebehovData: MotebehovDataDTO | null,
 ): MotebehovSvar | null => {
   if (!motebehovData) return null;
 
@@ -19,7 +19,7 @@ const mapMotebehovSvar = (
 
 export const mapMotebehov = (
   motebehovStatus: MotebehovStatusDTO,
-  isLatestBrevOngoingMoteinnkalling: boolean
+  isLatestBrevOngoingMoteinnkalling: boolean,
 ): Motebehov | undefined => {
   const displayMotebehov =
     motebehovStatus.visMotebehov && !isLatestBrevOngoingMoteinnkalling;

@@ -1,6 +1,6 @@
-import { Brev, Referat } from "./brev";
-import { Motebehov } from "./motebehov";
-import { Sykmeldt } from "./sykmeldt";
+import type { Brev, Referat } from "./brev";
+import type { Motebehov } from "./motebehov";
+import type { Sykmeldt } from "./sykmeldt";
 
 export interface DialogmoteData {
   sykmeldt?: Sykmeldt;

@@ -1,6 +1,6 @@
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 import { createBrevDTO } from "../../../../mocks/data/factories/brevDTO";
-import { describe, it, expect, vi, beforeAll, afterAll } from "vitest";
 
 describe("mapDialogmoteData", () => {
   beforeAll(() => {
@@ -28,7 +28,7 @@ describe("mapDialogmoteData", () => {
           skjemaType: "MELD_BEHOV",
           motebehov: null,
         },
-        [moteInnkalling, endretReferat]
+        [moteInnkalling, endretReferat],
       );
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("INNKALT");
@@ -50,7 +50,7 @@ describe("mapDialogmoteData", () => {
           skjemaType: "MELD_BEHOV",
           motebehov: null,
         },
-        [moteInnkalling, referat]
+        [moteInnkalling, referat],
       );
       expect(dialogmoteData.moteinnkalling).toBeUndefined();
     });
@@ -71,7 +71,7 @@ describe("mapDialogmoteData", () => {
           skjemaType: "MELD_BEHOV",
           motebehov: null,
         },
-        [moteInnkalling, referat]
+        [moteInnkalling, referat],
       );
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("INNKALT");
@@ -96,7 +96,7 @@ describe("mapDialogmoteData", () => {
           skjemaType: "MELD_BEHOV",
           motebehov: null,
         },
-        [referat, moteInnkalling, moteEndret]
+        [referat, moteInnkalling, moteEndret],
       );
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("NYTT_TID_STED");
@@ -121,7 +121,7 @@ describe("mapDialogmoteData", () => {
           skjemaType: "MELD_BEHOV",
           motebehov: null,
         },
-        [referat, moteInnkalling, moteAvlyst]
+        [referat, moteInnkalling, moteAvlyst],
       );
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("AVLYST");

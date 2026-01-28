@@ -1,6 +1,3 @@
-import { Events } from "@/common/analytics/events";
-import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
 import {
   BodyLong,
   Button,
@@ -10,10 +7,18 @@ import {
   RadioGroup,
   Textarea,
 } from "@navikt/ds-react";
-import { ChangeEvent, ReactElement, useEffect, useState } from "react";
-import { SvarType } from "types/shared/brev";
-import { commonTexts } from "@/common/constants/commonTexts";
+import {
+  type ChangeEvent,
+  type ReactElement,
+  useEffect,
+  useState,
+} from "react";
+import type { SvarType } from "types/shared/brev";
+import { Events } from "@/common/analytics/events";
+import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
+import { commonTexts } from "@/common/constants/commonTexts";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 const texts = {
   title: "Gi oss ditt svar",
@@ -64,8 +69,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
   useEffect(() => {
     trackEvent(Events.GiSvarPaMoteInnkallingVist);
-    // eslint-disable-next-line
-  }, []);
+  }, [trackEvent]);
 
   const updateError = (inputField: InputFieldType, errorMsg: string) => {
     setError([
@@ -108,16 +112,18 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
   const validateAndSubmit = () => {
     const validated = validateForm();
 
-    if (validated) {
-      trackEvent(Events.SendSvarPaInnkallelse, {
-        svarAlternativ: svarType!,
-      });
-
-      sendSvarQuery.mutate({
-        svarType: svarType!,
-        svarTekst: begrunnelse,
-      });
+    if (!validated || !svarType) {
+      return;
     }
+
+    trackEvent(Events.SendSvarPaInnkallelse, {
+      svarAlternativ: svarType,
+    });
+
+    sendSvarQuery.mutate({
+      svarType,
+      svarTekst: begrunnelse,
+    });
   };
 
   const handleChangeSvarType = (newValue: SvarType) => {
@@ -140,9 +146,12 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
       <DialogmotePanel className="pt-8 flex flex-col" title={texts.title}>
         {error.length > 0 && (
           <ErrorSummary heading={texts.feiloppsummeringTittel}>
-            {error.map((error, index) => {
+            {error.map((error) => {
               return (
-                <ErrorSummary.Item key={index} href={`#${error.inputField}`}>
+                <ErrorSummary.Item
+                  key={`${error.inputField}-${error.errorMsg}`}
+                  href={`#${error.inputField}`}
+                >
                   {error.errorMsg}
                 </ErrorSummary.Item>
               );

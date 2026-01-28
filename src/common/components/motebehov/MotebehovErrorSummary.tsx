@@ -1,5 +1,4 @@
 import { ErrorSummary } from "@navikt/ds-react";
-import React from "react";
 
 const texts = {
   feiloppsummeringTittel: "For å gå videre må du rette opp følgende:",
@@ -18,9 +17,9 @@ export const MotebehovErrorSummary = ({ errors }: Props) => {
   if (errors.length > 0) {
     return (
       <ErrorSummary heading={texts.feiloppsummeringTittel}>
-        {errors.map((err, index) => {
+        {errors.map((err) => {
           return (
-            <ErrorSummary.Item key={index} href={err.href}>
+            <ErrorSummary.Item key={`${err.href}-${err.text}`} href={err.href}>
               {err.text}
             </ErrorSummary.Item>
           );

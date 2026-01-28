@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
+import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
 import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const sykmeldtDTO = await fetchSykmeldtAG(req);
 
@@ -17,7 +17,7 @@ const handler = async (
   const data = await fetchConcurrentDataAG(
     req,
     sykmeldtDTO.fnr,
-    sykmeldtDTO.orgnummer
+    sykmeldtDTO.orgnummer,
   );
 
   if (data) {

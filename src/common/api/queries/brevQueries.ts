@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { SvarRespons } from "types/shared/brev";
 import { post } from "@/common/api/fetch";
+import { DIALOGMOTEDATA_AG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { DIALOGMOTEDATA_SM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { useApiBasePath, useAudience } from "@/common/hooks/routeHooks";
-import { DIALOGMOTEDATA_AG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import { SvarRespons } from "types/shared/brev";
 
 type SvarResponsRequest = Omit<SvarRespons, "svarTidspunkt">;
 
@@ -13,8 +13,7 @@ const queryToInvalidate = (isAudienceSykmeldt: boolean) =>
 export const useMutateBrevLest = () => {
   const basepath = useApiBasePath();
 
-  const postLestBrev = (uuid: string) =>
-    post(`${basepath}/brev/${uuid}/lest`);
+  const postLestBrev = (uuid: string) => post(`${basepath}/brev/${uuid}/lest`);
 
   return useMutation({ mutationFn: postLestBrev });
 };

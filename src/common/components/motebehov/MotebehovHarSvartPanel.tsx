@@ -1,9 +1,12 @@
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { BodyLong } from "@navikt/ds-react";
-import React, { ReactNode } from "react";
-import { MotebehovSkjemaType, MotebehovSvar } from "types/shared/motebehov";
-import Receipt from "@/common/components/motebehov/receipt/Receipt";
 import { logger } from "@navikt/next-logger";
+import type { ReactNode } from "react";
+import type {
+  MotebehovSkjemaType,
+  MotebehovSvar,
+} from "types/shared/motebehov";
+import Receipt from "@/common/components/motebehov/receipt/Receipt";
+import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 
 interface Props {
   motebehovSvar: MotebehovSvar;
@@ -33,15 +36,15 @@ export const MotebehovHarSvartPanel = ({
     skjemaType === "MELD_BEHOV"
       ? texts.meldTitle
       : harMotebehovForSvarBehovSkjemaType
-      ? texts.svarJaTitle
-      : texts.svarNeiTitle;
+        ? texts.svarJaTitle
+        : texts.svarNeiTitle;
 
   if (!formSnapshot) {
     logger.error(
-      "MotebehovHarSvartPanel: formSnapshot is missing, this should not happen."
+      "MotebehovHarSvartPanel: formSnapshot is missing, this should not happen.",
     );
     throw new Error(
-      "Beklager, det oppstod en feil ved henting av svaret ditt."
+      "Beklager, det oppstod en feil ved henting av svaret ditt.",
     );
   }
 

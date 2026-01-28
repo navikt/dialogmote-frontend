@@ -1,17 +1,17 @@
-import React, { ReactElement } from "react";
-import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
-import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { BodyLong, BodyShort, Link, Skeleton } from "@navikt/ds-react";
-import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { BodyLong, BodyShort, Link, Skeleton } from "@navikt/ds-react";
+import type { ReactElement } from "react";
+import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
+import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
+import { KanIkkeSvarePaaSvarBehov } from "@/common/components/motebehov/KanIkkeSvarePaaSvarBehov";
+import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import {
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
   SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL,
 } from "@/common/constants/staticUrls";
-import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
-import { KanIkkeSvarePaaSvarBehov } from "@/common/components/motebehov/KanIkkeSvarePaaSvarBehov";
 import { commonTextsForSvarAGAndSM } from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
-import { MotebehovSvarRequest } from "@/types/shared/motebehov";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 
 export const commonTextsForSMSvarAndMeld = {
   formLabels: {
@@ -104,7 +104,7 @@ const SvarBehov = (): ReactElement => {
 
   if (
     dialogmoteData.isSuccess &&
-    dialogmoteData.data.motebehov?.skjemaType != "SVAR_BEHOV"
+    dialogmoteData.data.motebehov?.skjemaType !== "SVAR_BEHOV"
   ) {
     return <KanIkkeSvarePaaSvarBehov title={texts.title} />;
   }

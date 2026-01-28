@@ -1,12 +1,11 @@
+import { Link } from "@navikt/ds-react";
+import { Events } from "@/common/analytics/events";
 import {
   KONTAKT_INFO_URL_AG,
   KONTAKT_INFO_URL_SM,
 } from "@/common/constants/staticUrls";
-import { Events } from "@/common/analytics/events";
-import { Link } from "@navikt/ds-react";
-import React from "react";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { useAudience } from "@/common/hooks/routeHooks";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 interface Props {
   linkText: string;

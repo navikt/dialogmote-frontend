@@ -1,7 +1,6 @@
-import NextLink from "next/link";
-import React from "react";
-import { useLandingUrl } from "@/common/hooks/routeHooks";
 import { Button } from "@navikt/ds-react";
+import NextLink from "next/link";
+import { useLandingUrl } from "@/common/hooks/routeHooks";
 
 const texts = {
   avbryt: "Avbryt",

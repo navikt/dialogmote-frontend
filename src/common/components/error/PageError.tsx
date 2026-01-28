@@ -1,9 +1,8 @@
-import React, { ReactNode } from "react";
-import Image from "next/legacy/image";
 import { BodyLong, Heading, Link } from "@navikt/ds-react";
-
-import pageErrorDad from "../../images/page-error-dad.svg";
+import Image from "next/legacy/image";
+import type { ReactNode } from "react";
 import notFoundMom from "../../images/not-found-mom.svg";
+import pageErrorDad from "../../images/page-error-dad.svg";
 import styles from "./error.module.css";
 
 interface Props {

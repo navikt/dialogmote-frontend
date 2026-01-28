@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import React from "react";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { ReferatContent } from "@/common/components/referat/ReferatContent";

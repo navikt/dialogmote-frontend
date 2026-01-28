@@ -1,11 +1,11 @@
-import { createDocumentComponent } from "../../../../mocks/data/factories/brev";
-import DocumentContainer from "../DocumentContainer";
-import { render, screen } from "../../../../test/testUtils";
 import { waitFor } from "@testing-library/react";
-import { testServer } from "../../../../mocks/testServer";
-import { http, HttpResponse } from "msw";
+import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { createDocumentComponent } from "../../../../mocks/data/factories/brev";
+import { testServer } from "../../../../mocks/testServer";
+import { render, screen } from "../../../../test/testUtils";
+import DocumentContainer from "../DocumentContainer";
 
 describe("DocumentContainer", () => {
   const requestResolver = vi.fn();
@@ -18,7 +18,7 @@ describe("DocumentContainer", () => {
       http.post("*/api/sykmeldt/brev/brev_uuid/lest", async () => {
         requestResolver();
         return new HttpResponse(null, { status: 200 });
-      })
+      }),
     );
   });
 
@@ -35,7 +35,7 @@ describe("DocumentContainer", () => {
         title="Test_title"
       >
         <div>Test div</div>
-      </DocumentContainer>
+      </DocumentContainer>,
     );
 
     expect(screen.getByText("test-text-1")).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe("DocumentContainer", () => {
         title="Test_title"
       >
         <div>Test div</div>
-      </DocumentContainer>
+      </DocumentContainer>,
     );
 
     expect(screen.getByText("Test_title")).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe("DocumentContainer", () => {
         title="Test_title"
       >
         <div>Test div</div>
-      </DocumentContainer>
+      </DocumentContainer>,
     );
 
     await waitFor(() => {
@@ -89,7 +89,7 @@ describe("DocumentContainer", () => {
         title="Test_title"
       >
         <div>Test div</div>
-      </DocumentContainer>
+      </DocumentContainer>,
     );
 
     await waitFor(() => {

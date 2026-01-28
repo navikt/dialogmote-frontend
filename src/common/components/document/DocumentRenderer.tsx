@@ -1,9 +1,8 @@
-import React from "react";
 import { BodyLong, Heading, Link } from "@navikt/ds-react";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
+import type { DocumentComponent } from "types/client/brev";
+import type { ReferatDocumentComponent } from "types/shared/brev";
 import { Events } from "@/common/analytics/events";
-import { DocumentComponent } from "types/client/brev";
-import { ReferatDocumentComponent } from "types/shared/brev";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 interface Props {
   documentComponent: DocumentComponent | ReferatDocumentComponent;
@@ -18,7 +17,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
       return (
         <>
           {texts.map((text, index) => (
-            <Heading size="xlarge" level="1" key={index}>
+            <Heading
+              size="xlarge"
+              level="1"
+              key={`header-${index}-${title ?? ""}`}
+            >
               {text}
             </Heading>
           ))}
@@ -29,7 +32,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
       return (
         <>
           {texts.map((text, index) => (
-            <Heading size="xlarge" level="1" key={index}>
+            <Heading
+              size="xlarge"
+              level="1"
+              key={`header-h1-${index}-${title ?? ""}`}
+            >
               {text}
             </Heading>
           ))}
@@ -40,7 +47,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
       return (
         <>
           {texts.map((text, index) => (
-            <Heading size="large" level="2" key={index}>
+            <Heading
+              size="large"
+              level="2"
+              key={`header-h2-${index}-${title ?? ""}`}
+            >
               {text}
             </Heading>
           ))}
@@ -58,7 +69,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
           {texts.map((text, index) => (
             <Link
               className="break-words"
-              key={index}
+              key={`link-${text}`}
               href={text}
               onClick={() =>
                 trackEvent(Events.DocumentRendererLink, { linkType: text })
@@ -79,7 +90,9 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             </Heading>
           )}
           {texts.map((text, index) => (
-            <BodyLong key={index}>{text}</BodyLong>
+            <BodyLong key={`paragraph-${index}-${title ?? ""}`}>
+              {text}
+            </BodyLong>
           ))}
         </>
       );

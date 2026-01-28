@@ -1,6 +1,5 @@
-import React from "react";
-import { GuidePanel, Heading, Link, List, Box } from "@navikt/ds-react";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { Box, GuidePanel, Heading, Link, List } from "@navikt/ds-react";
 
 import { ARBEIDSGIVER_OPPFOLGING_INFO_URL } from "@/common/constants/staticUrls";
 

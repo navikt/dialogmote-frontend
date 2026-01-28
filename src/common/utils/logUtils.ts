@@ -1,7 +1,16 @@
 import { logger } from "@navikt/next-logger";
 
-// eslint-disable-next-line
-declare const window: any;
+type FaroApi = {
+  pushError: (error: Error, context?: { context: string }) => void;
+};
+
+type FaroWindow = Window & {
+  faro?: {
+    api: FaroApi;
+  };
+};
+
+declare const window: FaroWindow;
 
 const UUID =
   /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g;
@@ -9,7 +18,7 @@ const ORGNR = /\b[0-9a-f]{9}\b/g;
 const FNR = /\b[0-9]{11}\b/g;
 
 export function cleanPathForMetric(
-  value: string | undefined
+  value: string | undefined,
 ): string | undefined {
   return value
     ?.replace(UUID, "[uuid]")

@@ -1,10 +1,10 @@
-import { isDateInPast } from "@/common/utils/dateUtils";
 import { GuidePanel, LocalAlert } from "@navikt/ds-react";
+import type { Brev } from "types/shared/brev";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
-import VeilederInnkallelseContent from "@/common/components/moteinnkalling/VeilederInnkallelseContent";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
-import { Brev } from "types/shared/brev";
 import GiSvarPaInnkallelse from "@/common/components/moteinnkalling/GiSvarPaInnkallelse";
+import VeilederInnkallelseContent from "@/common/components/moteinnkalling/VeilederInnkallelseContent";
+import { isDateInPast } from "@/common/utils/dateUtils";
 
 interface Props {
   moteinnkalling: Brev;

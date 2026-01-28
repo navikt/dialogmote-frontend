@@ -1,4 +1,3 @@
-import { Controller, useForm, useWatch } from "react-hook-form";
 import {
   Checkbox,
   Radio,
@@ -6,20 +5,20 @@ import {
   Textarea,
   TextField,
 } from "@navikt/ds-react";
-
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
-import { SubmitButton } from "@/common/components/button/SubmitButton";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
+import { SubmitButton } from "@/common/components/button/SubmitButton";
+import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
+import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { commonTexts } from "@/common/constants/commonTexts";
+import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
 import { getSelectedRadioOption } from "@/common/utils/formUtils";
-import { MotebehovSvarRequest } from "@/types/shared/motebehov";
-import {
+import type {
   FieldSnapshot,
   FormSnapshotRequestDto,
   MotebehovFormIdentifier,
 } from "@/server/service/schema/formSnapshotSchema";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 
 const MAX_LENGTH_SVAR_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;
@@ -147,7 +146,7 @@ function SvarBehovForm({
 
   const svarBegrunnelseDescription = `${
     svarBegrunnelseDescriptionFirstPart
-      ? svarBegrunnelseDescriptionFirstPart + " "
+      ? `${svarBegrunnelseDescriptionFirstPart} `
       : ""
   }${commonTexts.noSensitiveInfo}`;
 
@@ -165,7 +164,7 @@ function SvarBehovForm({
           { optionId: RADIO_VALUE_YES, optionLabel: radioYes },
           { optionId: RADIO_VALUE_NO, optionLabel: radioNo },
         ],
-        data[motebehovRadioGroup]
+        data[motebehovRadioGroup],
       );
 
       if (motebehovRadioGroupSnapshot !== null) {

@@ -1,11 +1,11 @@
-import React, { ReactElement, ReactNode } from "react";
 import { PersonIcon } from "@navikt/aksel-icons";
-import { Sykmeldt } from "../../../types/shared/sykmeldt";
-import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
-import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
+import type { ReactElement, ReactNode } from "react";
+import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { PageHeading } from "@/common/components/header/PageHeading";
+import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
+import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
+import type { Sykmeldt } from "../../../types/shared/sykmeldt";
 
 const getSykmeldtHeader = (sykmeldt?: Sykmeldt) => {
   if (sykmeldt?.navn && sykmeldt.fnr) {
@@ -53,10 +53,8 @@ const ArbeidsgiverSide = ({
         <ArbeidsgiverSideMenu sykmeldt={dialogmoteData.data?.sykmeldt} />
       }
     >
-      <>
-        <PageHeading title={title} hideHeader={hideHeader} />
-        {children}
-      </>
+      <PageHeading title={title} hideHeader={hideHeader} />
+      {children}
     </PageContainer>
   );
 };

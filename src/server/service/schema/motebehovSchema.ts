@@ -1,4 +1,4 @@
-import { union, object, literal, boolean, string, z } from "zod";
+import { boolean, literal, object, string, union, type z } from "zod";
 import { formSnapshotResponseSchema } from "./formSnapshotSchema";
 
 const skjemaType = union([literal("MELD_BEHOV"), literal("SVAR_BEHOV")]);

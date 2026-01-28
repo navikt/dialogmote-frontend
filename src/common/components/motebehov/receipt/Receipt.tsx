@@ -1,9 +1,7 @@
-import React from "react";
 import { BodyShort } from "@navikt/ds-react";
-
-import { getFullDateFormat } from "@/common/utils/dateUtils";
 import ReceiptRenderer from "@/common/components/motebehov/receipt/ReceiptRenderer";
-import { FormSnapshotResponseDto } from "@/server/service/schema/formSnapshotSchema";
+import { getFullDateFormat } from "@/common/utils/dateUtils";
+import type { FormSnapshotResponseDto } from "@/server/service/schema/formSnapshotSchema";
 
 interface Props {
   opprettetDato: string;

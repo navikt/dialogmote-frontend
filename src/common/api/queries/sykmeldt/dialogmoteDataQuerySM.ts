@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import type { DialogmoteData } from "types/shared/dialogmote";
 import { get } from "@/common/api/fetch";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
-import { DialogmoteData } from "types/shared/dialogmote";
 
 export const DIALOGMOTEDATA_SM = "dialogmotedata-sykmeldt";
 

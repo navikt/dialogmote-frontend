@@ -1,10 +1,10 @@
+import { LinkCard } from "@navikt/ds-react";
+import NextLink from "next/link";
+import type { Referat } from "types/shared/brev";
 import { Events } from "@/common/analytics/events";
 import { useReferatPath } from "@/common/hooks/routeHooks";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
-import { LinkCard } from "@navikt/ds-react";
-import NextLink from "next/link";
-import { Referat } from "types/shared/brev";
 
 const texts = {
   text: "Referatet oppsummerer det vi snakket om i dialogmøtet",

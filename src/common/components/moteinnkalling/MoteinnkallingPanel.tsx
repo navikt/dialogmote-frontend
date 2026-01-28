@@ -1,12 +1,12 @@
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { Events } from "@/common/analytics/events";
 import { BodyShort, Button, LocalAlert } from "@navikt/ds-react";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { Brev } from "types/shared/brev";
-import { BrevType } from "types/client/brev";
-import DittSvarPaInnkallelse from "./DittSvarPaInnkallelse";
 import NextLink from "next/link";
+import type { BrevType } from "types/client/brev";
+import type { Brev } from "types/shared/brev";
+import { Events } from "@/common/analytics/events";
+import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
+import DittSvarPaInnkallelse from "./DittSvarPaInnkallelse";
 
 const getTexts = (brevType: BrevType) => {
   switch (brevType) {

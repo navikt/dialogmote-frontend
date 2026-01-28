@@ -1,7 +1,6 @@
+import { BodyShort } from "@navikt/ds-react";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
-import { BodyShort } from "@navikt/ds-react";
-import React from "react";
 
 const texts = {
   kontaktOssText: "Du kan også ",

@@ -1,10 +1,9 @@
-import { Motebehov } from "../../../../types/shared/motebehov";
-import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
-import { DelOppfolgingsplanInfoBoks } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoks";
-import React from "react";
 import { BodyLong, Heading } from "@navikt/ds-react";
+import { DelOppfolgingsplanInfoBoks } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoks";
+import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
 import { MotebehovSubmitButton } from "@/common/components/motebehov/MotebehovSubmitButton";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
+import type { Motebehov } from "../../../../types/shared/motebehov";
 
 const HvaErEtDialogmoteAG = () => {
   return (

@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
-import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   if (isMockBackend) {
     res.status(200).end();

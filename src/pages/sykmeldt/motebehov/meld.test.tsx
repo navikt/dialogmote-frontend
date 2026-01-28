@@ -1,12 +1,12 @@
 import { act, waitFor, within } from "@testing-library/react";
-import { render, screen } from "../../../test/testUtils";
-import MeldBehov from "@/pages/sykmeldt/motebehov/meld.page";
+import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
-import { http, HttpResponse } from "msw";
-import { testServer } from "../../../mocks/testServer";
-import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
+import MeldBehov from "@/pages/sykmeldt/motebehov/meld.page";
 import { meldMotebehovSMFixture } from "../../../mocks/data/fixtures/form";
+import { testServer } from "../../../mocks/testServer";
+import { render, screen } from "../../../test/testUtils";
 
 describe("meld page sykmeldt", () => {
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe("meld page sykmeldt", () => {
         http.post("*/api/sykmeldt/motebehov", async ({ request }) => {
           requestResolver(await request.json());
           return new HttpResponse(null, { status: 200 });
-        })
+        }),
       );
 
       const { user } = render(<MeldBehov />);
@@ -38,12 +38,12 @@ describe("meld page sykmeldt", () => {
         screen.getByRole("textbox", {
           name: /Hvorfor ønsker du et dialogmøte/i,
         }),
-        "Dette er en begrunnelse"
+        "Dette er en begrunnelse",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Be om møte",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -76,7 +76,7 @@ describe("meld page sykmeldt", () => {
               },
             ],
           },
-        })
+        }),
       );
     });
 
@@ -86,7 +86,7 @@ describe("meld page sykmeldt", () => {
         http.post("*/api/sykmeldt/motebehov", async ({ request }) => {
           requestResolver(await request.json());
           return new HttpResponse(null, { status: 200 });
-        })
+        }),
       );
 
       const { user } = render(<MeldBehov />);
@@ -95,35 +95,35 @@ describe("meld page sykmeldt", () => {
         screen.getByRole("textbox", {
           name: /Hvorfor ønsker du et dialogmøte/i,
         }),
-        "Dette er en begrunnelse"
+        "Dette er en begrunnelse",
       );
 
       await user.click(
         screen.getByRole("checkbox", {
           name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Hvorfor ønsker du at lege\/behandler deltar/i,
         }),
-        "Behandler må være med"
+        "Behandler må være med",
       );
       await user.click(
         screen.getByRole("checkbox", {
           name: "Jeg har behov for tolk.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Hva slags tolk har du behov for/i,
         }),
-        "Engelsk tolk"
+        "Engelsk tolk",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Be om møte",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -134,7 +134,7 @@ describe("meld page sykmeldt", () => {
             formSemanticVersion: "1.0.0",
             fieldSnapshots: meldMotebehovSMFixture,
           },
-        })
+        }),
       );
     });
   });
@@ -145,47 +145,45 @@ describe("meld page sykmeldt", () => {
     await user.click(
       screen.getByRole("checkbox", {
         name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("checkbox", {
         name: "Jeg har behov for tolk.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("button", {
         name: "Be om møte",
-      })
+      }),
     );
 
     const errorSummaryHeading = await screen.findByRole("heading", {
       name: "For å gå videre må du rette opp følgende:",
     });
     expect(errorSummaryHeading).toBeInTheDocument();
-    const errorSummaryList = screen
-      .getAllByRole("list")
-      .find((list) =>
-        within(list).queryByRole("link", {
-          name: "Du må oppgi hvorfor du ønsker et dialogmøte.",
-        })
-      );
+    const errorSummaryList = screen.getAllByRole("list").find((list) =>
+      within(list).queryByRole("link", {
+        name: "Du må oppgi hvorfor du ønsker et dialogmøte.",
+      }),
+    );
     expect(errorSummaryList).toBeDefined();
     const errorSummary = within(errorSummaryList as HTMLElement);
 
     expect(
       errorSummary.getByRole("link", {
         name: "Du må oppgi hvorfor du ønsker et dialogmøte.",
-      })
+      }),
     ).toBeInTheDocument();
     expect(
       errorSummary.getByRole("link", {
         name: "Du må begrunne hvorfor du ønsker at behandler deltar.",
-      })
+      }),
     ).toBeInTheDocument();
     expect(
       errorSummary.getByRole("link", {
         name: "Du må oppgi hva slags tolk dere har behov for.",
-      })
+      }),
     ).toBeInTheDocument();
   });
 });

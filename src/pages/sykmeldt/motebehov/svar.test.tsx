@@ -1,13 +1,13 @@
 import { act, waitFor, within } from "@testing-library/react";
-import { render, screen } from "../../../test/testUtils";
+import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
-import { http, HttpResponse } from "msw";
-import { testServer } from "../../../mocks/testServer";
-import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import SvarBehov from "@/pages/sykmeldt/motebehov/svar.page";
 import { createSvarBehovSM } from "../../../mocks/data/factories/dialogmote";
 import { svarMotebehovSMFixture } from "../../../mocks/data/fixtures/form";
+import { testServer } from "../../../mocks/testServer";
+import { render, screen } from "../../../test/testUtils";
 
 describe("svar page sykmeldt", () => {
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe("svar page sykmeldt", () => {
         }),
         http.get("*/api/sykmeldt", () => {
           return HttpResponse.json(createSvarBehovSM());
-        })
+        }),
       );
 
       const { user } = render(<SvarBehov />);
@@ -45,18 +45,18 @@ describe("svar page sykmeldt", () => {
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Nei, jeg mener det ikke er behov for et dialogmøte.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Begrunnelse/i,
         }),
-        "Ingen grunn til å ha møte"
+        "Ingen grunn til å ha møte",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Send svar",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -98,7 +98,7 @@ describe("svar page sykmeldt", () => {
               },
             ],
           },
-        })
+        }),
       );
     });
 
@@ -111,7 +111,7 @@ describe("svar page sykmeldt", () => {
         }),
         http.get("*/api/sykmeldt", () => {
           return HttpResponse.json(createSvarBehovSM());
-        })
+        }),
       );
 
       const { user } = render(<SvarBehov />);
@@ -123,12 +123,12 @@ describe("svar page sykmeldt", () => {
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Ja, jeg ønsker et dialogmøte.",
-        })
+        }),
       );
       await user.click(
         screen.getByRole("button", {
           name: "Send svar",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -182,7 +182,7 @@ describe("svar page sykmeldt", () => {
               },
             ],
           },
-        })
+        }),
       );
     });
 
@@ -195,7 +195,7 @@ describe("svar page sykmeldt", () => {
         }),
         http.get("*/api/sykmeldt", () => {
           return HttpResponse.json(createSvarBehovSM());
-        })
+        }),
       );
 
       const { user } = render(<SvarBehov />);
@@ -207,41 +207,41 @@ describe("svar page sykmeldt", () => {
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Ja, jeg ønsker et dialogmøte.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Begrunnelse/i,
         }),
-        "Dette er en begrunnelse"
+        "Dette er en begrunnelse",
       );
 
       await user.click(
         screen.getByRole("checkbox", {
           name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Hvorfor ønsker du at lege\/behandler deltar/i,
         }),
-        "Behandler må være med"
+        "Behandler må være med",
       );
       await user.click(
         screen.getByRole("checkbox", {
           name: "Jeg har behov for tolk.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Hva slags tolk har du behov for/i,
         }),
-        "Engelsk tolk"
+        "Engelsk tolk",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Send svar",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -252,7 +252,7 @@ describe("svar page sykmeldt", () => {
             formSemanticVersion: "1.0.0",
             fieldSnapshots: svarMotebehovSMFixture,
           },
-        })
+        }),
       );
     });
   });
@@ -261,7 +261,7 @@ describe("svar page sykmeldt", () => {
     testServer.use(
       http.get("*/api/sykmeldt", () => {
         return HttpResponse.json(createSvarBehovSM());
-      })
+      }),
     );
     const { user } = render(<SvarBehov />);
 
@@ -272,47 +272,45 @@ describe("svar page sykmeldt", () => {
     await user.click(
       radioGroup.getByRole("radio", {
         name: "Ja, jeg ønsker et dialogmøte.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("checkbox", {
         name: "Jeg ønsker at den som har sykmeldt meg (lege/behandler) også deltar i møtet.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("checkbox", {
         name: "Jeg har behov for tolk.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("button", {
         name: "Send svar",
-      })
+      }),
     );
 
     const errorSummaryHeading = await screen.findByRole("heading", {
       name: "For å gå videre må du rette opp følgende:",
     });
     expect(errorSummaryHeading).toBeInTheDocument();
-    const errorSummaryList = screen
-      .getAllByRole("list")
-      .find((list) =>
-        within(list).queryByRole("link", {
-          name: "Du må begrunne hvorfor du ønsker at behandler deltar.",
-        })
-      );
+    const errorSummaryList = screen.getAllByRole("list").find((list) =>
+      within(list).queryByRole("link", {
+        name: "Du må begrunne hvorfor du ønsker at behandler deltar.",
+      }),
+    );
     expect(errorSummaryList).toBeDefined();
     const errorSummary = within(errorSummaryList as HTMLElement);
 
     expect(
       errorSummary.getByRole("link", {
         name: "Du må begrunne hvorfor du ønsker at behandler deltar.",
-      })
+      }),
     ).toBeInTheDocument();
     expect(
       errorSummary.getByRole("link", {
         name: "Du må oppgi hva slags tolk dere har behov for.",
-      })
+      }),
     ).toBeInTheDocument();
   });
 });

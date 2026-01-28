@@ -6,7 +6,7 @@ import { motebehovStatusSchema } from "./schema/motebehovSchema";
 export async function getMotebehovAG(
   accessToken: string,
   fnr: string,
-  orgnummer: string
+  orgnummer: string,
 ) {
   const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
 
@@ -22,7 +22,7 @@ export async function getMotebehovSM(accessToken: string) {
     `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
     {
       accessToken,
-    }
+    },
   );
 
   return motebehovStatusSchema.safeParse(motebehovStatus);

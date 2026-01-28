@@ -1,9 +1,9 @@
 import { BodyLong, Link, LocalAlert } from "@navikt/ds-react";
-import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
 import { Events } from "@/common/analytics/events";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
+import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
 
 const texts = {
   alertstripe: "Husk å dele oppfølgingsplanen med Nav før møtet.",

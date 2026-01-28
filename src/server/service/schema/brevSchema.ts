@@ -1,3 +1,4 @@
+import { logger } from "@navikt/next-logger";
 import {
   array,
   boolean,
@@ -6,9 +7,8 @@ import {
   preprocess,
   string,
   union,
-  z,
+  type z,
 } from "zod";
-import { logger } from "@navikt/next-logger";
 
 const documentComponentType = union([
   literal("HEADER"),
@@ -62,7 +62,7 @@ const documentComponent = object({
   type: preprocess(transformComponentType, documentComponentTypeWithUnknown),
   key: preprocess(
     transformDocumentKey,
-    documentComponentKeyWithUnknown.nullable()
+    documentComponentKeyWithUnknown.nullable(),
   ),
   title: string().nullable(),
   texts: array(string()),
@@ -96,7 +96,7 @@ function transformComponentType(type: unknown): string {
   if (parsedType.success) return parsedType.data;
 
   logger.error(
-    `Unknown component type received in brev-schema: ${String(type)}`
+    `Unknown component type received in brev-schema: ${String(type)}`,
   );
   return "UNKNOWN";
 }

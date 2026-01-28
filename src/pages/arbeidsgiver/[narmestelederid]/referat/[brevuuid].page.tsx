@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
-import React from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import { ReferatContent } from "@/common/components/referat/ReferatContent";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import { ReferatContent } from "@/common/components/referat/ReferatContent";
 
 const texts = {
   title: "Referat fra dialogmøte",

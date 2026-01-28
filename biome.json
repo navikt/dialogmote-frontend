@@ -1,0 +1,94 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**/*",
+      "!!**/node_modules",
+      "!!**/.next",
+      "!!**/dist",
+      "!!**/build",
+      "!!**/out",
+      "!!**/public/mockServiceWorker.js"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
+      },
+      "suspicious": {
+        "noUnknownAtRules": "off",
+        "noExplicitAny": "warn"
+      }
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/pages/_document.page.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDocumentImportInPage": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/common/components/error/PageError.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useSemanticElements": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/styles/globals.css"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noInvalidPositionAtImportRule": "off"
+          }
+        }
+      }
+    }
+  ]
+}

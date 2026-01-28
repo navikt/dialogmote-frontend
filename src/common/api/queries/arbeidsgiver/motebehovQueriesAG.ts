@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
-import { post } from "@/common/api/fetch";
 import { useRouter } from "next/router";
+import type { MotebehovSvarRequestAG } from "types/shared/motebehov";
+import { post } from "@/common/api/fetch";
+import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
 import { useNotifications } from "@/context/NotificationContext";
-import { MotebehovSvarRequestAG } from "types/shared/motebehov";
 
 export const useSvarPaMotebehovAG = () => {
   const basepath = useApiBasePath();
@@ -24,12 +24,12 @@ export const useSvarPaMotebehovAG = () => {
       await router.push(landingUrl);
 
       displaySuccessToast(
-        "Du har sendt svaret ditt på om du ønsker et dialogmøte"
+        "Du har sendt svaret ditt på om du ønsker et dialogmøte",
       );
     },
     onError: () => {
       displayErrorToast(
-        "Det skjedde en feil ved innsending av møtebehov. Vennligst prøv igjen senere."
+        "Det skjedde en feil ved innsending av møtebehov. Vennligst prøv igjen senere.",
       );
     },
   });

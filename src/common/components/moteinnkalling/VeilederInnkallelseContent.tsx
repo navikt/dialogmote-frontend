@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
 import { Label, Link } from "@navikt/ds-react";
+import React, { type ReactElement } from "react";
+import { Events } from "@/common/analytics/events";
 import { VIDEOMOTE_INFO_URL } from "@/common/constants/staticUrls";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { Events } from "@/common/analytics/events";
 
 const texts = {
   veilederText1: "Har du blitt kalt inn til et videomøte med Nav? ",

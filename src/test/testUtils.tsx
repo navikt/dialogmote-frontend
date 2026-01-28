@@ -1,8 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, RenderOptions, screen, Screen } from "@testing-library/react";
-import React, { ReactElement, ReactNode } from "react";
-import open from "open";
+import {
+  type RenderOptions,
+  render,
+  type Screen,
+  screen,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import open from "open";
+import type { ReactElement, ReactNode } from "react";
 import { NotificationProvider } from "@/context/NotificationContext";
 
 const AllTheProviders = ({ children }: { children: ReactNode }) => {
@@ -23,7 +28,7 @@ const AllTheProviders = ({ children }: { children: ReactNode }) => {
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ) => {
   return {
     user: userEvent.setup({ delay: null }),

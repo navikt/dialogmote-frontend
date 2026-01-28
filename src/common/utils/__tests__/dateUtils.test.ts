@@ -1,10 +1,10 @@
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   getFullDateFormat,
   getLongDateFormat,
   isDateInPast,
   minutesToMillis,
 } from "../dateUtils";
-import { afterAll, beforeAll, describe, expect, vi, it } from "vitest";
 
 describe("dateUtils", () => {
   beforeAll(() => {

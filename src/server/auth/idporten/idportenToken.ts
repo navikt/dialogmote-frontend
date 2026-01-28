@@ -1,16 +1,16 @@
-import { IncomingMessage } from "node:http";
+import type { IncomingMessage } from "node:http";
+import { logger } from "@navikt/next-logger";
 import { getToken } from "@navikt/oasis";
-import { validateToken } from "./verifyIdportenToken";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { isMockBackend } from "@/server/utils/serverEnv";
-import { logger } from "@navikt/next-logger";
+import { validateToken } from "./verifyIdportenToken";
 
 export type TokenValidationResult =
   | { success: true; token: string }
   | { success: false; reason: string };
 
 export async function validateIdportenToken(
-  req: IncomingMessage
+  req: IncomingMessage,
 ): Promise<TokenValidationResult> {
   if (isMockBackend) {
     return { success: true, token: "sometoken" };
@@ -34,7 +34,7 @@ export async function validateIdportenToken(
 }
 
 export async function validateAndGetIdportenToken(
-  req: IncomingMessage
+  req: IncomingMessage,
 ): Promise<string> {
   const validation = await validateIdportenToken(req);
 

@@ -1,7 +1,7 @@
-import {
+import type {
   MotebehovDataDTO,
-  MotebehovStatusDTO,
   MotebehovSkjemaTypeDTO,
+  MotebehovStatusDTO,
 } from "@/server/service/schema/motebehovSchema";
 
 export class MotebehovBuilder {

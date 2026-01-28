@@ -1,15 +1,15 @@
-import React, { ReactElement } from "react";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
-import {
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
+import type { ReactElement } from "react";
+import type {
   MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "types/shared/motebehov";
-import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
 import { ArbeidsgiverSvarPaaBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
-import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
-import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import {
   ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL,
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,

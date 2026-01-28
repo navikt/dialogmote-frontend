@@ -1,6 +1,6 @@
-import { MockSetup } from "../../getMockDb";
-import { TestScenarioBuilder } from "@/server/data/mock/builders/testScenarioBuilder";
 import { MotebehovBuilder } from "@/server/data/mock/builders/motebehovBuilder";
+import { TestScenarioBuilder } from "@/server/data/mock/builders/testScenarioBuilder";
+import type { MockSetup } from "../../getMockDb";
 
 export const meldbehovScenario: MockSetup = new TestScenarioBuilder()
   .withTestScenario("MELD_BEHOV")
@@ -9,6 +9,6 @@ export const meldbehovScenario: MockSetup = new TestScenarioBuilder()
     new MotebehovBuilder()
       .withVisMotebehov(true)
       .withSkjematype("MELD_BEHOV")
-      .build()
+      .build(),
   )
   .build();

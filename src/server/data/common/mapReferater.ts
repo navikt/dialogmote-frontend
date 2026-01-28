@@ -1,13 +1,13 @@
+import type { Referat } from "types/shared/brev";
 import { infoUrls } from "@/common/constants/InfoUrls";
-import { BrevDTO } from "@/server/service/schema/brevSchema";
-import { Referat } from "types/shared/brev";
+import type { BrevDTO } from "@/server/service/schema/brevSchema";
 
 export const mapReferater = (brev?: BrevDTO[]): Referat[] => {
   return (
     brev
       ?.filter(
         (brev) =>
-          brev.brevType === "REFERAT" || brev.brevType === "REFERAT_ENDRET"
+          brev.brevType === "REFERAT" || brev.brevType === "REFERAT_ENDRET",
       )
       .map((brev) => ({
         uuid: brev.uuid,

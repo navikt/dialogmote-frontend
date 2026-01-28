@@ -1,4 +1,4 @@
-import { UnleashFeature } from "../types/features/types";
+import type { UnleashFeature } from "../types/features/types";
 
 const unleashFeaturesMock: UnleashFeature[] = [
   {

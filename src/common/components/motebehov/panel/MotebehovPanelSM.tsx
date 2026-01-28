@@ -1,9 +1,8 @@
-import { Motebehov } from "../../../../types/shared/motebehov";
-import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
 import { BodyLong, Heading } from "@navikt/ds-react";
+import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
 import { MotebehovSubmitButton } from "@/common/components/motebehov/MotebehovSubmitButton";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import React from "react";
+import type { Motebehov } from "../../../../types/shared/motebehov";
 
 const HvaErEtDialogmoteSM = () => {
   return (

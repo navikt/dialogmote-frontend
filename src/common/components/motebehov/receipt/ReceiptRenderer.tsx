@@ -1,5 +1,5 @@
-import { ResponseFieldSnapshot } from "@/server/service/schema/formSnapshotSchema";
 import { FormSummary } from "@navikt/ds-react";
+import type { ResponseFieldSnapshot } from "@/server/service/schema/formSnapshotSchema";
 
 function ReceiptComponent({
   fieldSnapshot,
@@ -43,21 +43,19 @@ interface Props {
 
 function ReceiptRenderer({ fieldSnapshots }: Props) {
   return (
-    <>
-      <FormSummary>
-        <FormSummary.Header>
-          <FormSummary.Heading level="3">Svaret ditt</FormSummary.Heading>
-        </FormSummary.Header>
-        <FormSummary.Answers>
-          {fieldSnapshots.map((fieldSnapshot) => (
-            <ReceiptComponent
-              key={fieldSnapshot.fieldId}
-              fieldSnapshot={fieldSnapshot}
-            />
-          ))}
-        </FormSummary.Answers>
-      </FormSummary>
-    </>
+    <FormSummary>
+      <FormSummary.Header>
+        <FormSummary.Heading level="3">Svaret ditt</FormSummary.Heading>
+      </FormSummary.Header>
+      <FormSummary.Answers>
+        {fieldSnapshots.map((fieldSnapshot) => (
+          <ReceiptComponent
+            key={fieldSnapshot.fieldId}
+            fieldSnapshot={fieldSnapshot}
+          />
+        ))}
+      </FormSummary.Answers>
+    </FormSummary>
   );
 }
 

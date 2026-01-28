@@ -1,5 +1,5 @@
 import { RootPages, SideMenu } from "@navikt/dinesykmeldte-sidemeny";
-import { Sykmeldt } from "../../../types/shared/sykmeldt";
+import type { Sykmeldt } from "../../../types/shared/sykmeldt";
 
 interface Props {
   sykmeldt?: Sykmeldt;
