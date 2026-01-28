@@ -22,12 +22,6 @@ vi.mock("next/config", () => () => ({
     basePath: "/basepath",
   },
 }));
-vi.mock("src/auth/beskyttetSide.ts", () => {
-  return vi.fn().mockImplementation((callback) => {
-    callback();
-  });
-});
-
 beforeAll(() => testServer.listen());
 afterEach(() => {
   cleanup();

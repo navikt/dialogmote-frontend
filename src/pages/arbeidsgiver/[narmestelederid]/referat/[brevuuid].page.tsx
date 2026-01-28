@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import React from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { ReferatContent } from "@/common/components/referat/ReferatContent";
-import { beskyttetSideUtenProps } from "../../../../auth/beskyttetSide";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 
 const texts = {
@@ -18,7 +17,5 @@ const ReferatPage: NextPage = () => {
     </ArbeidsgiverSide>
   );
 };
-
-export const getServerSideProps = beskyttetSideUtenProps;
 
 export default ReferatPage;

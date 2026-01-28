@@ -10,7 +10,6 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import serverEnv from "@/server/utils/serverEnv";
 import { createBreadcrumbsAG, createBreadcrumbsSM } from "@/common/breadcrumbs";
 
 // The 'head'-field of the document initialProps contains data from <head> (meta-tags etc)
@@ -27,6 +26,17 @@ interface Props {
   language: string;
 }
 
+const getDecoratorEnv = (): "prod" | "dev" => {
+  switch (process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT) {
+    case "local":
+    case "test":
+    case "dev":
+      return "dev";
+    default:
+      return "prod";
+  }
+};
+
 export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -34,10 +44,11 @@ export default class MyDocument extends Document<Props> {
     const isAudienceSykmeldt = ctx.pathname.startsWith("/sykmeldt");
 
     const Decorator = await fetchDecoratorReact({
-      env: serverEnv.DECORATOR_ENV,
+      env: getDecoratorEnv(),
       params: {
         context: isAudienceSykmeldt ? "privatperson" : "arbeidsgiver",
         chatbot: true,
+        logoutWarning: true,
         feedback: false,
         redirectToApp: true,
         breadcrumbs: isAudienceSykmeldt
