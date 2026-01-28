@@ -37,7 +37,6 @@ const DocumentContainer = ({
     return [
       documentComponent.type,
       documentComponent.title ?? "",
-      documentComponent.texts.join("|"),
       String(index),
     ].join("|");
   };

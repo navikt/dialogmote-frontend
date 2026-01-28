@@ -21,7 +21,9 @@ const handler = async (
   if (isMockBackend) {
     const data = getMockDb(req);
     if (!data.sykmeldt) {
-      throw new Error("Mock db missing sykmeldt");
+      logger.error("Mock db missing sykmeldt");
+      res.status(500).json({ message: "Mock db missing sykmeldt" });
+      return;
     }
     getMockDb(req).motebehov.motebehov = {
       id: uuidv4(),

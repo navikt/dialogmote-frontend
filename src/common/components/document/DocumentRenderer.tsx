@@ -20,7 +20,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             <Heading
               size="xlarge"
               level="1"
-              key={`header-${index}-${title ?? ""}-${text}`}
+              key={`header-${index}-${title ?? ""}`}
             >
               {text}
             </Heading>
@@ -35,7 +35,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             <Heading
               size="xlarge"
               level="1"
-              key={`header-h1-${index}-${title ?? ""}-${text}`}
+              key={`header-h1-${index}-${title ?? ""}`}
             >
               {text}
             </Heading>
@@ -50,7 +50,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             <Heading
               size="large"
               level="2"
-              key={`header-h2-${index}-${title ?? ""}-${text}`}
+              key={`header-h2-${index}-${title ?? ""}`}
             >
               {text}
             </Heading>
@@ -69,7 +69,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
           {texts.map((text, index) => (
             <Link
               className="break-words"
-              key={`link-${index}-${text}`}
+              key={`link-${text}`}
               href={text}
               onClick={() =>
                 trackEvent(Events.DocumentRendererLink, { linkType: text })
@@ -90,7 +90,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             </Heading>
           )}
           {texts.map((text, index) => (
-            <BodyLong key={`paragraph-${index}-${title ?? ""}-${text}`}>
+            <BodyLong key={`paragraph-${index}-${title ?? ""}`}>
               {text}
             </BodyLong>
           ))}
