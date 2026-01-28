@@ -6,6 +6,21 @@ import {
   TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
 
+type TokenXFetchPostBaseArgs = {
+  req: NextApiRequest;
+  targetApi: TokenXTargetApi;
+  endpoint: string;
+  data?: unknown;
+  personIdent?: string;
+  orgnummer?: string;
+};
+
+export function tokenXFetchPost<ResponseData>(
+  args: TokenXFetchPostBaseArgs & { responseType?: "json" }
+): Promise<ResponseData>;
+export function tokenXFetchPost(
+  args: TokenXFetchPostBaseArgs & { responseType: "arraybuffer" }
+): Promise<Uint8Array>;
 export async function tokenXFetchPost<ResponseData>({
   req,
   targetApi,
@@ -14,15 +29,9 @@ export async function tokenXFetchPost<ResponseData>({
   responseType,
   personIdent,
   orgnummer,
-}: {
-  req: NextApiRequest;
-  targetApi: TokenXTargetApi;
-  endpoint: string;
-  data?: unknown;
+}: TokenXFetchPostBaseArgs & {
   responseType?: "json" | "arraybuffer";
-  personIdent?: string;
-  orgnummer?: string;
-}): Promise<ResponseData> {
+}): Promise<ResponseData | Uint8Array> {
   const idPortenToken = await validateAndGetIdportenToken(req);
   const oboToken = await exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,

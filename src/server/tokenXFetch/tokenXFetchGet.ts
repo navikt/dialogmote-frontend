@@ -6,6 +6,20 @@ import {
   TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
 
+type TokenXFetchGetBaseArgs = {
+  req: NextApiRequest;
+  targetApi: TokenXTargetApi;
+  endpoint: string;
+  personIdent?: string;
+  orgnummer?: string;
+};
+
+export function tokenXFetchGet<ResponseData>(
+  args: TokenXFetchGetBaseArgs & { responseType?: "json" }
+): Promise<ResponseData>;
+export function tokenXFetchGet(
+  args: TokenXFetchGetBaseArgs & { responseType: "arraybuffer" }
+): Promise<Uint8Array>;
 export async function tokenXFetchGet<ResponseData>({
   req,
   targetApi,
@@ -13,14 +27,9 @@ export async function tokenXFetchGet<ResponseData>({
   responseType,
   personIdent,
   orgnummer,
-}: {
-  req: NextApiRequest;
-  targetApi: TokenXTargetApi;
-  endpoint: string;
-  responseType?: "json" | "arraybuffer";
-  personIdent?: string;
-  orgnummer?: string;
-}): Promise<ResponseData> {
+}: TokenXFetchGetBaseArgs & { responseType?: "json" | "arraybuffer" }): Promise<
+  ResponseData | Uint8Array
+> {
   const idPortenToken = await validateAndGetIdportenToken(req);
   const oboToken = await exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
@@ -32,5 +41,14 @@ export async function tokenXFetchGet<ResponseData>({
     responseType,
     personIdent,
     orgnummer,
+  });
+}
+
+export function tokenXFetchGetBytes(
+  args: Omit<TokenXFetchGetBaseArgs, "endpoint"> & { endpoint: string }
+): Promise<Uint8Array> {
+  return tokenXFetchGet({
+    ...args,
+    responseType: "arraybuffer",
   });
 }

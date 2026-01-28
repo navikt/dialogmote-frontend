@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
-import { tokenXFetchGet } from "@/server/tokenXFetch/tokenXFetchGet";
+import { tokenXFetchGetBytes } from "@/server/tokenXFetch/tokenXFetchGet";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 
 const handler = async (
@@ -10,11 +10,10 @@ const handler = async (
 ): Promise<void> => {
   const pdf = isMockBackend
     ? pdfMock
-    : await tokenXFetchGet({
+    : await tokenXFetchGetBytes({
         req,
         targetApi: TokenXTargetApi.ISDIALOGMOTE,
         endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev/${req.query.uuid}/pdf`,
-        responseType: "arraybuffer",
       });
   res
     .status(200)
