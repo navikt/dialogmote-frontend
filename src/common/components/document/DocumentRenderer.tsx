@@ -16,11 +16,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "HEADER":
       return (
         <>
-          {texts.map((text) => (
+          {texts.map((text, index) => (
             <Heading
               size="xlarge"
               level="1"
-              key={`header-${title ?? ""}-${text}`}
+              key={`header-${index}-${title ?? ""}-${text}`}
             >
               {text}
             </Heading>
@@ -31,11 +31,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "HEADER_H1":
       return (
         <>
-          {texts.map((text) => (
+          {texts.map((text, index) => (
             <Heading
               size="xlarge"
               level="1"
-              key={`header-h1-${title ?? ""}-${text}`}
+              key={`header-h1-${index}-${title ?? ""}-${text}`}
             >
               {text}
             </Heading>
@@ -46,11 +46,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "HEADER_H2":
       return (
         <>
-          {texts.map((text) => (
+          {texts.map((text, index) => (
             <Heading
               size="large"
               level="2"
-              key={`header-h2-${title ?? ""}-${text}`}
+              key={`header-h2-${index}-${title ?? ""}-${text}`}
             >
               {text}
             </Heading>
@@ -66,10 +66,10 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
               {title}
             </Heading>
           )}
-          {texts.map((text) => (
+          {texts.map((text, index) => (
             <Link
               className="break-words"
-              key={`link-${text}`}
+              key={`link-${index}-${text}`}
               href={text}
               onClick={() =>
                 trackEvent(Events.DocumentRendererLink, { linkType: text })
@@ -89,8 +89,10 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
               {title}
             </Heading>
           )}
-          {texts.map((text) => (
-            <BodyLong key={`paragraph-${title ?? ""}-${text}`}>{text}</BodyLong>
+          {texts.map((text, index) => (
+            <BodyLong key={`paragraph-${index}-${title ?? ""}-${text}`}>
+              {text}
+            </BodyLong>
           ))}
         </>
       );

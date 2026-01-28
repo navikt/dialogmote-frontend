@@ -11,9 +11,10 @@ interface Props {
 export const KanIkkeSvarePaaSvarBehov = ({ title }: Props) => {
   const ferdigstillSvarBehov = useFerdigstillMotebehovSM();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: should only run once on mount
   useEffect(() => {
     ferdigstillSvarBehov.mutate();
-  }, [ferdigstillSvarBehov]);
+  }, []);
 
   return (
     <SykmeldtSide title={title} hideHeader={true} hidePersonvern={true}>

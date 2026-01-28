@@ -25,16 +25,12 @@ export const SingleNotification = ({ notification }: Props) => {
     }
   }, [clearNotifications, notification]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: use router.pathname to trigger cleanup on route changes
   useEffect(() => {
-    const handleRouteChange = () => {
+    return () => {
       clearNotifications();
     };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-    };
-  }, [router.events, clearNotifications]);
+  }, [router.pathname, clearNotifications]);
 
   return (
     <GlobalAlert

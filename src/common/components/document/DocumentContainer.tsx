@@ -32,11 +32,13 @@ const DocumentContainer = ({
 
   const getDocumentComponentKey = (
     documentComponent: DocumentComponent | ReferatDocumentComponent,
+    index: number,
   ) => {
     return [
       documentComponent.type,
       documentComponent.title ?? "",
       documentComponent.texts.join("|"),
+      String(index),
     ].join("|");
   };
 
@@ -53,8 +55,8 @@ const DocumentContainer = ({
           {title}
         </Heading>
       )}
-      {document.map((documentComponent) => (
-        <section key={getDocumentComponentKey(documentComponent)}>
+      {document.map((documentComponent, index) => (
+        <section key={getDocumentComponentKey(documentComponent, index)}>
           <DocumentRenderer documentComponent={documentComponent} />
         </section>
       ))}
