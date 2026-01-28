@@ -30,6 +30,16 @@ const DocumentContainer = ({
 
   const isLegacyHeader = document[0]?.type !== "HEADER_H1";
 
+  const getDocumentComponentKey = (
+    documentComponent: DocumentComponent | ReferatDocumentComponent,
+  ) => {
+    return [
+      documentComponent.type,
+      documentComponent.title ?? "",
+      documentComponent.texts.join("|"),
+    ].join("|");
+  };
+
   return (
     <Box
       className="flex flex-col gap-8 whitespace-pre-wrap p-8 mb-8"
@@ -44,14 +54,7 @@ const DocumentContainer = ({
         </Heading>
       )}
       {document.map((documentComponent) => (
-        <section
-          key={[
-            documentComponent.type,
-            documentComponent.key ?? "none",
-            documentComponent.title ?? "",
-            documentComponent.texts.join("|"),
-          ].join("|")}
-        >
+        <section key={getDocumentComponentKey(documentComponent)}>
           <DocumentRenderer documentComponent={documentComponent} />
         </section>
       ))}

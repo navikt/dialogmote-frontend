@@ -5,7 +5,7 @@ import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmot
 import { createBreadcrumbsAG } from "@/common/breadcrumbs/index";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
-export const BreadcrumbsAppenderAG = (): ReactElement => {
+export const BreadcrumbsAppenderAG = (): ReactElement | null => {
   const { pathname } = useRouter();
   const narmestelederId = useNarmesteLederId();
   const dialogmoteData = useDialogmoteDataAG();
