@@ -29,6 +29,7 @@ vi.mock("src/auth/beskyttetSide.ts", () => {
 
 beforeAll(() => testServer.listen());
 afterEach(() => {
+  // eslint-disable-next-line testing-library/no-manual-cleanup
   cleanup();
   testServer.resetHandlers();
 });

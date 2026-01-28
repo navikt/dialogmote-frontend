@@ -35,6 +35,10 @@ function getClientIdForTokenXTargetApi(targetApi: TokenXTargetApi): string {
     case TokenXTargetApi.DINESYKMELDTE_BACKEND:
       return serverEnv.DINESYKMELDTE_BACKEND_CLIEND_ID;
     default:
-      return "" as never;
+      return assertUnreachable(targetApi);
   }
+}
+
+function assertUnreachable(targetApi: never): never {
+  throw new Error(`Unsupported TokenX target API: ${targetApi}`);
 }
