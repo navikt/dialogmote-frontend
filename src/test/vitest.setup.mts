@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-manual-cleanup */
 import "@testing-library/user-event";
 import "vitest-canvas-mock";
 
@@ -29,7 +30,6 @@ vi.mock("src/auth/beskyttetSide.ts", () => {
 
 beforeAll(() => testServer.listen());
 afterEach(() => {
-  // eslint-disable-next-line testing-library/no-manual-cleanup
   cleanup();
   testServer.resetHandlers();
 });
