@@ -1,8 +1,10 @@
+import "@navikt/dinesykmeldte-sidemeny/dist/dinesykmeldte-sidemeny.css";
 import "../styles/globals.css";
 import type { AppContext, AppProps } from "next/app";
 import App from "next/app";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Box, Theme } from "@navikt/ds-react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
@@ -50,20 +52,20 @@ function MyApp({ Component, pageProps }: AppProps) {
     <DMErrorBoundary>
       <NotificationProvider>
         <QueryClientProvider client={queryClient}>
-          <main tabIndex={-1} id="maincontent" className="min-h-screen">
-            <>
-              {isAudienceSykmeldt ? (
-                <BreadcrumbsAppenderSM />
-              ) : (
-                <BreadcrumbsAppenderAG />
-              )}
-              <>
+          <Theme theme="light" asChild>
+            <Box asChild background="neutral-soft">
+              <main tabIndex={-1} id="maincontent" className="min-h-screen">
+                {isAudienceSykmeldt ? (
+                  <BreadcrumbsAppenderSM />
+                ) : (
+                  <BreadcrumbsAppenderAG />
+                )}
                 <NotificationBar />
                 <Component {...pageProps} />
-              </>
-              <TestScenarioDevTools />
-            </>
-          </main>
+                <TestScenarioDevTools />
+              </main>
+            </Box>
+          </Theme>
           <ReactQueryDevtools
             initialIsOpen={false}
             buttonPosition="bottom-left"

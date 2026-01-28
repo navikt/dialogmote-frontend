@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
-import { getMotebehovTokenX } from "@/server/auth/tokenx";
-import { post } from "@/common/api/axios/axios";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 
 const handler = async (
   req: NextApiRequest,
@@ -10,15 +10,11 @@ const handler = async (
   if (isMockBackend) {
     res.status(200).end();
   } else {
-    const token = await getMotebehovTokenX(req);
-
-    await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov/ferdigstill`,
-      "ferdigstillMotebehovSMException",
-      {
-        accessToken: token,
-      }
-    );
+    await tokenXFetchPost({
+      req,
+      targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
+      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov/ferdigstill`,
+    });
   }
   res.status(200).end();
 };

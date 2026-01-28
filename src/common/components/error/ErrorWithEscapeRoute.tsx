@@ -1,8 +1,7 @@
 import { useLandingUrl } from "@/common/hooks/routeHooks";
 import RouterLenke from "@/common/components/navigation/RouterLenke";
 import { Events } from "@/common/analytics/events";
-import React from "react";
-import { Alert } from "@navikt/ds-react";
+import { LocalAlert } from "@navikt/ds-react";
 
 interface Props {
   children: string;
@@ -11,16 +10,18 @@ interface Props {
 export const ErrorWithEscapeRoute = ({ children }: Props) => {
   const landingUrl = useLandingUrl();
   return (
-    <Alert variant="error">
-      {children}
-      <div>
-        <RouterLenke
-          href={landingUrl}
-          trackingName={Events.ErrorWithEscapeRoute}
-        >
-          Gå til landingssiden
-        </RouterLenke>
-      </div>
-    </Alert>
+    <LocalAlert status="error">
+      <LocalAlert.Content>
+        {children}
+        <div>
+          <RouterLenke
+            href={landingUrl}
+            trackingName={Events.ErrorWithEscapeRoute}
+          >
+            Gå til landingssiden
+          </RouterLenke>
+        </div>
+      </LocalAlert.Content>
+    </LocalAlert>
   );
 };

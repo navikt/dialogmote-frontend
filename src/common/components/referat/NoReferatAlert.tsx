@@ -1,12 +1,13 @@
-import { Alert } from "@navikt/ds-react";
-import React from "react";
+import { LocalAlert } from "@navikt/ds-react";
 
 const texts = {
   noReferat: "Vi finner ikke dette referatet.",
 };
 
-const NoReferatAlert = () => {
-  return <Alert variant="error">{texts.noReferat}</Alert>;
-};
+const NoReferatAlert = () => (
+  <LocalAlert status="error">
+    <LocalAlert.Content>{texts.noReferat}</LocalAlert.Content>
+  </LocalAlert>
+);
 
 export default NoReferatAlert;

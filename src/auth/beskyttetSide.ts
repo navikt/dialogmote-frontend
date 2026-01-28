@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 
-import { validateToken } from "@/server/auth/idporten/verifyIdportenToken";
+import { validateIdportenToken } from "@/server/auth/idporten/idportenToken";
 import { logger } from "@navikt/next-logger";
 import { isMockBackend } from "@/server/utils/serverEnv";
 
@@ -29,14 +29,9 @@ const beskyttetSide = (handler: PageHandler) => {
       },
     };
 
-    const bearerToken: string | null | undefined =
-      request.headers["authorization"];
+    const validation = await validateIdportenToken(request);
 
-    if (!bearerToken) {
-      return wonderwallRedirect;
-    }
-
-    if (!(await validateToken(bearerToken))) {
+    if (!validation.success) {
       logger.error("Kunne ikke validere idportentoken i beskyttetSide");
       return wonderwallRedirect;
     }

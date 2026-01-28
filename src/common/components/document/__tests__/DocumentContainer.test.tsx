@@ -3,7 +3,7 @@ import DocumentContainer from "../DocumentContainer";
 import { render, screen } from "../../../../test/testUtils";
 import { waitFor } from "@testing-library/react";
 import { testServer } from "../../../../mocks/testServer";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -12,12 +12,12 @@ describe("DocumentContainer", () => {
 
   beforeEach(() => {
     mockRouter.setCurrentUrl("/sykmeldt");
-    requestResolver.mockRestore();
+    requestResolver.mockReset();
 
     testServer.use(
-      rest.post("/api/sykmeldt/brev/brev_uuid/lest", async (_req, res, ctx) => {
+      http.post("*/api/sykmeldt/brev/brev_uuid/lest", async () => {
         requestResolver();
-        return res(ctx.status(200));
+        return new HttpResponse(null, { status: 200 });
       })
     );
   });
@@ -57,9 +57,7 @@ describe("DocumentContainer", () => {
       </DocumentContainer>
     );
 
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "Test_title"
-    );
+    expect(screen.getByText("Test_title")).toBeInTheDocument();
   });
 
   it("should invoke mutation.mutate when lestDato is undefined", async () => {

@@ -1,7 +1,7 @@
 import { Button, Heading, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import SunImage from "../../images/sun.svg";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TestScenario } from "server/data/mock/getMockDb";
 import {
   useActiveTestScenario,
@@ -27,15 +27,9 @@ export const TestScenarioSelector = () => {
   const activeTestScenario = useActiveTestScenario();
   const setActiveTestScenario = useSetActiveTestScenario();
   const [open, setOpen] = useState(false);
-  const [selectedScenario, setSelectedScenario] = useState<
-    TestScenario | undefined
-  >();
-
-  useEffect(() => {
-    if (activeTestScenario.isSuccess) {
-      setSelectedScenario(activeTestScenario.data);
-    }
-  }, [activeTestScenario.data, activeTestScenario.isSuccess]);
+  const [pendingScenario, setPendingScenario] =
+    useState<TestScenario | null>(null);
+  const selectedScenario = pendingScenario ?? activeTestScenario.data;
 
   if (!selectedScenario) return null;
 
@@ -58,7 +52,7 @@ export const TestScenarioSelector = () => {
                 value={selectedScenario}
                 hideLegend={true}
                 onChange={(val: TestScenario) => {
-                  setSelectedScenario(val);
+                  setPendingScenario(val);
                 }}
               >
                 <RadioWithHelpText

@@ -1,5 +1,5 @@
 import React from "react";
-import { GuidePanel, Heading, Link, List } from "@navikt/ds-react";
+import { GuidePanel, Heading, Link, List, Box } from "@navikt/ds-react";
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
 
 import { ARBEIDSGIVER_OPPFOLGING_INFO_URL } from "@/common/constants/staticUrls";
@@ -24,20 +24,18 @@ export const ArbeidsgiverSvarPaaBehovGuidePanel = () => (
       {texts.headingSvarBehov}
     </Heading>
 
-    <List>
-      <List.Item>
-        {texts.gjorDetteForSvarBehovInfo}{" "}
-        <Link href={ARBEIDSGIVER_OPPFOLGING_INFO_URL} target="_blank">
-          {texts.lesMerOmDinePlikterLink}
-          <ExternalLinkIcon title="åpner i ny fane-ikon" />
-        </Link>{" "}
-        (åpner i ny fane).
-      </List.Item>
-
-      <List.Item>{texts.oppfolgingsPlanDelOgOpprettInfo}</List.Item>
-
-      <List.Item>{texts.svarBehovOkASvareNeiInfo}</List.Item>
-    </List>
+    <Box marginBlock="space-16" asChild><List data-aksel-migrated-v8>
+        <List.Item>
+          {texts.gjorDetteForSvarBehovInfo}{" "}
+          <Link href={ARBEIDSGIVER_OPPFOLGING_INFO_URL} target="_blank">
+            {texts.lesMerOmDinePlikterLink}
+            <ExternalLinkIcon title="åpner i ny fane-ikon" />
+          </Link>{" "}
+          (åpner i ny fane).
+        </List.Item>
+        <List.Item>{texts.oppfolgingsPlanDelOgOpprettInfo}</List.Item>
+        <List.Item>{texts.svarBehovOkASvareNeiInfo}</List.Item>
+      </List></Box>
   </GuidePanel>
 );
 
@@ -47,17 +45,16 @@ export const ArbeidsgiverMeldBehovGuidePanel = () => (
       {texts.headingMeldBehov}
     </Heading>
 
-    <List>
-      <List.Item>
-        {texts.gjorDetteForMeldBehovInfo}{" "}
-        <Link href={ARBEIDSGIVER_OPPFOLGING_INFO_URL} target="_blank">
-          {texts.lesMerOmDinePlikterLink}
-          <ExternalLinkIcon title="åpner i ny fane-ikon" />
-        </Link>{" "}
-        (åpner i ny fane).
-      </List.Item>
-
-      <List.Item>{texts.oppfolgingsPlanDelOgOpprettInfo}</List.Item>
-    </List>
+    <Box marginBlock="space-16" asChild><List data-aksel-migrated-v8>
+        <List.Item>
+          {texts.gjorDetteForMeldBehovInfo}{" "}
+          <Link href={ARBEIDSGIVER_OPPFOLGING_INFO_URL} target="_blank">
+            {texts.lesMerOmDinePlikterLink}
+            <ExternalLinkIcon title="åpner i ny fane-ikon" />
+          </Link>{" "}
+          (åpner i ny fane).
+        </List.Item>
+        <List.Item>{texts.oppfolgingsPlanDelOgOpprettInfo}</List.Item>
+      </List></Box>
   </GuidePanel>
 );

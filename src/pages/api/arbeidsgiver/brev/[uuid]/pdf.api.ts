@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
-import { get } from "@/common/api/axios/axios";
-import { getIsdialogmoteTokenX } from "@/server/auth/tokenx";
+import { tokenXFetchGet } from "@/server/tokenXFetch/tokenXFetchGet";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 
 const handler = async (
   req: NextApiRequest,
@@ -10,14 +10,12 @@ const handler = async (
 ): Promise<void> => {
   const pdf = isMockBackend
     ? pdfMock
-    : await get(
-        `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${req.query.uuid}/pdf`,
-        "fetchBrevPdfAGException",
-        {
-          accessToken: await getIsdialogmoteTokenX(req),
-          responseType: "arraybuffer",
-        }
-      );
+    : await tokenXFetchGet({
+        req,
+        targetApi: TokenXTargetApi.ISDIALOGMOTE,
+        endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${req.query.uuid}/pdf`,
+        responseType: "arraybuffer",
+      });
   res
     .status(200)
     .setHeader("Content-Type", "application/pdf")

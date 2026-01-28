@@ -1,7 +1,7 @@
-import { Alert, BodyLong, GuidePanel } from "@navikt/ds-react";
+import { BodyLong, GuidePanel, LocalAlert } from "@navikt/ds-react";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useFerdigstillMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
 
 interface Props {
@@ -25,11 +25,13 @@ export const KanIkkeSvarePaaSvarBehov = ({ title }: Props) => {
         </BodyLong>
       </GuidePanel>
 
-      <Alert variant="info">
-        Dersom du mener det har skjedd noe feil, kan du enten ta kontakt med Nav
-        på telefon 55 55 33 33, eller{" "}
-        <KontaktOssLink linkText=" sende oss en skriftlig forespørsel." />
-      </Alert>
+      <LocalAlert status="info">
+        <LocalAlert.Content>
+          Dersom du mener det har skjedd noe feil, kan du enten ta kontakt med
+          Nav på telefon 55 55 33 33, eller{" "}
+          <KontaktOssLink linkText=" sende oss en skriftlig forespørsel." />
+        </LocalAlert.Content>
+      </LocalAlert>
     </SykmeldtSide>
   );
 };

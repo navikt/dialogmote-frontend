@@ -5,7 +5,7 @@ interface Props {
   sykmeldt?: Sykmeldt;
 }
 
-export const ArbeidsgiverSideMenu = ({ sykmeldt }: Props): JSX.Element => {
+export const ArbeidsgiverSideMenu = ({ sykmeldt }: Props) => {
   return (
     <SideMenu
       sykmeldtName={sykmeldt?.navn ?? ""}

@@ -48,6 +48,7 @@ const moduleExports = {
   pageExtensions: ["page.tsx", "page.ts", "page.js", "api.ts"],
   output: "standalone",
   productionBrowserSourceMaps: true,
+  serverExternalPackages: ["@navikt/nav-dekoratoren-moduler", "jsdom"],
   experimental: {
     optimizePackageImports: ["@navikt/ds-react", "@navikt/aksel-icons"],
   },

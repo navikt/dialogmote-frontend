@@ -2,9 +2,8 @@ import { Events } from "@/common/analytics/events";
 import { useReferatPath } from "@/common/hooks/routeHooks";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { getLongDateFormat } from "@/common/utils/dateUtils";
-import { LinkPanel } from "@navikt/ds-react";
+import { LinkCard } from "@navikt/ds-react";
 import NextLink from "next/link";
-import React from "react";
 import { Referat } from "types/shared/brev";
 
 const texts = {
@@ -26,15 +25,20 @@ const SisteReferat = ({ referat }: Props) => {
   const href = `${referatPath}/${referat.uuid}`;
 
   return (
-    <NextLink href={href} passHref>
-      <LinkPanel as="div" onClick={() => trackEvent(Events.AktivtReferat)}>
-        <LinkPanel.Title>
-          Referat fra møte {getLongDateFormat(referat.tid)}
-          {referat.endring && endretDatoText(referat.createdAt)}
-        </LinkPanel.Title>
-        <LinkPanel.Description>{texts.text}</LinkPanel.Description>
-      </LinkPanel>
-    </NextLink>
+    <LinkCard>
+      <LinkCard.Title>
+        <LinkCard.Anchor asChild>
+          <NextLink
+            href={href}
+            onClick={() => trackEvent(Events.AktivtReferat)}
+          >
+            Referat fra møte {getLongDateFormat(referat.tid)}
+            {referat.endring && endretDatoText(referat.createdAt)}
+          </NextLink>
+        </LinkCard.Anchor>
+      </LinkCard.Title>
+      <LinkCard.Description>{texts.text}</LinkCard.Description>
+    </LinkCard>
   );
 };
 

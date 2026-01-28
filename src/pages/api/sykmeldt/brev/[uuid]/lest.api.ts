@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
 import getMockDb from "@/server/data/mock/getMockDb";
-import { getIsdialogmoteTokenX } from "@/server/auth/tokenx";
-import { post } from "@/common/api/axios/axios";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import serverEnv from "@/server/utils/serverEnv";
 
 const handler = async (
@@ -20,17 +20,12 @@ const handler = async (
   if (isDemoOrLocal) {
     return;
   } else {
-    const token = await getIsdialogmoteTokenX(req);
-
     const { uuid } = req.query;
-    await post(
-      `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev/${uuid}/les`,
-      "postBrevLestSMException",
-      undefined,
-      {
-        accessToken: token,
-      }
-    );
+    await tokenXFetchPost({
+      req,
+      targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev/${uuid}/les`,
+    });
   }
   res.status(200).end();
 };

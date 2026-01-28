@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
-import { post } from "@/common/api/axios/axios";
+import { post } from "@/common/api/fetch/fetch";
 import { useRouter } from "next/router";
 import { useNotifications } from "@/context/NotificationContext";
 import { MotebehovSvarRequestAG } from "types/shared/motebehov";
@@ -13,7 +13,7 @@ export const useSvarPaMotebehovAG = () => {
     useNotifications();
 
   const postSvar = (svar: MotebehovSvarRequestAG) =>
-    post(`${basepath}/motebehov`, "svarPaaMotebehovAGException", svar);
+    post(`${basepath}/motebehov`, svar);
 
   return useMutation({
     mutationFn: postSvar,

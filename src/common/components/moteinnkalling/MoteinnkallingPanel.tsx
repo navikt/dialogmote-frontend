@@ -1,6 +1,6 @@
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { Events } from "@/common/analytics/events";
-import { Alert, BodyShort, Button } from "@navikt/ds-react";
+import { BodyShort, Button, LocalAlert } from "@navikt/ds-react";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { Brev } from "types/shared/brev";
 import { BrevType } from "types/client/brev";
@@ -54,7 +54,11 @@ const DialogmotePanelContet = ({
   }
 
   if (!moteinnkalling.svar && moteinnkalling.lestDato) {
-    return <Alert variant="warning">{texts.descriptionNotResponded}</Alert>;
+    return (
+      <LocalAlert status="warning">
+        <LocalAlert.Content>{texts.descriptionNotResponded}</LocalAlert.Content>
+      </LocalAlert>
+    );
   }
 
   if (moteinnkalling.svar) {
