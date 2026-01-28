@@ -130,13 +130,6 @@ export const get = async <ResponseData>(
   }
 
   if (!response.ok) {
-    if (response.status === 401) {
-      if (typeof window === "undefined") {
-        return await logAndThrowError(response, url);
-      }
-      loginUser();
-      return undefined as ResponseData;
-    }
     return await logAndThrowError(response, url);
   }
 
@@ -171,13 +164,6 @@ export const post = async <ResponseData>(
   }
 
   if (!response.ok) {
-    if (response.status === 401) {
-      if (typeof window === "undefined") {
-        return await logAndThrowError(response, url);
-      }
-      loginUser();
-      return undefined as ResponseData;
-    }
     return await logAndThrowError(response, url);
   }
 
