@@ -1,4 +1,4 @@
-import { get } from "@/common/api/fetch/fetch";
+import { get } from "@/common/api/fetch";
 import { sykmeldtSchema } from "@/server/service/schema/sykmeldtSchema";
 import serverEnv from "@/server/utils/serverEnv";
 

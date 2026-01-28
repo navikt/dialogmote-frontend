@@ -15,12 +15,20 @@ export const NAV_PERSONIDENT_HEADER = "nav-personident";
 export const ORGNUMMER_HEADER = "orgnummer";
 export const TEST_SESSION_ID = "testscenario-session-id";
 
-const defaultRequestHeaders = (
-  options?: FetchOptions
-): Record<string, string> => {
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
+type ResponseType = NonNullable<FetchOptions["responseType"]>;
+
+const defaultRequestHeaders = ({
+  options,
+  hasJsonBody,
+}: {
+  options?: FetchOptions;
+  hasJsonBody: boolean;
+}): Record<string, string> => {
+  const headers: Record<string, string> = {};
+
+  if (hasJsonBody) {
+    headers["Content-Type"] = "application/json";
+  }
 
   if (options?.accessToken) {
     headers[AUTHORIZATION_HEADER] = `Bearer ${options.accessToken}`;
@@ -61,10 +69,13 @@ const parseJsonResponse = async <ResponseData>(
   return JSON.parse(text) as ResponseData;
 };
 
-const parseResponse = async <ResponseData>(
-  response: Response,
-  responseType?: FetchOptions["responseType"]
-): Promise<ResponseData> => {
+const parseResponse = async <ResponseData>({
+  response,
+  responseType,
+}: {
+  response: Response;
+  responseType?: FetchOptions["responseType"];
+}): Promise<ResponseData> => {
   if (responseType === "arraybuffer") {
     const buffer = await response.arrayBuffer();
     return new Uint8Array(buffer) as ResponseData;
@@ -111,14 +122,26 @@ const logAndThrowParseError = (error: unknown, requestUrl: string): never => {
   throw err;
 };
 
-export const get = async <ResponseData>(
-  url: string,
-  options?: FetchOptions
-): Promise<ResponseData> => {
+async function request<ResponseData>({
+  url,
+  method,
+  data,
+  options,
+}: {
+  url: string;
+  method: "GET" | "POST";
+  data?: unknown;
+  options?: FetchOptions;
+}): Promise<ResponseData> {
+  const requestUrl = encodeURI(url);
+  const hasJsonBody = method === "POST" && data !== undefined;
+
   let response: Response | undefined;
   try {
-    response = await fetch(encodeURI(url), {
-      headers: defaultRequestHeaders(options),
+    response = await fetch(requestUrl, {
+      method,
+      body: hasJsonBody ? JSON.stringify(data) : undefined,
+      headers: defaultRequestHeaders({ options, hasJsonBody }),
       credentials: "include",
     });
   } catch (error) {
@@ -130,48 +153,45 @@ export const get = async <ResponseData>(
   }
 
   if (!response.ok) {
-    return await logAndThrowError(response, url);
+    return await logAndThrowError(response, requestUrl);
   }
 
   try {
-    return await parseResponse<ResponseData>(response, options?.responseType);
+    return await parseResponse<ResponseData>({
+      response,
+      responseType: options?.responseType,
+    });
   } catch (error) {
-    logAndThrowParseError(error, url);
+    logAndThrowParseError(error, requestUrl);
   }
 
   throw new Error("Unreachable");
+}
+
+type ResponseFor<T extends ResponseType, R> = T extends "arraybuffer"
+  ? Uint8Array
+  : R;
+
+export const get = async <ResponseData, T extends ResponseType = "json">(
+  url: string,
+  options?: Omit<FetchOptions, "responseType"> & { responseType?: T }
+): Promise<ResponseFor<T, ResponseData>> => {
+  return request<ResponseFor<T, ResponseData>>({
+    url,
+    method: "GET",
+    options,
+  });
 };
 
-export const post = async <ResponseData>(
+export const post = async <ResponseData, T extends ResponseType = "json">(
   url: string,
   data?: unknown,
-  options?: FetchOptions
-): Promise<ResponseData> => {
-  let response: Response | undefined;
-  try {
-    response = await fetch(url, {
-      method: "POST",
-      body: data !== undefined ? JSON.stringify(data) : undefined,
-      headers: defaultRequestHeaders(options),
-      credentials: "include",
-    });
-  } catch (error) {
-    logAndThrowNetworkError(error);
-  }
-
-  if (!response) {
-    throw new Error("Fetch failed before receiving a response");
-  }
-
-  if (!response.ok) {
-    return await logAndThrowError(response, url);
-  }
-
-  try {
-    return await parseResponse<ResponseData>(response, options?.responseType);
-  } catch (error) {
-    logAndThrowParseError(error, url);
-  }
-
-  throw new Error("Unreachable");
+  options?: Omit<FetchOptions, "responseType"> & { responseType?: T }
+): Promise<ResponseFor<T, ResponseData>> => {
+  return request<ResponseFor<T, ResponseData>>({
+    url,
+    method: "POST",
+    data,
+    options,
+  });
 };

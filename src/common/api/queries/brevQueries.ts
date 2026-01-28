@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { post } from "@/common/api/fetch/fetch";
+import { post } from "@/common/api/fetch";
 import { DIALOGMOTEDATA_SM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { useApiBasePath, useAudience } from "@/common/hooks/routeHooks";
 import { DIALOGMOTEDATA_AG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";

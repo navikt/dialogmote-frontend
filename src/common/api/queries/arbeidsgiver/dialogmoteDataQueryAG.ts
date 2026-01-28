@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { get } from "@/common/api/fetch/fetch";
+import { get } from "@/common/api/fetch";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
 import { DialogmoteData } from "types/shared/dialogmote";

@@ -1,4 +1,4 @@
-import { get } from "@/common/api/fetch/fetch";
+import { get } from "@/common/api/fetch";
 
 import serverEnv from "@/server/utils/serverEnv";
 import { motebehovStatusSchema } from "./schema/motebehovSchema";

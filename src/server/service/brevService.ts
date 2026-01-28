@@ -1,4 +1,4 @@
-import { get } from "@/common/api/fetch/fetch";
+import { get } from "@/common/api/fetch";
 import { array } from "zod";
 import serverEnv from "../utils/serverEnv";
 import { brevSchema } from "./schema/brevSchema";

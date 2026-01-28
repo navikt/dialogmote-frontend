@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import { get } from "@/common/api/fetch/fetch";
+import { get } from "@/common/api/fetch";
 import { validateAndGetIdportenToken } from "@/server/auth/idporten/idportenToken";
 import {
   exchangeIdPortenTokenForTokenXOboToken,

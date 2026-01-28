@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
-import { post } from "@/common/api/fetch/fetch";
+import { post } from "@/common/api/fetch";
 import { useRouter } from "next/router";
 import { useNotifications } from "@/context/NotificationContext";
 import { MotebehovSvarRequest } from "@/types/shared/motebehov";

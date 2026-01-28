@@ -1,7 +1,7 @@
 import activeMockData, { getMockSetupForScenario } from "./activeMockData";
 import { handleQueryParamError } from "../../utils/errors";
 import { NextApiRequest } from "next";
-import { TEST_SESSION_ID } from "@/common/api/fetch/fetch";
+import { TEST_SESSION_ID } from "@/common/api/fetch";
 import { Brev } from "../../../types/shared/brev";
 import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
