@@ -122,6 +122,53 @@ const logAndThrowParseError = (error: unknown, requestUrl: string): never => {
   throw err;
 };
 
+const getServerAllowedOrigins = (): Set<string> => {
+  // Server-side SSRF protection: restrict absolute URLs to known backends.
+  // These env vars are not exposed to the browser bundle; we only use them on the server.
+  const raw = [
+    process.env.ISDIALOGMOTE_HOST,
+    process.env.SYFOMOTEBEHOV_HOST,
+    process.env.DINESYKMELDTE_BACKEND_HOST,
+  ].filter((v): v is string => typeof v === "string" && v.length > 0);
+
+  const origins = new Set<string>();
+  for (const value of raw) {
+    try {
+      origins.add(new URL(value).origin);
+    } catch {
+      // Ignore malformed env; better to not crash import.
+    }
+  }
+  return origins;
+};
+
+const assertSafeServerRequestUrl = (url: string): void => {
+  if (typeof window !== "undefined") {
+    return;
+  }
+
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    // Relative URL: not SSRF-able across origins.
+    return;
+  }
+
+  if (parsed.username || parsed.password) {
+    throw new Error("Blocked URL with credentials");
+  }
+
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error(`Blocked non-http(s) URL: ${parsed.protocol}`);
+  }
+
+  const allowedOrigins = getServerAllowedOrigins();
+  if (allowedOrigins.size > 0 && !allowedOrigins.has(parsed.origin)) {
+    throw new Error(`Blocked server-side request to non-allowed origin: ${parsed.origin}`);
+  }
+};
+
 async function request<ResponseData>({
   url,
   method,
@@ -134,6 +181,7 @@ async function request<ResponseData>({
   options?: FetchOptions;
 }): Promise<ResponseData> {
   const requestUrl = encodeURI(url);
+  assertSafeServerRequestUrl(requestUrl);
   const hasJsonBody = method === "POST" && data !== undefined;
 
   let response: Response | undefined;
