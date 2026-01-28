@@ -6,6 +6,7 @@ import { logger } from "@navikt/next-logger";
 import { isMockBackend } from "@/server/utils/serverEnv";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 import { NextApiRequest } from "next";
+import { isValidNarmestelederId } from "@/common/utils/validateNarmestelederId";
 
 export const fetchSykmeldtAG = async (
   req: NextApiRequest
@@ -18,6 +19,12 @@ export const fetchSykmeldtAG = async (
     logger.info("Sykemeldinger AG tokenx exchange OK");
 
     const { narmestelederid } = <{ narmestelederid: string }>req.query;
+    if (!isValidNarmestelederId(narmestelederid)) {
+      logger.warn(
+        "Received invalid narmestelederid in fetchSykmeldtAG; skipping backend fetch"
+      );
+      return undefined;
+    }
     const sykmeldtRes = await getSykmeldt(narmestelederid, token);
 
     if (sykmeldtRes.success) {

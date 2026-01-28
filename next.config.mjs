@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const environment =
-  process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === "prod" ? "prod" : "dev";
-
 const CSP_SOURCES = {
   self: "'self'",
   uxSignals: "https://uxsignals-frontend.uxsignals.app.iterate.no",
@@ -26,6 +23,8 @@ const appDirectives = {
 
 const moduleExports = {
   async headers() {
+    const environment =
+      process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === "prod" ? "prod" : "dev";
     const { buildCspHeader } = await import(
       "@navikt/nav-dekoratoren-moduler/ssr/index.js"
     );
@@ -48,9 +47,13 @@ const moduleExports = {
   pageExtensions: ["page.tsx", "page.ts", "page.js", "api.ts"],
   output: "standalone",
   productionBrowserSourceMaps: true,
+  serverExternalPackages: [
+    "@navikt/nav-dekoratoren-moduler",
+    "@navikt/nav-dekoratoren-moduler/ssr",
+  ],
   experimental: {
     optimizePackageImports: ["@navikt/ds-react", "@navikt/aksel-icons"],
   },
 };
 
-module.exports = moduleExports;
+export default moduleExports;

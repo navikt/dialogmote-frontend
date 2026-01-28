@@ -4,8 +4,8 @@ import { logger } from "@navikt/next-logger";
 
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import getMockDb from "@/server/data/mock/getMockDb";
-import { getMotebehovTokenX } from "@/server/auth/tokenx";
-import { post } from "@/common/api/axios/axios";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import { MotebehovSvarRequest } from "@/types/shared/motebehov";
 import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import {
@@ -25,14 +25,11 @@ const handler = async (
       id: uuidv4(),
       opprettetDato: new Date().toISOString(),
       aktorId: "12345",
-      // eslint-disable-next-line
       arbeidstakerFnr: data.sykmeldt!.fnr,
-      // eslint-disable-next-line
       virksomhetsnummer: data.sykmeldt!.orgnummer,
       behandletTidspunkt: null,
       behandletVeilederIdent: null,
       tildeltEnhet: null,
-      // eslint-disable-next-line
       opprettetAv: data.sykmeldt!.fnr,
       skjemaType: data.motebehov.skjemaType,
       innmelderType: "ARBEIDSTAKER",
@@ -63,16 +60,12 @@ const handler = async (
       return;
     }
 
-    const token = await getMotebehovTokenX(req);
-
-    await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
-      "postMotebehovSMException",
-      svar,
-      {
-        accessToken: token,
-      }
-    );
+    await tokenXFetchPost({
+      req,
+      targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
+      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
+      data: svar,
+    });
   }
   res.status(200).end();
 };

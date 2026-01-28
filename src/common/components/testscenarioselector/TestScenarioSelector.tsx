@@ -1,7 +1,7 @@
 import { Button, Heading, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import SunImage from "../../images/sun.svg";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TestScenario } from "server/data/mock/getMockDb";
 import {
   useActiveTestScenario,
@@ -27,15 +27,13 @@ export const TestScenarioSelector = () => {
   const activeTestScenario = useActiveTestScenario();
   const setActiveTestScenario = useSetActiveTestScenario();
   const [open, setOpen] = useState(false);
-  const [selectedScenario, setSelectedScenario] = useState<
-    TestScenario | undefined
-  >();
-
-  useEffect(() => {
-    if (activeTestScenario.isSuccess) {
-      setSelectedScenario(activeTestScenario.data);
-    }
-  }, [activeTestScenario.data, activeTestScenario.isSuccess]);
+  const [pendingScenario, setPendingScenario] =
+    useState<TestScenario | null>(null);
+  const selectedScenario = pendingScenario ?? activeTestScenario.data;
+  const closeModal = () => {
+    setOpen(false);
+    setPendingScenario(null);
+  };
 
   if (!selectedScenario) return null;
 
@@ -44,7 +42,7 @@ export const TestScenarioSelector = () => {
       <Modal
         open={open}
         aria-label="Testdatavelger"
-        onClose={() => setOpen(false)}
+        onClose={closeModal}
       >
         <Modal.Body>
           <div className="p-12">
@@ -58,7 +56,7 @@ export const TestScenarioSelector = () => {
                 value={selectedScenario}
                 hideLegend={true}
                 onChange={(val: TestScenario) => {
-                  setSelectedScenario(val);
+                  setPendingScenario(val);
                 }}
               >
                 <RadioWithHelpText
@@ -108,12 +106,12 @@ export const TestScenarioSelector = () => {
                 disabled={!setActiveTestScenario}
                 onClick={() => {
                   setActiveTestScenario.mutate(selectedScenario);
-                  setOpen(false);
+                  closeModal();
                 }}
               >
                 Velg scenario
               </Button>
-              <Button variant={"tertiary"} onClick={() => setOpen(false)}>
+              <Button variant={"tertiary"} onClick={closeModal}>
                 Avbryt
               </Button>
             </div>

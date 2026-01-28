@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { Checkbox, Textarea, TextField } from "@navikt/ds-react";
 
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
@@ -77,13 +77,18 @@ function MeldBehovForm({
     control,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm<FormValues>();
 
   const errorList = useErrorSummaryFormatter(errors);
 
-  const isOnskerBehandlerDeltarChecked = watch(onskerBehandlerCheckbox);
-  const isHarBehovForTolkChecked = watch(harBehovForTolkCheckbox);
+  const isOnskerBehandlerDeltarChecked = useWatch({
+    control,
+    name: onskerBehandlerCheckbox,
+  });
+  const isHarBehovForTolkChecked = useWatch({
+    control,
+    name: harBehovForTolkCheckbox,
+  });
 
   const begrunnelseDescriptionWithNoSensitiveInfoText = begrunnelseDescription
     ? `${begrunnelseDescription} ${commonTexts.noSensitiveInfo}`

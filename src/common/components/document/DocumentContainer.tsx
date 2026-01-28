@@ -1,4 +1,4 @@
-import { Heading, Panel } from "@navikt/ds-react";
+import { Box, Heading } from "@navikt/ds-react";
 import React, { useEffect } from "react";
 import DocumentRenderer from "@/common/components/document/DocumentRenderer";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
@@ -31,7 +31,13 @@ const DocumentContainer = ({
   const isLegacyHeader = document[0]?.type !== "HEADER_H1";
 
   return (
-    <Panel className="flex flex-col gap-8 bg-ds-gray-50 whitespace-pre-wrap p-8 mb-8">
+    <Box
+      className="flex flex-col gap-8 whitespace-pre-wrap p-8 mb-8"
+      background="default"
+      borderWidth="1"
+      borderColor="neutral-subtle"
+      borderRadius="8"
+    >
       {isLegacyHeader && (
         <Heading size="xlarge" level="1">
           {title}
@@ -43,7 +49,7 @@ const DocumentContainer = ({
         </section>
       ))}
       {children}
-    </Panel>
+    </Box>
   );
 };
 

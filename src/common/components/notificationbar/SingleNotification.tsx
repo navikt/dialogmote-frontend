@@ -1,4 +1,4 @@
-import { Alert } from "@navikt/ds-react";
+import { GlobalAlert } from "@navikt/ds-react";
 import { useEffect } from "react";
 import { Notification, useNotifications } from "@/context/NotificationContext";
 import { useRouter } from "next/router";
@@ -30,13 +30,12 @@ export const SingleNotification = ({ notification }: Props) => {
   );
 
   return (
-    <Alert
-      className="w-full justify-center"
-      fullWidth={true}
-      variant={notification.variant}
+    <GlobalAlert
+      className="w-full"
+      status={notification.variant}
       aria-live="polite"
     >
-      {notification.message}
-    </Alert>
+      <GlobalAlert.Content>{notification.message}</GlobalAlert.Content>
+    </GlobalAlert>
   );
 };

@@ -1,8 +1,7 @@
 import { isDateInPast } from "@/common/utils/dateUtils";
-import { Alert, GuidePanel } from "@navikt/ds-react";
+import { GuidePanel, LocalAlert } from "@navikt/ds-react";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
 import VeilederInnkallelseContent from "@/common/components/moteinnkalling/VeilederInnkallelseContent";
-import React from "react";
 import DittSvarPaInnkallelse from "@/common/components/moteinnkalling/DittSvarPaInnkallelse";
 import { Brev } from "types/shared/brev";
 import GiSvarPaInnkallelse from "@/common/components/moteinnkalling/GiSvarPaInnkallelse";
@@ -20,7 +19,9 @@ const texts = {
 export const PaagaaendeMoteinnkalling = ({ moteinnkalling }: Props) => (
   <>
     {isDateInPast(moteinnkalling.tid) && (
-      <Alert variant="warning">{texts.pastDateAlertBox}</Alert>
+      <LocalAlert status="warning">
+        <LocalAlert.Content>{texts.pastDateAlertBox}</LocalAlert.Content>
+      </LocalAlert>
     )}
 
     <DocumentContainer

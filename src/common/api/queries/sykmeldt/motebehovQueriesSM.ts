@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
-import { post } from "@/common/api/axios/axios";
+import { post } from "@/common/api/fetch";
 import { useRouter } from "next/router";
 import { useNotifications } from "@/context/NotificationContext";
 import { MotebehovSvarRequest } from "@/types/shared/motebehov";
@@ -13,7 +13,7 @@ export const useSvarPaMotebehovSM = () => {
     useNotifications();
 
   const postSvar = (svar: MotebehovSvarRequest) =>
-    post(`${basepath}/motebehov`, "svarPaaMotebehovSMException", svar);
+    post(`${basepath}/motebehov`, svar);
 
   return useMutation({
     mutationFn: postSvar,
@@ -39,10 +39,7 @@ export const useFerdigstillMotebehovSM = () => {
   const basepath = useApiBasePath();
 
   const postFerdigstillMotebehov = () =>
-    post(
-      `${basepath}/motebehov/ferdigstill`,
-      "ferdigstillMotebehovSMException"
-    );
+    post(`${basepath}/motebehov/ferdigstill`);
 
   return useMutation({
     mutationFn: postFerdigstillMotebehov,

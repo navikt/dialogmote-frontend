@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { logger } from "@navikt/next-logger";
 
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
-import { getMotebehovTokenX } from "@/server/auth/tokenx";
-import { post } from "@/common/api/axios/axios";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
@@ -60,16 +60,12 @@ const handler = async (
       return;
     }
 
-    const token = await getMotebehovTokenX(req);
-
-    await post(
-      `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov`,
-      "postMotebehovAGException",
-      svar,
-      {
-        accessToken: token,
-      }
-    );
+    await tokenXFetchPost({
+      req,
+      targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
+      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov`,
+      data: svar,
+    });
   }
   res.status(200).end();
 };

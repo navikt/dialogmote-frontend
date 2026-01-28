@@ -2,15 +2,15 @@ import { Events } from "@/common/analytics/events";
 import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import {
-  Alert,
   BodyLong,
   Button,
   ErrorSummary,
+  LocalAlert,
   Radio,
   RadioGroup,
   Textarea,
 } from "@navikt/ds-react";
-import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
+import { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { SvarType } from "types/shared/brev";
 import { commonTexts } from "@/common/constants/commonTexts";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
@@ -110,12 +110,10 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
     if (validated) {
       trackEvent(Events.SendSvarPaInnkallelse, {
-        // eslint-disable-next-line
         svarAlternativ: svarType!,
       });
 
       sendSvarQuery.mutate({
-        // eslint-disable-next-line
         svarType: svarType!,
         svarTekst: begrunnelse,
       });
@@ -167,9 +165,11 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
         {svarType === "NYTT_TID_STED" && (
           <>
-            <Alert variant="info">
-              <BodyLong>{texts.infoEndring}</BodyLong>
-            </Alert>
+            <LocalAlert status="announcement">
+              <LocalAlert.Content>
+                <BodyLong>{texts.infoEndring}</BodyLong>
+              </LocalAlert.Content>
+            </LocalAlert>
 
             <Textarea
               id={inputFields.begrunnelseEndring}
@@ -185,9 +185,11 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
         {svarType === "KOMMER_IKKE" && (
           <>
-            <Alert variant="info">
-              <BodyLong>{texts.infoAvlysning}</BodyLong>
-            </Alert>
+            <LocalAlert status="announcement">
+              <LocalAlert.Content>
+                <BodyLong>{texts.infoAvlysning}</BodyLong>
+              </LocalAlert.Content>
+            </LocalAlert>
             <Textarea
               id={inputFields.begrunnelseAvlysning}
               label={texts.begrunnelseAvlysningLabel}
@@ -201,7 +203,9 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
         )}
 
         {sendSvarQuery.isError && (
-          <Alert variant="error">{texts.errorMessage}</Alert>
+          <LocalAlert status="error">
+            <LocalAlert.Content>{texts.errorMessage}</LocalAlert.Content>
+          </LocalAlert>
         )}
 
         <Button

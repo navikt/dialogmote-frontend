@@ -1,23 +1,27 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
-import { get } from "@/common/api/axios/axios";
-import { getIsdialogmoteTokenX } from "@/server/auth/tokenx";
+import { tokenXFetchGetBytes } from "@/server/tokenXFetch/tokenXFetchGet";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
+import { isValidUuid } from "@/server/utils/validateUuid";
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  const { uuid } = req.query;
+  if (!isValidUuid(uuid)) {
+    res.status(400).end("Invalid uuid");
+    return;
+  }
+
   const pdf = isMockBackend
     ? pdfMock
-    : await get(
-        `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${req.query.uuid}/pdf`,
-        "fetchBrevPdfAGException",
-        {
-          accessToken: await getIsdialogmoteTokenX(req),
-          responseType: "arraybuffer",
-        }
-      );
+    : await tokenXFetchGetBytes({
+        req,
+        targetApi: TokenXTargetApi.ISDIALOGMOTE,
+        endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${uuid}/pdf`,
+      });
   res
     .status(200)
     .setHeader("Content-Type", "application/pdf")

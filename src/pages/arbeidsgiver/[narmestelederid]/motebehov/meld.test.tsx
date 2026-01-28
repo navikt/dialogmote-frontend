@@ -1,7 +1,7 @@
 import { act, waitFor, within } from "@testing-library/react";
 import { render, screen } from "../../../../test/testUtils";
 import mockRouter from "next-router-mock";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { testServer } from "../../../../mocks/testServer";
 import MeldBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/meld.page";
 import { axe } from "vitest-axe";
@@ -26,9 +26,9 @@ describe("meld page arbeidsgiver", () => {
     it("with minimum inputs", async () => {
       const requestResolver = vi.fn();
       testServer.use(
-        rest.post(`api/arbeidsgiver/motebehov`, async (req, res, ctx) => {
-          requestResolver(await req.json());
-          return res(ctx.status(200));
+        http.post("*/api/arbeidsgiver/motebehov", async ({ request }) => {
+          requestResolver(await request.json());
+          return new HttpResponse(null, { status: 200 });
         })
       );
 
@@ -36,7 +36,7 @@ describe("meld page arbeidsgiver", () => {
 
       await user.type(
         screen.getByRole("textbox", {
-          name: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+          name: /Hvorfor ønsker du et dialogmøte/i,
         }),
         "Dette er en begrunnelse"
       );
@@ -87,9 +87,9 @@ describe("meld page arbeidsgiver", () => {
     it("with all inputs", async () => {
       const requestResolver = vi.fn();
       testServer.use(
-        rest.post(`api/arbeidsgiver/motebehov`, async (req, res, ctx) => {
-          requestResolver(await req.json());
-          return res(ctx.status(200));
+        http.post("*/api/arbeidsgiver/motebehov", async ({ request }) => {
+          requestResolver(await request.json());
+          return new HttpResponse(null, { status: 200 });
         })
       );
 
@@ -97,7 +97,7 @@ describe("meld page arbeidsgiver", () => {
 
       await user.type(
         screen.getByRole("textbox", {
-          name: "Hvorfor ønsker du et dialogmøte? (Må fylles ut)",
+          name: /Hvorfor ønsker du et dialogmøte/i,
         }),
         "Dette er en begrunnelse"
       );
@@ -109,7 +109,7 @@ describe("meld page arbeidsgiver", () => {
       );
       await user.type(
         screen.getByRole("textbox", {
-          name: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+          name: /Hvorfor ønsker du at lege\/behandler deltar/i,
         }),
         "Behandler må være med"
       );
@@ -120,7 +120,7 @@ describe("meld page arbeidsgiver", () => {
       );
       await user.type(
         screen.getByRole("textbox", {
-          name: "Hva slags tolk har dere behov for? (Må fylles ut)",
+          name: /Hva slags tolk har dere behov for/i,
         }),
         "Engelsk tolk"
       );
@@ -166,11 +166,19 @@ describe("meld page arbeidsgiver", () => {
       })
     );
 
-    const errorSummary = within(
-      await screen.findByRole("region", {
-        name: "For å gå videre må du rette opp følgende:",
-      })
-    );
+    const errorSummaryHeading = await screen.findByRole("heading", {
+      name: "For å gå videre må du rette opp følgende:",
+    });
+    expect(errorSummaryHeading).toBeInTheDocument();
+    const errorSummaryList = screen
+      .getAllByRole("list")
+      .find((list) =>
+        within(list).queryByRole("link", {
+          name: "Du må oppgi hvorfor du ønsker et dialogmøte.",
+        })
+      );
+    expect(errorSummaryList).toBeDefined();
+    const errorSummary = within(errorSummaryList as HTMLElement);
 
     expect(
       errorSummary.getByRole("link", {

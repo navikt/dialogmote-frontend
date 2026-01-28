@@ -1,6 +1,6 @@
 import { Events } from "@/common/analytics/events";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { Alert, Heading, Link } from "@navikt/ds-react";
+import { Heading, Link, LocalAlert } from "@navikt/ds-react";
 import { InfoUrl } from "types/client/infoUrl";
 import { Referat } from "types/shared/brev";
 
@@ -24,27 +24,29 @@ const UsefulLinks = ({ referat }: Props) => {
   }
 
   return (
-    <Alert className="mb-8" variant="info" size="medium">
-      <Heading spacing size="small" level="2">
-        {texts.title}
-      </Heading>
-      <ul>
-        {infoUrls.map((infoUrl) => {
-          return (
-            <li key={infoUrl.key}>
-              <Link
-                href={infoUrl.url}
-                onClick={() =>
-                  trackEvent(Events.LenkeIReferat, { linkType: infoUrl.text })
-                }
-              >
-                {infoUrl.text}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </Alert>
+    <LocalAlert className="mb-8" status="announcement" size="medium">
+      <LocalAlert.Content>
+        <Heading spacing size="small" level="2">
+          {texts.title}
+        </Heading>
+        <ul>
+          {infoUrls.map((infoUrl) => {
+            return (
+              <li key={infoUrl.key}>
+                <Link
+                  href={infoUrl.url}
+                  onClick={() =>
+                    trackEvent(Events.LenkeIReferat, { linkType: infoUrl.text })
+                  }
+                >
+                  {infoUrl.text}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </LocalAlert.Content>
+    </LocalAlert>
   );
 };
 

@@ -1,16 +1,20 @@
-@import "@navikt/dinesykmeldte-sidemeny/dist/style.css";
-@import "tailwindcss/base";
-@import "@navikt/ds-css";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@config "../../tailwind.config.js";
+@import "tailwindcss";
+@import "@navikt/ds-css" layer(components);
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 html {
   /* Will be set programatically by dekoratøren */
   --decorator-sticky-offset: 0px;
-}
-
-:root {
-  --navds-content-container-max-width: 50rem;
 }
 
 @media print {

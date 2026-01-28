@@ -2,16 +2,22 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { SvarRespons } from "../../../../../types/shared/brev";
-import { getIsdialogmoteTokenX } from "@/server/auth/tokenx";
-import { post } from "@/common/api/axios/axios";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import serverEnv from "@/server/utils/serverEnv";
+import { isValidUuid } from "@/server/utils/validateUuid";
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  const { uuid } = req.query;
+  if (!isValidUuid(uuid)) {
+    res.status(400).end("Invalid uuid");
+    return;
+  }
+
   if (isLocal) {
-    const { uuid } = req.query;
     const brevToUpdate = getMockDb(req).brev.find((b) => b.uuid === uuid);
     const svar: SvarRespons = req.body;
     if (brevToUpdate) {
@@ -25,18 +31,13 @@ const handler = async (
   if (isDemoOrLocal) {
     return;
   } else {
-    const token = await getIsdialogmoteTokenX(req);
-
-    const { uuid } = req.query;
     const svar: SvarRespons = req.body;
-    await post(
-      `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${uuid}/respons`,
-      "postBrevSvarAGException",
-      svar,
-      {
-        accessToken: token,
-      }
-    );
+    await tokenXFetchPost({
+      req,
+      targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${uuid}/respons`,
+      data: svar,
+    });
   }
   res.status(200).end();
 };

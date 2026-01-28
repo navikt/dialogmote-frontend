@@ -38,6 +38,7 @@ export const createSvarBehovAG = (
 ): DialogmoteData => {
   return {
     referater: [],
+    sykmeldt: sykmeldtFixture,
     motebehov: {
       skjemaType: "SVAR_BEHOV",
       svar: null,

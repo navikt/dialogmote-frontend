@@ -7,8 +7,9 @@ interface Props {
   children: ReactNode;
 }
 
-const errorHandler = (error: Error) => {
-  logError(error, "ErrorBoundaryException");
+const errorHandler = (error: unknown) => {
+  const err = error instanceof Error ? error : new Error("Unknown error");
+  logError(err, "ErrorBoundary");
 };
 
 export const DMErrorBoundary = ({ children }: Props) => {

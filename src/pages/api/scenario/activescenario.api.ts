@@ -5,7 +5,7 @@ import getMockDb, {
 } from "server/data/mock/getMockDb";
 import { getMockSetupForScenario } from "server/data/mock/activeMockData";
 import { isDemoOrLocal } from "@/common/publicEnv";
-import { TEST_SESSION_ID } from "@/common/api/axios/axios";
+import { TEST_SESSION_ID } from "@/common/api/fetch";
 import { handleQueryParamError } from "@/server/utils/errors";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

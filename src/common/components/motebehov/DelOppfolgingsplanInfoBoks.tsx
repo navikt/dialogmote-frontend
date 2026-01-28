@@ -1,7 +1,6 @@
-import { Alert, BodyLong, Link } from "@navikt/ds-react";
+import { BodyLong, Link, LocalAlert } from "@navikt/ds-react";
 import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
 import { Events } from "@/common/analytics/events";
-import React from "react";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
@@ -17,18 +16,20 @@ export const DelOppfolgingsplanInfoBoks = () => {
   const narmestelederid = useNarmesteLederId();
 
   return (
-    <Alert variant="info">
-      <BodyLong>{texts.alertstripe}</BodyLong>
-      <Link
-        href={
-          isAudienceSykmeldt
-            ? oppfolgingsplanUrlSM
-            : `${oppfolgingsplanUrlAG}/${narmestelederid}`
-        }
-        onClick={() => trackEvent(Events.Oppfolgingsplan)}
-      >
-        {texts.oppfolgingsplanlink}
-      </Link>
-    </Alert>
+    <LocalAlert status="announcement">
+      <LocalAlert.Content>
+        <BodyLong>{texts.alertstripe}</BodyLong>
+        <Link
+          href={
+            isAudienceSykmeldt
+              ? oppfolgingsplanUrlSM
+              : `${oppfolgingsplanUrlAG}/${narmestelederid}`
+          }
+          onClick={() => trackEvent(Events.Oppfolgingsplan)}
+        >
+          {texts.oppfolgingsplanlink}
+        </Link>
+      </LocalAlert.Content>
+    </LocalAlert>
   );
 };

@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import {
   Checkbox,
   Radio,
@@ -116,15 +116,23 @@ function SvarBehovForm({
     control,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm<SvarBehovFormValues>();
 
-  const currentMotebehovAnswer = watch(motebehovRadioGroup);
+  const currentMotebehovAnswer = useWatch({
+    control,
+    name: motebehovRadioGroup,
+  });
   const isNoSelected = currentMotebehovAnswer === RADIO_VALUE_NO;
   const isYesSelected = currentMotebehovAnswer === RADIO_VALUE_YES;
 
-  const isOnskerBehandlerDeltarChecked = watch(onskerBehandlerCheckbox);
-  const isHarBehovForTolkChecked = watch(harBehovForTolkCheckbox);
+  const isOnskerBehandlerDeltarChecked = useWatch({
+    control,
+    name: onskerBehandlerCheckbox,
+  });
+  const isHarBehovForTolkChecked = useWatch({
+    control,
+    name: harBehovForTolkCheckbox,
+  });
 
   const isSvarBegrunnelseFieldRequired =
     isSvarBegrunnelseRequiredAlsoIfYes || isNoSelected;

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { post } from "@/common/api/axios/axios";
+import { post } from "@/common/api/fetch";
 import { DIALOGMOTEDATA_SM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { useApiBasePath, useAudience } from "@/common/hooks/routeHooks";
 import { DIALOGMOTEDATA_AG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
@@ -14,7 +14,7 @@ export const useMutateBrevLest = () => {
   const basepath = useApiBasePath();
 
   const postLestBrev = (uuid: string) =>
-    post(`${basepath}/brev/${uuid}/lest`, "postLestBrevException");
+    post(`${basepath}/brev/${uuid}/lest`);
 
   return useMutation({ mutationFn: postLestBrev });
 };
@@ -25,7 +25,7 @@ export const useSvarPaInnkallelse = (uuid: string) => {
   const basepath = useApiBasePath();
 
   const postSvar = (svar: SvarResponsRequest) =>
-    post(`${basepath}/brev/${uuid}/svar`, "svarPaaInnkallingException", svar);
+    post(`${basepath}/brev/${uuid}/svar`, svar);
 
   return useMutation({
     mutationFn: postSvar,

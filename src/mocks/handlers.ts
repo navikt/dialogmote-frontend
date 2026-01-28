@@ -1,20 +1,20 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import {
   createDialogmoteAG,
   createDialogmoteSM,
 } from "./data/factories/dialogmote";
 
 export const handlers = [
-  rest.post("/api/*/brev/brev_uuid/lest", (req, res, ctx) => {
-    return res(ctx.status(200));
+  http.post("*/api/*/brev/brev_uuid/lest", () => {
+    return new HttpResponse(null, { status: 200 });
   }),
-  rest.post("/api/sykmeldt/motebehov/ferdigstill", (req, res, ctx) => {
-    return res(ctx.status(200));
+  http.post("*/api/sykmeldt/motebehov/ferdigstill", () => {
+    return new HttpResponse(null, { status: 200 });
   }),
-  rest.get("/api/sykmeldt", (req, res, ctx) => {
-    return res(ctx.json(createDialogmoteSM()));
+  http.get("*/api/sykmeldt", () => {
+    return HttpResponse.json(createDialogmoteSM());
   }),
-  rest.get("/api/arbeidsgiver/*", (req, res, ctx) => {
-    return res(ctx.json(createDialogmoteAG()));
+  http.get("*/api/arbeidsgiver/*", () => {
+    return HttpResponse.json(createDialogmoteAG());
   }),
 ];

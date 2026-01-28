@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { get } from "@/common/api/axios/axios";
+import { get } from "@/common/api/fetch";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import { useApiBasePath } from "@/common/hooks/routeHooks";
 import { DialogmoteData } from "types/shared/dialogmote";
@@ -11,10 +11,7 @@ export const useDialogmoteDataAG = () => {
   const apiBasePath = useApiBasePath();
 
   const fetchDialogmoteData = () =>
-    get<DialogmoteData>(
-      `${apiBasePath}/${narmestelederid}`,
-      "fetchDialogmoteDataAGException"
-    );
+    get<DialogmoteData>(`${apiBasePath}/${narmestelederid}`);
 
   return useQuery({
     queryKey: [DIALOGMOTEDATA_AG],

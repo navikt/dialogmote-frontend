@@ -1,4 +1,4 @@
-import { get } from "@/common/api/axios/axios";
+import { get } from "@/common/api/fetch";
 import { sykmeldtSchema } from "@/server/service/schema/sykmeldtSchema";
 import serverEnv from "@/server/utils/serverEnv";
 
@@ -9,7 +9,7 @@ export async function getSykmeldt(
   const url = `${serverEnv.DINESYKMELDTE_BACKEND_HOST}/api/v2/dinesykmeldte/${narmestelederid}`;
 
   return sykmeldtSchema.safeParse(
-    await get(url, "getSykmeldtException", {
+    await get(url, {
       accessToken,
     })
   );

@@ -1,4 +1,4 @@
-import { get } from "@/common/api/axios/axios";
+import { get } from "@/common/api/fetch";
 
 import serverEnv from "@/server/utils/serverEnv";
 import { motebehovStatusSchema } from "./schema/motebehovSchema";
@@ -10,7 +10,7 @@ export async function getMotebehovAG(
 ) {
   const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
 
-  const motebehovStatus = await get(url, "getMotebehovAGException", {
+  const motebehovStatus = await get(url, {
     accessToken,
   });
 
@@ -20,7 +20,6 @@ export async function getMotebehovAG(
 export async function getMotebehovSM(accessToken: string) {
   const motebehovStatus = await get(
     `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov`,
-    "getMotebehovSMException",
     {
       accessToken,
     }

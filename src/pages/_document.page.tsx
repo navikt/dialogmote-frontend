@@ -61,6 +61,13 @@ export default class MyDocument extends Document<Props> {
     return (
       <Html lang="nb">
         <Head>
+          <link
+            rel="preload"
+            href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
           <Decorator.HeadAssets />
         </Head>
         <body>

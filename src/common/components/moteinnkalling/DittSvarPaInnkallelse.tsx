@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { Alert, BodyLong } from "@navikt/ds-react";
+import { ReactElement } from "react";
+import { BodyLong, LocalAlert } from "@navikt/ds-react";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
 import { SvarType } from "types/shared/brev";
 
@@ -14,26 +14,32 @@ const texts = {
 
 const JegKommer = (): ReactElement => {
   return (
-    <Alert className="mb-8" variant="success" aria-live="polite">
-      <BodyLong>{texts.svartKommer}</BodyLong>
-      <KontaktOssLink linkText={texts.taKontakt} />
-    </Alert>
+    <LocalAlert className="mb-4" status="success" aria-live="polite">
+      <LocalAlert.Content>
+        <BodyLong>{texts.svartKommer}</BodyLong>
+        <KontaktOssLink linkText={texts.taKontakt} />
+      </LocalAlert.Content>
+    </LocalAlert>
   );
 };
 
 const JegVilEndre = (): ReactElement => {
   return (
-    <Alert className="mb-8" variant="warning" aria-live="polite">
-      <BodyLong>{texts.svartVilEndre}</BodyLong>
-    </Alert>
+    <LocalAlert className="mb-4" status="warning" aria-live="polite">
+      <LocalAlert.Content>
+        <BodyLong>{texts.svartVilEndre}</BodyLong>
+      </LocalAlert.Content>
+    </LocalAlert>
   );
 };
 
 const JegVilAvlyse = (): ReactElement => {
   return (
-    <Alert className="mb-8" variant="warning" aria-live="polite">
-      <BodyLong>{texts.svartKommerIkke}</BodyLong>
-    </Alert>
+    <LocalAlert className="mb-4" status="warning" aria-live="polite">
+      <LocalAlert.Content>
+        <BodyLong>{texts.svartKommerIkke}</BodyLong>
+      </LocalAlert.Content>
+    </LocalAlert>
   );
 };
 

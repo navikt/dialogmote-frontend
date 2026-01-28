@@ -1,7 +1,7 @@
 import { act, waitFor, within } from "@testing-library/react";
 import { render, screen } from "../../../test/testUtils";
 import mockRouter from "next-router-mock";
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { testServer } from "../../../mocks/testServer";
 import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -27,22 +27,21 @@ describe("svar page sykmeldt", () => {
     it("with no motebehov", async () => {
       const requestResolver = vi.fn();
       testServer.use(
-        rest.post("/api/sykmeldt/motebehov", async (req, res, ctx) => {
-          requestResolver(await req.json());
-          return res(ctx.status(200));
+        http.post("*/api/sykmeldt/motebehov", async ({ request }) => {
+          requestResolver(await request.json());
+          return new HttpResponse(null, { status: 200 });
         }),
-        rest.get("/api/sykmeldt", (_req, res, ctx) => {
-          return res(ctx.json(createSvarBehovSM()));
+        http.get("*/api/sykmeldt", () => {
+          return HttpResponse.json(createSvarBehovSM());
         })
       );
 
       const { user } = render(<SvarBehov />);
 
-      const radioGroup = within(
-        await screen.findByRole("group", {
-          name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
-        })
-      );
+      const radioGroupElement = await screen.findByRole("group", {
+        name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
+      });
+      const radioGroup = within(radioGroupElement);
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Nei, jeg mener det ikke er behov for et dialogmøte.",
@@ -50,7 +49,7 @@ describe("svar page sykmeldt", () => {
       );
       await user.type(
         screen.getByRole("textbox", {
-          name: "Begrunnelse (må fylles ut)",
+          name: /Begrunnelse/i,
         }),
         "Ingen grunn til å ha møte"
       );
@@ -106,22 +105,21 @@ describe("svar page sykmeldt", () => {
     it("with motebehov and minimal input", async () => {
       const requestResolver = vi.fn();
       testServer.use(
-        rest.post("/api/sykmeldt/motebehov", async (req, res, ctx) => {
-          requestResolver(await req.json());
-          return res(ctx.status(200));
+        http.post("*/api/sykmeldt/motebehov", async ({ request }) => {
+          requestResolver(await request.json());
+          return new HttpResponse(null, { status: 200 });
         }),
-        rest.get("/api/sykmeldt", (_req, res, ctx) => {
-          return res(ctx.json(createSvarBehovSM()));
+        http.get("*/api/sykmeldt", () => {
+          return HttpResponse.json(createSvarBehovSM());
         })
       );
 
       const { user } = render(<SvarBehov />);
 
-      const radioGroup = within(
-        await screen.findByRole("group", {
-          name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
-        })
-      );
+      const radioGroupElement = await screen.findByRole("group", {
+        name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
+      });
+      const radioGroup = within(radioGroupElement);
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Ja, jeg ønsker et dialogmøte.",
@@ -191,22 +189,21 @@ describe("svar page sykmeldt", () => {
     it("with motebehov and all inputs", async () => {
       const requestResolver = vi.fn();
       testServer.use(
-        rest.post("/api/sykmeldt/motebehov", async (req, res, ctx) => {
-          requestResolver(await req.json());
-          return res(ctx.status(200));
+        http.post("*/api/sykmeldt/motebehov", async ({ request }) => {
+          requestResolver(await request.json());
+          return new HttpResponse(null, { status: 200 });
         }),
-        rest.get("/api/sykmeldt", (_req, res, ctx) => {
-          return res(ctx.json(createSvarBehovSM()));
+        http.get("*/api/sykmeldt", () => {
+          return HttpResponse.json(createSvarBehovSM());
         })
       );
 
       const { user } = render(<SvarBehov />);
 
-      const radioGroup = within(
-        await screen.findByRole("group", {
-          name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
-        })
-      );
+      const radioGroupElement = await screen.findByRole("group", {
+        name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
+      });
+      const radioGroup = within(radioGroupElement);
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Ja, jeg ønsker et dialogmøte.",
@@ -214,7 +211,7 @@ describe("svar page sykmeldt", () => {
       );
       await user.type(
         screen.getByRole("textbox", {
-          name: "Begrunnelse (valgfri)",
+          name: /Begrunnelse/i,
         }),
         "Dette er en begrunnelse"
       );
@@ -226,7 +223,7 @@ describe("svar page sykmeldt", () => {
       );
       await user.type(
         screen.getByRole("textbox", {
-          name: "Hvorfor ønsker du at lege/behandler deltar i møtet? (Må fylles ut)",
+          name: /Hvorfor ønsker du at lege\/behandler deltar/i,
         }),
         "Behandler må være med"
       );
@@ -237,7 +234,7 @@ describe("svar page sykmeldt", () => {
       );
       await user.type(
         screen.getByRole("textbox", {
-          name: "Hva slags tolk har du behov for? (Må fylles ut)",
+          name: /Hva slags tolk har du behov for/i,
         }),
         "Engelsk tolk"
       );
@@ -262,17 +259,16 @@ describe("svar page sykmeldt", () => {
 
   it("should render error summary when required inputs is invalid", async () => {
     testServer.use(
-      rest.get("/api/sykmeldt", (_req, res, ctx) => {
-        return res(ctx.json(createSvarBehovSM()));
+      http.get("*/api/sykmeldt", () => {
+        return HttpResponse.json(createSvarBehovSM());
       })
     );
     const { user } = render(<SvarBehov />);
 
-    const radioGroup = within(
-      await screen.findByRole("group", {
-        name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
-      })
-    );
+    const radioGroupElement = await screen.findByRole("group", {
+      name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
+    });
+    const radioGroup = within(radioGroupElement);
     await user.click(
       radioGroup.getByRole("radio", {
         name: "Ja, jeg ønsker et dialogmøte.",
@@ -294,11 +290,19 @@ describe("svar page sykmeldt", () => {
       })
     );
 
-    const errorSummary = within(
-      await screen.findByRole("region", {
-        name: "For å gå videre må du rette opp følgende:",
-      })
-    );
+    const errorSummaryHeading = await screen.findByRole("heading", {
+      name: "For å gå videre må du rette opp følgende:",
+    });
+    expect(errorSummaryHeading).toBeInTheDocument();
+    const errorSummaryList = screen
+      .getAllByRole("list")
+      .find((list) =>
+        within(list).queryByRole("link", {
+          name: "Du må begrunne hvorfor du ønsker at behandler deltar.",
+        })
+      );
+    expect(errorSummaryList).toBeDefined();
+    const errorSummary = within(errorSummaryList as HTMLElement);
 
     expect(
       errorSummary.getByRole("link", {

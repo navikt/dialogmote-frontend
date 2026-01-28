@@ -17,37 +17,11 @@ export function cleanPathForMetric(
     .replace(FNR, "[fnr]");
 }
 
-export type ErrorType =
-  | "fetchActiveTestScenarioException"
-  | "setActiveTestScenarioException"
-  | "fetchDialogmoteDataAGException"
-  | "fetchDialogmoteDataSMException"
-  | "fetchBrevPdfAGException"
-  | "postBrevLestAGException"
-  | "postBrevSvarAGException"
-  | "fetchBrevPdfSMException"
-  | "postBrevLestSMException"
-  | "postBrevSvarSMException"
-  | "getBrevAGException"
-  | "getBrevSMException"
-  | "getMotebehovAGException"
-  | "getMotebehovSMException"
-  | "getSykmeldtException"
-  | "postLestBrevException"
-  | "svarPaaInnkallingException"
-  | "svarPaaMotebehovAGException"
-  | "svarPaaMotebehovSMException"
-  | "postMotebehovAGException"
-  | "postMotebehovSMException"
-  | "ferdigstillMotebehovSMException"
-  | "ErrorBoundaryException";
-
-export const logError = (error: Error, errorType: ErrorType) => {
+export const logError = (error: Error, context?: string) => {
   if (typeof window !== "undefined" && !!window.faro) {
-    window.faro.api.pushError(error, {
-      type: errorType,
-    });
+    window.faro.api.pushError(error, context ? { context } : undefined);
   } else {
-    logger.error(error.message);
+    const prefix = context ? `${context}: ` : "";
+    logger.error(`${prefix}${error.message}`);
   }
 };

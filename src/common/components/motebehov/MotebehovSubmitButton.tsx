@@ -1,6 +1,5 @@
 import { Events } from "@/common/analytics/events";
-import React from "react";
-import { LinkPanel } from "@navikt/ds-react";
+import { LinkCard } from "@navikt/ds-react";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { MotebehovSkjemaType } from "types/shared/motebehov";
 import NextLink from "next/link";
@@ -23,22 +22,30 @@ export const MotebehovSubmitButton = ({ skjemaType, children }: Props) => {
       : `${landingUrl}/motebehov/svar`;
 
   return (
-    <NextLink href={path} passHref>
-      <LinkPanel
-        as="div"
-        className="w-fit mb-4 bg-ds-gray-50"
-        border
-        onClick={() => {
-          trackEvent(
-            skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
-          );
-        }}
-      >
-        <div className="inline-flex items-center gap-4">
-          <CircledIcon icon={<Chat2Icon fontSize="1.5rem" />} />
-          <LinkPanel.Title>{children}</LinkPanel.Title>
-        </div>
-      </LinkPanel>
-    </NextLink>
+    <LinkCard
+      className="w-fit mb-4"
+      style={{
+        backgroundColor: "var(--ax-bg-info-soft)",
+        borderColor: "var(--ax-border-neutral-subtle)",
+      }}
+    >
+      <LinkCard.Icon>
+        <CircledIcon icon={<Chat2Icon fontSize="1.5rem" />} />
+      </LinkCard.Icon>
+      <LinkCard.Title>
+        <LinkCard.Anchor asChild>
+          <NextLink
+            href={path}
+            onClick={() => {
+              trackEvent(
+                skjemaType === "MELD_BEHOV" ? Events.MeldBehov : Events.SvarBehov
+              );
+            }}
+          >
+            {children}
+          </NextLink>
+        </LinkCard.Anchor>
+      </LinkCard.Title>
+    </LinkCard>
   );
 };
