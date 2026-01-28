@@ -24,7 +24,7 @@ const UsefulLinks = ({ referat }: Props) => {
   }
 
   return (
-    <LocalAlert className="mb-8" status="info" size="medium">
+    <LocalAlert className="mb-8" status="announcement" size="medium">
       <LocalAlert.Content>
         <Heading spacing size="small" level="2">
           {texts.title}

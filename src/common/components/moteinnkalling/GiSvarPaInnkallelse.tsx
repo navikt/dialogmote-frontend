@@ -165,7 +165,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
         {svarType === "NYTT_TID_STED" && (
           <>
-            <LocalAlert status="info">
+            <LocalAlert status="announcement">
               <LocalAlert.Content>
                 <BodyLong>{texts.infoEndring}</BodyLong>
               </LocalAlert.Content>
@@ -185,7 +185,7 @@ const GiSvarPaInnkallelse = ({ brevUuid }: Props): ReactElement => {
 
         {svarType === "KOMMER_IKKE" && (
           <>
-            <LocalAlert status="info">
+            <LocalAlert status="announcement">
               <LocalAlert.Content>
                 <BodyLong>{texts.infoAvlysning}</BodyLong>
               </LocalAlert.Content>

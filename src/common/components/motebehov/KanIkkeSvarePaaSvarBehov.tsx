@@ -25,7 +25,7 @@ export const KanIkkeSvarePaaSvarBehov = ({ title }: Props) => {
         </BodyLong>
       </GuidePanel>
 
-      <LocalAlert status="info">
+      <LocalAlert status="announcement">
         <LocalAlert.Content>
           Dersom du mener det har skjedd noe feil, kan du enten ta kontakt med
           Nav på telefon 55 55 33 33, eller{" "}

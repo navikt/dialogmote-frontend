@@ -16,7 +16,7 @@ export const DelOppfolgingsplanInfoBoks = () => {
   const narmestelederid = useNarmesteLederId();
 
   return (
-    <LocalAlert status="info">
+    <LocalAlert status="announcement">
       <LocalAlert.Content>
         <BodyLong>{texts.alertstripe}</BodyLong>
         <Link

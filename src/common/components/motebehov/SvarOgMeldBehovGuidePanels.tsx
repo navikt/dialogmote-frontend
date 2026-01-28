@@ -24,7 +24,8 @@ export const ArbeidsgiverSvarPaaBehovGuidePanel = () => (
       {texts.headingSvarBehov}
     </Heading>
 
-    <Box marginBlock="space-16" asChild><List data-aksel-migrated-v8>
+    <Box marginBlock="space-16" asChild>
+      <List>
         <List.Item>
           {texts.gjorDetteForSvarBehovInfo}{" "}
           <Link href={ARBEIDSGIVER_OPPFOLGING_INFO_URL} target="_blank">
@@ -35,7 +36,8 @@ export const ArbeidsgiverSvarPaaBehovGuidePanel = () => (
         </List.Item>
         <List.Item>{texts.oppfolgingsPlanDelOgOpprettInfo}</List.Item>
         <List.Item>{texts.svarBehovOkASvareNeiInfo}</List.Item>
-      </List></Box>
+      </List>
+    </Box>
   </GuidePanel>
 );
 
@@ -45,7 +47,8 @@ export const ArbeidsgiverMeldBehovGuidePanel = () => (
       {texts.headingMeldBehov}
     </Heading>
 
-    <Box marginBlock="space-16" asChild><List data-aksel-migrated-v8>
+    <Box marginBlock="space-16" asChild>
+      <List>
         <List.Item>
           {texts.gjorDetteForMeldBehovInfo}{" "}
           <Link href={ARBEIDSGIVER_OPPFOLGING_INFO_URL} target="_blank">
@@ -55,6 +58,7 @@ export const ArbeidsgiverMeldBehovGuidePanel = () => (
           (åpner i ny fane).
         </List.Item>
         <List.Item>{texts.oppfolgingsPlanDelOgOpprettInfo}</List.Item>
-      </List></Box>
+      </List>
+    </Box>
   </GuidePanel>
 );

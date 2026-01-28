@@ -3,7 +3,7 @@ import { useState, useContext, createContext } from "react";
 export interface Notification {
   //Milliseconds
   timeout?: number;
-  variant: "error" | "warning" | "info" | "success";
+  variant: "error" | "warning" | "announcement" | "success";
   message: string;
 }
 

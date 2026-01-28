@@ -1,4 +1,5 @@
 import "vitest";
+import "@navikt/ds-react/types/theme";
 import type { AxeMatchers } from "vitest-axe/matchers";
 
 declare module "vitest" {
