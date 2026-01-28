@@ -1,7 +1,6 @@
 import "@navikt/dinesykmeldte-sidemeny/dist/dinesykmeldte-sidemeny.css";
 import "../styles/globals.css";
-import type { AppContext, AppProps } from "next/app";
-import App from "next/app";
+import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, Theme } from "@navikt/ds-react";
@@ -75,11 +74,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     </DMErrorBoundary>
   );
 }
-
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext);
-
-  return { ...appProps };
-};
 
 export default MyApp;
