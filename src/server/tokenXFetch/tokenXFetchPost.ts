@@ -1,9 +1,9 @@
-import { NextApiRequest } from "next";
+import type { NextApiRequest } from "next";
 import { post } from "@/common/api/fetch";
 import { validateAndGetIdportenToken } from "@/server/auth/idporten/idportenToken";
 import {
   exchangeIdPortenTokenForTokenXOboToken,
-  TokenXTargetApi,
+  type TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
 
 type TokenXFetchPostBaseArgs = {
@@ -16,10 +16,10 @@ type TokenXFetchPostBaseArgs = {
 };
 
 export function tokenXFetchPost<ResponseData>(
-  args: TokenXFetchPostBaseArgs & { responseType?: "json" }
+  args: TokenXFetchPostBaseArgs & { responseType?: "json" },
 ): Promise<ResponseData>;
 export function tokenXFetchPost(
-  args: TokenXFetchPostBaseArgs & { responseType: "arraybuffer" }
+  args: TokenXFetchPostBaseArgs & { responseType: "arraybuffer" },
 ): Promise<Uint8Array>;
 export async function tokenXFetchPost<ResponseData>({
   req,
@@ -35,7 +35,7 @@ export async function tokenXFetchPost<ResponseData>({
   const idPortenToken = await validateAndGetIdportenToken(req);
   const oboToken = await exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
-    targetApi
+    targetApi,
   );
 
   return post(endpoint, data, {

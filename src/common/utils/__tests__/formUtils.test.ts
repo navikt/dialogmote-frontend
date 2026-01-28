@@ -1,5 +1,5 @@
-import { getSelectedRadioOption } from "@/common/utils/formUtils";
 import { describe, expect, it } from "vitest";
+import { getSelectedRadioOption } from "@/common/utils/formUtils";
 
 describe("formUtils", () => {
   describe("getSelectedRadioOption", () => {
@@ -16,7 +16,7 @@ describe("formUtils", () => {
     it("should return selected option and option-field", () => {
       const radioFieldGroupSnapshop = getSelectedRadioOption(
         radioOptions,
-        "option1"
+        "option1",
       );
 
       expect(radioFieldGroupSnapshop).toEqual({
@@ -40,7 +40,7 @@ describe("formUtils", () => {
     it("should return null if selected option argument is not found", () => {
       const radioFieldGroupSnapshop = getSelectedRadioOption(
         radioOptions,
-        "invalid-option-id"
+        "invalid-option-id",
       );
 
       expect(radioFieldGroupSnapshop).toEqual(null);

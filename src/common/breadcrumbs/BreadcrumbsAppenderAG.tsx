@@ -1,8 +1,8 @@
-import { ReactElement, useEffect } from "react";
-import { useRouter } from "next/router";
 import { setBreadcrumbs } from "@navikt/nav-dekoratoren-moduler";
-import { createBreadcrumbsAG } from "@/common/breadcrumbs/index";
+import { useRouter } from "next/router";
+import { type ReactElement, useEffect } from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import { createBreadcrumbsAG } from "@/common/breadcrumbs/index";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 
 export const BreadcrumbsAppenderAG = (): ReactElement => {
@@ -14,10 +14,10 @@ export const BreadcrumbsAppenderAG = (): ReactElement => {
   useEffect(() => {
     if (narmestelederId && sykmeldtName) {
       setBreadcrumbs(
-        createBreadcrumbsAG(pathname, sykmeldtName, narmestelederId)
+        createBreadcrumbsAG(pathname, sykmeldtName, narmestelederId),
       );
     }
   }, [sykmeldtName, narmestelederId, pathname]);
 
-  return <></>;
+  return null;
 };

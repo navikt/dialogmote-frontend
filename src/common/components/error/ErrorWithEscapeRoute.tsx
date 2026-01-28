@@ -1,7 +1,7 @@
-import { useLandingUrl } from "@/common/hooks/routeHooks";
-import RouterLenke from "@/common/components/navigation/RouterLenke";
-import { Events } from "@/common/analytics/events";
 import { LocalAlert } from "@navikt/ds-react";
+import { Events } from "@/common/analytics/events";
+import RouterLenke from "@/common/components/navigation/RouterLenke";
+import { useLandingUrl } from "@/common/hooks/routeHooks";
 
 interface Props {
   children: string;

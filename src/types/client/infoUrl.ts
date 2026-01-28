@@ -1,4 +1,4 @@
-import { BrevDocumentComponentKeyDTO } from "@/server/service/schema/brevSchema";
+import type { BrevDocumentComponentKeyDTO } from "@/server/service/schema/brevSchema";
 
 export type InfoUrl = {
   key: BrevDocumentComponentKeyDTO;

@@ -1,8 +1,7 @@
-import React from "react";
+import { BodyShort } from "@navikt/ds-react";
+import { Events } from "@/common/analytics/events";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { Events } from "@/common/analytics/events";
-import { BodyShort } from "@navikt/ds-react";
 import { getPublicAsset } from "@/common/utils/getAssetPath";
 
 const texts = {

@@ -1,10 +1,10 @@
-import activeMockData, { getMockSetupForScenario } from "./activeMockData";
-import { handleQueryParamError } from "../../utils/errors";
-import { NextApiRequest } from "next";
+import type { NextApiRequest } from "next";
 import { TEST_SESSION_ID } from "@/common/api/fetch";
-import { Brev } from "../../../types/shared/brev";
-import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
-import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
+import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
+import type { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
+import type { Brev } from "../../../types/shared/brev";
+import { handleQueryParamError } from "../../utils/errors";
+import activeMockData, { getMockSetupForScenario } from "./activeMockData";
 
 export type TestScenario =
   | "MELD_BEHOV"

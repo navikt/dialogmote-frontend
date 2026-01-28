@@ -1,12 +1,12 @@
-import { MockSetup } from "../../getMockDb";
-import { TestScenarioBuilder } from "@/server/data/mock/builders/testScenarioBuilder";
-import { BrevBuilder } from "@/server/data/mock/builders/brevBuilder";
+import { leggTilDagerPaDato } from "@/common/utils/dateUtils";
+import { moteavlystDocument } from "@/server/data/mock/brev/moteAvlystDocument";
 import {
   endretReferatDocument,
   referatDocument,
 } from "@/server/data/mock/brev/referatDocument";
-import { leggTilDagerPaDato } from "@/common/utils/dateUtils";
-import { moteavlystDocument } from "@/server/data/mock/brev/moteAvlystDocument";
+import { BrevBuilder } from "@/server/data/mock/builders/brevBuilder";
+import { TestScenarioBuilder } from "@/server/data/mock/builders/testScenarioBuilder";
+import type { MockSetup } from "../../getMockDb";
 
 export const dialogmoteAvlystScenario: MockSetup = new TestScenarioBuilder()
   .withTestScenario("DIALOGMOTE_AVLYST")
@@ -18,7 +18,7 @@ export const dialogmoteAvlystScenario: MockSetup = new TestScenarioBuilder()
       .withCreatedAt(new Date(2021, 3, 3))
       .withTid(new Date(2021, 3, 3))
       .withDocument(referatDocument)
-      .build()
+      .build(),
   )
   .withBrev(
     new BrevBuilder()
@@ -27,7 +27,7 @@ export const dialogmoteAvlystScenario: MockSetup = new TestScenarioBuilder()
       .withCreatedAt(new Date(2021, 3, 4))
       .withTid(new Date(2021, 3, 3))
       .withDocument(endretReferatDocument)
-      .build()
+      .build(),
   )
   .withBrev(
     new BrevBuilder()
@@ -36,6 +36,6 @@ export const dialogmoteAvlystScenario: MockSetup = new TestScenarioBuilder()
       .withCreatedAt(leggTilDagerPaDato(new Date(), -7))
       .withTid(leggTilDagerPaDato(new Date(), 40))
       .withDocument(moteavlystDocument)
-      .build()
+      .build(),
   )
   .build();

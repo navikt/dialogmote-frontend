@@ -1,7 +1,7 @@
-import { Events } from "@/common/analytics/events";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
 import NextLink from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import type { Events } from "@/common/analytics/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 interface Props {
   href: string;
@@ -13,10 +13,12 @@ const RouterLenke = ({ href, trackingName, children }: Props) => {
   const { trackEvent } = useAnalytics();
 
   return (
-    <NextLink href={href}>
-      <span className="aksel-link" onClick={() => trackEvent(trackingName)}>
-        {children}
-      </span>
+    <NextLink
+      href={href}
+      className="aksel-link"
+      onClick={() => trackEvent(trackingName)}
+    >
+      {children}
     </NextLink>
   );
 };

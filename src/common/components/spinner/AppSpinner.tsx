@@ -1,5 +1,5 @@
 import { Loader } from "@navikt/ds-react";
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 const AppSpinner = (): ReactElement => {
   return (

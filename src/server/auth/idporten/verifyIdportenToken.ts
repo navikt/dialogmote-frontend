@@ -1,5 +1,5 @@
-import { validateIdportenToken } from "@navikt/oasis";
 import { logger } from "@navikt/next-logger";
+import { validateIdportenToken } from "@navikt/oasis";
 import serverEnv from "@/server/utils/serverEnv";
 
 export async function validateToken(token: string): Promise<boolean> {

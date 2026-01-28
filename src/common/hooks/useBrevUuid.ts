@@ -1,4 +1,4 @@
-import { ParsedUrlQuery } from "querystring";
+import type { ParsedUrlQuery } from "node:querystring";
 import { useRouter } from "next/router";
 
 interface IParams extends ParsedUrlQuery {

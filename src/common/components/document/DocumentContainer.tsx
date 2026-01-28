@@ -1,14 +1,14 @@
 import { Box, Heading } from "@navikt/ds-react";
-import React, { useEffect } from "react";
-import DocumentRenderer from "@/common/components/document/DocumentRenderer";
+import { type ReactNode, useEffect } from "react";
+import type { DocumentComponent } from "types/client/brev";
+import type { ReferatDocumentComponent } from "types/shared/brev";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
-import { DocumentComponent } from "types/client/brev";
-import { ReferatDocumentComponent } from "types/shared/brev";
+import DocumentRenderer from "@/common/components/document/DocumentRenderer";
 
 interface DocumentContainerProps {
   title: string;
   document: DocumentComponent[] | ReferatDocumentComponent[];
-  children?: React.ReactNode;
+  children?: ReactNode;
   lestDato?: string | null;
   brevUuid: string;
 }
@@ -43,8 +43,15 @@ const DocumentContainer = ({
           {title}
         </Heading>
       )}
-      {document.map((documentComponent, index) => (
-        <section key={index}>
+      {document.map((documentComponent) => (
+        <section
+          key={[
+            documentComponent.type,
+            documentComponent.key ?? "none",
+            documentComponent.title ?? "",
+            documentComponent.texts.join("|"),
+          ].join("|")}
+        >
           <DocumentRenderer documentComponent={documentComponent} />
         </section>
       ))}

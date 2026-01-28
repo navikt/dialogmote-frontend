@@ -1,18 +1,18 @@
-import { getMotebehovSM } from "@/server/service/motebehovService";
-import { getBrevSM } from "@/server/service/brevService";
-import { handleSchemaParsingError } from "@/server/utils/errors";
+import type { NextApiRequest } from "next";
 import {
   getIsdialogmoteTokenX,
   getMotebehovTokenX,
 } from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
-import { NextApiRequest } from "next";
+import { getBrevSM } from "@/server/service/brevService";
+import { getMotebehovSM } from "@/server/service/motebehovService";
+import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
+import { handleSchemaParsingError } from "@/server/utils/errors";
 import { isMockBackend } from "@/server/utils/serverEnv";
-import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
-import { Brev } from "../../../types/shared/brev";
+import type { Brev } from "../../../types/shared/brev";
 
 export const fetchConcurrentDataSM = async (
-  req: NextApiRequest
+  req: NextApiRequest,
 ): Promise<
   | {
       motebehov: MotebehovStatusDTO;
@@ -47,7 +47,7 @@ export const fetchConcurrentDataSM = async (
       handleSchemaParsingError(
         "Sykmeldt",
         "IsDialogmote",
-        isDialogmoteRes.error
+        isDialogmoteRes.error,
       );
     }
   }

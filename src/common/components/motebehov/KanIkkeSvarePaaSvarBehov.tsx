@@ -1,8 +1,8 @@
 import { BodyLong, GuidePanel, LocalAlert } from "@navikt/ds-react";
-import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
-import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { useEffect } from "react";
 import { useFerdigstillMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
+import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 
 interface Props {
   title: string;
@@ -13,8 +13,7 @@ export const KanIkkeSvarePaaSvarBehov = ({ title }: Props) => {
 
   useEffect(() => {
     ferdigstillSvarBehov.mutate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ferdigstillSvarBehov]);
 
   return (
     <SykmeldtSide title={title} hideHeader={true} hidePersonvern={true}>

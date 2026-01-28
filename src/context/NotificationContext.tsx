@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 export interface Notification {
   //Milliseconds
@@ -60,7 +60,7 @@ export const useNotifications = () => {
   const context = useContext(NotificationContext);
   if (!context) {
     throw new Error(
-      `useNotifications must be used within a NotificationProvider`
+      `useNotifications must be used within a NotificationProvider`,
     );
   }
   return context;

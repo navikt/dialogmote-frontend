@@ -1,7 +1,7 @@
-import { useErrorSummaryFormatter } from "./useErrorSummaryFormatter";
-import { FieldErrors } from "react-hook-form";
 import { renderHook } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import type { FieldErrors } from "react-hook-form";
+import { describe, expect, it } from "vitest";
+import { useErrorSummaryFormatter } from "./useErrorSummaryFormatter";
 
 describe("useErrorSummaryFormatter", () => {
   it("should format FieldErrors to ErrorValues", () => {

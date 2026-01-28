@@ -1,6 +1,6 @@
+import { Box, Heading, type HeadingProps } from "@navikt/ds-react";
+import type { ReactNode } from "react";
 import CircledIcon from "@/common/components/icon/CircledIcon";
-import { Box, Heading, HeadingProps } from "@navikt/ds-react";
-import React, { ReactNode } from "react";
 
 interface Props {
   title?: string;

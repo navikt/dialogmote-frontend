@@ -1,7 +1,10 @@
 import { GlobalAlert } from "@navikt/ds-react";
-import { useEffect } from "react";
-import { Notification, useNotifications } from "@/context/NotificationContext";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import {
+  type Notification,
+  useNotifications,
+} from "@/context/NotificationContext";
 
 interface Props {
   notification: Notification;
@@ -22,12 +25,16 @@ export const SingleNotification = ({ notification }: Props) => {
     }
   }, [clearNotifications, notification]);
 
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    const handleRouteChange = () => {
       clearNotifications();
-    },
-    [router.pathname, clearNotifications]
-  );
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events, clearNotifications]);
 
   return (
     <GlobalAlert

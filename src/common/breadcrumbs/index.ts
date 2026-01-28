@@ -19,7 +19,7 @@ type Breadcrumb = {
 export function createBreadcrumbsAG(
   pathname: string,
   sykmeldtName: string,
-  narmestelederid: string
+  narmestelederid: string,
 ): Breadcrumb[] {
   switch (pathname) {
     case "/arbeidsgiver/[narmestelederid]":

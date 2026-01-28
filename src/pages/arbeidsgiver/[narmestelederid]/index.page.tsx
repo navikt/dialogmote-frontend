@@ -1,16 +1,15 @@
-import React from "react";
+import { Skeleton } from "@navikt/ds-react";
+import type { UseQueryResult } from "@tanstack/react-query";
 import type { NextPage } from "next";
-import { UseQueryResult } from "@tanstack/react-query";
+import type { DialogmoteData } from "types/shared/dialogmote";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import InfoTilArbeidsgiver from "@/common/components/referat/InfoTilArbeidsgiver";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import { DialogmoteData } from "types/shared/dialogmote";
-import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
-import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
-import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
-import { Skeleton } from "@navikt/ds-react";
 
 const texts = {
   title: "Dialogmøter",

@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { get, post } from "@/common/api/fetch";
 import { useRouter } from "next/router";
-import { TestScenario } from "@/server/data/mock/getMockDb";
+import { get, post } from "@/common/api/fetch";
+import type { TestScenario } from "@/server/data/mock/getMockDb";
 
 export const useSetActiveTestScenario = () => {
   const router = useRouter();

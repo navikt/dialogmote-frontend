@@ -9,7 +9,7 @@ const helloComponent = new DocumentComponentBuilder()
 const meetingCancelledComponent = new DocumentComponentBuilder()
   .withType("PARAGRAPH")
   .withText(
-    "NAV har tidligere innkalt til dialogmøte som skulle vært avholdt 22.10.2021 klokka 12. Dette møtet er avlyst."
+    "NAV har tidligere innkalt til dialogmøte som skulle vært avholdt 22.10.2021 klokka 12. Dette møtet er avlyst.",
   )
   .build();
 

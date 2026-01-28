@@ -1,3 +1,6 @@
+import { Skeleton } from "@navikt/ds-react";
+import type { UseQueryResult } from "@tanstack/react-query";
+import type { DialogmoteData } from "types/shared/dialogmote";
 import { Events } from "@/common/analytics/events";
 import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
@@ -6,10 +9,6 @@ import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import KontaktOssVeileder from "@/common/components/veileder/KontaktOssVeileder";
 import { usePdfPath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
-import React from "react";
-import { UseQueryResult } from "@tanstack/react-query";
-import { DialogmoteData } from "types/shared/dialogmote";
-import { Skeleton } from "@navikt/ds-react";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;
@@ -29,7 +28,7 @@ export const ReferatContent = ({ dialogmoteData }: Props) => {
 
   if (dialogmoteData.isSuccess) {
     const referat = dialogmoteData.data.referater.find(
-      (value) => value.uuid === brevuuid
+      (value) => value.uuid === brevuuid,
     );
 
     if (!referat) {

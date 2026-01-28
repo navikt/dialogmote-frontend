@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useRef } from "react";
-import { useNotifications } from "@/context/NotificationContext";
+import { type ReactElement, useEffect, useRef } from "react";
 import { SingleNotification } from "@/common/components/notificationbar/SingleNotification";
+import { useNotifications } from "@/context/NotificationContext";
 
 export const NotificationBar = (): ReactElement | null => {
   const { notification } = useNotifications();
