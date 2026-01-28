@@ -1,72 +1,8 @@
 /** @type {import('next').NextConfig} */
-import cspHeader from "csp-header";
-
-const environment =
-  process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === "prod" ? "prod" : "dev";
 
 const CSP_SOURCES = {
   self: "'self'",
   uxSignals: "https://uxsignals-frontend.uxsignals.app.iterate.no",
-};
-
-const externalUrls = {
-  prod: "https://www.nav.no/dekoratoren",
-  dev: "https://dekoratoren.ekstern.dev.nav.no",
-  beta: "https://dekoratoren-beta.intern.dev.nav.no",
-  betaTms: "https://dekoratoren-beta-tms.intern.dev.nav.no",
-};
-
-const serviceUrls = {
-  prod: "http://nav-dekoratoren.personbruker",
-  dev: "http://nav-dekoratoren.personbruker",
-  beta: "http://nav-dekoratoren-beta.personbruker",
-  betaTms: "http://nav-dekoratoren-beta-tms.personbruker",
-};
-
-const naisGcpClusters = new Set(["dev-gcp", "prod-gcp"]);
-
-const isNaisApp = () =>
-  typeof process !== "undefined" &&
-  process.env.NAIS_CLUSTER_NAME &&
-  naisGcpClusters.has(process.env.NAIS_CLUSTER_NAME);
-
-const getNaisUrl = (env, csr = false, serviceDiscovery = true) => {
-  const shouldUseServiceDiscovery = serviceDiscovery && !csr && isNaisApp();
-  return (
-    (shouldUseServiceDiscovery ? serviceUrls[env] : externalUrls[env]) ||
-    externalUrls.prod
-  );
-};
-
-const decoratorCspApi = "/api/csp";
-const fallbackDirectives = {
-  "default-src": ["*", "data:", "blob:", "'unsafe-inline'", "'unsafe-eval'"],
-};
-
-const buildCspHeader = async (directives, envProps, retries = 3) => {
-  const url = `${getNaisUrl(envProps.env, false, envProps.serviceDiscovery)}${decoratorCspApi}`;
-
-  return fetch(url)
-    .then((res) => {
-      if (!res.ok) {
-        throw Error(`${res.status} ${res.statusText}`);
-      }
-      return res.json();
-    })
-    .then((decoratorDirectives) =>
-      cspHeader.getCSP({
-        presets: [directives, decoratorDirectives],
-      })
-    )
-    .catch((error) => {
-      if (retries > 0) {
-        return buildCspHeader(directives, envProps, retries - 1);
-      }
-      console.error(
-        `Error fetching decorator CSP, using permissive fallback directives! - ${error}`
-      );
-      return cspHeader.getCSP({ directives: fallbackDirectives });
-    });
 };
 
 const appDirectives = {
@@ -87,6 +23,11 @@ const appDirectives = {
 
 const moduleExports = {
   async headers() {
+    const environment =
+      process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === "prod" ? "prod" : "dev";
+    const { buildCspHeader } = await import(
+      "@navikt/nav-dekoratoren-moduler/ssr/index.js"
+    );
     const cspValue = await buildCspHeader(appDirectives, { env: environment });
     return [
       {
