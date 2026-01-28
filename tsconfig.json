@@ -15,7 +15,7 @@
     "jsx": "react-jsx",
     "incremental": true,
     "baseUrl": "./src",
-    "types": ["jest", "@testing-library/jest-dom", "react", "react-dom"],
+    "types": ["@testing-library/jest-dom", "react", "react-dom"],
     "paths": {
       "@/common/*": ["common/*"],
       "@/server/*": ["server/*"],
