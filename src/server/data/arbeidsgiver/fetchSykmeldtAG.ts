@@ -6,15 +6,7 @@ import { logger } from "@navikt/next-logger";
 import { isMockBackend } from "@/server/utils/serverEnv";
 import { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
 import { NextApiRequest } from "next";
-
-const isValidNarmestelederId = (
-  value: string | string[] | undefined
-): value is string => {
-  if (typeof value !== "string") {
-    return false;
-  }
-  return /^[a-zA-Z0-9_-]{1,100}$/.test(value);
-};
+import { isValidNarmestelederId } from "@/common/utils/validateNarmestelederId";
 
 export const fetchSykmeldtAG = async (
   req: NextApiRequest
