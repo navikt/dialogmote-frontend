@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
-import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import { MoteinnkallingContent } from "@/common/components/moteinnkalling/MoteinnkallingContent";
+import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 
 const Moteinnkalling = (): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();

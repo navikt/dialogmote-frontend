@@ -1,5 +1,5 @@
-import createError from "http-errors";
 import { logger } from "@navikt/next-logger";
+import createError from "http-errors";
 
 interface IAuthorizationHeaders {
   Authorization: string;
@@ -17,7 +17,7 @@ class ProtectedApi {
   private async do(
     method: "GET" | "POST",
     path: string,
-    body?: string
+    body?: string,
   ): Promise<Response> {
     const headers: HeadersInit = {
       ...this.authorizationHeaders,
@@ -37,7 +37,7 @@ class ProtectedApi {
     if (!response.ok) {
       logger.error(
         { status: response.status, path, method },
-        "api returned error"
+        "api returned error",
       );
       throw createError(response.status, response.statusText);
     }

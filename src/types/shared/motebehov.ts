@@ -1,8 +1,8 @@
-import {
+import type {
   FormSnapshotRequestDto,
   FormSnapshotResponseDto,
 } from "@/server/service/schema/formSnapshotSchema";
-import { MotebehovSkjemaTypeDTO } from "@/server/service/schema/motebehovSchema";
+import type { MotebehovSkjemaTypeDTO } from "@/server/service/schema/motebehovSchema";
 
 export type MotebehovSkjemaType = MotebehovSkjemaTypeDTO;
 

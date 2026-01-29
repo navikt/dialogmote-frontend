@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
+import { PageHeading } from "@/common/components/header/PageHeading";
 import PersonvernInfo from "@/common/components/personvern/PersonvernInfo";
 import styles from "./SykmeldtSide.module.css";
-import { PageHeading } from "@/common/components/header/PageHeading";
 
 interface Props {
   title: string;

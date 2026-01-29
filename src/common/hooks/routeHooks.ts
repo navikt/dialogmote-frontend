@@ -1,6 +1,6 @@
+import { useRouter } from "next/router";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
 import { dineSykemeldteRoot, dittSykefravarRoot } from "@/common/publicEnv";
-import { useRouter } from "next/router";
 
 export type Audience = "Sykmeldt" | "Arbeidsgiver";
 

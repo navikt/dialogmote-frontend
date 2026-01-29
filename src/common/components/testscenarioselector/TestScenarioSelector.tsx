@@ -1,12 +1,12 @@
 import { Button, Heading, Modal, Radio, RadioGroup } from "@navikt/ds-react";
-import SunImage from "../../images/sun.svg";
 import Image from "next/image";
-import React, { useState } from "react";
-import { TestScenario } from "server/data/mock/getMockDb";
+import { useState } from "react";
+import type { TestScenario } from "server/data/mock/getMockDb";
 import {
   useActiveTestScenario,
   useSetActiveTestScenario,
 } from "@/common/api/queries/testScenarioQueries";
+import SunImage from "../../images/sun.svg";
 import styles from "./testscenarioselector.module.css";
 
 interface RadioProps {
@@ -27,8 +27,9 @@ export const TestScenarioSelector = () => {
   const activeTestScenario = useActiveTestScenario();
   const setActiveTestScenario = useSetActiveTestScenario();
   const [open, setOpen] = useState(false);
-  const [pendingScenario, setPendingScenario] =
-    useState<TestScenario | null>(null);
+  const [pendingScenario, setPendingScenario] = useState<TestScenario | null>(
+    null,
+  );
   const selectedScenario = pendingScenario ?? activeTestScenario.data;
   const closeModal = () => {
     setOpen(false);
@@ -39,11 +40,7 @@ export const TestScenarioSelector = () => {
 
   return (
     <>
-      <Modal
-        open={open}
-        aria-label="Testdatavelger"
-        onClose={closeModal}
-      >
+      <Modal open={open} aria-label="Testdatavelger" onClose={closeModal}>
         <Modal.Body>
           <div className="p-12">
             <Heading spacing level="1" size="large">
@@ -119,13 +116,14 @@ export const TestScenarioSelector = () => {
         </Modal.Body>
       </Modal>
 
-      <div
+      <button
         id="TestScenarioSelector"
+        type="button"
         onClick={() => setOpen(!open)}
         className={styles.testscenariocontainer}
       >
         <Image src={SunImage} alt="" width={40} height={40} />
-      </div>
+      </button>
     </>
   );
 };

@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
-import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
-import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import { BodyLong, BodyShort } from "@navikt/ds-react";
+import type { ReactElement } from "react";
+import { useSvarPaMotebehovSM } from "@/common/api/queries/sykmeldt/motebehovQueriesSM";
+import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 import {
   commonTextsForSMSvarAndMeld,
   sykmeldtLesMerLenkerSentence,
 } from "./svar.page";
-import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
-import { MotebehovSvarRequest } from "@/types/shared/motebehov";
 
 const texts = {
   title: "Be om dialogmøte med Nav",

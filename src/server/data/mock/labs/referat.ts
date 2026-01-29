@@ -1,4 +1,4 @@
-import { Brev } from "types/shared/brev";
+import type { Brev } from "types/shared/brev";
 
 export const referat1: Brev = {
   uuid: "0eda3772-1cab-482e-be5f-c18387cd8709",

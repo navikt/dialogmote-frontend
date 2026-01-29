@@ -1,6 +1,6 @@
-import { useAudience } from "@/common/hooks/routeHooks";
-import { Events } from "@/common/analytics/events";
 import { sendTrackingEvent } from "@/common/analytics/analytics";
+import type { Events } from "@/common/analytics/events";
+import { useAudience } from "@/common/hooks/routeHooks";
 
 export const useAnalytics = () => {
   const { audience } = useAudience();

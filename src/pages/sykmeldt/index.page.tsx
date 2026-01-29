@@ -1,16 +1,15 @@
-import React from "react";
+import { BodyLong, Skeleton } from "@navikt/ds-react";
 import type { NextPage } from "next";
 import { useDialogmoteDataSM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
+import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
+import { MotebehovPanelSM } from "@/common/components/motebehov/panel/MotebehovPanelSM";
+import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
+import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
 import ReferaterPanel from "@/common/components/referat/ReferaterPanel";
+import UxSignalsPanel from "@/common/components/ux-signals-panel/ux-signals-panel";
 import InfoOmDialogmote from "@/common/components/veileder/InfoOmDialogmoter";
 import VeilederGuidePanel from "@/common/components/veileder/VeilederGuidePanel";
 import VideoPanel from "@/common/components/video/VideoPanel";
-import { SykmeldtSide } from "@/common/components/page/SykmeldtSide";
-import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
-import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
-import { BodyLong, Skeleton } from "@navikt/ds-react";
-import { MotebehovPanelSM } from "@/common/components/motebehov/panel/MotebehovPanelSM";
-import UxSignalsPanel from "@/common/components/ux-signals-panel/ux-signals-panel";
 
 const texts = {
   title: "Dialogmøter",

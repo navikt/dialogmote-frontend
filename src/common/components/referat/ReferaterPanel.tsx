@@ -1,8 +1,8 @@
+import type { ReactNode } from "react";
+import type { Referat } from "types/shared/brev";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import GamleReferat from "@/common/components/referat/GamleReferat";
 import SisteReferat from "@/common/components/referat/SisteReferat";
-import React, { ReactNode } from "react";
-import { Referat } from "types/shared/brev";
 
 const texts = {
   title: "Referat fra dialogmøte",

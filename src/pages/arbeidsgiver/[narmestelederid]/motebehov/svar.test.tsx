@@ -1,15 +1,13 @@
 import { act, waitFor, within } from "@testing-library/react";
+import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
-import { http, HttpResponse } from "msw";
-import { axe } from "vitest-axe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  createSvarBehovAG,
-} from "../../../../mocks/data/factories/dialogmote";
+import { axe } from "vitest-axe";
+import SvarBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
+import { createSvarBehovAG } from "../../../../mocks/data/factories/dialogmote";
+import { svarMotebehovAGFixture } from "../../../../mocks/data/fixtures/form";
 import { testServer } from "../../../../mocks/testServer";
 import { render, screen } from "../../../../test/testUtils";
-import SvarBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
-import { svarMotebehovAGFixture } from "../../../../mocks/data/fixtures/form";
 
 describe("svar page arbeidsgiver", () => {
   beforeEach(() => {
@@ -35,7 +33,7 @@ describe("svar page arbeidsgiver", () => {
         }),
         http.get("*/api/arbeidsgiver/*", () => {
           return HttpResponse.json(createSvarBehovAG());
-        })
+        }),
       );
 
       const { user } = render(<SvarBehov />);
@@ -47,18 +45,18 @@ describe("svar page arbeidsgiver", () => {
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Nei, vi har ikke behov for et dialogmøte nå.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Begrunnelse/i,
         }),
-        "Ingen grunn til å ha møte"
+        "Ingen grunn til å ha møte",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Send svar",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -106,7 +104,7 @@ describe("svar page arbeidsgiver", () => {
               ],
             },
           },
-        })
+        }),
       );
     });
 
@@ -119,7 +117,7 @@ describe("svar page arbeidsgiver", () => {
         }),
         http.get("*/api/arbeidsgiver/*", () => {
           return HttpResponse.json(createSvarBehovAG());
-        })
+        }),
       );
 
       const { user } = render(<SvarBehov />);
@@ -131,18 +129,18 @@ describe("svar page arbeidsgiver", () => {
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Ja, vi har behov for et dialogmøte.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Begrunnelse/i,
         }),
-        "Dette er en begrunnelse"
+        "Dette er en begrunnelse",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Send svar",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -202,7 +200,7 @@ describe("svar page arbeidsgiver", () => {
               ],
             },
           },
-        })
+        }),
       );
     });
 
@@ -215,7 +213,7 @@ describe("svar page arbeidsgiver", () => {
         }),
         http.get("*/api/arbeidsgiver/*", () => {
           return HttpResponse.json(createSvarBehovAG());
-        })
+        }),
       );
 
       const { user } = render(<SvarBehov />);
@@ -227,40 +225,40 @@ describe("svar page arbeidsgiver", () => {
       await user.click(
         radioGroup.getByRole("radio", {
           name: "Ja, vi har behov for et dialogmøte.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Begrunnelse/i,
         }),
-        "Dette er en begrunnelse"
+        "Dette er en begrunnelse",
       );
       await user.click(
         screen.getByRole("checkbox", {
           name: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Hvorfor ønsker du at lege\/behandler deltar/i,
         }),
-        "Behandler må være med"
+        "Behandler må være med",
       );
       await user.click(
         screen.getByRole("checkbox", {
           name: "Vi har behov for tolk.",
-        })
+        }),
       );
       await user.type(
         screen.getByRole("textbox", {
           name: /Hva slags tolk har dere behov for/i,
         }),
-        "Engelsk tolk"
+        "Engelsk tolk",
       );
       await user.click(
         screen.getByRole("button", {
           name: "Send svar",
-        })
+        }),
       );
 
       await waitFor(() =>
@@ -275,7 +273,7 @@ describe("svar page arbeidsgiver", () => {
               fieldSnapshots: svarMotebehovAGFixture,
             },
           },
-        })
+        }),
       );
     });
   });
@@ -284,7 +282,7 @@ describe("svar page arbeidsgiver", () => {
     testServer.use(
       http.get("*/api/arbeidsgiver/*", () => {
         return HttpResponse.json(createSvarBehovAG());
-      })
+      }),
     );
     const { user } = render(<SvarBehov />);
 
@@ -295,52 +293,50 @@ describe("svar page arbeidsgiver", () => {
     await user.click(
       radioGroup.getByRole("radio", {
         name: "Ja, vi har behov for et dialogmøte.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("checkbox", {
         name: "Jeg ønsker at sykmelder (lege/behandler) også deltar i møtet.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("checkbox", {
         name: "Vi har behov for tolk.",
-      })
+      }),
     );
     await user.click(
       screen.getByRole("button", {
         name: "Send svar",
-      })
+      }),
     );
 
     const errorSummaryHeading = await screen.findByRole("heading", {
       name: "For å gå videre må du rette opp følgende:",
     });
     expect(errorSummaryHeading).toBeInTheDocument();
-    const errorSummaryList = screen
-      .getAllByRole("list")
-      .find((list) =>
-        within(list).queryByRole("link", {
-          name: "Du må gi en begrunnelse for hvorfor du svarte ja eller nei.",
-        })
-      );
+    const errorSummaryList = screen.getAllByRole("list").find((list) =>
+      within(list).queryByRole("link", {
+        name: "Du må gi en begrunnelse for hvorfor du svarte ja eller nei.",
+      }),
+    );
     expect(errorSummaryList).toBeDefined();
     const errorSummary = within(errorSummaryList as HTMLElement);
 
     expect(
       errorSummary.getByRole("link", {
         name: "Du må gi en begrunnelse for hvorfor du svarte ja eller nei.",
-      })
+      }),
     ).toBeInTheDocument();
     expect(
       errorSummary.getByRole("link", {
         name: "Du må begrunne hvorfor du ønsker at behandler deltar.",
-      })
+      }),
     ).toBeInTheDocument();
     expect(
       errorSummary.getByRole("link", {
         name: "Du må oppgi hva slags tolk dere har behov for.",
-      })
+      }),
     ).toBeInTheDocument();
   });
 });

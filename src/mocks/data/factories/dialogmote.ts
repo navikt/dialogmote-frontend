@@ -1,8 +1,8 @@
-import { DialogmoteData } from "../../../types/shared/dialogmote";
+import type { DialogmoteData } from "../../../types/shared/dialogmote";
 import { sykmeldtFixture } from "../fixtures/sykmeldt";
 
 export const createDialogmoteSM = (
-  props?: Partial<DialogmoteData>
+  props?: Partial<DialogmoteData>,
 ): DialogmoteData => {
   return {
     referater: [],
@@ -11,7 +11,7 @@ export const createDialogmoteSM = (
 };
 
 export const createSvarBehovSM = (
-  props?: Partial<DialogmoteData>
+  props?: Partial<DialogmoteData>,
 ): DialogmoteData => {
   return {
     referater: [],
@@ -24,7 +24,7 @@ export const createSvarBehovSM = (
 };
 
 export const createDialogmoteAG = (
-  props?: Partial<DialogmoteData>
+  props?: Partial<DialogmoteData>,
 ): DialogmoteData => {
   return {
     referater: [],
@@ -34,7 +34,7 @@ export const createDialogmoteAG = (
 };
 
 export const createSvarBehovAG = (
-  props?: Partial<DialogmoteData>
+  props?: Partial<DialogmoteData>,
 ): DialogmoteData => {
   return {
     referater: [],

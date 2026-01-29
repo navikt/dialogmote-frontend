@@ -1,21 +1,20 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { v4 as uuidv4 } from "uuid";
 import { logger } from "@navikt/next-logger";
-
-import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
-import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
-import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
-import getMockDb from "@/server/data/mock/getMockDb";
-import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
-import { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
 import {
   meldMotebehovAGOutputFixture,
   svarMotebehovAGOutputFixture,
 } from "mocks/data/fixtures/form";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { v4 as uuidv4 } from "uuid";
+import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
+import getMockDb from "@/server/data/mock/getMockDb";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
+import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
+import type { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const svar: MotebehovSvarRequestAG = req.body;
 
@@ -54,7 +53,7 @@ const handler = async (
 
     if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
       logger.error(
-        `Motebehov svar request is too large. Size: ${svarLength} characters`
+        `Motebehov svar request is too large. Size: ${svarLength} characters`,
       );
       res.status(413).end();
       return;

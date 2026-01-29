@@ -1,14 +1,14 @@
 import { Box, Heading } from "@navikt/ds-react";
-import React, { useEffect } from "react";
-import DocumentRenderer from "@/common/components/document/DocumentRenderer";
+import { type ReactNode, useEffect } from "react";
+import type { DocumentComponent } from "types/client/brev";
+import type { ReferatDocumentComponent } from "types/shared/brev";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
-import { DocumentComponent } from "types/client/brev";
-import { ReferatDocumentComponent } from "types/shared/brev";
+import DocumentRenderer from "@/common/components/document/DocumentRenderer";
 
 interface DocumentContainerProps {
   title: string;
   document: DocumentComponent[] | ReferatDocumentComponent[];
-  children?: React.ReactNode;
+  children?: ReactNode;
   lestDato?: string | null;
   brevUuid: string;
 }
@@ -30,6 +30,17 @@ const DocumentContainer = ({
 
   const isLegacyHeader = document[0]?.type !== "HEADER_H1";
 
+  const getDocumentComponentKey = (
+    documentComponent: DocumentComponent | ReferatDocumentComponent,
+    index: number,
+  ) => {
+    return [
+      documentComponent.type,
+      documentComponent.title ?? "",
+      String(index),
+    ].join("|");
+  };
+
   return (
     <Box
       className="flex flex-col gap-8 whitespace-pre-wrap p-8 mb-8"
@@ -44,7 +55,7 @@ const DocumentContainer = ({
         </Heading>
       )}
       {document.map((documentComponent, index) => (
-        <section key={index}>
+        <section key={getDocumentComponentKey(documentComponent, index)}>
           <DocumentRenderer documentComponent={documentComponent} />
         </section>
       ))}

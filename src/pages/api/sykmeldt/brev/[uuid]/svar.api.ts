@@ -1,15 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
-import getMockDb from "@/server/data/mock/getMockDb";
-import { SvarRespons } from "../../../../../types/shared/brev";
-import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
+import getMockDb from "@/server/data/mock/getMockDb";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
+import type { SvarRespons } from "../../../../../types/shared/brev";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const { uuid } = req.query;
   if (!isValidUuid(uuid)) {

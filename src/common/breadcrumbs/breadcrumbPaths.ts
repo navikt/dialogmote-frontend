@@ -62,7 +62,7 @@ export function motebehovBreadcrumbSM() {
 // Breadcrumbs for arbeidsgiver
 export function dineSykemeldteBreadcrumbAG(
   sykmeldtName: string,
-  narmestelederId: string
+  narmestelederId: string,
 ) {
   const dineSykemeldteBreadcrumb = {
     url: dineSykemeldteRoot,
@@ -80,7 +80,7 @@ export function dineSykemeldteBreadcrumbAG(
 
 export function landingBreadcrumbAG(
   sykmeldtName: string,
-  narmestelederId: string
+  narmestelederId: string,
 ) {
   return [
     ...dineSykemeldteBreadcrumbAG(sykmeldtName, narmestelederId),
@@ -93,7 +93,7 @@ export function landingBreadcrumbAG(
 
 export function referatBreadcrumbAG(
   sykmeldtName: string,
-  narmestelederId: string
+  narmestelederId: string,
 ) {
   return [
     ...landingBreadcrumbAG(sykmeldtName, narmestelederId),
@@ -106,7 +106,7 @@ export function referatBreadcrumbAG(
 
 export function moteinnkallingBreadcrumbAG(
   sykmeldtName: string,
-  narmestelederId: string
+  narmestelederId: string,
 ) {
   return [
     ...landingBreadcrumbAG(sykmeldtName, narmestelederId),
@@ -119,7 +119,7 @@ export function moteinnkallingBreadcrumbAG(
 
 export function motebehovBreadcrumbAG(
   sykmeldtName: string,
-  narmestelederId: string
+  narmestelederId: string,
 ) {
   return [
     ...landingBreadcrumbAG(sykmeldtName, narmestelederId),

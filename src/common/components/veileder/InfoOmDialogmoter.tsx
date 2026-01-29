@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import { BodyLong, Link } from "@navikt/ds-react";
+import type { ReactNode } from "react";
 import { Events } from "@/common/analytics/events";
 import { SYKMELDT_DIALOGMOTE_MED_NAV_INFO_URL } from "@/common/constants/staticUrls";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { BodyLong, Link } from "@navikt/ds-react";
 
 const texts = {
   text1: "Du kan også ",

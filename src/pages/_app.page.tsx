@@ -1,19 +1,19 @@
 import "@navikt/dinesykmeldte-sidemeny/dist/dinesykmeldte-sidemeny.css";
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import React, { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Box, Theme } from "@navikt/ds-react";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useAudience } from "@/common/hooks/routeHooks";
-import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
-import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
-import { NotificationProvider } from "@/context/NotificationContext";
-import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
-import { isDemoOrLocal } from "@/common/publicEnv";
-import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 import { configureLogger } from "@navikt/next-logger";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import type { AppProps } from "next/app";
+import { useEffect } from "react";
+import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
+import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { DMErrorBoundary } from "@/common/components/error/DMErrorBoundary";
+import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
+import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
+import { useAudience } from "@/common/hooks/routeHooks";
+import { isDemoOrLocal } from "@/common/publicEnv";
+import { NotificationProvider } from "@/context/NotificationContext";
 import { initFaro } from "../faro/initFaro";
 
 configureLogger({

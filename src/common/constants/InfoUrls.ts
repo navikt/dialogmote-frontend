@@ -1,5 +1,5 @@
-import { DocumentComponentKey } from "types/client/brev";
-import { InfoUrl } from "types/client/infoUrl";
+import type { DocumentComponentKey } from "types/client/brev";
+import type { InfoUrl } from "types/client/infoUrl";
 
 export const infoUrls: Record<DocumentComponentKey, InfoUrl | undefined> = {
   FRISKMELDING_ARBEIDSFORMIDLING: {

@@ -1,9 +1,9 @@
-import { MockSetup, TestScenario } from "./getMockDb";
+import { dialogmoteAvlystScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteAvlystScenario";
+import { dialogmoteEndretScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteEndretScenario";
+import { dialogmoteInnkallingScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteInnkallingScenario";
 import { meldbehovScenario } from "@/server/data/mock/testscenarios/meldbehov/meldbehovScenario";
 import { svarbehovScenario } from "@/server/data/mock/testscenarios/svarbehov/svarbehovScenario";
-import { dialogmoteInnkallingScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteInnkallingScenario";
-import { dialogmoteEndretScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteEndretScenario";
-import { dialogmoteAvlystScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteAvlystScenario";
+import type { MockSetup, TestScenario } from "./getMockDb";
 
 const activeMockData: MockSetup = { ...meldbehovScenario };
 

@@ -3,7 +3,7 @@ export function notNullish<T>(value: T): value is NonNullable<T> {
 }
 
 export function rightNotNullish<Left, Right>(
-  tuple: [Left, Right | null | undefined]
+  tuple: [Left, Right | null | undefined],
 ): tuple is [Left, Right] {
   return notNullish(tuple[1]);
 }

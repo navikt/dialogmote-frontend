@@ -1,4 +1,4 @@
-import { NextApiRequest } from "next";
+import type { NextApiRequest } from "next";
 import { validateAndGetIdportenToken } from "@/server/auth/idporten/idportenToken";
 import {
   exchangeIdPortenTokenForTokenXOboToken,
@@ -9,26 +9,26 @@ export async function getMotebehovTokenX(req: NextApiRequest): Promise<string> {
   const idPortenToken = await validateAndGetIdportenToken(req);
   return exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
-    TokenXTargetApi.SYFOMOTEBEHOV
+    TokenXTargetApi.SYFOMOTEBEHOV,
   );
 }
 
 export async function getIsdialogmoteTokenX(
-  req: NextApiRequest
+  req: NextApiRequest,
 ): Promise<string> {
   const idPortenToken = await validateAndGetIdportenToken(req);
   return exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
-    TokenXTargetApi.ISDIALOGMOTE
+    TokenXTargetApi.ISDIALOGMOTE,
   );
 }
 
 export async function getDinesykmeldteBackendTokenX(
-  req: NextApiRequest
+  req: NextApiRequest,
 ): Promise<string> {
   const idPortenToken = await validateAndGetIdportenToken(req);
   return exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
-    TokenXTargetApi.DINESYKMELDTE_BACKEND
+    TokenXTargetApi.DINESYKMELDTE_BACKEND,
   );
 }

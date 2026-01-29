@@ -1,4 +1,4 @@
-import {
+import type {
   FieldSnapshot,
   ResponseFieldSnapshot,
 } from "@/server/service/schema/formSnapshotSchema";
@@ -212,7 +212,7 @@ export const svarMotebehovAGOutputFixture: ResponseFieldSnapshot[] =
   svarMotebehovAGFixture.map(convertMockRequestFieldToMockResponseField);
 
 function convertMockRequestFieldToMockResponseField(
-  fieldSnapshot: FieldSnapshot
+  fieldSnapshot: FieldSnapshot,
 ): ResponseFieldSnapshot {
   return fieldSnapshot.fieldType === "RADIO_GROUP" ||
     fieldSnapshot.fieldType === "TEXT"
@@ -222,9 +222,9 @@ function convertMockRequestFieldToMockResponseField(
         description: fieldSnapshot.description ?? null,
       }
     : fieldSnapshot.fieldType === "CHECKBOX_SINGLE"
-    ? {
-        ...fieldSnapshot,
-        description: fieldSnapshot.description ?? null,
-      }
-    : fieldSnapshot;
+      ? {
+          ...fieldSnapshot,
+          description: fieldSnapshot.description ?? null,
+        }
+      : fieldSnapshot;
 }

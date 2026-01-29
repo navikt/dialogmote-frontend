@@ -1,21 +1,21 @@
-import { getMotebehovAG } from "@/server/service/motebehovService";
-import { getBrevAG } from "@/server/service/brevService";
-import { handleSchemaParsingError } from "@/server/utils/errors";
-import getMockDb from "@/server/data/mock/getMockDb";
 import { logger } from "@navikt/next-logger";
+import type { NextApiRequest } from "next";
 import {
   getIsdialogmoteTokenX,
   getMotebehovTokenX,
 } from "@/server/auth/tokenx";
+import getMockDb from "@/server/data/mock/getMockDb";
+import { getBrevAG } from "@/server/service/brevService";
+import { getMotebehovAG } from "@/server/service/motebehovService";
+import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
+import { handleSchemaParsingError } from "@/server/utils/errors";
 import { isMockBackend } from "@/server/utils/serverEnv";
-import { NextApiRequest } from "next";
-import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
-import { Brev } from "../../../types/shared/brev";
+import type { Brev } from "../../../types/shared/brev";
 
 export const fetchConcurrentDataAG = async (
   req: NextApiRequest,
   fnr: string,
-  orgnummer: string
+  orgnummer: string,
 ): Promise<
   | {
       motebehov: MotebehovStatusDTO;
@@ -52,7 +52,7 @@ export const fetchConcurrentDataAG = async (
       handleSchemaParsingError(
         "Arbeidsgiver",
         "IsDialogmote",
-        isDialogmoteRes.error
+        isDialogmoteRes.error,
       );
     }
   }

@@ -1,5 +1,5 @@
-import { ErrorValues } from "@/common/components/motebehov/MotebehovErrorSummary";
-import { FieldErrors } from "react-hook-form";
+import type { FieldErrors } from "react-hook-form";
+import type { ErrorValues } from "@/common/components/motebehov/MotebehovErrorSummary";
 import { rightNotNullish } from "@/common/utils/tsUtils";
 
 export function useErrorSummaryFormatter(errors: FieldErrors): ErrorValues[] {

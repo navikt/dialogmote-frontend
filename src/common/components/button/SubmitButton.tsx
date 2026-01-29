@@ -1,5 +1,5 @@
 import { Button } from "@navikt/ds-react";
-import React from "react";
+import type React from "react";
 
 interface Props {
   isLoading: boolean;

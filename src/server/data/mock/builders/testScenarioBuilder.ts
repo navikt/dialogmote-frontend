@@ -1,6 +1,6 @@
-import { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
-import { Brev } from "types/shared/brev";
-import { MockSetup, TestScenario } from "@/server/data/mock/getMockDb";
+import type { Brev } from "types/shared/brev";
+import type { MockSetup, TestScenario } from "@/server/data/mock/getMockDb";
+import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 
 export class TestScenarioBuilder {
   private readonly mockData: MockSetup;

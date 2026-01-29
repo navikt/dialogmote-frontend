@@ -1,8 +1,7 @@
-import { Events } from "@/common/analytics/events";
-import { useAnalytics } from "@/common/hooks/useAnalytics";
-import NextLink from "next/link";
-import React from "react";
 import { Button } from "@navikt/ds-react";
+import NextLink from "next/link";
+import type { Events } from "@/common/analytics/events";
+import { useAnalytics } from "@/common/hooks/useAnalytics";
 
 const texts = {
   button: "Åpne som pdf",

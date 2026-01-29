@@ -1,7 +1,10 @@
 import { GlobalAlert } from "@navikt/ds-react";
-import { useEffect } from "react";
-import { Notification, useNotifications } from "@/context/NotificationContext";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import {
+  type Notification,
+  useNotifications,
+} from "@/context/NotificationContext";
 
 interface Props {
   notification: Notification;
@@ -22,12 +25,12 @@ export const SingleNotification = ({ notification }: Props) => {
     }
   }, [clearNotifications, notification]);
 
-  useEffect(
-    () => () => {
+  // biome-ignore lint/correctness/useExhaustiveDependencies: use router.pathname to trigger cleanup on route changes
+  useEffect(() => {
+    return () => {
       clearNotifications();
-    },
-    [router.pathname, clearNotifications]
-  );
+    };
+  }, [router.pathname, clearNotifications]);
 
   return (
     <GlobalAlert

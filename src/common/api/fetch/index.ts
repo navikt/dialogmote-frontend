@@ -1,7 +1,7 @@
-import { loginUser } from "@/common/utils/urlUtils";
-import { isDemoOrLocal } from "@/common/publicEnv";
 import { v4 as uuidv4 } from "uuid";
+import { isDemoOrLocal } from "@/common/publicEnv";
 import { logError } from "@/common/utils/logUtils";
+import { loginUser } from "@/common/utils/urlUtils";
 
 export interface FetchOptions {
   accessToken?: string;
@@ -55,7 +55,7 @@ const defaultRequestHeaders = ({
 };
 
 const parseJsonResponse = async <ResponseData>(
-  response: Response
+  response: Response,
 ): Promise<ResponseData> => {
   if (response.status === 204 || response.status === 205) {
     return undefined as ResponseData;
@@ -86,7 +86,7 @@ const parseResponse = async <ResponseData>({
 
 const logAndThrowError = async (
   response: Response,
-  requestUrl: string
+  requestUrl: string,
 ): Promise<never> => {
   if (response.status === 401 && typeof window !== "undefined") {
     loginUser();
@@ -165,7 +165,9 @@ const assertSafeServerRequestUrl = (url: string): void => {
 
   const allowedOrigins = getServerAllowedOrigins();
   if (allowedOrigins.size > 0 && !allowedOrigins.has(parsed.origin)) {
-    throw new Error(`Blocked server-side request to non-allowed origin: ${parsed.origin}`);
+    throw new Error(
+      `Blocked server-side request to non-allowed origin: ${parsed.origin}`,
+    );
   }
 };
 
@@ -222,7 +224,7 @@ type ResponseFor<T extends ResponseType, R> = T extends "arraybuffer"
 
 export const get = async <ResponseData, T extends ResponseType = "json">(
   url: string,
-  options?: Omit<FetchOptions, "responseType"> & { responseType?: T }
+  options?: Omit<FetchOptions, "responseType"> & { responseType?: T },
 ): Promise<ResponseFor<T, ResponseData>> => {
   return request<ResponseFor<T, ResponseData>>({
     url,
@@ -234,7 +236,7 @@ export const get = async <ResponseData, T extends ResponseType = "json">(
 export const post = async <ResponseData, T extends ResponseType = "json">(
   url: string,
   data?: unknown,
-  options?: Omit<FetchOptions, "responseType"> & { responseType?: T }
+  options?: Omit<FetchOptions, "responseType"> & { responseType?: T },
 ): Promise<ResponseFor<T, ResponseData>> => {
   return request<ResponseFor<T, ResponseData>>({
     url,

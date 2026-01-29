@@ -1,19 +1,18 @@
-import { Controller, useForm, useWatch } from "react-hook-form";
 import { Checkbox, Textarea, TextField } from "@navikt/ds-react";
-
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
-import { SubmitButton } from "@/common/components/button/SubmitButton";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import type { MotebehovSvarRequest } from "types/shared/motebehov";
 import { CancelButton } from "@/common/components/button/CancelButton";
-import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
+import { SubmitButton } from "@/common/components/button/SubmitButton";
+import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
+import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { commonTexts } from "@/common/constants/commonTexts";
-import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
-import { MotebehovSvarRequest } from "types/shared/motebehov";
-import {
+import { useErrorSummaryFormatter } from "@/common/hooks/useErrorSummaryFormatter";
+import type {
   FieldSnapshot,
   FormSnapshotRequestDto,
   MotebehovFormIdentifier,
 } from "@/server/service/schema/formSnapshotSchema";
+import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
 
 const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;
 const MAX_LENGTH_ONSKER_BEHANDLER_BEGRUNNELSE = 500;

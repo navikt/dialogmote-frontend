@@ -1,14 +1,14 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
-import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import serverEnv from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<void> => {
   const { uuid } = req.query;
   if (!isValidUuid(uuid)) {
