@@ -66,6 +66,8 @@ spec:
       value: http://syfomotebehov
     - name: DINESYKMELDTE_BACKEND_HOST
       value: http://dinesykmeldte-backend
+    - name: OPPFOLGINGSPLAN_BACKEND_HOST
+      value: http://oppfolgingsplan-backend
     - name: OPPLAERING
       value: "false"
     - name: MOCK_BACKEND
@@ -88,6 +90,8 @@ spec:
       value: "dev-gcp:team-esyfo:dinesykmeldte-backend"
     - name : ISDIALOGMOTE_CLIENT_ID
       value: "dev-gcp:teamsykefravr:isdialogmote"
+    - name: OPPFOLGINGSPLAN_BACKEND_CLIENT_ID
+      value: "dev-gcp:team-esyfo:oppfolgingsplan-backend"
     - name: DISPLAY_TESTSCENARIO_SELECTOR
       value: "false"
   accessPolicy:
@@ -101,5 +105,6 @@ spec:
           namespace: personbruker
         - application: syfomotebehov
         - application: dinesykmeldte-backend
+        - application: oppfolgingsplan-backend
       external:
         - host: dekoratoren.dev.nav.no

@@ -1,9 +1,9 @@
 import { BodyLong, Heading } from "@navikt/ds-react";
-import { DelOppfolgingsplanInfoBoks } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoks";
+import { DelOppfolgingsplanInfoBoksAG } from "@/common/components/motebehov/DelOppfolgingsplanInfoBoksAG";
 import { MotebehovHarSvartPanel } from "@/common/components/motebehov/MotebehovHarSvartPanel";
 import { MotebehovSubmitButton } from "@/common/components/motebehov/MotebehovSubmitButton";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
-import type { Motebehov } from "../../../../types/shared/motebehov";
+import type { Motebehov } from "@/types/shared/motebehov";
 
 const HvaErEtDialogmoteAG = () => {
   return (
@@ -35,7 +35,7 @@ export const MotebehovPanelAG = ({ motebehov }: PanelProps) => {
         motebehovSvar={motebehov.svar}
         skjemaType={motebehov.skjemaType}
       >
-        <DelOppfolgingsplanInfoBoks />
+        <DelOppfolgingsplanInfoBoksAG />
       </MotebehovHarSvartPanel>
     );
   }

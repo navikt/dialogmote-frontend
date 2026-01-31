@@ -7,6 +7,7 @@ export enum TokenXTargetApi {
   SYFOMOTEBEHOV = "SYFOMOTEBEHOV",
   ISDIALOGMOTE = "ISDIALOGMOTE",
   DINESYKMELDTE_BACKEND = "DINESYKMELDTE_BACKEND",
+  OPPFOLGINGSPLAN_BACKEND = "OPPFOLGINGSPLAN_BACKEND",
 }
 
 export async function exchangeIdPortenTokenForTokenXOboToken(
@@ -34,6 +35,8 @@ function getClientIdForTokenXTargetApi(targetApi: TokenXTargetApi): string {
       return serverEnv.ISDIALOGMOTE_CLIENT_ID;
     case TokenXTargetApi.DINESYKMELDTE_BACKEND:
       return serverEnv.DINESYKMELDTE_BACKEND_CLIEND_ID;
+    case TokenXTargetApi.OPPFOLGINGSPLAN_BACKEND:
+      return serverEnv.OPPFOLGINGSPLAN_BACKEND_CLIENT_ID;
     default:
       return assertUnreachable(targetApi);
   }

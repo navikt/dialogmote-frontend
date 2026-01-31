@@ -3,6 +3,7 @@ export interface IServerEnvironmentVariables {
   ISDIALOGMOTE_HOST: string;
   SYFOMOTEBEHOV_HOST: string;
   DINESYKMELDTE_BACKEND_HOST: string;
+  OPPFOLGINGSPLAN_BACKEND_HOST: string;
   TOKEN_X_WELL_KNOWN_URL: string;
   TOKEN_X_CLIENT_ID: string;
   TOKEN_X_PRIVATE_JWK: string;
@@ -19,6 +20,7 @@ export interface IServerEnvironmentVariables {
   SYFOMOTEBEHOV_CLIENT_ID: string;
   DINESYKMELDTE_BACKEND_CLIEND_ID: string;
   ISDIALOGMOTE_CLIENT_ID: string;
+  OPPFOLGINGSPLAN_BACKEND_CLIENT_ID: string;
 }
 
 // TODO: Add assertions on required env variables
