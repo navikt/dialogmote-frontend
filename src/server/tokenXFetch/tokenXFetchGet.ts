@@ -53,12 +53,21 @@ export async function tokenXFetchGet<S extends z.ZodType>({
     });
   }
 
-  const response = await get<unknown>(endpoint, {
-    accessToken: oboToken,
-    responseType: "json",
-    personIdent,
-    orgnummer,
-  });
+  let response: unknown;
+  try {
+    response = await get<unknown>(endpoint, {
+      accessToken: oboToken,
+      responseType: "json",
+      personIdent,
+      orgnummer,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    logger.error(
+      `tokenXFetchGet failed: endpoint=${endpoint} error=${message}`,
+    );
+    throw error;
+  }
 
   if (!responseDataSchema) {
     const message = `Missing responseDataSchema for tokenXFetchGet(${endpoint})`;
@@ -68,7 +77,7 @@ export async function tokenXFetchGet<S extends z.ZodType>({
 
   const parsed = responseDataSchema.safeParse(response);
   if (!parsed.success) {
-    const message = `Failed to parse response from ${endpoint}: ${parsed.error.toString()}`;
+    const message = `Failed to parse response data with zod schema from ${endpoint}: ${parsed.error.toString()}`;
     logger.error(message);
     throw new HttpError(500, message);
   }
