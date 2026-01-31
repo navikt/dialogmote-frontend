@@ -1,6 +1,5 @@
 import type { NextApiRequest } from "next";
-
-export const NAV_PERSONIDENT_HEADER = "nav-personident";
+import { NAV_PERSONIDENT_HEADER } from "@/common/api/fetch";
 
 export const getSykmeldtFnrFromHeader = (req: NextApiRequest) => {
   const sykmeldtFnr = req.headers[NAV_PERSONIDENT_HEADER];

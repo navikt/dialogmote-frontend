@@ -6,7 +6,7 @@ export const useIsPilotAG = (personIdent?: string) => {
   const apiBasePath = useApiBasePath();
 
   const fetchPilotStatus = () =>
-    get<boolean>(`${apiBasePath}/pilot`, { personIdent });
+    get<boolean>(`${apiBasePath}/pilot`, { personIdent: personIdent });
 
   return useQuery({
     queryKey: ["pilot", "arbeidsgiver", personIdent],
