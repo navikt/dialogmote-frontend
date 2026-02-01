@@ -12,20 +12,14 @@ const handler = async (
 ): Promise<void> => {
   try {
     const sykmeldtFnr = getSykmeldtFnrFromHeader(req);
-    logger.info(
-      `Pilot lookup start: endpoint=${serverEnv.OPPFOLGINGSPLAN_BACKEND_HOST}/api/v1/person hasPersonIdent=${Boolean(
-        sykmeldtFnr,
-      )}`,
-    );
-    const pilotUser = await tokenXFetchGet({
+    const response = await tokenXFetchGet({
       req,
       targetApi: TokenXTargetApi.OPPFOLGINGSPLAN_BACKEND,
       endpoint: `${serverEnv.OPPFOLGINGSPLAN_BACKEND_HOST}/api/v1/person`,
       personIdent: sykmeldtFnr,
       responseDataSchema: personSchema,
     });
-    logger.info("Pilot lookup ok");
-    res.status(200).json(pilotUser);
+    res.status(200).json(response.pilotUser);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     logger.error(`Pilot lookup failed: ${message}`);
