@@ -2,6 +2,7 @@ import { dialogmoteAvlystScenario } from "@/server/data/mock/testscenarios/dialo
 import { dialogmoteEndretScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteEndretScenario";
 import { dialogmoteInnkallingScenario } from "@/server/data/mock/testscenarios/dialogmote/dialogmoteInnkallingScenario";
 import { meldbehovScenario } from "@/server/data/mock/testscenarios/meldbehov/meldbehovScenario";
+import { pilotBrukerScenario } from "@/server/data/mock/testscenarios/pilot/pilotBrukerScenario";
 import { svarbehovScenario } from "@/server/data/mock/testscenarios/svarbehov/svarbehovScenario";
 import type { MockSetup, TestScenario } from "./getMockDb";
 
@@ -19,6 +20,8 @@ export const getMockSetupForScenario = (scenario: TestScenario) => {
       return dialogmoteEndretScenario;
     case "DIALOGMOTE_AVLYST":
       return dialogmoteAvlystScenario;
+    case "PILOT_BRUKER":
+      return pilotBrukerScenario;
   }
 };
 

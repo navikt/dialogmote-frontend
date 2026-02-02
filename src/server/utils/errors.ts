@@ -7,7 +7,7 @@ export function handleSchemaParsingError(
   audience: Audience,
   schema: string,
   error: ZodError,
-) {
+): never {
   const formattedErrorText = `${audience} is unable to parse ${schema}-schema: ${error.toString()}`;
   logger.error(formattedErrorText);
   throw new HttpError(500, formattedErrorText);

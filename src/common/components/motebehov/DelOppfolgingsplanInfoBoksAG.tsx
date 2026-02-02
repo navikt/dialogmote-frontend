@@ -1,30 +1,27 @@
 import { BodyLong, Link, LocalAlert } from "@navikt/ds-react";
 import { Events } from "@/common/analytics/events";
-import { useAudience } from "@/common/hooks/routeHooks";
+import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
-import { oppfolgingsplanUrlAG, oppfolgingsplanUrlSM } from "@/common/publicEnv";
+import { useOppfolgingsplanUrlAG } from "@/common/hooks/useOppfolgingsplanUrlAG";
 
 const texts = {
   alertstripe: "Husk å dele oppfølgingsplanen med Nav før møtet.",
   oppfolgingsplanlink: "Gå til oppfølgingsplanen.",
 };
 
-export const DelOppfolgingsplanInfoBoks = () => {
+export const DelOppfolgingsplanInfoBoksAG = () => {
   const { trackEvent } = useAnalytics();
-  const { isAudienceSykmeldt } = useAudience();
-  const narmestelederid = useNarmesteLederId();
+  const { data: dialogmoteData } = useDialogmoteDataAG();
+  const oppfolgingsplanUrl = useOppfolgingsplanUrlAG(
+    dialogmoteData?.sykmeldt?.fnr,
+  );
 
   return (
     <LocalAlert status="announcement">
       <LocalAlert.Content>
         <BodyLong>{texts.alertstripe}</BodyLong>
         <Link
-          href={
-            isAudienceSykmeldt
-              ? oppfolgingsplanUrlSM
-              : `${oppfolgingsplanUrlAG}/${narmestelederid}`
-          }
+          href={oppfolgingsplanUrl}
           onClick={() => trackEvent(Events.Oppfolgingsplan)}
         >
           {texts.oppfolgingsplanlink}

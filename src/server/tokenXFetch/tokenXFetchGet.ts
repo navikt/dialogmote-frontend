@@ -1,5 +1,8 @@
+import { logger } from "@navikt/next-logger";
 import type { NextApiRequest } from "next";
+import type { z } from "zod";
 import { get } from "@/common/api/fetch";
+import { HttpError } from "@/common/utils/errors/HttpError";
 import { validateAndGetIdportenToken } from "@/server/auth/idporten/idportenToken";
 import {
   exchangeIdPortenTokenForTokenXOboToken,
@@ -14,34 +17,72 @@ type TokenXFetchGetBaseArgs = {
   orgnummer?: string;
 };
 
-export function tokenXFetchGet<ResponseData>(
-  args: TokenXFetchGetBaseArgs & { responseType?: "json" },
-): Promise<ResponseData>;
+export function tokenXFetchGet<S extends z.ZodType>(
+  args: TokenXFetchGetBaseArgs & {
+    responseDataSchema: S;
+    responseType?: "json";
+  },
+): Promise<z.infer<S>>;
 export function tokenXFetchGet(
   args: TokenXFetchGetBaseArgs & { responseType: "arraybuffer" },
 ): Promise<Uint8Array>;
-export async function tokenXFetchGet<ResponseData>({
+export async function tokenXFetchGet<S extends z.ZodType>({
   req,
   targetApi,
   endpoint,
   responseType,
   personIdent,
   orgnummer,
-}: TokenXFetchGetBaseArgs & { responseType?: "json" | "arraybuffer" }): Promise<
-  ResponseData | Uint8Array
-> {
+  responseDataSchema,
+}: TokenXFetchGetBaseArgs & {
+  responseType?: "json" | "arraybuffer";
+  responseDataSchema?: S;
+}): Promise<z.infer<S> | Uint8Array> {
   const idPortenToken = await validateAndGetIdportenToken(req);
   const oboToken = await exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
     targetApi,
   );
 
-  return get(endpoint, {
-    accessToken: oboToken,
-    responseType,
-    personIdent,
-    orgnummer,
-  });
+  if (responseType === "arraybuffer") {
+    return get<Uint8Array, "arraybuffer">(endpoint, {
+      accessToken: oboToken,
+      responseType: "arraybuffer",
+      personIdent,
+      orgnummer,
+    });
+  }
+
+  let response: unknown;
+  try {
+    response = await get<unknown>(endpoint, {
+      accessToken: oboToken,
+      responseType: "json",
+      personIdent,
+      orgnummer,
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    logger.error(
+      `tokenXFetchGet failed: endpoint=${endpoint} error=${message}`,
+    );
+    throw error;
+  }
+
+  if (!responseDataSchema) {
+    const message = `Missing responseDataSchema for tokenXFetchGet(${endpoint})`;
+    logger.error(message);
+    throw new HttpError(500, message);
+  }
+
+  const parsed = responseDataSchema.safeParse(response);
+  if (!parsed.success) {
+    const message = `Failed to parse response data with zod schema from ${endpoint}: ${parsed.error.toString()}`;
+    logger.error(message);
+    throw new HttpError(500, message);
+  }
+
+  return parsed.data;
 }
 
 export function tokenXFetchGetBytes(

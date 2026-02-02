@@ -87,6 +87,7 @@ const parseResponse = async <ResponseData>({
 const logAndThrowError = async (
   response: Response,
   requestUrl: string,
+  method: "GET" | "POST",
 ): Promise<never> => {
   if (response.status === 401 && typeof window !== "undefined") {
     loginUser();
@@ -99,7 +100,7 @@ const logAndThrowError = async (
     /* ignore response body */
   }
 
-  const message = `Fetch failed (${response.status} ${response.statusText}) for ${requestUrl}${
+  const message = `Fetch failed: method=${method} endpoint=${requestUrl} status=${response.status} ${response.statusText}${
     bodySnippet ? `: ${bodySnippet}` : ""
   }`;
   const error = new Error(message);
@@ -116,7 +117,9 @@ const logAndThrowNetworkError = (error: unknown): never => {
 const logAndThrowParseError = (error: unknown, requestUrl: string): never => {
   const err =
     error instanceof Error
-      ? error
+      ? new Error(
+          `Failed to parse response for ${requestUrl}: ${error.message}`,
+        )
       : new Error(`Failed to parse response for ${requestUrl}`);
   logError(err, "ResponseParse");
   throw err;
@@ -129,7 +132,8 @@ const getServerAllowedOrigins = (): Set<string> => {
     process.env.ISDIALOGMOTE_HOST,
     process.env.SYFOMOTEBEHOV_HOST,
     process.env.DINESYKMELDTE_BACKEND_HOST,
-  ].filter((v): v is string => typeof v === "string" && v.length > 0);
+    process.env.OPPFOLGINGSPLAN_BACKEND_HOST,
+  ].filter(Boolean) as string[];
 
   const origins = new Set<string>();
   for (const value of raw) {
@@ -203,7 +207,7 @@ async function request<ResponseData>({
   }
 
   if (!response.ok) {
-    return await logAndThrowError(response, requestUrl);
+    return await logAndThrowError(response, requestUrl, method);
   }
 
   try {

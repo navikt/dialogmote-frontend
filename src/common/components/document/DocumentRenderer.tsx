@@ -66,7 +66,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
               {title}
             </Heading>
           )}
-          {texts.map((text, index) => (
+          {texts.map((text) => (
             <Link
               className="break-words"
               key={`link-${text}`}
