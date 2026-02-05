@@ -13,7 +13,7 @@ const handler = async (
     await tokenXFetchPost({
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
-      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v3/arbeidstaker/motebehov/ferdigstill`,
+      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill`,
     });
   }
   res.status(200).end();
