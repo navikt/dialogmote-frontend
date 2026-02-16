@@ -52,7 +52,7 @@
     "dotenv": "^17.2.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "msw": "^2.12.8",
+    "msw": "^2.12.9",
     "next-router-mock": "^1.0.5",
     "open": "^11.0.0",
     "postcss": "^8.5.6",
