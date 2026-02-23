@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@grafana/faro-web-sdk':
-        specifier: ^2.2.3
-        version: 2.2.3
+        specifier: ^2.2.4
+        version: 2.2.4
       '@grafana/faro-web-tracing':
         specifier: ^2.2.4
         version: 2.2.4
@@ -523,9 +523,6 @@ packages:
 
   '@grafana/faro-core@2.2.4':
     resolution: {integrity: sha512-VUmvJgHUzgB7zGROpQfOHEW6xumwvcHJNwTSFLkAVfl7A5aNq+fXnMawn+W7qMJuUFkmUG6lMZ2N+WCvd0GPTA==}
-
-  '@grafana/faro-web-sdk@2.2.3':
-    resolution: {integrity: sha512-F1zefVb50b0De+kmS4Mcdaks7Kj1ywo1LleWQd4qSLacoM5lzab37iukfGBOw/ZAR4J4GxamxjyFIqmMW3vIYQ==}
 
   '@grafana/faro-web-sdk@2.2.4':
     resolution: {integrity: sha512-jvYa5dBf2bn+63yW6BwO4lBFDoiUu2Fc5wlNf1dZhdHb9mLOk1Rm1ZaxZmosgK9teaA+/77Nj739UpSNSnF9ww==}
@@ -2843,12 +2840,6 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/otlp-transformer': 0.212.0(@opentelemetry/api@1.9.0)
-
-  '@grafana/faro-web-sdk@2.2.3':
-    dependencies:
-      '@grafana/faro-core': 2.2.4
-      ua-parser-js: 1.0.41
-      web-vitals: 5.1.0
 
   '@grafana/faro-web-sdk@2.2.4':
     dependencies:

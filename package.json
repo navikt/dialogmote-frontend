@@ -12,7 +12,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@grafana/faro-web-sdk": "^2.2.3",
+    "@grafana/faro-web-sdk": "^2.2.4",
     "@grafana/faro-web-tracing": "^2.2.4",
     "@navikt/aksel-icons": "^8.5.0",
     "@navikt/dinesykmeldte-sidemeny": "^8.0.0",
