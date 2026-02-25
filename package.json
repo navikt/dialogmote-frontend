@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
-    "prepare": "husky",
-    "test": "vitest"
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "test": "vitest",
+    "prepare": "lefthook install --reset-hooks-path"
   },
   "dependencies": {
     "@grafana/faro-web-sdk": "^2.2.4",
