@@ -15,17 +15,17 @@ importers:
         specifier: ^2.2.4
         version: 2.2.4
       '@navikt/aksel-icons':
-        specifier: ^8.5.1
-        version: 8.5.1
+        specifier: ^8.5.2
+        version: 8.5.2
       '@navikt/dinesykmeldte-sidemeny':
         specifier: ^8.0.0
-        version: 8.0.0(@navikt/aksel-icons@8.5.1)(@navikt/ds-react@8.5.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(clsx@2.1.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 8.0.0(@navikt/aksel-icons@8.5.2)(@navikt/ds-react@8.5.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(clsx@2.1.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/ds-css':
-        specifier: ^8.5.1
-        version: 8.5.1
+        specifier: ^8.5.2
+        version: 8.5.2
       '@navikt/ds-react':
-        specifier: ^8.5.1
-        version: 8.5.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^8.5.2
+        version: 8.5.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.6.2
         version: 3.6.2(csp-header@6.3.0)(html-react-parser@5.2.2(@types/react@19.2.14)(react@19.2.4))(jsdom@25.0.1)(react@19.2.4)
@@ -738,8 +738,8 @@ packages:
     resolution: {integrity: sha512-cXu86tF4VQVfwz8W1SPbhoRyHJkti6mjH/XJIxp40jhO4j2k1m4KYrEykxqWPkFF3vrK4rgQppBh//AwyGSXPA==}
     engines: {node: '>=18'}
 
-  '@navikt/aksel-icons@8.5.1':
-    resolution: {integrity: sha512-H0dNtb/1dgiCOPWPGT/joHM27fYXUbdvNTBtF4q7Aj9G7huwUr9YhjHNq9vO/mF1KeNpgYg+8K65zLaQOeX2sA==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.5.1/c7f3aee3bae9346d651975cdc6748e27c0eadb3d}
+  '@navikt/aksel-icons@8.5.2':
+    resolution: {integrity: sha512-czUQLDZrzIRHELj3HIRdVuQSXiimPn84UZcLuQQq/J29yx2BPg2CmkbzY5v2hTx0kLawFzWSp4fAWsplOIp5gg==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/8.5.2/20ae4441783ab8766b26beb0aa02e1b9ce9a8425}
 
   '@navikt/dinesykmeldte-sidemeny@8.0.0':
     resolution: {integrity: sha512-fc6cytwkdVBMWoB7bwD5i1G9pLOJkjjBBaTy7uyE84NARQnXSjHjZd+uKqBVJVuy2bXsnQAf73m97rxTkLXvOg==, tarball: https://npm.pkg.github.com/download/@navikt/dinesykmeldte-sidemeny/8.0.0/ded8be8b2a2d731d59b66b456b0bd7a666060995}
@@ -750,18 +750,15 @@ packages:
       react: '19'
       react-dom: '19'
 
-  '@navikt/ds-css@8.5.1':
-    resolution: {integrity: sha512-ZbUCgP3jNC4ISsNkogCgfA99yYT8n/qk0JPW7y6/XoSeKJtYiSvWx+vSKGANAP2WRsY/UEXqSM67ezAklZ2xJA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.5.1/c91c4122a32d49e49f411e1cb2773ccd90e1fba3}
+  '@navikt/ds-css@8.5.2':
+    resolution: {integrity: sha512-tfmleREsbZLKtwPZISpjfDqaYsAdwBDyboxIYahz78f7XwiYVs0qW1FgjZ8YUBpeZg5PDmoLsbj9lj4JgiOrTA==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/8.5.2/221a7b7e362e8fe8fd8a510ab45fb6d8eb7632f4}
 
-  '@navikt/ds-react@8.5.1':
-    resolution: {integrity: sha512-XiWQfxnuC4QI/tJNPSZeVVB12YntqJ0hZ6RGt/W+9HSO8Y58EzvyYsX61wJ94IZTnyXJOhu3KiEB8zBaw6qbQw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.5.1/0bccdd75de5e27d83cd40c2ee5cbb2b61a24c086}
+  '@navikt/ds-react@8.5.2':
+    resolution: {integrity: sha512-ak0mYkUG49yg5sIZRpbT9KOm7SVnpHHANkBBIdRe/8aBh853EarjUxX+ntwK7Eoj+XD1iKx9P+6fI8nI5YN3dw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-react/8.5.2/30094475f119f2752135b758dc6ce7e37084d0b1}
     peerDependencies:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   '@navikt/ds-tokens@8.6.0':
     resolution: {integrity: sha512-MdnPFvi7wPF0N5ms6psNqW0IevlHhoswUCOYFQl7hFwL+uRcqFna6rT8fm/co04z/HDUKKfadbrW0yodzDxj1w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.6.0/acac1517c2bc4c4eda259f1bc591db24656f102f}
@@ -774,9 +771,6 @@ packages:
       html-react-parser: '>=5.x'
       jsdom: '>=16.x'
       react: '>=17.x'
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@navikt/next-logger@4.5.1':
     resolution: {integrity: sha512-qfiBT/kPK92sCVKGHlUeD2N9vDvJzEFpjn2qRVZiatQivD9IE+qRZwsdCpuvdU1Hylsc/fcF9/i03YQzXBf0iQ==, tarball: https://npm.pkg.github.com/download/@navikt/next-logger/4.5.1/e8c32873a7931396b0871c77b94673cbfb12d376}
@@ -3071,30 +3065,29 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
-  '@navikt/aksel-icons@8.5.1': {}
+  '@navikt/aksel-icons@8.5.2': {}
 
-  '@navikt/dinesykmeldte-sidemeny@8.0.0(@navikt/aksel-icons@8.5.1)(@navikt/ds-react@8.5.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(clsx@2.1.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@navikt/dinesykmeldte-sidemeny@8.0.0(@navikt/aksel-icons@8.5.2)(@navikt/ds-react@8.5.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(clsx@2.1.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
-      '@navikt/aksel-icons': 8.5.1
-      '@navikt/ds-react': 8.5.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@navikt/aksel-icons': 8.5.2
+      '@navikt/ds-react': 8.5.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       clsx: 2.1.1
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@navikt/ds-css@8.5.1': {}
+  '@navikt/ds-css@8.5.2': {}
 
-  '@navikt/ds-react@8.5.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@navikt/ds-react@8.5.2(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@floating-ui/react': 0.27.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@floating-ui/react-dom': 2.1.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@navikt/aksel-icons': 8.5.1
+      '@navikt/aksel-icons': 8.5.2
       '@navikt/ds-tokens': 8.6.0
+      '@types/react': 19.2.14
       date-fns: 4.1.0
       react: 19.2.4
       react-day-picker: 9.7.0(react@19.2.4)
       react-dom: 19.2.4(react@19.2.4)
-    optionalDependencies:
-      '@types/react': 19.2.14
 
   '@navikt/ds-tokens@8.6.0': {}
 
@@ -3104,7 +3097,6 @@ snapshots:
       html-react-parser: 5.2.2(@types/react@19.2.14)(react@19.2.4)
       js-cookie: 3.0.5
       jsdom: 25.0.1
-    optionalDependencies:
       react: 19.2.4
 
   '@navikt/next-logger@4.5.1(next@16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pino@10.3.1)':
