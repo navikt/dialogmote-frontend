@@ -28,7 +28,7 @@ importers:
         version: 8.7.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^3.6.2
-        version: 3.6.2(csp-header@6.3.0)(html-react-parser@5.2.2(@types/react@19.2.14)(react@19.2.4))(jsdom@25.0.1)(react@19.2.4)
+        version: 3.6.2(csp-header@6.3.1)(html-react-parser@5.2.2(@types/react@19.2.14)(react@19.2.4))(jsdom@25.0.1)(react@19.2.4)
       '@navikt/next-logger':
         specifier: ^4.5.1
         version: 4.5.1(next@16.1.7(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pino@10.3.1)
@@ -42,8 +42,8 @@ importers:
         specifier: ^5.91.3
         version: 5.91.3(@tanstack/react-query@5.90.21(react@19.2.4))(react@19.2.4)
       csp-header:
-        specifier: ^6.3.0
-        version: 6.3.0
+        specifier: ^6.3.1
+        version: 6.3.1
       http-errors:
         specifier: ^2.0.1
         version: 2.0.1
@@ -1462,8 +1462,8 @@ packages:
     resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
 
-  csp-header@6.3.0:
-    resolution: {integrity: sha512-sM0AKmeKcPelKjj4jgOVgBQO4J3tejn8c51lXg+OW9gdGQIV5MIZd/G5wfW0e73JOs/VLlj6UI+DRf4xvsiraw==}
+  csp-header@6.3.1:
+    resolution: {integrity: sha512-ykcqGMOGP/uU7RLXDD83k2Ge5Stgc/N3qgKgSN+dATDlNgLHnIoI1IdZBjOskD5Ev1RSKTabLdIETJ6VzXTmvA==}
     engines: {node: '>=18'}
 
   css.escape@1.5.1:
@@ -3092,9 +3092,9 @@ snapshots:
 
   '@navikt/ds-tokens@8.7.0': {}
 
-  '@navikt/nav-dekoratoren-moduler@3.6.2(csp-header@6.3.0)(html-react-parser@5.2.2(@types/react@19.2.14)(react@19.2.4))(jsdom@25.0.1)(react@19.2.4)':
+  '@navikt/nav-dekoratoren-moduler@3.6.2(csp-header@6.3.1)(html-react-parser@5.2.2(@types/react@19.2.14)(react@19.2.4))(jsdom@25.0.1)(react@19.2.4)':
     dependencies:
-      csp-header: 6.3.0
+      csp-header: 6.3.1
       html-react-parser: 5.2.2(@types/react@19.2.14)(react@19.2.4)
       js-cookie: 3.0.5
       jsdom: 25.0.1
@@ -3680,7 +3680,7 @@ snapshots:
 
   cookie@1.1.1: {}
 
-  csp-header@6.3.0: {}
+  csp-header@6.3.1: {}
 
   css.escape@1.5.1: {}
 
