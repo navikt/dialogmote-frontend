@@ -16,11 +16,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "HEADER":
       return (
         <>
-          {texts.map((text, index) => (
+          {texts.map((text) => (
             <Heading
               size="xlarge"
               level="1"
-              key={`header-${index}-${title ?? ""}`}
+              key={`header-${text}-${title ?? ""}`}
             >
               {text}
             </Heading>
@@ -31,11 +31,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "HEADER_H1":
       return (
         <>
-          {texts.map((text, index) => (
+          {texts.map((text) => (
             <Heading
               size="xlarge"
               level="1"
-              key={`header-h1-${index}-${title ?? ""}`}
+              key={`header-h1-${text}-${title ?? ""}`}
             >
               {text}
             </Heading>
@@ -46,11 +46,11 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
     case "HEADER_H2":
       return (
         <>
-          {texts.map((text, index) => (
+          {texts.map((text) => (
             <Heading
               size="large"
               level="2"
-              key={`header-h2-${index}-${title ?? ""}`}
+              key={`header-h2-${text}-${title ?? ""}`}
             >
               {text}
             </Heading>
@@ -89,8 +89,8 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
               {title}
             </Heading>
           )}
-          {texts.map((text, index) => (
-            <BodyLong key={`paragraph-${index}-${title ?? ""}`}>
+          {texts.map((text) => (
+            <BodyLong key={`paragraph-${text}-${title ?? ""}`}>
               {text}
             </BodyLong>
           ))}
