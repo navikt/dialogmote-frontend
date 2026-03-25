@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
-import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
+import { mapDialogmoteDataAG } from "@/server/data/arbeidsgiver/mapDialogmoteDataAG";
 
 const handler = async (
   req: NextApiRequest,
@@ -22,7 +22,7 @@ const handler = async (
 
   if (data) {
     const { motebehov, brevArray } = data;
-    const mappedData = mapDialogmoteData(motebehov, brevArray, sykmeldtDTO);
+    const mappedData = mapDialogmoteDataAG(motebehov, sykmeldtDTO, brevArray);
 
     res.json(mappedData);
   } else {

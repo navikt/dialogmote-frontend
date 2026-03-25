@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
+import { mapDialogmoteDataSM } from "@/server/data/sykmeldt/mapDialogmoteDataSM";
 
 const handler = async (
   req: NextApiRequest,
@@ -10,7 +10,7 @@ const handler = async (
 
   if (data) {
     const { motebehov, brevArray } = data;
-    const combinedData = mapDialogmoteData(motebehov, brevArray);
+    const combinedData = mapDialogmoteDataSM(motebehov, brevArray);
     res.status(200).json(combinedData);
   } else {
     res.status(500).json({ error: "Failed to fetch data" });

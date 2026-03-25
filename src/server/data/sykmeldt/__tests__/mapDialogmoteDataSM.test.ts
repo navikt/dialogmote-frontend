@@ -1,31 +1,9 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
+import { describe, expect, it } from "vitest";
+import { mapDialogmoteDataSM } from "@/server/data/sykmeldt/mapDialogmoteDataSM";
 import { createBrevDTO } from "../../../../mocks/data/factories/brevDTO";
 
-const baseSykmeldt = {
-  narmestelederId: "some-id",
-  orgnummer: "123456789",
-  fnr: "12345678901",
-  navn: "Test Testesen",
-  aktivSykmelding: true,
-};
-
-const motebehovWithVisMotebehov = {
-  visMotebehov: true,
-  skjemaType: "MELD_BEHOV" as const,
-  motebehov: null,
-};
-
-describe("mapDialogmoteData", () => {
-  beforeAll(() => {
-    vi.useFakeTimers();
-    vi.setSystemTime(new Date("2020-02-02").getTime());
-  });
-  afterAll(() => {
-    vi.useRealTimers();
-  });
-
-  describe("moteInnkalling", () => {
+describe("mapDialogmoteDataSM", () => {
+  describe("moteinnkalling", () => {
     it("should return innkalling even if referat endret after", () => {
       const moteInnkalling = createBrevDTO({
         brevType: "INNKALT",
@@ -36,7 +14,7 @@ describe("mapDialogmoteData", () => {
         createdAt: "2023-06-06",
       });
 
-      const dialogmoteData = mapDialogmoteData(
+      const dialogmoteData = mapDialogmoteDataSM(
         {
           visMotebehov: false,
           skjemaType: "MELD_BEHOV",
@@ -44,6 +22,7 @@ describe("mapDialogmoteData", () => {
         },
         [moteInnkalling, endretReferat],
       );
+
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("INNKALT");
     });
@@ -58,7 +37,7 @@ describe("mapDialogmoteData", () => {
         createdAt: "2023-06-06",
       });
 
-      const dialogmoteData = mapDialogmoteData(
+      const dialogmoteData = mapDialogmoteDataSM(
         {
           visMotebehov: false,
           skjemaType: "MELD_BEHOV",
@@ -66,6 +45,7 @@ describe("mapDialogmoteData", () => {
         },
         [moteInnkalling, referat],
       );
+
       expect(dialogmoteData.moteinnkalling).toBeUndefined();
     });
 
@@ -79,7 +59,7 @@ describe("mapDialogmoteData", () => {
         createdAt: "2023-06-06",
       });
 
-      const dialogmoteData = mapDialogmoteData(
+      const dialogmoteData = mapDialogmoteDataSM(
         {
           visMotebehov: false,
           skjemaType: "MELD_BEHOV",
@@ -87,6 +67,7 @@ describe("mapDialogmoteData", () => {
         },
         [moteInnkalling, referat],
       );
+
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("INNKALT");
     });
@@ -104,7 +85,8 @@ describe("mapDialogmoteData", () => {
         brevType: "NYTT_TID_STED",
         createdAt: "2023-06-07",
       });
-      const dialogmoteData = mapDialogmoteData(
+
+      const dialogmoteData = mapDialogmoteDataSM(
         {
           visMotebehov: false,
           skjemaType: "MELD_BEHOV",
@@ -112,6 +94,7 @@ describe("mapDialogmoteData", () => {
         },
         [referat, moteInnkalling, moteEndret],
       );
+
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("NYTT_TID_STED");
     });
@@ -129,7 +112,8 @@ describe("mapDialogmoteData", () => {
         brevType: "AVLYST",
         createdAt: "2023-06-07",
       });
-      const dialogmoteData = mapDialogmoteData(
+
+      const dialogmoteData = mapDialogmoteDataSM(
         {
           visMotebehov: false,
           skjemaType: "MELD_BEHOV",
@@ -137,44 +121,44 @@ describe("mapDialogmoteData", () => {
         },
         [referat, moteInnkalling, moteAvlyst],
       );
+
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("AVLYST");
     });
   });
 
-  describe("motebehov", () => {
-    it("should return undefined motebehov when sykmeldt has inactive sykmelding", () => {
-      const dialogmoteData = mapDialogmoteData(motebehovWithVisMotebehov, [], {
-        ...baseSykmeldt,
-        aktivSykmelding: false,
+  describe("referater", () => {
+    it("should return sorted referater and exclude non-referat brev", () => {
+      const referat = createBrevDTO({
+        uuid: "referat",
+        brevType: "REFERAT",
+        createdAt: "2023-06-05",
+      });
+      const endretReferat = createBrevDTO({
+        uuid: "endret-referat",
+        brevType: "REFERAT_ENDRET",
+        createdAt: "2023-06-07",
+      });
+      const moteInnkalling = createBrevDTO({
+        uuid: "innkalling",
+        brevType: "INNKALT",
+        createdAt: "2023-06-06",
       });
 
-      expect(dialogmoteData.motebehov).toBeUndefined();
-    });
-
-    it("should return motebehov when sykmeldt has active sykmelding", () => {
-      const dialogmoteData = mapDialogmoteData(
-        motebehovWithVisMotebehov,
-        [],
-        baseSykmeldt,
+      const dialogmoteData = mapDialogmoteDataSM(
+        {
+          visMotebehov: false,
+          skjemaType: "MELD_BEHOV",
+          motebehov: null,
+        },
+        [referat, moteInnkalling, endretReferat],
       );
 
-      expect(dialogmoteData.motebehov).toBeDefined();
-    });
-
-    it("should return motebehov when sykmeldt has unknown sykmelding status", () => {
-      const dialogmoteData = mapDialogmoteData(motebehovWithVisMotebehov, [], {
-        ...baseSykmeldt,
-        aktivSykmelding: null,
-      });
-
-      expect(dialogmoteData.motebehov).toBeDefined();
-    });
-
-    it("should return motebehov when sykmeldt is undefined", () => {
-      const dialogmoteData = mapDialogmoteData(motebehovWithVisMotebehov, []);
-
-      expect(dialogmoteData.motebehov).toBeDefined();
+      expect(dialogmoteData.referater).toHaveLength(2);
+      expect(dialogmoteData.referater.map((item) => item.uuid)).toEqual([
+        "endret-referat",
+        "referat",
+      ]);
     });
   });
 });
