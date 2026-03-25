@@ -22,9 +22,13 @@ export const mapDialogmoteData = (
   const isLatestBrevOngoingMoteinnkalling =
     latestBrev?.brevType === "INNKALT" ||
     latestBrev?.brevType === "NYTT_TID_STED";
+  const motebehov =
+    sykmeldt?.aktivSykmelding !== false
+      ? mapMotebehov(motebehovStatus, isLatestBrevOngoingMoteinnkalling)
+      : undefined;
 
   return {
-    motebehov: mapMotebehov(motebehovStatus, isLatestBrevOngoingMoteinnkalling),
+    motebehov,
     moteinnkalling: !isLastestBrevReferat ? latestBrev : undefined,
     referater: mapReferater(brevArraySorted),
     sykmeldt: sykmeldt,

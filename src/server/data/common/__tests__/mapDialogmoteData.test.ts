@@ -2,6 +2,20 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { mapDialogmoteData } from "@/server/data/common/mapDialogmoteData";
 import { createBrevDTO } from "../../../../mocks/data/factories/brevDTO";
 
+const baseSykmeldt = {
+  narmestelederId: "some-id",
+  orgnummer: "123456789",
+  fnr: "12345678901",
+  navn: "Test Testesen",
+  aktivSykmelding: true,
+};
+
+const motebehovWithVisMotebehov = {
+  visMotebehov: true,
+  skjemaType: "MELD_BEHOV" as const,
+  motebehov: null,
+};
+
 describe("mapDialogmoteData", () => {
   beforeAll(() => {
     vi.useFakeTimers();
@@ -125,6 +139,42 @@ describe("mapDialogmoteData", () => {
       );
       expect(dialogmoteData.moteinnkalling).toBeDefined();
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("AVLYST");
+    });
+  });
+
+  describe("motebehov", () => {
+    it("should return undefined motebehov when sykmeldt has inactive sykmelding", () => {
+      const dialogmoteData = mapDialogmoteData(motebehovWithVisMotebehov, [], {
+        ...baseSykmeldt,
+        aktivSykmelding: false,
+      });
+
+      expect(dialogmoteData.motebehov).toBeUndefined();
+    });
+
+    it("should return motebehov when sykmeldt has active sykmelding", () => {
+      const dialogmoteData = mapDialogmoteData(
+        motebehovWithVisMotebehov,
+        [],
+        baseSykmeldt,
+      );
+
+      expect(dialogmoteData.motebehov).toBeDefined();
+    });
+
+    it("should return motebehov when sykmeldt has unknown sykmelding status", () => {
+      const dialogmoteData = mapDialogmoteData(motebehovWithVisMotebehov, [], {
+        ...baseSykmeldt,
+        aktivSykmelding: null,
+      });
+
+      expect(dialogmoteData.motebehov).toBeDefined();
+    });
+
+    it("should return motebehov when sykmeldt is undefined", () => {
+      const dialogmoteData = mapDialogmoteData(motebehovWithVisMotebehov, []);
+
+      expect(dialogmoteData.motebehov).toBeDefined();
     });
   });
 });
