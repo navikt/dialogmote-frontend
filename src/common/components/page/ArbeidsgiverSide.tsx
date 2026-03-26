@@ -5,7 +5,7 @@ import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmot
 import IngenSykmeldingInfo from "@/common/components/arbeidsgiver/IngenSykmeldingInfo";
 import { PageHeading } from "@/common/components/header/PageHeading";
 import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
-import { HttpError } from "@/common/utils/errors/HttpError";
+import { isSykmeldtNotFoundError } from "@/common/utils/errors/isSykmeldtNotFoundError";
 import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
 import type { Sykmeldt } from "../../../types/shared/sykmeldt";
 
@@ -47,11 +47,7 @@ const ArbeidsgiverSide = ({
 }: SideProps): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
 
-  if (
-    dialogmoteData.isError &&
-    dialogmoteData.error instanceof HttpError &&
-    dialogmoteData.error.code === 404
-  ) {
+  if (dialogmoteData.isError && isSykmeldtNotFoundError(dialogmoteData.error)) {
     return <IngenSykmeldingInfo />;
   }
 
