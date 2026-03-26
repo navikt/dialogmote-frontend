@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { isDemoOrLocal } from "@/common/publicEnv";
-import { logError } from "@/common/utils/logUtils";
+import { HttpError } from "@/common/utils/errors/HttpError";
+import { logError, logWarn } from "@/common/utils/logUtils";
 import { loginUser } from "@/common/utils/urlUtils";
 
 export interface FetchOptions {
@@ -103,9 +104,15 @@ const logAndThrowError = async (
   const message = `Fetch failed: method=${method} endpoint=${requestUrl} status=${response.status} ${response.statusText}${
     bodySnippet ? `: ${bodySnippet}` : ""
   }`;
+
+  if (response.status === 404) {
+    logWarn(message);
+    throw new HttpError(404, message);
+  }
+
   const error = new Error(message);
   logError(error);
-  throw error;
+  throw new HttpError(response.status, message);
 };
 
 const logAndThrowNetworkError = (error: unknown): never => {

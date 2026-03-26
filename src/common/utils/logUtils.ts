@@ -34,3 +34,9 @@ export const logError = (error: Error, context?: string) => {
     logger.error(`${prefix}${error.message}`);
   }
 };
+
+export const logWarn = (message: string) => {
+  if (typeof window === "undefined") {
+    logger.warn(message);
+  }
+};

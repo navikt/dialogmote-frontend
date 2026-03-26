@@ -2,8 +2,10 @@ import { PersonIcon } from "@navikt/aksel-icons";
 import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import type { ReactElement, ReactNode } from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import IngenSykmeldingInfo from "@/common/components/arbeidsgiver/IngenSykmeldingInfo";
 import { PageHeading } from "@/common/components/header/PageHeading";
 import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
+import { HttpError } from "@/common/utils/errors/HttpError";
 import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
 import type { Sykmeldt } from "../../../types/shared/sykmeldt";
 
@@ -44,6 +46,14 @@ const ArbeidsgiverSide = ({
   children,
 }: SideProps): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
+
+  if (
+    dialogmoteData.isError &&
+    dialogmoteData.error instanceof HttpError &&
+    dialogmoteData.error.code === 404
+  ) {
+    return <IngenSykmeldingInfo />;
+  }
 
   return (
     <PageContainer
