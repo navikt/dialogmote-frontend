@@ -2,7 +2,7 @@ import { BodyLong, GuidePanel, Heading, Link } from "@navikt/ds-react";
 
 const IngenSykmeldingInfo = () => {
   return (
-    <GuidePanel poster>
+    <GuidePanel>
       <Heading level="1" size="medium" spacing>
         Ingen aktiv sykmelding
       </Heading>
