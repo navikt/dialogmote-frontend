@@ -13,6 +13,7 @@ import { NotificationBar } from "@/common/components/notificationbar/Notificatio
 import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { isDemoOrLocal } from "@/common/publicEnv";
+import { shouldRetryQuery } from "@/common/utils/queryRetry";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { initFaro } from "../faro/initFaro";
 
@@ -36,6 +37,7 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       gcTime: minutesToMillis(60),
+      retry: shouldRetryQuery,
     },
   },
 });

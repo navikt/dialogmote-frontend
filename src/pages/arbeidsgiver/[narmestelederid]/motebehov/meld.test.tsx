@@ -8,9 +8,19 @@ import { meldMotebehovAGFixture } from "../../../../mocks/data/fixtures/form";
 import { testServer } from "../../../../mocks/testServer";
 import { render, screen } from "../../../../test/testUtils";
 
+const waitForDialogmoteData = async () => {
+  await screen.findByText("Firstname Lastname", { selector: "#page-header" });
+};
+
 describe("meld page arbeidsgiver", () => {
   beforeEach(() => {
-    mockRouter.setCurrentUrl("/arbeidsgiver?narmestelederid=123");
+    mockRouter.setCurrentUrl(
+      {
+        pathname: "/arbeidsgiver/[narmestelederid]/motebehov/meld",
+        query: { narmestelederid: "123" },
+      },
+      "/arbeidsgiver/123/motebehov/meld",
+    );
   });
 
   it("should have no a11y violations", async () => {
@@ -33,6 +43,7 @@ describe("meld page arbeidsgiver", () => {
       );
 
       const { user } = render(<MeldBehov />);
+      await waitForDialogmoteData();
 
       await user.type(
         screen.getByRole("textbox", {
@@ -94,6 +105,7 @@ describe("meld page arbeidsgiver", () => {
       );
 
       const { user } = render(<MeldBehov />);
+      await waitForDialogmoteData();
 
       await user.type(
         screen.getByRole("textbox", {
@@ -149,6 +161,7 @@ describe("meld page arbeidsgiver", () => {
 
   it("should render error summary when required inputs is invalid", async () => {
     const { user } = render(<MeldBehov />);
+    await waitForDialogmoteData();
 
     await user.click(
       screen.getByRole("checkbox", {

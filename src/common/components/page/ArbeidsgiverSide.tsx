@@ -2,8 +2,10 @@ import { PersonIcon } from "@navikt/aksel-icons";
 import { PageContainer } from "@navikt/dinesykmeldte-sidemeny";
 import type { ReactElement, ReactNode } from "react";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import IngenSykmeldingInfo from "@/common/components/arbeidsgiver/IngenSykmeldingInfo";
 import { PageHeading } from "@/common/components/header/PageHeading";
 import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
+import { isSykmeldtNotFoundError } from "@/common/utils/errors/isSykmeldtNotFoundError";
 import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
 import type { Sykmeldt } from "../../../types/shared/sykmeldt";
 
@@ -18,7 +20,6 @@ const getSykmeldtHeader = (sykmeldt?: Sykmeldt) => {
 
   return {
     title: "Den sykmeldte",
-    subtitle: `Fødselsnr: `,
     Icon: PersonIcon,
   };
 };
@@ -44,6 +45,18 @@ const ArbeidsgiverSide = ({
   children,
 }: SideProps): ReactElement => {
   const dialogmoteData = useDialogmoteDataAG();
+
+  if (dialogmoteData.isError && isSykmeldtNotFoundError(dialogmoteData.error)) {
+    return (
+      <PageContainer
+        sykmeldt={null}
+        header={getSykmeldtHeader()}
+        navigation={null}
+      >
+        <IngenSykmeldingInfo />
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer
