@@ -48,7 +48,15 @@ const ArbeidsgiverSide = ({
   const dialogmoteData = useDialogmoteDataAG();
 
   if (dialogmoteData.isError && isSykmeldtNotFoundError(dialogmoteData.error)) {
-    return <IngenSykmeldingInfo />;
+    return (
+      <PageContainer
+        sykmeldt={getSykmeldtNameAndFnr(dialogmoteData.data?.sykmeldt)}
+        header={getSykmeldtHeader()}
+        navigation={<ArbeidsgiverSideMenu sykmeldt={dialogmoteData.data?.sykmeldt} />}
+      >
+        <IngenSykmeldingInfo />
+      </PageContainer>
+    );
   }
 
   return (

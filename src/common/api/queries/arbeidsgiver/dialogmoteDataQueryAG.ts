@@ -18,6 +18,10 @@ export const useDialogmoteDataAG = () => {
     queryKey: [DIALOGMOTEDATA_AG],
     queryFn: fetchDialogmoteData,
     enabled: !!narmestelederid,
+    retry: (failureCount, error) => {
+      if (isSykmeldtNotFoundError(error)) return false;
+      return failureCount < 3;
+    },
     throwOnError: (error) => !isSykmeldtNotFoundError(error),
   });
 };

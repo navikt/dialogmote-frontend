@@ -34,6 +34,7 @@ describe("arbeidsgiver 404-flyt", () => {
     expect(
       await screen.findByRole("heading", { name: "Ingen aktiv sykmelding" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Gå til Dine sykmeldte" }),
     ).toHaveAttribute("href", "/arbeidsgiver/sykmeldte");
@@ -58,9 +59,9 @@ describe("arbeidsgiver 404-flyt", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Oops!" }),
+      await screen.findByRole("heading", { name: "Oops!" }, { timeout: 10000 }),
     ).toBeInTheDocument();
-  });
+  }, 15000);
 
   it("viser feilside ved 404 fra andre tjenester", async () => {
     vi.spyOn(console, "error").mockImplementation(() => undefined);
@@ -81,10 +82,10 @@ describe("arbeidsgiver 404-flyt", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Oops!" }),
+      await screen.findByRole("heading", { name: "Oops!" }, { timeout: 10000 }),
     ).toBeInTheDocument();
     expect(
       screen.queryByRole("heading", { name: "Ingen aktiv sykmelding" }),
     ).not.toBeInTheDocument();
-  });
+  }, 15000);
 });
