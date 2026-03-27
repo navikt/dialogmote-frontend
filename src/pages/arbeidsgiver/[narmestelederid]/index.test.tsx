@@ -59,19 +59,16 @@ describe("arbeidsgiver 404-flyt", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Oops!" }, { timeout: 10000 }),
+      await screen.findByRole("heading", { name: "Oops!" }),
     ).toBeInTheDocument();
-  }, 15000);
+  });
 
   it("viser feilside ved 404 fra andre tjenester", async () => {
     vi.spyOn(console, "error").mockImplementation(() => undefined);
 
     testServer.use(
       http.get("*/api/arbeidsgiver/*", () => {
-        return HttpResponse.json(
-          { error: "BREV_NOT_FOUND" },
-          { status: 404 },
-        );
+        return HttpResponse.json({ error: "BREV_NOT_FOUND" }, { status: 404 });
       }),
     );
 
@@ -82,10 +79,10 @@ describe("arbeidsgiver 404-flyt", () => {
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Oops!" }, { timeout: 10000 }),
+      await screen.findByRole("heading", { name: "Oops!" }),
     ).toBeInTheDocument();
     expect(
       screen.queryByRole("heading", { name: "Ingen aktiv sykmelding" }),
     ).not.toBeInTheDocument();
-  }, 15000);
+  });
 });
