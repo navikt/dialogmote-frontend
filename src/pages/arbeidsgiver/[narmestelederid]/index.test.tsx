@@ -34,7 +34,8 @@ describe("arbeidsgiver 404-flyt", () => {
     expect(
       await screen.findByRole("heading", { name: "Ingen aktiv sykmelding" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
+    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
+    expect(screen.queryByText("Fødselsnr:")).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Gå til Dine sykmeldte" }),
     ).toHaveAttribute("href", "/arbeidsgiver/sykmeldte");

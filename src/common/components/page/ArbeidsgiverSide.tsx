@@ -20,7 +20,6 @@ const getSykmeldtHeader = (sykmeldt?: Sykmeldt) => {
 
   return {
     title: "Den sykmeldte",
-    subtitle: `Fødselsnr: `,
     Icon: PersonIcon,
   };
 };
@@ -50,9 +49,9 @@ const ArbeidsgiverSide = ({
   if (dialogmoteData.isError && isSykmeldtNotFoundError(dialogmoteData.error)) {
     return (
       <PageContainer
-        sykmeldt={getSykmeldtNameAndFnr(dialogmoteData.data?.sykmeldt)}
+        sykmeldt={null}
         header={getSykmeldtHeader()}
-        navigation={<ArbeidsgiverSideMenu sykmeldt={dialogmoteData.data?.sykmeldt} />}
+        navigation={null}
       >
         <IngenSykmeldingInfo />
       </PageContainer>
