@@ -5,7 +5,8 @@ export const shouldRetryQuery = (failureCount: number, error: unknown) => {
     error instanceof HttpError &&
     error.code >= 400 &&
     error.code < 500 &&
-    error.code !== 408
+    error.code !== 408 &&
+    error.code !== 429
   ) {
     return false;
   }

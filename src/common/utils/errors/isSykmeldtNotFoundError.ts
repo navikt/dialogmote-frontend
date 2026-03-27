@@ -4,6 +4,6 @@ export const isSykmeldtNotFoundError = (error: unknown): boolean => {
   return (
     error instanceof HttpError &&
     error.code === 404 &&
-    error.message.includes("SYKMELDT_NOT_FOUND")
+    error.type === "SYKMELDT_NOT_FOUND"
   );
 };

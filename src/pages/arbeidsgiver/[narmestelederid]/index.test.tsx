@@ -12,7 +12,13 @@ vi.mock("next/legacy/image", () => ({
 
 describe("arbeidsgiver 404-flyt", () => {
   beforeEach(() => {
-    mockRouter.setCurrentUrl("/arbeidsgiver?narmestelederid=123");
+    mockRouter.setCurrentUrl(
+      {
+        pathname: "/arbeidsgiver/[narmestelederid]",
+        query: { narmestelederid: "123" },
+      },
+      "/arbeidsgiver/123",
+    );
   });
 
   afterEach(() => {
