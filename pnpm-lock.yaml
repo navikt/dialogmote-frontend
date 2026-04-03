@@ -30,8 +30,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0(html-react-parser@5.2.2(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       '@navikt/next-logger':
-        specifier: ^4.5.1
-        version: 4.5.1(next@16.2.1(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pino@10.3.1)
+        specifier: ^5.0.0
+        version: 5.0.0(next@16.2.1(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pino@10.3.1)
       '@navikt/oasis':
         specifier: ^4.1.4
         version: 4.1.4
@@ -770,8 +770,8 @@ packages:
       html-react-parser: '>=5.x'
       react: '>=17.x'
 
-  '@navikt/next-logger@4.5.1':
-    resolution: {integrity: sha512-qfiBT/kPK92sCVKGHlUeD2N9vDvJzEFpjn2qRVZiatQivD9IE+qRZwsdCpuvdU1Hylsc/fcF9/i03YQzXBf0iQ==, tarball: https://npm.pkg.github.com/download/@navikt/next-logger/4.5.1/e8c32873a7931396b0871c77b94673cbfb12d376}
+  '@navikt/next-logger@5.0.0':
+    resolution: {integrity: sha512-VQ2VM/k5uDYnb7BYG3ITJZgMZq8B3TECOnhdvNOQeltJyy8+KQzGqLsrYajKPWuUiPuLjYFk0HbU2W22onB9mQ==, tarball: https://npm.pkg.github.com/download/@navikt/next-logger/5.0.0/510dccac519d1227515e4c8a8268570d90305b3e}
     engines: {node: ^20.19.0 || >= 22.12.0 || 24.x}
     peerDependencies:
       next: 14 || 15 || 16
@@ -781,8 +781,8 @@ packages:
     resolution: {integrity: sha512-v+LW8V5CTiHkfIXhceQ8RXRtrBktCK8wSFYmiR6hmzl9CJRYRLUpFC7YbLiC7jwHIuLHKUyl+Zawf8zQm6fDeQ==, tarball: https://npm.pkg.github.com/download/@navikt/oasis/4.1.4/0d9c93820b9b6d93b1bd9da134feb95461ad8a47}
     engines: {node: ^20.19.0 || >= 22.12.0 || 24.x || 25.x}
 
-  '@navikt/pino-logger@4.5.1':
-    resolution: {integrity: sha512-tTMGdPvHl2bpKqBTpxGw1ZRnUju4BPApgDU/YZFYnJRnKSlPkL3xUDAJGM6+fsdWFZTfwjiLVlzkOR8B97PWwg==, tarball: https://npm.pkg.github.com/download/@navikt/pino-logger/4.5.1/761f1f0fdc9c5274960c259c0a3213b3989b5927}
+  '@navikt/pino-logger@5.0.0':
+    resolution: {integrity: sha512-CKINa+iUUaQnqcpiGrmWb51EDogXzI4zP3QRq2eY3vS6y6RPrTbskoRB/3wQbo6qkgUgCqu8THv7EZZfkz00qg==, tarball: https://npm.pkg.github.com/download/@navikt/pino-logger/5.0.0/5f799d5d37d66c8a80f8dcf0131ddb41466dc4f3}
     engines: {node: ^20.19.0 || >= 22.12.0 || 24.x}
     peerDependencies:
       pino: 8 || 9 || 10
@@ -1594,6 +1594,9 @@ packages:
   end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
 
+  end-of-stream@1.4.5:
+    resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
+
   enhanced-resolve@5.20.1:
     resolution: {integrity: sha512-Qohcme7V1inbAfvjItgw0EaxVX5q2rdVEZHRBrEQdRZTssLDGsL8Lwrznl8oQ/6kuTJONLaDcGjkNP247XEhcA==}
     engines: {node: '>=10.13.0'}
@@ -2147,6 +2150,9 @@ packages:
 
   pump@3.0.0:
     resolution: {integrity: sha512-LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==}
+
+  pump@3.0.4:
+    resolution: {integrity: sha512-VS7sjc6KR7e1ukRFhQSY5LM2uBWAUPiOPa/A3mkKmiMwSmRFUITt0xuj+/lesgnCv+dPIEYlkzrcyXgquIHMcA==}
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -3131,9 +3137,9 @@ snapshots:
       js-cookie: 3.0.5
       react: 19.2.4
 
-  '@navikt/next-logger@4.5.1(next@16.2.1(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pino@10.3.1)':
+  '@navikt/next-logger@5.0.0(next@16.2.1(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pino@10.3.1)':
     dependencies:
-      '@navikt/pino-logger': 4.5.1(pino@10.3.1)
+      '@navikt/pino-logger': 5.0.0(pino@10.3.1)
       next: 16.2.1(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       pino: 10.3.1
 
@@ -3144,7 +3150,7 @@ snapshots:
       jose: 6.1.3
       prom-client: 15.1.3
 
-  '@navikt/pino-logger@4.5.1(pino@10.3.1)':
+  '@navikt/pino-logger@5.0.0(pino@10.3.1)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       pino: 10.3.1
@@ -3825,6 +3831,11 @@ snapshots:
     dependencies:
       once: 1.4.0
 
+  end-of-stream@1.4.5:
+    dependencies:
+      once: 1.4.0
+    optional: true
+
   enhanced-resolve@5.20.1:
     dependencies:
       graceful-fs: 4.2.11
@@ -4333,7 +4344,7 @@ snapshots:
     dependencies:
       backoff: 2.5.0
       nopt: 7.2.1
-      pump: 3.0.0
+      pump: 3.0.4
       split2: 4.2.0
       through2: 4.0.2
     optional: true
@@ -4403,6 +4414,12 @@ snapshots:
     dependencies:
       end-of-stream: 1.4.4
       once: 1.4.0
+
+  pump@3.0.4:
+    dependencies:
+      end-of-stream: 1.4.5
+      once: 1.4.0
+    optional: true
 
   punycode@2.3.1: {}
 
