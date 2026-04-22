@@ -1,8 +1,11 @@
 # Dialogmøter for sykmeldte og arbeidsgivere
 
+[![Build & Deploy](https://github.com/navikt/dialogmote-frontend/actions/workflows/build-and-deploy.yaml/badge.svg)](https://github.com/navikt/dialogmote-frontend/actions/workflows/build-and-deploy.yaml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs)
 ![React](https://img.shields.io/badge/React-19-149ECA?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Biome](https://img.shields.io/badge/Biome-2-60A5FA?logo=biome&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white)
 ![pnpm](https://img.shields.io/badge/pnpm-10-F69220?logo=pnpm&logoColor=white)
 
 Frontend for dialogmøter på `nav.no`. Appen viser innhold for både sykmeldte og arbeidsgivere under `/syk/dialogmoter`, og henter data via Next.js API-ruter som snakker med backend-tjenester.
