@@ -16,10 +16,18 @@ Frontend for dialogmøter på `nav.no`. Appen viser innhold for både sykmeldte 
 
 ## Formålet med appen
 
-- sykmeldt-flaten på `/syk/dialogmoter`
-- arbeidsgiver-flaten på `/syk/dialogmoter/arbeidsgiver/[narmestelederid]`
-- visning og innsending av møtebehov
-- visning av møteinnkallinger og referater
+Appen håndterer dialogmøter mellom sykmeldte, arbeidsgivere og NAV som del av sykefraværsoppfølgingen. Den har to brukerflater:
+
+### Sykmeldt (`/syk/dialogmoter`)
+
+- **Møtebehov** — melde behov for dialogmøte og svare på forespørsler fra arbeidsgiver
+- **Møteinnkalling** — se innkalling til dialogmøte fra NAV
+- **Referat** — lese referater fra gjennomførte dialogmøter
+
+### Arbeidsgiver (`/syk/dialogmoter/arbeidsgiver/[narmestelederid]`)
+
+- **Møtebehov** — melde behov for dialogmøte på vegne av virksomheten og svare på forespørsler
+- **Brev** — se innkallinger og referater knyttet til den sykmeldte
 
 ## Backend og integrasjoner
 
