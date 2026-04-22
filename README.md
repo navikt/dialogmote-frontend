@@ -58,9 +58,6 @@ I tillegg brukes:
 
 For å komme i gang med bygging og kjøring av appen, sjekk ut mise tasks.
 
-## For NAV-ansatte
+## For Nav-ansatte
 
-- Team: `team-esyfo`
-- Appnavn i NAIS: `dialogmote-frontend`
-- Deploy skjer via workflowen `Build & Deploy`
-- Offentlige assets lastes opp via workflowen `Upload rarely changed public files to NAV CDN`
+Interne henvendelser kan sendes via Slack i kanalen [#esyfo](https://nav-it.slack.com/archives/C012X796B4L).
