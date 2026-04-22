@@ -33,33 +33,27 @@ Appen håndterer dialogmøter mellom sykmeldte, arbeidsgivere og NAV som del av 
 
 Frontend-appen kommuniserer med flere backend-tjenester via Next.js API-ruter (`src/pages/api`). Alle kall bruker TokenX on-behalf-of-utveksling.
 
-### isdialogmote
+### [isdialogmote](https://github.com/navikt/isdialogmote)
 
 Brev, innkallinger og referater.
 
-```
-GET /api/v2/arbeidstaker/brev
-GET /api/v2/narmesteleder/brev
-```
+- **GET** `/api/v2/arbeidstaker/brev`
+- **GET** `/api/v2/narmesteleder/brev`
 
-### syfomotebehov
+### [syfomotebehov](https://github.com/navikt/syfomotebehov)
 
 Møtebehov for sykmeldt og arbeidsgiver.
 
-```
-GET  /syfomotebehov/api/v4/arbeidstaker/motebehov
-GET  /syfomotebehov/api/v4/motebehov?fnr={fnr}&virksomhetsnummer={orgnummer}
-POST /syfomotebehov/api/v4/arbeidstaker/motebehov
-POST /syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill
-```
+- **GET** `/syfomotebehov/api/v4/arbeidstaker/motebehov`
+- **GET** `/syfomotebehov/api/v4/motebehov?fnr={fnr}&virksomhetsnummer={orgnummer}`
+- **POST** `/syfomotebehov/api/v4/arbeidstaker/motebehov`
+- **POST** `/syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill`
 
-### dinesykmeldte-backend
+### [dinesykmeldte-backend](https://github.com/navikt/dinesykmeldte-backend)
 
 Oppslag av sykmeldt i arbeidsgiverflyten.
 
-```
-GET /api/v2/dinesykmeldte/{narmestelederid}
-```
+- **GET** `/api/v2/dinesykmeldte/{narmestelederid}`
 
 ## Utvikling (kjøre lokalt)
 
