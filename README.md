@@ -1,42 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dialogmøter for sykmeldte og arbeidsgivere
 
-## Getting Started
+[![Build & Deploy](https://github.com/navikt/dialogmote-frontend/actions/workflows/build-and-deploy.yaml/badge.svg)](https://github.com/navikt/dialogmote-frontend/actions/workflows/build-and-deploy.yaml)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Biome](https://img.shields.io/badge/Biome-2-60A5FA?logo=biome&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?logo=vitest&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-10-F69220?logo=pnpm&logoColor=white)
 
-### Installing dependencies
-This project uses modules from GitHub Package Repository and requires a PAT token in order to install the dependencies.
+Frontend for dialogmøter på `nav.no`. Appen viser innhold for både sykmeldte og arbeidsgivere under `/syk/dialogmoter`, og henter data via Next.js API-ruter som snakker med backend-tjenester.
 
-Go to [https://github.com/settings/tokens](https://github.com/settings/tokens) and create a PAT token with the `package:read` permission.  
+## Miljøer
 
-Export an environment variable named `NPM_AUTH_TOKEN` using `export NPM_AUTH_TOKEN=<PAT>`. 
+[🚀 Produksjon](https://www.nav.no/syk/dialogmoter)
 
-### Start developing
-First, run the development server:
+[🛠️ Utvikling - arbeidstaker](https://www.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+[🛠️ Utvikling - arbeidsgiver](https://www.ekstern.dev.nav.no/syk/dialogmoter/arbeidsgiver/{id}), trenger en gyldig id
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[🎬 Demo - arbeidstaker](https://demo.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+[🎬 Demo - arbeidsgiver](https://demo.ekstern.dev.nav.no/syk/dialogmoter/arbeidsgiver/1)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Formålet med appen
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Appen håndterer dialogmøter mellom sykmeldte, arbeidsgivere og NAV som del av sykefraværsoppfølgingen. Den har to brukerflater:
 
-## Learn More
+### Sykmeldt (`/syk/dialogmoter`)
 
-To learn more about Next.js, take a look at the following resources:
+- **Møtebehov** — melde behov for dialogmøte og svare på forespørsler fra arbeidsgiver
+- **Møteinnkalling** — se innkalling til dialogmøte fra NAV
+- **Referat** — lese referater fra gjennomførte dialogmøter
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Arbeidsgiver (`/syk/dialogmoter/arbeidsgiver/[narmestelederid]`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Møtebehov** — melde behov for dialogmøte på vegne av virksomheten og svare på forespørsler
+- **Brev** — se innkallinger og referater knyttet til den sykmeldte
 
-## Deploy on Vercel
+## Backend-API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Frontend-appen kommuniserer med flere backend-tjenester via Next.js API-ruter (`src/pages/api`). Alle kall bruker TokenX on-behalf-of-utveksling.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### [isdialogmote](https://github.com/navikt/isdialogmote)
+
+Brev, innkallinger og referater.
+
+- **GET** `/api/v2/arbeidstaker/brev`
+- **GET** `/api/v2/narmesteleder/brev`
+
+### [syfomotebehov](https://github.com/navikt/syfomotebehov)
+
+Møtebehov for sykmeldt og arbeidsgiver.
+
+- **GET** `/syfomotebehov/api/v4/arbeidstaker/motebehov`
+- **GET** `/syfomotebehov/api/v4/motebehov?fnr={fnr}&virksomhetsnummer={orgnummer}`
+- **POST** `/syfomotebehov/api/v4/arbeidstaker/motebehov`
+- **POST** `/syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill`
+
+### [dinesykmeldte-backend](https://github.com/navikt/dinesykmeldte-backend)
+
+Oppslag av sykmeldt i arbeidsgiverflyten.
+
+- **GET** `/api/v2/dinesykmeldte/{narmestelederid}`
+
+## Utvikling (kjøre lokalt)
+
+For å komme i gang med bygging og kjøring av appen, sjekk ut mise tasks.
+
+## For Nav-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen [#esyfo](https://nav-it.slack.com/archives/C012X796B4L).
