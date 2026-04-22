@@ -1,42 +1,113 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dialogmøter for sykmeldte og arbeidsgivere
 
-## Getting Started
+[![CI](https://github.com/navikt/dialogmote-frontend/actions/workflows/build-and-deploy.yaml/badge.svg)](https://github.com/navikt/dialogmote-frontend/actions/workflows/build-and-deploy.yaml)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-149ECA?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-10-F69220?logo=pnpm&logoColor=white)
 
-### Installing dependencies
-This project uses modules from GitHub Package Repository and requires a PAT token in order to install the dependencies.
+Frontend for dialogmøter på `nav.no`. Appen viser innhold for både sykmeldte og arbeidsgivere under `/syk/dialogmoter`, og henter data via egne Next.js API-ruter som snakker med backend-tjenester i NAV.
 
-Go to [https://github.com/settings/tokens](https://github.com/settings/tokens) and create a PAT token with the `package:read` permission.  
+## Formål
 
-Export an environment variable named `NPM_AUTH_TOKEN` using `export NPM_AUTH_TOKEN=<PAT>`. 
+Repoet inneholder en Next.js-app for:
 
-### Start developing
-First, run the development server:
+- sykmeldt-flaten på `/syk/dialogmoter`
+- arbeidsgiver-flaten på `/syk/dialogmoter/arbeidsgiver/[narmestelederid]`
+- visning og innsending av motebehov
+- visning av møteinnkallinger og referater
 
-```bash
-npm run dev
-# or
-yarn dev
+## Arkitektur
+
+```mermaid
+flowchart LR
+  U[Bruker] --> A[dialogmote-frontend<br/>Next.js]
+  A -->|ID-porten| B[Next.js API-ruter]
+  B -->|TokenX| C[isdialogmote]
+  B -->|TokenX| D[syfomotebehov]
+  B -->|TokenX| E[dinesykmeldte-backend]
+  B -->|TokenX| F[oppfolgingsplan-backend]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Appen bruker ID-porten-sidecar i NAIS og gjør TokenX on-behalf-of-utveksling mot interne tjenester.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Miljøer
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Prod: https://www.nav.no/syk/dialogmoter
+- Dev: https://www.ekstern.dev.nav.no/syk/dialogmoter
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Repoet har også et demo-manifest for branchdeploy med mock-backend.
 
-## Learn More
+## Backend og integrasjoner
 
-To learn more about Next.js, take a look at the following resources:
+Frontendens API-ruter ligger under `src/pages/api` og bruker disse tjenestene:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `isdialogmote` for brev, møteinnkallinger og referater
+- `syfomotebehov` for motebehov
+- `dinesykmeldte-backend` for oppslag av sykmeldt i arbeidsgiverflyten
+- `oppfolgingsplan-backend` for arbeidsgiverrelaterte oppslag
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+I tillegg brukes:
 
-## Deploy on Vercel
+- NAV dekoratøren
+- NAV CDN for opplasting av sjelden endrede filer i `public/`
+- Grafana Faro for frontend-telemetri
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Utviklerverktøy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Repoet har `.mise.toml` med:
+
+- Node.js 24
+- pnpm 10
+
+Nyttige kommandoer med mise:
+
+```bash
+mise run install
+mise run dev
+mise run test
+mise run build
+mise run verify
+```
+
+## Utvikling
+
+### Installer avhengigheter
+
+Repoet bruker GitHub Package Registry for `@navikt`-pakker og krever en PAT med `package:read`.
+
+1. Opprett token på https://github.com/settings/tokens
+2. Eksporter token:
+
+```bash
+export NPM_AUTH_TOKEN=<PAT>
+```
+
+3. Installer avhengigheter:
+
+```bash
+pnpm install
+```
+
+### Start appen lokalt
+
+```bash
+pnpm run dev
+```
+
+Appen starter på http://localhost:3000 med base path `/syk/dialogmoter`.
+
+### Nyttige kommandoer
+
+```bash
+pnpm run check
+pnpm run test
+pnpm run build
+```
+
+## For NAV-ansatte
+
+- Team: `team-esyfo`
+- Appnavn i NAIS: `dialogmote-frontend`
+- Deploy skjer via workflowen `Build & Deploy`
+- Offentlige assets lastes opp via workflowen `Upload rarely changed public files to NAV CDN`
