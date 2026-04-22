@@ -12,10 +12,13 @@ Frontend for dialogmøter på `nav.no`. Appen viser innhold for både sykmeldte 
 
 ## Miljøer
 
-- [🚀 Produksjon](https://www.nav.no/syk/dialogmoter)
-- [🛠️ Utvikling](https://www.ekstern.dev.nav.no/syk/dialogmoter)
-- [🎬 Demo - arbeidstaker](https://demo.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt)
-- [🎬 Demo - arbeidsgiver](https://demo.ekstern.dev.nav.no/syk/dialogmoter/arbeidsgiver/1)
+[🚀 Produksjon](https://www.nav.no/syk/dialogmoter)
+
+[🛠️ Utvikling](https://www.ekstern.dev.nav.no/syk/dialogmoter)
+
+[🎬 Demo - arbeidstaker](https://demo.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt)
+
+[🎬 Demo - arbeidsgiver](https://demo.ekstern.dev.nav.no/syk/dialogmoter/arbeidsgiver/1)
 
 ## Formålet med appen
 
