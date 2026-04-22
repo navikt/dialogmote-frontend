@@ -35,25 +35,31 @@ Frontend-appen kommuniserer med flere backend-tjenester via Next.js API-ruter (`
 
 ### isdialogmote
 
-| Metode | Endepunkt | Beskrivelse |
-|--------|-----------|-------------|
-| GET | `/api/v2/arbeidstaker/brev` | Hent brev (innkallinger/referater) for sykmeldt |
-| GET | `/api/v2/narmesteleder/brev` | Hent brev for arbeidsgiver |
+Brev, innkallinger og referater.
+
+```
+GET /api/v2/arbeidstaker/brev
+GET /api/v2/narmesteleder/brev
+```
 
 ### syfomotebehov
 
-| Metode | Endepunkt | Beskrivelse |
-|--------|-----------|-------------|
-| GET | `/syfomotebehov/api/v4/arbeidstaker/motebehov` | Hent møtebehov for sykmeldt |
-| GET | `/syfomotebehov/api/v4/motebehov?fnr=...&virksomhetsnummer=...` | Hent møtebehov for arbeidsgiver |
-| POST | `/syfomotebehov/api/v4/arbeidstaker/motebehov` | Meld/svar møtebehov som sykmeldt |
-| POST | `/syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill` | Ferdigstill møtebehov |
+Møtebehov for sykmeldt og arbeidsgiver.
+
+```
+GET  /syfomotebehov/api/v4/arbeidstaker/motebehov
+GET  /syfomotebehov/api/v4/motebehov?fnr={fnr}&virksomhetsnummer={orgnummer}
+POST /syfomotebehov/api/v4/arbeidstaker/motebehov
+POST /syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill
+```
 
 ### dinesykmeldte-backend
 
-| Metode | Endepunkt | Beskrivelse |
-|--------|-----------|-------------|
-| GET | `/api/v2/dinesykmeldte/{narmestelederid}` | Hent sykmeldt-info i arbeidsgiverflyten |
+Oppslag av sykmeldt i arbeidsgiverflyten.
+
+```
+GET /api/v2/dinesykmeldte/{narmestelederid}
+```
 
 ## Utvikling (kjøre lokalt)
 
