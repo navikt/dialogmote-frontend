@@ -29,30 +29,31 @@ Appen håndterer dialogmøter mellom sykmeldte, arbeidsgivere og NAV som del av 
 - **Møtebehov** — melde behov for dialogmøte på vegne av virksomheten og svare på forespørsler
 - **Brev** — se innkallinger og referater knyttet til den sykmeldte
 
-## Backend og integrasjoner
+## Backend-API
 
-```mermaid
-flowchart LR
-  U[Bruker] --> A[dialogmote-frontend<br/>Next.js]
-  A -->|ID-porten| B[Next.js API-ruter]
-  B -->|TokenX| C[isdialogmote]
-  B -->|TokenX| D[syfomotebehov]
-  B -->|TokenX| E[dinesykmeldte-backend]
-  B -->|TokenX| F[oppfolgingsplan-backend]
-```
+Frontend-appen kommuniserer med flere backend-tjenester via Next.js API-ruter (`src/pages/api`). Alle kall bruker TokenX on-behalf-of-utveksling.
 
-Frontendens API-ruter ligger under `src/pages/api` og bruker disse tjenestene:
+### isdialogmote
 
-- `isdialogmote` for brev, møteinnkallinger og referater
-- `syfomotebehov` for møtebehov
-- `dinesykmeldte-backend` for oppslag av sykmeldt i arbeidsgiverflyten
-- `oppfolgingsplan-backend` for arbeidsgiverrelaterte oppslag
+| Metode | Endepunkt | Beskrivelse |
+|--------|-----------|-------------|
+| GET | `/api/v2/arbeidstaker/brev` | Hent brev (innkallinger/referater) for sykmeldt |
+| GET | `/api/v2/narmesteleder/brev` | Hent brev for arbeidsgiver |
 
-I tillegg brukes:
+### syfomotebehov
 
-- NAV dekoratøren
-- NAV CDN for opplasting av sjelden endrede filer i `public/`
-- Grafana Faro for frontend-telemetri
+| Metode | Endepunkt | Beskrivelse |
+|--------|-----------|-------------|
+| GET | `/syfomotebehov/api/v4/arbeidstaker/motebehov` | Hent møtebehov for sykmeldt |
+| GET | `/syfomotebehov/api/v4/motebehov?fnr=...&virksomhetsnummer=...` | Hent møtebehov for arbeidsgiver |
+| POST | `/syfomotebehov/api/v4/arbeidstaker/motebehov` | Meld/svar møtebehov som sykmeldt |
+| POST | `/syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill` | Ferdigstill møtebehov |
+
+### dinesykmeldte-backend
+
+| Metode | Endepunkt | Beskrivelse |
+|--------|-----------|-------------|
+| GET | `/api/v2/dinesykmeldte/{narmestelederid}` | Hent sykmeldt-info i arbeidsgiverflyten |
 
 ## Utvikling (kjøre lokalt)
 
