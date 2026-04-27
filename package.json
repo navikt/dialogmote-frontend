@@ -61,7 +61,7 @@
     "open": "^11.0.0",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "vite": "^8.0.8",
     "vitest": "^4.1.4",
     "vitest-axe": "^0.1.0",
