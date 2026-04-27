@@ -9,9 +9,19 @@ import { svarMotebehovAGFixture } from "../../../../mocks/data/fixtures/form";
 import { testServer } from "../../../../mocks/testServer";
 import { render, screen } from "../../../../test/testUtils";
 
+const waitForDialogmoteData = async () => {
+  await screen.findByText("Firstname Lastname", { selector: "#page-header" });
+};
+
 describe("svar page arbeidsgiver", () => {
   beforeEach(() => {
-    mockRouter.setCurrentUrl("/arbeidsgiver?narmestelederid=123");
+    mockRouter.setCurrentUrl(
+      {
+        pathname: "/arbeidsgiver/[narmestelederid]/motebehov/svar",
+        query: { narmestelederid: "123" },
+      },
+      "/arbeidsgiver/123/motebehov/svar",
+    );
   });
 
   it("should have no a11y violations", async () => {
@@ -37,6 +47,7 @@ describe("svar page arbeidsgiver", () => {
       );
 
       const { user } = render(<SvarBehov />);
+      await waitForDialogmoteData();
 
       const radioGroupElement = await screen.findByRole("group", {
         name: /Har dere behov for et dialogmøte med Nav/,
@@ -121,6 +132,7 @@ describe("svar page arbeidsgiver", () => {
       );
 
       const { user } = render(<SvarBehov />);
+      await waitForDialogmoteData();
 
       const radioGroupElement = await screen.findByRole("group", {
         name: /Har dere behov for et dialogmøte med Nav/,
@@ -217,6 +229,7 @@ describe("svar page arbeidsgiver", () => {
       );
 
       const { user } = render(<SvarBehov />);
+      await waitForDialogmoteData();
 
       const radioGroupElement = await screen.findByRole("group", {
         name: /Har dere behov for et dialogmøte med Nav/,
@@ -285,6 +298,7 @@ describe("svar page arbeidsgiver", () => {
       }),
     );
     const { user } = render(<SvarBehov />);
+    await waitForDialogmoteData();
 
     const radioGroupElement = await screen.findByRole("group", {
       name: /Har dere behov for et dialogmøte med Nav/,

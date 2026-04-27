@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { isDemoOrLocal } from "@/common/publicEnv";
-import { logError } from "@/common/utils/logUtils";
+import { HttpError } from "@/common/utils/errors/HttpError";
+import { logError, logWarn } from "@/common/utils/logUtils";
 import { loginUser } from "@/common/utils/urlUtils";
 
 export interface FetchOptions {
@@ -16,6 +17,10 @@ export const ORGNUMMER_HEADER = "orgnummer";
 export const TEST_SESSION_ID = "testscenario-session-id";
 
 type ResponseType = NonNullable<FetchOptions["responseType"]>;
+
+interface ErrorResponseBody {
+  error?: string;
+}
 
 const defaultRequestHeaders = ({
   options,
@@ -84,6 +89,21 @@ const parseResponse = async <ResponseData>({
   return parseJsonResponse<ResponseData>(response);
 };
 
+const getErrorTypeFromResponseBody = (
+  responseBody: string,
+): string | undefined => {
+  if (!responseBody) {
+    return undefined;
+  }
+
+  try {
+    const parsedBody = JSON.parse(responseBody) as ErrorResponseBody;
+    return typeof parsedBody.error === "string" ? parsedBody.error : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
 const logAndThrowError = async (
   response: Response,
   requestUrl: string,
@@ -93,19 +113,27 @@ const logAndThrowError = async (
     loginUser();
   }
 
-  let bodySnippet = "";
+  let responseBody = "";
   try {
-    bodySnippet = (await response.text()).slice(0, 200);
+    responseBody = await response.text();
   } catch {
     /* ignore response body */
   }
 
+  const bodySnippet = responseBody.slice(0, 200);
+  const errorType = getErrorTypeFromResponseBody(responseBody);
   const message = `Fetch failed: method=${method} endpoint=${requestUrl} status=${response.status} ${response.statusText}${
     bodySnippet ? `: ${bodySnippet}` : ""
   }`;
+
+  if (response.status === 404) {
+    logWarn(message);
+    throw new HttpError(404, message, errorType);
+  }
+
   const error = new Error(message);
   logError(error);
-  throw error;
+  throw new HttpError(response.status, message, errorType);
 };
 
 const logAndThrowNetworkError = (error: unknown): never => {
