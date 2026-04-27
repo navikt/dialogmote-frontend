@@ -59,6 +59,9 @@ importers:
       pino-pretty:
         specifier: ^13.1.3
         version: 13.1.3
+      pino-socket:
+        specifier: ^8.0.0
+        version: 8.0.0
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -759,6 +762,9 @@ packages:
       '@types/react': ^17.0.30 || ^18 || ^19
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@navikt/ds-tokens@8.9.1':
     resolution: {integrity: sha512-a1njXFPstX2w2/rlhnlyuUyIDJlSm8SOej7RrMl7FjNL3p0bktwzyt7ylsJU1y0vH8MnEnq7QGXWf6goIkgkWw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.9.1/961db4bb606a0858e6cd01292adff493f474b5da}
@@ -769,6 +775,9 @@ packages:
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@navikt/next-logger@5.0.0':
     resolution: {integrity: sha512-VQ2VM/k5uDYnb7BYG3ITJZgMZq8B3TECOnhdvNOQeltJyy8+KQzGqLsrYajKPWuUiPuLjYFk0HbU2W22onB9mQ==, tarball: https://npm.pkg.github.com/download/@navikt/next-logger/5.0.0/510dccac519d1227515e4c8a8268570d90305b3e}
@@ -1374,6 +1383,10 @@ packages:
   abbrev@2.0.0:
     resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  abbrev@4.0.0:
+    resolution: {integrity: sha512-a1wflyaL0tHtJSmLSOVybYhy22vRih4eduhhrkcjgrWGnRfrZtovJ2FRjxuTtkkj47O/baf0R86QU5OuYpz8fA==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   acorn-import-attributes@1.9.5:
     resolution: {integrity: sha512-n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==}
@@ -2074,6 +2087,11 @@ packages:
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     hasBin: true
 
+  nopt@9.0.0:
+    resolution: {integrity: sha512-Zhq3a+yFKrYwSBluL4H9XP3m3y5uvQkB/09CwDruCiRmR/UJYnn9W4R48ry0uGC70aeTPKLynBtscP9efFFcPw==}
+    engines: {node: ^20.17.0 || >=22.9.0}
+    hasBin: true
+
   nwsapi@2.2.23:
     resolution: {integrity: sha512-7wfH4sLbt4M0gCDzGE6vzQBo0bfTKjU7Sfpqy/7gs1qBfYz2vEJH6vXcBKpO3+6Yu1telwd0t9HpyOoLEQQbIQ==}
 
@@ -2119,6 +2137,10 @@ packages:
 
   pino-socket@7.4.0:
     resolution: {integrity: sha512-UBXkwDRz9RM5pG8gWKxxsonmqM3kk0fx8PbueWlg4LywNT2+Jl0C2xGVPNUyNYn5OjbZopodV8d/UZbuKVEf4w==}
+    hasBin: true
+
+  pino-socket@8.0.0:
+    resolution: {integrity: sha512-PGtegfnmcUFJsRQSK26F/Wn37v/GPn8ZgCrd20dFRLUMgXAOrayk9qQlAwgJe/K2hOPJrzNU6sV13SbZgFiSWg==}
     hasBin: true
 
   pino-std-serializers@7.0.0:
@@ -3137,11 +3159,12 @@ snapshots:
       '@floating-ui/react-dom': 2.1.8(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@navikt/aksel-icons': 8.9.1
       '@navikt/ds-tokens': 8.9.1
-      '@types/react': 19.2.14
       date-fns: 4.1.0
       react: 19.2.5
       react-day-picker: 9.7.0(react@19.2.5)
       react-dom: 19.2.5(react@19.2.5)
+    optionalDependencies:
+      '@types/react': 19.2.14
 
   '@navikt/ds-tokens@8.9.1': {}
 
@@ -3150,6 +3173,7 @@ snapshots:
       csp-header: 6.3.1
       html-react-parser: 5.2.2(@types/react@19.2.14)(react@19.2.5)
       js-cookie: 3.0.5
+    optionalDependencies:
       react: 19.2.5
 
   '@navikt/next-logger@5.0.0(next@16.2.4(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(pino@10.3.1)':
@@ -3677,6 +3701,8 @@ snapshots:
   abbrev@2.0.0:
     optional: true
 
+  abbrev@4.0.0: {}
+
   acorn-import-attributes@1.9.5(acorn@8.16.0):
     dependencies:
       acorn: 8.16.0
@@ -3708,7 +3734,6 @@ snapshots:
   backoff@2.5.0:
     dependencies:
       precond: 0.2.3
-    optional: true
 
   baseline-browser-mapping@2.10.21: {}
 
@@ -3855,7 +3880,6 @@ snapshots:
   end-of-stream@1.4.5:
     dependencies:
       once: 1.4.0
-    optional: true
 
   enhanced-resolve@5.20.1:
     dependencies:
@@ -4315,6 +4339,10 @@ snapshots:
       abbrev: 2.0.0
     optional: true
 
+  nopt@9.0.0:
+    dependencies:
+      abbrev: 4.0.0
+
   nwsapi@2.2.23: {}
 
   obug@2.1.1: {}
@@ -4377,6 +4405,14 @@ snapshots:
       through2: 4.0.2
     optional: true
 
+  pino-socket@8.0.0:
+    dependencies:
+      backoff: 2.5.0
+      nopt: 9.0.0
+      pump: 3.0.4
+      split2: 4.2.0
+      through2: 4.0.2
+
   pino-std-serializers@7.0.0: {}
 
   pino@10.3.1:
@@ -4407,8 +4443,7 @@ snapshots:
 
   powershell-utils@0.1.0: {}
 
-  precond@0.2.3:
-    optional: true
+  precond@0.2.3: {}
 
   pretty-format@27.5.1:
     dependencies:
@@ -4447,7 +4482,6 @@ snapshots:
     dependencies:
       end-of-stream: 1.4.5
       once: 1.4.0
-    optional: true
 
   punycode@2.3.1: {}
 
@@ -4486,7 +4520,6 @@ snapshots:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
-    optional: true
 
   real-require@0.2.0: {}
 
@@ -4545,8 +4578,7 @@ snapshots:
 
   run-applescript@7.1.0: {}
 
-  safe-buffer@5.2.1:
-    optional: true
+  safe-buffer@5.2.1: {}
 
   safe-stable-stringify@2.4.3: {}
 
@@ -4630,7 +4662,6 @@ snapshots:
   string_decoder@1.3.0:
     dependencies:
       safe-buffer: 5.2.1
-    optional: true
 
   strip-ansi@6.0.1:
     dependencies:
@@ -4678,7 +4709,6 @@ snapshots:
   through2@4.0.2:
     dependencies:
       readable-stream: 3.6.2
-    optional: true
 
   tinybench@2.9.0: {}
 
@@ -4744,8 +4774,7 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
-  util-deprecate@1.0.2:
-    optional: true
+  util-deprecate@1.0.2: {}
 
   uuid@13.0.0: {}
 
