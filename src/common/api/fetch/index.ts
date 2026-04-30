@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { isDemoOrLocal } from "@/common/publicEnv";
+import { HttpError } from "@/common/utils/errors/HttpError";
 import { logError } from "@/common/utils/logUtils";
 import { loginUser } from "@/common/utils/urlUtils";
 
@@ -103,7 +104,7 @@ const logAndThrowError = async (
   const message = `Fetch failed: method=${method} endpoint=${requestUrl} status=${response.status} ${response.statusText}${
     bodySnippet ? `: ${bodySnippet}` : ""
   }`;
-  const error = new Error(message);
+  const error = new HttpError(response.status, message);
   logError(error);
   throw error;
 };
