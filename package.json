@@ -21,7 +21,7 @@
     "@navikt/dinesykmeldte-sidemeny": "^8.0.0",
     "@navikt/ds-css": "^8.9.1",
     "@navikt/ds-react": "^8.9.1",
-    "@navikt/nav-dekoratoren-moduler": "^3.7.1",
+    "@navikt/nav-dekoratoren-moduler": "^4.0.0",
     "@navikt/next-logger": "^5.0.0",
     "@navikt/oasis": "^4.1.4",
     "@tanstack/react-query": "^5.100.1",
