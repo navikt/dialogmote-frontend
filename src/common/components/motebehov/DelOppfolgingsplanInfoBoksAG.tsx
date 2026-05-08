@@ -12,6 +12,8 @@ export const DelOppfolgingsplanInfoBoksAG = () => {
   const { trackEvent } = useAnalytics();
   const oppfolgingsplanUrl = useOppfolgingsplanUrlAG();
 
+  if (!oppfolgingsplanUrl) return null;
+
   return (
     <LocalAlert status="announcement">
       <LocalAlert.Content>

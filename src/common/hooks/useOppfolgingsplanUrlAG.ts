@@ -3,11 +3,11 @@ import { nyOppfolgingsplanRoot } from "@/common/publicEnv";
 
 export const useOppfolgingsplanUrlAG = (
   narmesteLederIdOverride?: string,
-): string => {
+): string | undefined => {
   const narmesteLederId = useNarmesteLederId();
   const resolvedNarmesteLederId = narmesteLederIdOverride ?? narmesteLederId;
 
   return resolvedNarmesteLederId
     ? `${nyOppfolgingsplanRoot}/${resolvedNarmesteLederId}`
-    : nyOppfolgingsplanRoot;
+    : undefined;
 };

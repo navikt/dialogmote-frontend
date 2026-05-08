@@ -17,12 +17,12 @@ describe("useOppfolgingsplanUrlAG", () => {
     useNarmesteLederIdMock.mockReset();
   });
 
-  it("returns root url when narmeste leder id is missing", () => {
+  it("returns undefined when narmeste leder id is missing", () => {
     useNarmesteLederIdMock.mockReturnValue(undefined);
 
     const { result } = renderHook(() => useOppfolgingsplanUrlAG());
 
-    expect(result.current).toBe("https://www.nav.no/syk/oppfolgingsplan");
+    expect(result.current).toBeUndefined();
   });
 
   it("returns root url with narmeste leder id from route", () => {
