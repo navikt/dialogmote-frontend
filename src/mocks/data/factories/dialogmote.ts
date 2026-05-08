@@ -1,4 +1,4 @@
-import type { DialogmoteData } from "../../../types/shared/dialogmote";
+import type { DialogmoteData } from "@/types/shared/dialogmote";
 import { sykmeldtFixture } from "../fixtures/sykmeldt";
 
 export const createDialogmoteSM = (

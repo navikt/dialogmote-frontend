@@ -1,8 +1,8 @@
 import { Heading, Link, LocalAlert } from "@navikt/ds-react";
-import type { InfoUrl } from "types/client/infoUrl";
-import type { Referat } from "types/shared/brev";
 import { Events } from "@/common/analytics/events";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
+import type { InfoUrl } from "@/types/client/infoUrl";
+import type { Referat } from "@/types/shared/brev";
 
 const texts = {
   title: "Du kan finne mer informasjon på nav.no:",

@@ -1,8 +1,4 @@
 import { logger } from "@navikt/next-logger";
-import {
-  meldMotebehovAGOutputFixture,
-  svarMotebehovAGOutputFixture,
-} from "mocks/data/fixtures/form";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
@@ -11,6 +7,10 @@ import getMockDb from "@/server/data/mock/getMockDb";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import type { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
+import {
+  meldMotebehovAGOutputFixture,
+  svarMotebehovAGOutputFixture,
+} from "../../../../mocks/data/fixtures/form";
 
 const handler = async (
   req: NextApiRequest,

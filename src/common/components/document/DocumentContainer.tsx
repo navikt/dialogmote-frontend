@@ -1,9 +1,9 @@
 import { Box, Heading } from "@navikt/ds-react";
 import { type ReactNode, useEffect } from "react";
-import type { DocumentComponent } from "types/client/brev";
-import type { ReferatDocumentComponent } from "types/shared/brev";
 import { useMutateBrevLest } from "@/common/api/queries/brevQueries";
 import DocumentRenderer from "@/common/components/document/DocumentRenderer";
+import type { DocumentComponent } from "@/types/client/brev";
+import type { ReferatDocumentComponent } from "@/types/shared/brev";
 
 interface DocumentContainerProps {
   title: string;

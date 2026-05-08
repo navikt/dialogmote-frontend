@@ -5,7 +5,7 @@ import getMockDb from "@/server/data/mock/getMockDb";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
-import type { SvarRespons } from "../../../../../types/shared/brev";
+import type { SvarRespons } from "@/types/shared/brev";
 
 const handler = async (
   req: NextApiRequest,

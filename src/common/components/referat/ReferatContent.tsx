@@ -1,6 +1,5 @@
 import { Skeleton } from "@navikt/ds-react";
 import type { UseQueryResult } from "@tanstack/react-query";
-import type { DialogmoteData } from "types/shared/dialogmote";
 import { Events } from "@/common/analytics/events";
 import DownloadPdfButton from "@/common/components/button/DownloadPdfButton";
 import DocumentContainer from "@/common/components/document/DocumentContainer";
@@ -9,6 +8,7 @@ import UsefulLinks from "@/common/components/referat/UsefulLinks";
 import KontaktOssVeileder from "@/common/components/veileder/KontaktOssVeileder";
 import { usePdfPath } from "@/common/hooks/routeHooks";
 import { useBrevUuid } from "@/common/hooks/useBrevUuid";
+import type { DialogmoteData } from "@/types/shared/dialogmote";
 
 interface Props {
   dialogmoteData: UseQueryResult<DialogmoteData>;

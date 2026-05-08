@@ -1,8 +1,8 @@
 import { BodyLong, Heading, Link } from "@navikt/ds-react";
-import type { DocumentComponent } from "types/client/brev";
-import type { ReferatDocumentComponent } from "types/shared/brev";
 import { Events } from "@/common/analytics/events";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
+import type { DocumentComponent } from "@/types/client/brev";
+import type { ReferatDocumentComponent } from "@/types/shared/brev";
 
 interface Props {
   documentComponent: DocumentComponent | ReferatDocumentComponent;
@@ -90,9 +90,7 @@ const DocumentRenderer = ({ documentComponent }: Props) => {
             </Heading>
           )}
           {texts.map((text) => (
-            <BodyLong key={`paragraph-${text}-${title ?? ""}`}>
-              {text}
-            </BodyLong>
+            <BodyLong key={`paragraph-${text}-${title ?? ""}`}>{text}</BodyLong>
           ))}
         </>
       );

@@ -2,8 +2,8 @@ import type { NextApiRequest } from "next";
 import { TEST_SESSION_ID } from "@/common/api/fetch";
 import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import type { SykmeldtDTO } from "@/server/service/schema/sykmeldtSchema";
+import { handleQueryParamError } from "@/server/utils/errors";
 import type { Brev } from "@/types/shared/brev";
-import { handleQueryParamError } from "../../utils/errors";
 import activeMockData, { getMockSetupForScenario } from "./activeMockData";
 
 export type TestScenario =

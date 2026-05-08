@@ -1,12 +1,12 @@
 import { BodyLong } from "@navikt/ds-react";
 import { logger } from "@navikt/next-logger";
 import type { ReactNode } from "react";
+import Receipt from "@/common/components/motebehov/receipt/Receipt";
+import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import type {
   MotebehovSkjemaType,
   MotebehovSvar,
-} from "types/shared/motebehov";
-import Receipt from "@/common/components/motebehov/receipt/Receipt";
-import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
+} from "@/types/shared/motebehov";
 
 interface Props {
   motebehovSvar: MotebehovSvar;

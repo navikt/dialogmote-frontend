@@ -9,20 +9,19 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": "./src",
     "types": ["@testing-library/jest-dom", "react", "react-dom"],
     "paths": {
-      "@/common/*": ["common/*"],
-      "@/server/*": ["server/*"],
-      "@/pages/*": ["pages/*"],
-      "@/context/*": ["context/*"],
-      "@/fixtures/*": ["fixtures/*"],
-      "@/types/*": ["types/*"]
+      "@/common/*": ["./src/common/*"],
+      "@/server/*": ["./src/server/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/context/*": ["./src/context/*"],
+      "@/fixtures/*": ["./src/fixtures/*"],
+      "@/types/*": ["./src/types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "setup.d.ts"],

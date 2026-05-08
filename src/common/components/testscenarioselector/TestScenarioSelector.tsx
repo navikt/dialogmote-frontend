@@ -1,11 +1,11 @@
 import { Button, Heading, Modal, Radio, RadioGroup } from "@navikt/ds-react";
 import Image from "next/image";
 import { useState } from "react";
-import type { TestScenario } from "server/data/mock/getMockDb";
 import {
   useActiveTestScenario,
   useSetActiveTestScenario,
 } from "@/common/api/queries/testScenarioQueries";
+import type { TestScenario } from "@/server/data/mock/getMockDb";
 import SunImage from "../../images/sun.svg";
 import styles from "./testscenarioselector.module.css";
 

@@ -1,7 +1,7 @@
 import { BodyLong, LocalAlert } from "@navikt/ds-react";
 import type { ReactElement } from "react";
-import type { SvarType } from "types/shared/brev";
 import { KontaktOssLink } from "@/common/components/kontaktoss/KontaktOssLink";
+import type { SvarType } from "@/types/shared/brev";
 
 const texts = {
   svartKommer: "Du har svart at du kommer til dette dialogmøtet.",

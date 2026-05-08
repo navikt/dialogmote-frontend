@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { SvarRespons } from "types/shared/brev";
 import { post } from "@/common/api/fetch";
 import { DIALOGMOTEDATA_AG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { DIALOGMOTEDATA_SM } from "@/common/api/queries/sykmeldt/dialogmoteDataQuerySM";
 import { useApiBasePath, useAudience } from "@/common/hooks/routeHooks";
+import type { SvarRespons } from "@/types/shared/brev";
 
 type SvarResponsRequest = Omit<SvarRespons, "svarTidspunkt">;
 

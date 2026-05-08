@@ -5,7 +5,7 @@ import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmot
 import { PageHeading } from "@/common/components/header/PageHeading";
 import { ArbeidsgiverSideMenu } from "@/common/components/menu/ArbeidsgiverSideMenu";
 import { addSpaceAfterEverySixthCharacter } from "@/common/utils/stringUtils";
-import type { Sykmeldt } from "../../../types/shared/sykmeldt";
+import type { Sykmeldt } from "@/types/shared/sykmeldt";
 
 const getSykmeldtHeader = (sykmeldt?: Sykmeldt) => {
   if (sykmeldt?.navn && sykmeldt.fnr) {

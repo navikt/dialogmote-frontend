@@ -10,7 +10,7 @@ import { getMotebehovAG } from "@/server/service/motebehovService";
 import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import { handleSchemaParsingError } from "@/server/utils/errors";
 import { isMockBackend } from "@/server/utils/serverEnv";
-import type { Brev } from "../../../types/shared/brev";
+import type { Brev } from "@/types/shared/brev";
 
 export const fetchConcurrentDataAG = async (
   req: NextApiRequest,

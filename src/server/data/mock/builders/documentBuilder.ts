@@ -1,4 +1,4 @@
-import type { DocumentComponent } from "types/client/brev";
+import type { DocumentComponent } from "@/types/client/brev";
 
 export class DocumentBuilder {
   private readonly document: DocumentComponent[];

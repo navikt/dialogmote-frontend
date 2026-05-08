@@ -3,7 +3,7 @@ import {
   dineSykemeldteRoot,
   dittSykefravarRoot,
   minSideRoot,
-} from "../publicEnv";
+} from "@/common/publicEnv";
 
 // Breadcrumbs for sykmeldt
 export function baseBreadcrumbSM() {

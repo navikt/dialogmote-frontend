@@ -1,6 +1,5 @@
 import { Checkbox, Textarea, TextField } from "@navikt/ds-react";
 import { Controller, useForm, useWatch } from "react-hook-form";
-import type { MotebehovSvarRequest } from "types/shared/motebehov";
 import { CancelButton } from "@/common/components/button/CancelButton";
 import { SubmitButton } from "@/common/components/button/SubmitButton";
 import { MotebehovErrorSummary } from "@/common/components/motebehov/MotebehovErrorSummary";
@@ -12,6 +11,7 @@ import type {
   FormSnapshotRequestDto,
   MotebehovFormIdentifier,
 } from "@/server/service/schema/formSnapshotSchema";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 import { commonTextsForSvarAndMeld } from "./SvarBehovForm";
 
 const MAX_LENGTH_BEHOV_BEGRUNNELSE = 1000;

@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import type { MotebehovSvarRequestAG } from "types/shared/motebehov";
 import { post } from "@/common/api/fetch";
 import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
 import { useNotifications } from "@/context/NotificationContext";
+import type { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
 
 export const useSvarPaMotebehovAG = () => {
   const basepath = useApiBasePath();
