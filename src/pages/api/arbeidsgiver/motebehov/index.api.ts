@@ -1,10 +1,10 @@
 import { logger } from "@navikt/next-logger";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { v4 as uuidv4 } from "uuid";
 import {
   meldMotebehovAGOutputFixture,
   svarMotebehovAGOutputFixture,
-} from "mocks/data/fixtures/form";
-import type { NextApiRequest, NextApiResponse } from "next";
-import { v4 as uuidv4 } from "uuid";
+} from "@/mocks/data/fixtures/form";
 import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";

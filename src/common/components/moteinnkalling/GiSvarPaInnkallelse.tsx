@@ -13,12 +13,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import type { SvarType } from "types/shared/brev";
 import { Events } from "@/common/analytics/events";
 import { useSvarPaInnkallelse } from "@/common/api/queries/brevQueries";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { commonTexts } from "@/common/constants/commonTexts";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
+import type { SvarType } from "@/types/shared/brev";
 
 const texts = {
   title: "Gi oss ditt svar",

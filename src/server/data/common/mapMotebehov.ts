@@ -1,8 +1,8 @@
-import type { Motebehov, MotebehovSvar } from "types/shared/motebehov";
 import type {
   MotebehovDataDTO,
   MotebehovStatusDTO,
 } from "@/server/service/schema/motebehovSchema";
+import type { Motebehov, MotebehovSvar } from "@/types/shared/motebehov";
 
 const mapMotebehovSvar = (
   motebehovData: MotebehovDataDTO | null,

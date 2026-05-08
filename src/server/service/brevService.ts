@@ -1,6 +1,6 @@
 import { array } from "zod";
 import { get } from "@/common/api/fetch";
-import serverEnv from "../utils/serverEnv";
+import serverEnv from "@/server/utils/serverEnv";
 import { brevSchema } from "./schema/brevSchema";
 
 export async function getBrevAG(accessToken: string, personIdent: string) {

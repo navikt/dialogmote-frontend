@@ -1,4 +1,4 @@
-import type { Sykmeldt } from "../../../types/shared/sykmeldt";
+import type { Sykmeldt } from "@/types/shared/sykmeldt";
 
 export const sykmeldtFixture: Sykmeldt = {
   narmestelederId: "123",

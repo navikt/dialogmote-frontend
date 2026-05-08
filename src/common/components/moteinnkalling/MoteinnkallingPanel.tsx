@@ -1,11 +1,11 @@
 import { BodyShort, Button, LocalAlert } from "@navikt/ds-react";
 import NextLink from "next/link";
-import type { BrevType } from "types/client/brev";
-import type { Brev } from "types/shared/brev";
 import { Events } from "@/common/analytics/events";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
+import type { BrevType } from "@/types/client/brev";
+import type { Brev } from "@/types/shared/brev";
 import DittSvarPaInnkallelse from "./DittSvarPaInnkallelse";
 
 const getTexts = (brevType: BrevType) => {

@@ -7,7 +7,7 @@ import { cleanup } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll, expect, vi } from "vitest";
 import * as vitestAxeMatchers from "vitest-axe/matchers";
 
-import { testServer } from "../mocks/testServer";
+import { testServer } from "@/mocks/testServer";
 
 expect.extend(matchers);
 expect.extend(vitestAxeMatchers);

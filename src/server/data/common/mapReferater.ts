@@ -1,6 +1,6 @@
-import type { Referat } from "types/shared/brev";
 import { infoUrls } from "@/common/constants/InfoUrls";
 import type { BrevDTO } from "@/server/service/schema/brevSchema";
+import type { Referat } from "@/types/shared/brev";
 
 export const mapReferater = (brev?: BrevDTO[]): Referat[] => {
   return (

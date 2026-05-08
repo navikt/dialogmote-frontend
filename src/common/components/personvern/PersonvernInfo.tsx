@@ -1,7 +1,7 @@
 import { BodyLong, Link } from "@navikt/ds-react";
 import { Events } from "@/common/analytics/events";
+import { PERSONVERN_URL } from "@/common/constants/staticUrls";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
-import { PERSONVERN_URL } from "../../constants/staticUrls";
 
 const texts = {
   bottomText: "Vi bruker opplysningene også til å gjøre selve tjenesten bedre.",

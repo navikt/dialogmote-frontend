@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { createBrevDTO } from "@/mocks/data/factories/brevDTO";
 import { mapDialogmoteDataSM } from "@/server/data/sykmeldt/mapDialogmoteDataSM";
-import { createBrevDTO } from "../../../../mocks/data/factories/brevDTO";
 
 describe("mapDialogmoteDataSM", () => {
   describe("moteinnkalling", () => {

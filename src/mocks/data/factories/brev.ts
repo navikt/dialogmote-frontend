@@ -1,5 +1,5 @@
-import type { DocumentComponent } from "types/client/brev";
-import type { Brev } from "types/shared/brev";
+import type { DocumentComponent } from "@/types/client/brev";
+import type { Brev } from "@/types/shared/brev";
 
 export const createDocumentComponent = (
   props?: Partial<DocumentComponent>,

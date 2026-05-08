@@ -1,11 +1,11 @@
 import { Chat2Icon } from "@navikt/aksel-icons";
 import { LinkCard } from "@navikt/ds-react";
 import NextLink from "next/link";
-import type { MotebehovSkjemaType } from "types/shared/motebehov";
 import { Events } from "@/common/analytics/events";
 import CircledIcon from "@/common/components/icon/CircledIcon";
 import { useLandingUrl } from "@/common/hooks/routeHooks";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
+import type { MotebehovSkjemaType } from "@/types/shared/motebehov";
 
 interface Props {
   skjemaType: MotebehovSkjemaType;

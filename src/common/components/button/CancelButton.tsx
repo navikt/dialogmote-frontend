@@ -5,7 +5,6 @@ import { useLandingUrl } from "@/common/hooks/routeHooks";
 const texts = {
   avbryt: "Avbryt",
 };
-
 export const CancelButton = () => {
   const landingUrl = useLandingUrl();
 

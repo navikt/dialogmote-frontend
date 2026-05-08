@@ -3,10 +3,10 @@ import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
+import { createSvarBehovAG } from "@/mocks/data/factories/dialogmote";
+import { svarMotebehovAGFixture } from "@/mocks/data/fixtures/form";
+import { testServer } from "@/mocks/testServer";
 import SvarBehov from "@/pages/arbeidsgiver/[narmestelederid]/motebehov/svar.page";
-import { createSvarBehovAG } from "../../../../mocks/data/factories/dialogmote";
-import { svarMotebehovAGFixture } from "../../../../mocks/data/fixtures/form";
-import { testServer } from "../../../../mocks/testServer";
 import { render, screen } from "../../../../test/testUtils";
 
 describe("svar page arbeidsgiver", () => {

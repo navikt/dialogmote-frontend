@@ -1,14 +1,14 @@
 import { BodyLong, BodyShort } from "@navikt/ds-react";
 import type { ReactElement } from "react";
-import type {
-  MotebehovSvarRequest,
-  MotebehovSvarRequestAG,
-} from "types/shared/motebehov";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
+import type {
+  MotebehovSvarRequest,
+  MotebehovSvarRequestAG,
+} from "@/types/shared/motebehov";
 import {
   arbeidsgiverLesMerLenkerSentence,
   commonTextsForAGSvarAndMeld,

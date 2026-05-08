@@ -1,6 +1,6 @@
-import type { BrevType, DocumentComponent } from "types/client/brev";
-import type { Brev } from "types/shared/brev";
 import { v4 as uuidv4 } from "uuid";
+import type { BrevType, DocumentComponent } from "@/types/client/brev";
+import type { Brev } from "@/types/shared/brev";
 
 export class BrevBuilder {
   private readonly brev: Brev;
