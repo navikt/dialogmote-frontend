@@ -7,10 +7,7 @@ interface Props {
 }
 
 export const ArbeidsgiverSideMenu = ({ sykmeldt }: Props) => {
-  const oppfolgingsplanUrl = useOppfolgingsplanUrlAG(
-    sykmeldt?.fnr,
-    sykmeldt?.narmestelederId,
-  );
+  const oppfolgingsplanUrl = useOppfolgingsplanUrlAG(sykmeldt?.narmestelederId);
 
   return (
     <SideMenu

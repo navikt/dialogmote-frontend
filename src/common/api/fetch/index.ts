@@ -132,7 +132,6 @@ const getServerAllowedOrigins = (): Set<string> => {
     process.env.ISDIALOGMOTE_HOST,
     process.env.SYFOMOTEBEHOV_HOST,
     process.env.DINESYKMELDTE_BACKEND_HOST,
-    process.env.OPPFOLGINGSPLAN_BACKEND_HOST,
   ].filter(Boolean) as string[];
 
   const origins = new Set<string>();
