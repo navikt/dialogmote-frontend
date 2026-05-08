@@ -3,9 +3,9 @@ import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
+import { meldMotebehovSMFixture } from "@/mocks/data/fixtures/form";
+import { testServer } from "@/mocks/testServer";
 import MeldBehov from "@/pages/sykmeldt/motebehov/meld.page";
-import { meldMotebehovSMFixture } from "../../../mocks/data/fixtures/form";
-import { testServer } from "../../../mocks/testServer";
 import { render, screen } from "../../../test/testUtils";
 
 describe("meld page sykmeldt", () => {

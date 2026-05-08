@@ -2,8 +2,8 @@ import { waitFor } from "@testing-library/react";
 import { HttpResponse, http } from "msw";
 import mockRouter from "next-router-mock";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createDocumentComponent } from "../../../../mocks/data/factories/brev";
-import { testServer } from "../../../../mocks/testServer";
+import { createDocumentComponent } from "@/mocks/data/factories/brev";
+import { testServer } from "@/mocks/testServer";
 import { render, screen } from "../../../../test/testUtils";
 import DocumentContainer from "../DocumentContainer";
 
