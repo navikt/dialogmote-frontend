@@ -11,19 +11,13 @@ export type TestScenario =
   | "SVAR_BEHOV"
   | "DIALOGMOTE_INNKALLING"
   | "DIALOGMOTE_ENDRET"
-  | "DIALOGMOTE_AVLYST"
-  | "PILOT_BRUKER";
-
-export interface MockPerson {
-  pilotUser: boolean;
-}
+  | "DIALOGMOTE_AVLYST";
 
 export interface MockSetup {
   sykmeldt?: SykmeldtDTO; //For arbeidsgiver
   brev: Brev[];
   motebehov: MotebehovStatusDTO;
   activeTestScenario: TestScenario;
-  person: MockPerson;
 }
 
 declare global {
