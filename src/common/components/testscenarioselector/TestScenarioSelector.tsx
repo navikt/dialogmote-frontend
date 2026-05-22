@@ -95,12 +95,6 @@ export const TestScenarioSelector = () => {
                   Endret Dialogmøte
                 </RadioWithHelpText>
 
-                <RadioWithHelpText
-                  value={"PILOT_BRUKER"}
-                  helpText={"Pilot-bruker (viser lenke til ny oppfolgingsplan)"}
-                >
-                  Pilot-bruker
-                </RadioWithHelpText>
               </RadioGroup>
             </div>
 

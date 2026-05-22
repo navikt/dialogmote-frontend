@@ -15,9 +15,6 @@ export class TestScenarioBuilder {
         motebehov: null,
       },
       activeTestScenario: "MELD_BEHOV",
-      person: {
-        pilotUser: false,
-      },
     };
   }
 
@@ -41,11 +38,6 @@ export class TestScenarioBuilder {
 
   withMotebehov(motebehov: MotebehovStatusDTO) {
     this.mockData.motebehov = motebehov;
-    return this;
-  }
-
-  withPilotUser(isPilotUser: boolean): TestScenarioBuilder {
-    this.mockData.person.pilotUser = isPilotUser;
     return this;
   }
 

@@ -1,6 +1,5 @@
 import { BodyLong, Link, LocalAlert } from "@navikt/ds-react";
 import { Events } from "@/common/analytics/events";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useAnalytics } from "@/common/hooks/useAnalytics";
 import { useOppfolgingsplanUrlAG } from "@/common/hooks/useOppfolgingsplanUrlAG";
 
@@ -11,10 +10,7 @@ const texts = {
 
 export const DelOppfolgingsplanInfoBoksAG = () => {
   const { trackEvent } = useAnalytics();
-  const { data: dialogmoteData } = useDialogmoteDataAG();
-  const oppfolgingsplanUrl = useOppfolgingsplanUrlAG(
-    dialogmoteData?.sykmeldt?.fnr,
-  );
+  const oppfolgingsplanUrl = useOppfolgingsplanUrlAG();
 
   return (
     <LocalAlert status="announcement">
