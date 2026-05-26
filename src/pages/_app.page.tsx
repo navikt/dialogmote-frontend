@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
+import { shouldRetryQuery } from "@/common/api/queryRetry";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
 import { DMErrorBoundary } from "@/common/components/error/DMErrorBoundary";
@@ -36,6 +37,7 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       gcTime: minutesToMillis(60),
+      retry: shouldRetryQuery,
     },
   },
 });
