@@ -1,6 +1,6 @@
 import type { Logger } from "pino";
-import type { DialogmoteData } from "@/types/shared/dialogmote";
 import type { BrevDTO } from "@/server/service/schema/brevSchema";
+import type { DialogmoteData } from "@/types/shared/dialogmote";
 
 let _teamLogger: Logger | null = null;
 async function getTeamLogger(): Promise<Logger> {
