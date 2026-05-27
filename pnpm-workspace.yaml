@@ -1,6 +1,6 @@
 allowBuilds:
   esbuild: true
-  lefthook: true
+  lefthook: false
   msw: true
   protobufjs: true
   sharp: true
