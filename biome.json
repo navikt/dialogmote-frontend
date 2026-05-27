@@ -14,7 +14,8 @@
       "!!**/dist",
       "!!**/build",
       "!!**/out",
-      "!!**/public/mockServiceWorker.js"
+      "!!**/public/mockServiceWorker.js",
+      "!.github/skills/**/scripts"
     ]
   },
   "formatter": {
