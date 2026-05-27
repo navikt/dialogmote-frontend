@@ -4,3 +4,6 @@ allowBuilds:
   msw: true
   protobufjs: true
   sharp: true
+
+minimumReleaseAge: 4320
+blockExoticSubdeps: true
