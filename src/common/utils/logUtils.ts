@@ -27,7 +27,7 @@ export function cleanPathForMetric(
 }
 
 export const logError = (error: Error, context?: string) => {
-  if (typeof window !== "undefined" && !!window.faro) {
+  if (window?.faro) {
     window.faro.api.pushError(error, context ? { context } : undefined);
   } else {
     const prefix = context ? `${context}: ` : "";

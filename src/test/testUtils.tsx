@@ -46,5 +46,4 @@ const customScreen = {
   openPlayground: () => openPlayground(screen),
 };
 
-export { customScreen as screen };
-export { customRender as render };
+export { customRender as render, customScreen as screen };

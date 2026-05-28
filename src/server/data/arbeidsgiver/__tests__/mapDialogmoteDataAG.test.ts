@@ -18,10 +18,14 @@ const motebehovWithVisMotebehov = {
 describe("mapDialogmoteDataAG", () => {
   describe("motebehov", () => {
     it("should return undefined motebehov when sykmeldt has inactive sykmelding", () => {
-      const dialogmoteData = mapDialogmoteDataAG(motebehovWithVisMotebehov, {
-        ...baseSykmeldt,
-        aktivSykmelding: false,
-      }, []);
+      const dialogmoteData = mapDialogmoteDataAG(
+        motebehovWithVisMotebehov,
+        {
+          ...baseSykmeldt,
+          aktivSykmelding: false,
+        },
+        [],
+      );
 
       expect(dialogmoteData.motebehov).toBeUndefined();
     });
@@ -37,19 +41,27 @@ describe("mapDialogmoteDataAG", () => {
     });
 
     it("should return motebehov when sykmeldt has unknown sykmelding status", () => {
-      const dialogmoteData = mapDialogmoteDataAG(motebehovWithVisMotebehov, {
-        ...baseSykmeldt,
-        aktivSykmelding: null,
-      }, []);
+      const dialogmoteData = mapDialogmoteDataAG(
+        motebehovWithVisMotebehov,
+        {
+          ...baseSykmeldt,
+          aktivSykmelding: null,
+        },
+        [],
+      );
 
       expect(dialogmoteData.motebehov).toBeDefined();
     });
 
     it("should return motebehov when sykmeldt has undefined sykmelding status", () => {
-      const dialogmoteData = mapDialogmoteDataAG(motebehovWithVisMotebehov, {
-        ...baseSykmeldt,
-        aktivSykmelding: undefined,
-      }, []);
+      const dialogmoteData = mapDialogmoteDataAG(
+        motebehovWithVisMotebehov,
+        {
+          ...baseSykmeldt,
+          aktivSykmelding: undefined,
+        },
+        [],
+      );
 
       expect(dialogmoteData.motebehov).toBeDefined();
     });
