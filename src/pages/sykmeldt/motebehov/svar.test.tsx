@@ -38,7 +38,7 @@ describe("svar page sykmeldt", () => {
 
       const { user } = render(<SvarBehov />);
 
-      const radioGroupElement = await screen.findByRole("group", {
+      const radioGroupElement = await screen.findByRole("radiogroup", {
         name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
       });
       const radioGroup = within(radioGroupElement);
@@ -116,7 +116,7 @@ describe("svar page sykmeldt", () => {
 
       const { user } = render(<SvarBehov />);
 
-      const radioGroupElement = await screen.findByRole("group", {
+      const radioGroupElement = await screen.findByRole("radiogroup", {
         name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
       });
       const radioGroup = within(radioGroupElement);
@@ -200,7 +200,7 @@ describe("svar page sykmeldt", () => {
 
       const { user } = render(<SvarBehov />);
 
-      const radioGroupElement = await screen.findByRole("group", {
+      const radioGroupElement = await screen.findByRole("radiogroup", {
         name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
       });
       const radioGroup = within(radioGroupElement);
@@ -265,7 +265,7 @@ describe("svar page sykmeldt", () => {
     );
     const { user } = render(<SvarBehov />);
 
-    const radioGroupElement = await screen.findByRole("group", {
+    const radioGroupElement = await screen.findByRole("radiogroup", {
       name: "Ønsker du et dialogmøte med Nav og arbeidsgiveren din?",
     });
     const radioGroup = within(radioGroupElement);
