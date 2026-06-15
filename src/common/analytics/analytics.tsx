@@ -33,7 +33,7 @@ export const sendTrackingEvent = async (
 
   try {
     const log = getAnalyticsInstance("dialogmote");
-    await log(eventName, combineEventData(audience, eventData));
+    await log.custom(eventName, combineEventData(audience, eventData));
   } catch (error) {
     const msg =
       typeof error === "string" ? error : (error as Error)?.message || "";

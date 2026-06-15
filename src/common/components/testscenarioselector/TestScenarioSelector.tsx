@@ -120,6 +120,7 @@ export const TestScenarioSelector = () => {
         id="TestScenarioSelector"
         type="button"
         onClick={() => setOpen(!open)}
+        aria-label="Åpne testdatavelger"
         className={styles.testscenariocontainer}
       >
         <Image src={SunImage} alt="" width={40} height={40} />
