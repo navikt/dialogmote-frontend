@@ -58,7 +58,7 @@
     "msw": "^2.15.0",
     "next-router-mock": "^1.0.5",
     "open": "^11.0.0",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.19",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "vite": "^8.1.4",
