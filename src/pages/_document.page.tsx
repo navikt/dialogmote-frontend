@@ -11,6 +11,7 @@ import Document, {
   NextScript,
 } from "next/document";
 import { createBreadcrumbsAG, createBreadcrumbsSM } from "@/common/breadcrumbs";
+import { getDialogmoteApmMetaTags } from "@/observability/metaTags";
 
 // The 'head'-field of the document initialProps contains data from <head> (meta-tags etc)
 const getDocumentParameter = (
@@ -68,10 +69,14 @@ export default class MyDocument extends Document<Props> {
 
   render() {
     const { Decorator } = this.props;
+    const apmMetaTags = getDialogmoteApmMetaTags();
 
     return (
       <Html lang="nb">
         <Head>
+          {apmMetaTags.map(({ name, content }) => (
+            <meta key={name} name={name} content={content} />
+          ))}
           <link
             rel="preload"
             href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"

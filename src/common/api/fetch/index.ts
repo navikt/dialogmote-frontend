@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import { logError } from "@/common/utils/logUtils";
 import { loginUser } from "@/common/utils/urlUtils";
+import { normalizeTelemetryEndpoint } from "@/observability/routes";
+import { FetchNetworkError, FetchResponseParseError } from "./errors";
 
 export interface FetchOptions {
   accessToken?: string;
@@ -85,45 +86,34 @@ const parseResponse = async <ResponseData>({
   return parseJsonResponse<ResponseData>(response);
 };
 
-const logAndThrowError = async (
+const throwHttpError = (
   response: Response,
   requestUrl: string,
   method: "GET" | "POST",
-): Promise<never> => {
+): never => {
   if (response.status === 401 && typeof window !== "undefined") {
     loginUser();
   }
 
-  let bodySnippet = "";
-  try {
-    bodySnippet = (await response.text()).slice(0, 200);
-  } catch {
-    /* ignore response body */
-  }
-
-  const message = `Fetch failed: method=${method} endpoint=${requestUrl} status=${response.status} ${response.statusText}${
-    bodySnippet ? `: ${bodySnippet}` : ""
-  }`;
-  const error = new HttpError(response.status, message);
-  logError(error);
-  throw error;
+  throw new HttpError(
+    response.status,
+    `Request failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)} status=${response.status}`,
+  );
 };
 
-const logAndThrowNetworkError = (error: unknown): never => {
-  const err = error instanceof Error ? error : new Error("Network error");
-  logError(err);
-  throw err;
+const throwNetworkError = (
+  requestUrl: string,
+  method: "GET" | "POST",
+): never => {
+  throw new FetchNetworkError(
+    `Network request failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
+  );
 };
 
-const logAndThrowParseError = (error: unknown, requestUrl: string): never => {
-  const err =
-    error instanceof Error
-      ? new Error(
-          `Failed to parse response for ${requestUrl}: ${error.message}`,
-        )
-      : new Error(`Failed to parse response for ${requestUrl}`);
-  logError(err, "ResponseParse");
-  throw err;
+const throwParseError = (requestUrl: string, method: "GET" | "POST"): never => {
+  throw new FetchResponseParseError(
+    `Response parsing failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
+  );
 };
 
 const getServerAllowedOrigins = (): Set<string> => {
@@ -198,8 +188,8 @@ async function request<ResponseData>({
       headers: defaultRequestHeaders({ options, hasJsonBody }),
       credentials: "include",
     });
-  } catch (error) {
-    logAndThrowNetworkError(error);
+  } catch {
+    throwNetworkError(requestUrl, method);
   }
 
   if (!response) {
@@ -207,7 +197,7 @@ async function request<ResponseData>({
   }
 
   if (!response.ok) {
-    return await logAndThrowError(response, requestUrl, method);
+    throwHttpError(response, requestUrl, method);
   }
 
   try {
@@ -215,8 +205,8 @@ async function request<ResponseData>({
       response,
       responseType: options?.responseType,
     });
-  } catch (error) {
-    logAndThrowParseError(error, requestUrl);
+  } catch {
+    throwParseError(requestUrl, method);
   }
 
   throw new Error("Unreachable");
