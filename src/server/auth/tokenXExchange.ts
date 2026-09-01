@@ -18,12 +18,33 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
 
   if (!tokenXGrant.ok) {
     logger.error(
-      `Failed TokenX OBO for client id: ${clientId} (${targetApi}). Error message: ${tokenXGrant.error}`,
+      {
+        event_type: "tokenx_obo_exchange_failed",
+        operation: "exchange_tokenx_obo",
+        error_code: "TOKENX_OBO_EXCHANGE_FAILED",
+        upstream: tokenXTargetApiToUpstream(targetApi),
+      },
+      "TokenX OBO exchange failed",
     );
     throw new HttpError(401, "Login required");
   }
 
   return tokenXGrant.token;
+}
+
+export function tokenXTargetApiToUpstream(
+  targetApi: TokenXTargetApi,
+): "syfomotebehov" | "isdialogmote" | "dinesykmeldte-backend" {
+  switch (targetApi) {
+    case TokenXTargetApi.SYFOMOTEBEHOV:
+      return "syfomotebehov";
+    case TokenXTargetApi.ISDIALOGMOTE:
+      return "isdialogmote";
+    case TokenXTargetApi.DINESYKMELDTE_BACKEND:
+      return "dinesykmeldte-backend";
+    default:
+      return assertUnreachable(targetApi);
+  }
 }
 
 function getClientIdForTokenXTargetApi(targetApi: TokenXTargetApi): string {

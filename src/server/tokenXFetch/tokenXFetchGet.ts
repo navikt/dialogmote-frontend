@@ -1,4 +1,3 @@
-import { logger } from "@navikt/next-logger";
 import type { NextApiRequest } from "next";
 import type { z } from "zod";
 import { get } from "@/common/api/fetch";
@@ -8,88 +7,90 @@ import {
   exchangeIdPortenTokenForTokenXOboToken,
   type TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
+import {
+  logResponseSchemaFailure,
+  logUpstreamRequestFailure,
+  type RuntimeOperation,
+} from "@/server/observability/runtimeErrorContract";
 
 type TokenXFetchGetBaseArgs = {
   req: NextApiRequest;
   targetApi: TokenXTargetApi;
+  operation: RuntimeOperation;
   endpoint: string;
   personIdent?: string;
   orgnummer?: string;
 };
 
-export function tokenXFetchGet<S extends z.ZodType>(
-  args: TokenXFetchGetBaseArgs & {
-    responseDataSchema: S;
-    responseType?: "json";
-  },
-): Promise<z.infer<S>>;
-export function tokenXFetchGet(
-  args: TokenXFetchGetBaseArgs & { responseType: "arraybuffer" },
-): Promise<Uint8Array>;
-export async function tokenXFetchGet<S extends z.ZodType>({
-  req,
-  targetApi,
-  endpoint,
-  responseType,
-  personIdent,
-  orgnummer,
-  responseDataSchema,
-}: TokenXFetchGetBaseArgs & {
-  responseType?: "json" | "arraybuffer";
-  responseDataSchema?: S;
-}): Promise<z.infer<S> | Uint8Array> {
+const withTokenXGet = async <ResponseData>(
+  { req, targetApi, operation, endpoint }: TokenXFetchGetBaseArgs,
+  request: (accessToken: string) => Promise<ResponseData>,
+): Promise<ResponseData> => {
   const idPortenToken = await validateAndGetIdportenToken(req);
-  const oboToken = await exchangeIdPortenTokenForTokenXOboToken(
+  const accessToken = await exchangeIdPortenTokenForTokenXOboToken(
     idPortenToken,
     targetApi,
   );
 
-  if (responseType === "arraybuffer") {
-    return get<Uint8Array, "arraybuffer">(endpoint, {
-      accessToken: oboToken,
-      responseType: "arraybuffer",
-      personIdent,
-      orgnummer,
-    });
-  }
-
-  let response: unknown;
   try {
-    response = await get<unknown>(endpoint, {
-      accessToken: oboToken,
-      responseType: "json",
-      personIdent,
-      orgnummer,
-    });
+    return await request(accessToken);
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    logger.error(
-      `tokenXFetchGet failed: endpoint=${endpoint} error=${message}`,
-    );
+    logUpstreamRequestFailure({
+      operation,
+      targetApi,
+      endpoint,
+      method: "GET",
+      error,
+    });
     throw error;
   }
+};
 
-  if (!responseDataSchema) {
-    const message = `Missing responseDataSchema for tokenXFetchGet(${endpoint})`;
-    logger.error(message);
-    throw new HttpError(500, message);
-  }
+export async function tokenXFetchGet<S extends z.ZodType>({
+  responseDataSchema,
+  ...args
+}: TokenXFetchGetBaseArgs & {
+  responseDataSchema: S;
+}): Promise<z.infer<S>> {
+  const response = await withTokenXGet<unknown>(args, (accessToken) =>
+    get<unknown>(args.endpoint, {
+      accessToken,
+      responseType: "json",
+      personIdent: args.personIdent,
+      orgnummer: args.orgnummer,
+    }),
+  );
 
   const parsed = responseDataSchema.safeParse(response);
   if (!parsed.success) {
-    const message = `Failed to parse response data with zod schema from ${endpoint}: ${parsed.error.toString()}`;
-    logger.error(message);
-    throw new HttpError(500, message);
+    logResponseSchemaFailure({
+      operation: args.operation,
+      targetApi: args.targetApi,
+      endpoint: args.endpoint,
+      errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
+    });
+    throw new HttpError(500, "Upstream response did not match expected schema");
   }
 
   return parsed.data;
 }
 
-export function tokenXFetchGetBytes(
-  args: TokenXFetchGetBaseArgs,
-): Promise<Uint8Array> {
-  return tokenXFetchGet({
-    ...args,
-    responseType: "arraybuffer",
-  });
+export function tokenXFetchGetBytes({
+  req,
+  targetApi,
+  operation,
+  endpoint,
+  personIdent,
+  orgnummer,
+}: TokenXFetchGetBaseArgs): Promise<Uint8Array> {
+  return withTokenXGet(
+    { req, targetApi, operation, endpoint, personIdent, orgnummer },
+    (accessToken) =>
+      get<Uint8Array, "arraybuffer">(endpoint, {
+        accessToken,
+        responseType: "arraybuffer",
+        personIdent,
+        orgnummer,
+      }),
+  );
 }

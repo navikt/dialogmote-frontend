@@ -1,21 +1,30 @@
+import type { NextApiRequest } from "next";
 import { array } from "zod";
-import { get } from "@/common/api/fetch";
+import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
+import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
+import { tokenXFetchGet } from "@/server/tokenXFetch/tokenXFetchGet";
 import serverEnv from "@/server/utils/serverEnv";
 import { brevSchema } from "./schema/brevSchema";
 
-export async function getBrevAG(accessToken: string, personIdent: string) {
-  return array(brevSchema).safeParse(
-    await get(`${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev`, {
-      accessToken,
-      personIdent,
-    }),
-  );
+const brevListSchema = array(brevSchema);
+
+export async function getBrevAG(req: NextApiRequest, personIdent: string) {
+  return tokenXFetchGet({
+    req,
+    targetApi: TokenXTargetApi.ISDIALOGMOTE,
+    operation: RuntimeOperation.BREV_LIST_FETCH,
+    endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev`,
+    personIdent,
+    responseDataSchema: brevListSchema,
+  });
 }
 
-export async function getBrevSM(accessToken: string) {
-  return array(brevSchema).safeParse(
-    await get(`${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev`, {
-      accessToken,
-    }),
-  );
+export async function getBrevSM(req: NextApiRequest) {
+  return tokenXFetchGet({
+    req,
+    targetApi: TokenXTargetApi.ISDIALOGMOTE,
+    operation: RuntimeOperation.BREV_LIST_FETCH,
+    endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev`,
+    responseDataSchema: brevListSchema,
+  });
 }
