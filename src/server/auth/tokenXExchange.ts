@@ -18,7 +18,7 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
   try {
     tokenXGrant = await requestTokenxOboToken(idPortenToken, clientId);
   } catch {
-    throwTokenXExchangeFailure(targetApi);
+    throwTokenXExchangeError(targetApi);
   }
 
   if (!tokenXGrant.ok) {
@@ -29,16 +29,28 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
 }
 
 function throwTokenXExchangeFailure(targetApi: TokenXTargetApi): never {
+  logTokenXExchangeError(targetApi, "TOKENX_OBO_EXCHANGE_FAILED");
+  throw new HttpError(401, "Login required");
+}
+
+function throwTokenXExchangeError(targetApi: TokenXTargetApi): never {
+  logTokenXExchangeError(targetApi, "TOKENX_OBO_EXCHANGE_ERROR");
+  throw new HttpError(500, "TokenX OBO exchange failed");
+}
+
+function logTokenXExchangeError(
+  targetApi: TokenXTargetApi,
+  errorCode: "TOKENX_OBO_EXCHANGE_FAILED" | "TOKENX_OBO_EXCHANGE_ERROR",
+): void {
   logger.error(
     {
       event_type: "tokenx_obo_exchange_failed",
       operation: "exchange_tokenx_obo",
-      error_code: "TOKENX_OBO_EXCHANGE_FAILED",
+      error_code: errorCode,
       upstream: tokenXTargetApiToUpstream(targetApi),
     },
     "TokenX OBO exchange failed",
   );
-  throw new HttpError(401, "Login required");
 }
 
 export function tokenXTargetApiToUpstream(

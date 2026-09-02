@@ -1,5 +1,6 @@
 import { logger } from "@navikt/next-logger";
 import { validateIdportenToken } from "@navikt/oasis";
+import { HttpError } from "@/common/utils/errors/HttpError";
 import serverEnv from "@/server/utils/serverEnv";
 
 export async function validateToken(token: string): Promise<boolean> {
@@ -7,8 +8,8 @@ export async function validateToken(token: string): Promise<boolean> {
   try {
     validation = await validateIdportenToken(token);
   } catch {
-    logTokenValidationFailure();
-    return false;
+    logTokenValidationFailure("IDPORTEN_TOKEN_VALIDATION_ERROR");
+    throw new HttpError(500, "ID-porten token validation failed");
   }
 
   if (!validation.ok) {
@@ -44,12 +45,16 @@ export async function validateToken(token: string): Promise<boolean> {
   return true;
 }
 
-function logTokenValidationFailure(): void {
+function logTokenValidationFailure(
+  errorCode:
+    | "IDPORTEN_TOKEN_VALIDATION_FAILED"
+    | "IDPORTEN_TOKEN_VALIDATION_ERROR" = "IDPORTEN_TOKEN_VALIDATION_FAILED",
+): void {
   logger.error(
     {
       event_type: "idporten_token_validation_failed",
       operation: "validate_idporten_token",
-      error_code: "IDPORTEN_TOKEN_VALIDATION_FAILED",
+      error_code: errorCode,
     },
     "ID-porten token validation failed",
   );

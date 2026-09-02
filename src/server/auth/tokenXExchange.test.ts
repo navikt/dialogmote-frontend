@@ -50,7 +50,7 @@ describe("TokenX exchange observability", () => {
     );
   });
 
-  it("eier avvist Oasis-promise med nøyaktig samme trygge hendelse", async () => {
+  it("klassifiserer avvist Oasis-promise som en trygg teknisk feil", async () => {
     mocks.requestTokenxOboToken.mockRejectedValueOnce(
       new Error("secret-oasis-rejection-detail"),
     );
@@ -60,13 +60,16 @@ describe("TokenX exchange observability", () => {
       TokenXTargetApi.ISDIALOGMOTE,
     );
 
-    await expect(result).rejects.toMatchObject({ code: 401 });
+    await expect(result).rejects.toMatchObject({
+      code: 500,
+      message: "TokenX OBO exchange failed",
+    });
     expect(mocks.error).toHaveBeenCalledOnce();
     expect(mocks.error).toHaveBeenCalledWith(
       {
         event_type: "tokenx_obo_exchange_failed",
         operation: "exchange_tokenx_obo",
-        error_code: "TOKENX_OBO_EXCHANGE_FAILED",
+        error_code: "TOKENX_OBO_EXCHANGE_ERROR",
         upstream: "isdialogmote",
       },
       "TokenX OBO exchange failed",

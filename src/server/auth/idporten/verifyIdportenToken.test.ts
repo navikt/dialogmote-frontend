@@ -26,14 +26,17 @@ describe("verifyIdportenToken", () => {
     mocks.warn.mockReset();
   });
 
-  it("eier avvist Oasis-promise med én kanonisk, PII-fri feil", async () => {
+  it("klassifiserer avvist Oasis-promise som en trygg teknisk feil", async () => {
     mocks.validateIdportenToken.mockRejectedValueOnce(
       new Error("secret-oasis-validation-detail"),
     );
 
-    await expect(validateToken("safe-idporten-token-canary")).resolves.toBe(
-      false,
-    );
+    await expect(
+      validateToken("safe-idporten-token-canary"),
+    ).rejects.toMatchObject({
+      code: 500,
+      message: "ID-porten token validation failed",
+    });
 
     expect(mocks.warn).not.toHaveBeenCalled();
     expect(mocks.error).toHaveBeenCalledOnce();
@@ -41,7 +44,7 @@ describe("verifyIdportenToken", () => {
       {
         event_type: "idporten_token_validation_failed",
         operation: "validate_idporten_token",
-        error_code: "IDPORTEN_TOKEN_VALIDATION_FAILED",
+        error_code: "IDPORTEN_TOKEN_VALIDATION_ERROR",
       },
       "ID-porten token validation failed",
     );

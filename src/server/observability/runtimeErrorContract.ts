@@ -1,4 +1,5 @@
 import { logger } from "@navikt/next-logger";
+import { prettifyError, type ZodError } from "zod";
 import {
   FetchNetworkError,
   FetchResponseParseError,
@@ -68,9 +69,11 @@ const logRuntimeError = ({
   method,
   errorCode,
   upstreamStatus,
+  validationError,
 }: Omit<RequestFailure, "error"> & {
   errorCode: RuntimeErrorCode;
   upstreamStatus?: number;
+  validationError?: ZodError;
 }): void => {
   logger.error(
     {
@@ -82,6 +85,9 @@ const logRuntimeError = ({
       ...(upstreamStatus === undefined
         ? {}
         : { upstream_status: upstreamStatus }),
+      ...(validationError === undefined
+        ? {}
+        : { validation_error: prettifyError(validationError) }),
     },
     "Upstream request failed",
   );
@@ -103,13 +109,16 @@ export const logResponseSchemaFailure = ({
   operation,
   targetApi,
   errorCode,
+  validationError,
 }: Omit<RequestFailure, "error" | "method"> & {
   errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH";
+  validationError: ZodError;
 }): void => {
   logRuntimeError({
     operation,
     targetApi,
     method: "GET",
     errorCode,
+    validationError,
   });
 };

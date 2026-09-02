@@ -66,6 +66,7 @@ export async function tokenXFetchGet<S extends z.ZodType>({
       operation: args.operation,
       targetApi: args.targetApi,
       errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
+      validationError: parsed.error,
     });
     throw new HttpError(500, "Upstream response did not match expected schema");
   }

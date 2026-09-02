@@ -15,9 +15,11 @@ import {
   it,
   vi,
 } from "vitest";
+import { literal, object } from "zod";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import {
+  logResponseSchemaFailure,
   logUpstreamRequestFailure,
   RuntimeOperation,
 } from "./runtimeErrorContract";
@@ -127,5 +129,36 @@ describe("serialized runtime error contract", () => {
     expect(serializedLogLines[0]).not.toMatch(
       /01017012345|secret upstream body/,
     );
+  });
+
+  it("beholder trygg Zod-diagnose uten mottatt verdi i hele logglinjen", () => {
+    const responseSchema = object({
+      document: object({ type: literal("PARAGRAPH") }),
+    });
+    const privateValue =
+      "secret-schema-value-01017012345-https://example.test/person/123";
+    const parsed = responseSchema.safeParse({
+      document: { type: privateValue },
+    });
+    if (parsed.success) throw new Error("Expected schema mismatch");
+
+    logResponseSchemaFailure({
+      operation: RuntimeOperation.BREV_LIST_FETCH,
+      targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
+      validationError: parsed.error,
+    });
+
+    expect(serializedLogLines).toHaveLength(1);
+    const logLine = serializedLogLines[0];
+    const serialized = JSON.parse(logLine) as Record<string, unknown>;
+    expect(serialized).toMatchObject({
+      event_type: "dialogmote_brev_list_fetch_failed",
+      error_code: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
+      validation_error: expect.stringContaining("document.type"),
+    });
+    expect(serialized.validation_error).toContain('expected "PARAGRAPH"');
+    expect(logLine).not.toContain(privateValue);
+    expect(logLine).not.toMatch(/01017012345|example\.test|person\/123/);
   });
 });

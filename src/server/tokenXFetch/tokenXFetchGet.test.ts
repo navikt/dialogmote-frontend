@@ -103,6 +103,7 @@ describe("tokenXFetchGet", () => {
         error_code: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
         upstream: "isdialogmote",
         method: "GET",
+        validation_error: expect.stringContaining("value"),
       },
       "Upstream request failed",
     );
