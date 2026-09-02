@@ -13,6 +13,7 @@ import { BROWSER_BASE_PATH, getCurrentBrowserPage } from "./routes";
 export {
   BROWSER_BASE_PATH,
   normalizeTelemetryEndpoint,
+  pageIdFromBrowserPath,
   UNKNOWN_ENDPOINT,
   UNKNOWN_PAGE_ID,
 } from "./routes";
@@ -170,6 +171,7 @@ export const browserApmOptions = {
   namespace: BROWSER_APM_NAMESPACE,
   beforeSend: sanitizeBrowserTelemetry,
   devConsoleEcho: false,
+  tracing: true,
   faro: {
     trackResources: false,
     webVitalsInstrumentation: { trackAttributionSources: false },

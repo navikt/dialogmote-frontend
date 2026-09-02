@@ -16,7 +16,44 @@ const PAGE_IDS: Readonly<Record<string, string>> = {
   "/arbeidsgiver/[narmestelederid]/referat/[brevuuid]": `${BROWSER_BASE_PATH}/arbeidsgiver/{narmestelederid}/referat/{brevuuid}`,
 };
 
-let currentPageId = UNKNOWN_PAGE_ID;
+const DYNAMIC_NEXT_SEGMENT = /^\[[^\]]+\]$/;
+const escapeRegex = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const browserPageRoutes = Object.entries(PAGE_IDS).map(([nextPath, pageId]) => {
+  const routePattern =
+    nextPath === "/"
+      ? /^\/?$/
+      : new RegExp(
+          `^${nextPath
+            .split("/")
+            .map((segment) =>
+              DYNAMIC_NEXT_SEGMENT.test(segment)
+                ? "[^/]+"
+                : escapeRegex(segment),
+            )
+            .join("/")}/?$`,
+        );
+  return [routePattern, pageId] as const;
+});
+
+export function pageIdFromBrowserPath(pathname: string): string {
+  if (
+    pathname !== BROWSER_BASE_PATH &&
+    !pathname.startsWith(`${BROWSER_BASE_PATH}/`)
+  ) {
+    return UNKNOWN_PAGE_ID;
+  }
+  const route = pathname.slice(BROWSER_BASE_PATH.length) || "/";
+  for (const [pattern, pageId] of browserPageRoutes) {
+    if (pattern.test(route)) return pageId;
+  }
+  return UNKNOWN_PAGE_ID;
+}
+
+let currentPageId =
+  typeof window === "undefined"
+    ? UNKNOWN_PAGE_ID
+    : pageIdFromBrowserPath(window.location.pathname);
 
 export function setCurrentBrowserPage(nextPathname: string): string {
   currentPageId = PAGE_IDS[nextPathname] ?? UNKNOWN_PAGE_ID;

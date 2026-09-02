@@ -6,6 +6,7 @@ import {
   browserApmOptions,
   browserApmOptionsFor,
   normalizeTelemetryEndpoint,
+  pageIdFromBrowserPath,
   resolveBrowserCluster,
   sanitizeBrowserTelemetry,
   UNKNOWN_ENDPOINT,
@@ -43,6 +44,20 @@ describe("browser routes", () => {
 
   it("feiler lukket for ukjente Next-ruter", () => {
     expect(setCurrentBrowserPage("/ukjent/[id]")).toBe(UNKNOWN_PAGE_ID);
+  });
+
+  it("normaliserer den fysiske browserruten før React hydration", () => {
+    expect(
+      pageIdFromBrowserPath(
+        `${BROWSER_BASE_PATH}/arbeidsgiver/${leaderId}/referat/${letterId}`,
+      ),
+    ).toBe(employerReferencePage);
+    expect(
+      pageIdFromBrowserPath(`${BROWSER_BASE_PATH}/ukjent/${leaderId}`),
+    ).toBe(UNKNOWN_PAGE_ID);
+    expect(pageIdFromBrowserPath(`/arbeidsgiver/${leaderId}`)).toBe(
+      UNKNOWN_PAGE_ID,
+    );
   });
 });
 
@@ -284,7 +299,7 @@ describe("browser telemetry contract", () => {
         webVitalsInstrumentation: { trackAttributionSources: false },
       },
     });
-    expect(browserApmOptions).not.toHaveProperty("tracing");
+    expect(browserApmOptions.tracing).toBe(true);
     expect(browserApmOptions).not.toHaveProperty("sessionReplay");
     expect(browserApmOptions).not.toHaveProperty("screenshotOnError");
   });
