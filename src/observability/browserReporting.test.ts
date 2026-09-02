@@ -1,4 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  FetchNetworkError,
+  FetchResponseParseError,
+} from "@/common/api/fetch/errors";
 import { HttpError } from "@/common/utils/errors/HttpError";
 
 const { captureException, init, isInitialized, isLocalHost, pushEvent } =
@@ -37,6 +41,44 @@ describe("browser reporting ownership", () => {
     reportBrowserMutationError(error);
 
     expect(captureException).toHaveBeenCalledOnce();
+    expect(captureException).toHaveBeenCalledWith(error);
+  });
+
+  it.each([
+    [new FetchNetworkError("Network request failed"), "network"],
+    [
+      new FetchResponseParseError("Response parsing failed", "invalid_json"),
+      "invalid_json",
+    ],
+    [
+      new FetchResponseParseError("Response parsing failed", "body_read"),
+      "body_read",
+    ],
+  ])("sender lukket failure_reason for fetch-feil", (error, failureReason) => {
+    reportBrowserMutationError(error);
+
+    expect(captureException).toHaveBeenCalledOnce();
+    expect(captureException).toHaveBeenCalledWith(error, {
+      context: { failure_reason: failureReason },
+    });
+  });
+
+  it("sender ikke forventet AbortError fra mutation", () => {
+    reportBrowserMutationError(
+      new DOMException("Avbrutt for ola-nordmann 01017012345", "AbortError"),
+    );
+
+    expect(captureException).not.toHaveBeenCalled();
+  });
+
+  it("sender aldri en ukjent failure_reason", () => {
+    const error = Object.assign(
+      new FetchResponseParseError("Response parsing failed", "invalid_json"),
+      { failureReason: "ola-nordmann 01017012345" },
+    );
+
+    reportBrowserMutationError(error);
+
     expect(captureException).toHaveBeenCalledWith(error);
   });
 

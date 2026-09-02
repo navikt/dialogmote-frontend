@@ -3,7 +3,12 @@ import { isDemoOrLocal } from "@/common/publicEnv";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { loginUser } from "@/common/utils/urlUtils";
 import { normalizeTelemetryEndpoint } from "@/observability/routes";
-import { FetchNetworkError, FetchResponseParseError } from "./errors";
+import {
+  FetchNetworkError,
+  type FetchResponseFailureReason,
+  FetchResponseParseError,
+  isAbortError,
+} from "./errors";
 
 export interface FetchOptions {
   accessToken?: string;
@@ -56,34 +61,59 @@ const defaultRequestHeaders = ({
   return headers;
 };
 
-const parseJsonResponse = async <ResponseData>(
-  response: Response,
-): Promise<ResponseData> => {
+const parseJsonResponse = async <ResponseData>({
+  response,
+  requestUrl,
+  method,
+}: {
+  response: Response;
+  requestUrl: string;
+  method: "GET" | "POST";
+}): Promise<ResponseData> => {
   if (response.status === 204 || response.status === 205) {
     return undefined as ResponseData;
   }
 
-  const text = await response.text();
+  let text: string;
+  try {
+    text = await response.text();
+  } catch (error) {
+    if (isAbortError(error)) throw error;
+    throwParseError(requestUrl, method, "body_read");
+  }
   if (!text) {
     return undefined as ResponseData;
   }
 
-  return JSON.parse(text) as ResponseData;
+  try {
+    return JSON.parse(text) as ResponseData;
+  } catch {
+    throwParseError(requestUrl, method, "invalid_json");
+  }
 };
 
 const parseResponse = async <ResponseData>({
   response,
   responseType,
+  requestUrl,
+  method,
 }: {
   response: Response;
   responseType?: FetchOptions["responseType"];
+  requestUrl: string;
+  method: "GET" | "POST";
 }): Promise<ResponseData> => {
   if (responseType === "arraybuffer") {
-    const buffer = await response.arrayBuffer();
-    return new Uint8Array(buffer) as ResponseData;
+    try {
+      const buffer = await response.arrayBuffer();
+      return new Uint8Array(buffer) as ResponseData;
+    } catch (error) {
+      if (isAbortError(error)) throw error;
+      throwParseError(requestUrl, method, "body_read");
+    }
   }
 
-  return parseJsonResponse<ResponseData>(response);
+  return parseJsonResponse<ResponseData>({ response, requestUrl, method });
 };
 
 const throwHttpError = (
@@ -110,11 +140,16 @@ const throwNetworkError = (
   );
 };
 
-const throwParseError = (requestUrl: string, method: "GET" | "POST"): never => {
+function throwParseError(
+  requestUrl: string,
+  method: "GET" | "POST",
+  failureReason: FetchResponseFailureReason,
+): never {
   throw new FetchResponseParseError(
     `Response parsing failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
+    failureReason,
   );
-};
+}
 
 const getServerAllowedOrigins = (): Set<string> => {
   // Server-side SSRF protection: restrict absolute URLs to known backends.
@@ -188,7 +223,8 @@ async function request<ResponseData>({
       headers: defaultRequestHeaders({ options, hasJsonBody }),
       credentials: "include",
     });
-  } catch {
+  } catch (error) {
+    if (isAbortError(error)) throw error;
     throwNetworkError(requestUrl, method);
   }
 
@@ -200,16 +236,12 @@ async function request<ResponseData>({
     throwHttpError(response, requestUrl, method);
   }
 
-  try {
-    return await parseResponse<ResponseData>({
-      response,
-      responseType: options?.responseType,
-    });
-  } catch {
-    throwParseError(requestUrl, method);
-  }
-
-  throw new Error("Unreachable");
+  return parseResponse<ResponseData>({
+    response,
+    responseType: options?.responseType,
+    requestUrl,
+    method,
+  });
 }
 
 type ResponseFor<T extends ResponseType, R> = T extends "arraybuffer"

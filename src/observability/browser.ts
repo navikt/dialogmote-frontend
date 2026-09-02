@@ -6,6 +6,7 @@ import {
   isLocalHost,
   pushEvent,
 } from "@nais/apm";
+import { getFetchFailureReason, isAbortError } from "@/common/api/fetch/errors";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { BROWSER_BASE_PATH, getCurrentBrowserPage } from "./routes";
@@ -47,6 +48,10 @@ const WEB_VITAL_DOM_FIELDS = [
   "interaction_target",
   "largest_shift_target",
 ] as const;
+const CSP_DIRECTIVE = /^[a-z][a-z0-9-]{0,63}$/;
+const CSP_DISPOSITIONS = new Set(["enforce", "report"]);
+const CSP_STATUS_CODE = /^(?:0|[1-5]\d{2})$/;
+const UNKNOWN_CSP_VALUE = "unknown";
 
 type Payload = {
   name?: string;
@@ -98,6 +103,14 @@ const canonicalStackFrame = (value: string, pageId: string): string => {
 
 type BeforeSend = NonNullable<InitOptions["beforeSend"]>;
 
+const safeCspValue = (value: string | undefined, pattern: RegExp): string =>
+  value !== undefined && pattern.test(value) ? value : UNKNOWN_CSP_VALUE;
+
+const safeCspDisposition = (value: string | undefined): string =>
+  value !== undefined && CSP_DISPOSITIONS.has(value)
+    ? value
+    : UNKNOWN_CSP_VALUE;
+
 /** Normalize only the app-owned fields that the generic APM scrubber cannot know. */
 export const sanitizeBrowserTelemetry: BeforeSend = (item) => {
   const pageId = getCurrentBrowserPage();
@@ -113,13 +126,24 @@ export const sanitizeBrowserTelemetry: BeforeSend = (item) => {
 
   let payload = item.payload as Payload;
   if (item.type === "event") {
-    if (
-      payload.name === "securitypolicyviolation" ||
-      payload.name === "faro.navigation"
-    ) {
+    if (payload.name === "securitypolicyviolation") {
+      payload = {
+        name: payload.name,
+        attributes: {
+          directive: safeCspValue(
+            payload.attributes?.effectiveDirective,
+            CSP_DIRECTIVE,
+          ),
+          disposition: safeCspDisposition(payload.attributes?.disposition),
+          status_code: safeCspValue(
+            payload.attributes?.statusCode,
+            CSP_STATUS_CODE,
+          ),
+        },
+      };
+    } else if (payload.name === "faro.navigation") {
       return null;
-    }
-    if (
+    } else if (
       payload.name === "faro.performance.navigation" &&
       typeof payload.attributes?.name === "string"
     ) {
@@ -194,7 +218,18 @@ export function initBrowserObservability() {
 }
 
 export function reportBrowserMutationError(error: unknown): void {
-  if (!isInitialized() || (error instanceof HttpError && error.code === 401)) {
+  if (
+    !isInitialized() ||
+    isAbortError(error) ||
+    (error instanceof HttpError && error.code === 401)
+  ) {
+    return;
+  }
+  const failureReason = getFetchFailureReason(error);
+  if (failureReason) {
+    captureException(error, {
+      context: { failure_reason: failureReason },
+    });
     return;
   }
   captureException(error);

@@ -183,17 +183,67 @@ describe("browser telemetry contract", () => {
     ).toBeNull();
   });
 
-  it("dropper CSP-rapporter", () => {
-    expect(
-      sanitizeBrowserTelemetry({
-        type: "event",
-        payload: {
-          name: "securitypolicyviolation",
-          attributes: { sample: "vilkårlig sideinnhold" },
+  it("beholder bare trygge strukturelle felt fra CSP-rapporter", () => {
+    const sensitiveUri =
+      "https://www.nav.no/arbeidsgiver/01017012345?token=hemmelig";
+    const sanitized = sanitizeBrowserTelemetry({
+      type: "event",
+      payload: {
+        name: "securitypolicyviolation",
+        attributes: {
+          blockedURI: sensitiveUri,
+          disposition: "enforce",
+          documentURI: sensitiveUri,
+          effectiveDirective: "script-src-elem",
+          originalPolicy: `script-src ${sensitiveUri}`,
+          referrer: sensitiveUri,
+          sample: "ola-nordmann 01017012345",
+          sourceFile: sensitiveUri,
+          statusCode: "200",
+          violatedDirective: `script-src-elem ${sensitiveUri}`,
         },
-        meta: {},
-      } as Parameters<typeof sanitizeBrowserTelemetry>[0]),
-    ).toBeNull();
+      },
+      meta: {},
+    } as Parameters<typeof sanitizeBrowserTelemetry>[0]);
+
+    expect(sanitized?.payload).toEqual({
+      name: "securitypolicyviolation",
+      attributes: {
+        directive: "script-src-elem",
+        disposition: "enforce",
+        status_code: "200",
+      },
+    });
+    expect(JSON.stringify(sanitized)).not.toMatch(
+      /blockedURI|documentURI|sourceFile|sample|01017012345|hemmelig|ola-nordmann/,
+    );
+  });
+
+  it("lukker ugyldige strukturelle CSP-verdier", () => {
+    const sanitized = sanitizeBrowserTelemetry({
+      type: "event",
+      payload: {
+        name: "securitypolicyviolation",
+        attributes: {
+          effectiveDirective: "script-src ola-nordmann@example.com",
+          disposition: "01017012345",
+          statusCode: "https://www.nav.no/person/01017012345",
+        },
+      },
+      meta: {},
+    } as Parameters<typeof sanitizeBrowserTelemetry>[0]);
+
+    expect(sanitized?.payload).toEqual({
+      name: "securitypolicyviolation",
+      attributes: {
+        directive: "unknown",
+        disposition: "unknown",
+        status_code: "unknown",
+      },
+    });
+    expect(JSON.stringify(sanitized)).not.toMatch(
+      /ola-nordmann|01017012345|www\.nav\.no/,
+    );
   });
 
   it("skjuler rute-ID-er i feil og beholder trygge Next-chunks", () => {
