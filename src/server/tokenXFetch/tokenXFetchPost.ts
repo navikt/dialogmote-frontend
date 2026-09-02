@@ -55,7 +55,6 @@ export async function tokenXFetchPost<ResponseData>({
     logUpstreamRequestFailure({
       operation,
       targetApi,
-      endpoint,
       method: "POST",
       error,
     });

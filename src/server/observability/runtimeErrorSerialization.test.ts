@@ -97,14 +97,11 @@ describe("serialized runtime error contract", () => {
 
   it("emits one Pino line with canonical status, active trace and no raw details", () => {
     const traceId = "4bf92f3577b34da6a3ce929d0e0e4736";
-    const endpoint =
-      "https://isdialogmote.invalid/api/v2/arbeidstaker/brev/safe-canary-id/pdf?fnr=01017012345";
 
     withActiveTrace(traceId, () => {
       logUpstreamRequestFailure({
         operation: RuntimeOperation.BREV_PDF_FETCH,
         targetApi: TokenXTargetApi.ISDIALOGMOTE,
-        endpoint,
         method: "GET",
         error: new HttpError(503, "secret upstream body 01017012345"),
       });
@@ -119,7 +116,6 @@ describe("serialized runtime error contract", () => {
       error_code: "UPSTREAM_HTTP_ERROR",
       upstream: "isdialogmote",
       method: "GET",
-      endpoint: "/api/v2/arbeidstaker/brev/{uuid}/pdf",
       upstream_status: 503,
       trace_id: traceId,
       message: "Upstream request failed",
@@ -127,8 +123,9 @@ describe("serialized runtime error contract", () => {
     expect(parsed).not.toHaveProperty("status");
     expect(parsed).not.toHaveProperty("err");
     expect(parsed).not.toHaveProperty("stack");
+    expect(parsed).not.toHaveProperty("endpoint");
     expect(serializedLogLines[0]).not.toMatch(
-      /01017012345|safe-canary-id|secret upstream body|isdialogmote\.invalid/,
+      /01017012345|secret upstream body/,
     );
   });
 });

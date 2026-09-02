@@ -23,7 +23,7 @@ type TokenXFetchGetBaseArgs = {
 };
 
 const withTokenXGet = async <ResponseData>(
-  { req, targetApi, operation, endpoint }: TokenXFetchGetBaseArgs,
+  { req, targetApi, operation }: TokenXFetchGetBaseArgs,
   request: (accessToken: string) => Promise<ResponseData>,
 ): Promise<ResponseData> => {
   const idPortenToken = await validateAndGetIdportenToken(req);
@@ -38,7 +38,6 @@ const withTokenXGet = async <ResponseData>(
     logUpstreamRequestFailure({
       operation,
       targetApi,
-      endpoint,
       method: "GET",
       error,
     });
@@ -66,7 +65,6 @@ export async function tokenXFetchGet<S extends z.ZodType>({
     logResponseSchemaFailure({
       operation: args.operation,
       targetApi: args.targetApi,
-      endpoint: args.endpoint,
       errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
     });
     throw new HttpError(500, "Upstream response did not match expected schema");

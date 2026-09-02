@@ -13,9 +13,6 @@ vi.mock("@navikt/next-logger", () => ({
   logger: { error: mocks.error },
 }));
 
-const endpoint =
-  "https://isdialogmote.invalid/api/v2/arbeidstaker/brev/safe-canary-id/pdf?fnr=01017012345";
-
 describe("runtime error contract", () => {
   beforeEach(() => {
     mocks.error.mockReset();
@@ -32,7 +29,6 @@ describe("runtime error contract", () => {
       logUpstreamRequestFailure({
         operation: RuntimeOperation.BREV_PDF_FETCH,
         targetApi: TokenXTargetApi.ISDIALOGMOTE,
-        endpoint,
         method: "GET",
         error: new HttpError(status, "safe error"),
       });
@@ -48,8 +44,6 @@ describe("runtime error contract", () => {
     logUpstreamRequestFailure({
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
-      endpoint:
-        "https://syfomotebehov.invalid/syfomotebehov/api/v4/arbeidstaker/motebehov?ident=01017012345",
       method: "POST",
       error: new FetchNetworkError("secret network detail"),
     });
@@ -59,12 +53,12 @@ describe("runtime error contract", () => {
         event_type: "dialogmote_motebehov_submit_failed",
         error_code: "UPSTREAM_NETWORK_ERROR",
         upstream: "syfomotebehov",
-        endpoint: "/syfomotebehov/api/v4/arbeidstaker/motebehov",
       }),
       "Upstream request failed",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain(
       "secret network detail",
     );
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("endpoint");
   });
 });

@@ -77,12 +77,12 @@ describe("tokenXFetchGet", () => {
         error_code: "UPSTREAM_HTTP_ERROR",
         upstream: "isdialogmote",
         method: "GET",
-        endpoint: "/api/v2/arbeidstaker/brev",
         upstream_status: 503,
       },
       "Upstream request failed",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain("safe-canary");
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("endpoint");
   });
 
   it("logger nøyaktig én kanonisk skjemafeil uten responsdata", async () => {
@@ -103,10 +103,10 @@ describe("tokenXFetchGet", () => {
         error_code: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
         upstream: "isdialogmote",
         method: "GET",
-        endpoint: "/api/v2/arbeidstaker/brev",
       },
       "Upstream request failed",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain("safe-canary");
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("endpoint");
   });
 });

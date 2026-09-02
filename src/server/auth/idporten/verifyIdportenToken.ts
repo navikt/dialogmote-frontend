@@ -3,7 +3,13 @@ import { validateIdportenToken } from "@navikt/oasis";
 import serverEnv from "@/server/utils/serverEnv";
 
 export async function validateToken(token: string): Promise<boolean> {
-  const validation = await validateIdportenToken(token);
+  let validation: Awaited<ReturnType<typeof validateIdportenToken>>;
+  try {
+    validation = await validateIdportenToken(token);
+  } catch {
+    logTokenValidationFailure();
+    return false;
+  }
 
   if (!validation.ok) {
     const operation = "validate_idporten_token";
@@ -17,14 +23,7 @@ export async function validateToken(token: string): Promise<boolean> {
         "ID-porten token expired",
       );
     } else {
-      logger.error(
-        {
-          event_type: "idporten_token_validation_failed",
-          operation,
-          error_code: "IDPORTEN_TOKEN_VALIDATION_FAILED",
-        },
-        "ID-porten token validation failed",
-      );
+      logTokenValidationFailure();
     }
     return false;
   }
@@ -43,4 +42,15 @@ export async function validateToken(token: string): Promise<boolean> {
   }
 
   return true;
+}
+
+function logTokenValidationFailure(): void {
+  logger.error(
+    {
+      event_type: "idporten_token_validation_failed",
+      operation: "validate_idporten_token",
+      error_code: "IDPORTEN_TOKEN_VALIDATION_FAILED",
+    },
+    "ID-porten token validation failed",
+  );
 }

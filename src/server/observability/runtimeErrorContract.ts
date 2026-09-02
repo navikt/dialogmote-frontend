@@ -4,7 +4,6 @@ import {
   FetchResponseParseError,
 } from "@/common/api/fetch/errors";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import { normalizeTelemetryEndpoint } from "@/observability/routes";
 import {
   type TokenXTargetApi,
   tokenXTargetApiToUpstream,
@@ -38,7 +37,6 @@ type RuntimeErrorCode =
 type RequestFailure = {
   operation: RuntimeOperation;
   targetApi: TokenXTargetApi;
-  endpoint: string;
   method: "GET" | "POST";
   error: unknown;
 };
@@ -67,7 +65,6 @@ const classifyRequestFailure = (
 const logRuntimeError = ({
   operation,
   targetApi,
-  endpoint,
   method,
   errorCode,
   upstreamStatus,
@@ -82,7 +79,6 @@ const logRuntimeError = ({
       error_code: errorCode,
       upstream: tokenXTargetApiToUpstream(targetApi),
       method,
-      endpoint: normalizeTelemetryEndpoint(endpoint),
       ...(upstreamStatus === undefined
         ? {}
         : { upstream_status: upstreamStatus }),
@@ -106,7 +102,6 @@ export const logUpstreamRequestFailure = ({
 export const logResponseSchemaFailure = ({
   operation,
   targetApi,
-  endpoint,
   errorCode,
 }: Omit<RequestFailure, "error" | "method"> & {
   errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH";
@@ -114,7 +109,6 @@ export const logResponseSchemaFailure = ({
   logRuntimeError({
     operation,
     targetApi,
-    endpoint,
     method: "GET",
     errorCode,
   });

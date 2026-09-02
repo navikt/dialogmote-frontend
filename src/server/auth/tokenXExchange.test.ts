@@ -49,4 +49,30 @@ describe("TokenX exchange observability", () => {
       /safe-idporten-token-canary|secret-oauth-provider-detail/,
     );
   });
+
+  it("eier avvist Oasis-promise med nøyaktig samme trygge hendelse", async () => {
+    mocks.requestTokenxOboToken.mockRejectedValueOnce(
+      new Error("secret-oasis-rejection-detail"),
+    );
+
+    const result = exchangeIdPortenTokenForTokenXOboToken(
+      "safe-idporten-token-canary",
+      TokenXTargetApi.ISDIALOGMOTE,
+    );
+
+    await expect(result).rejects.toMatchObject({ code: 401 });
+    expect(mocks.error).toHaveBeenCalledOnce();
+    expect(mocks.error).toHaveBeenCalledWith(
+      {
+        event_type: "tokenx_obo_exchange_failed",
+        operation: "exchange_tokenx_obo",
+        error_code: "TOKENX_OBO_EXCHANGE_FAILED",
+        upstream: "isdialogmote",
+      },
+      "TokenX OBO exchange failed",
+    );
+    expect(JSON.stringify(mocks.error.mock.calls)).not.toMatch(
+      /safe-idporten-token-canary|secret-oasis-rejection-detail/,
+    );
+  });
 });

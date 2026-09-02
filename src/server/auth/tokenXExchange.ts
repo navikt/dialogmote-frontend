@@ -14,22 +14,31 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
   targetApi: TokenXTargetApi,
 ): Promise<string> {
   const clientId = getClientIdForTokenXTargetApi(targetApi);
-  const tokenXGrant = await requestTokenxOboToken(idPortenToken, clientId);
+  let tokenXGrant: Awaited<ReturnType<typeof requestTokenxOboToken>>;
+  try {
+    tokenXGrant = await requestTokenxOboToken(idPortenToken, clientId);
+  } catch {
+    throwTokenXExchangeFailure(targetApi);
+  }
 
   if (!tokenXGrant.ok) {
-    logger.error(
-      {
-        event_type: "tokenx_obo_exchange_failed",
-        operation: "exchange_tokenx_obo",
-        error_code: "TOKENX_OBO_EXCHANGE_FAILED",
-        upstream: tokenXTargetApiToUpstream(targetApi),
-      },
-      "TokenX OBO exchange failed",
-    );
-    throw new HttpError(401, "Login required");
+    throwTokenXExchangeFailure(targetApi);
   }
 
   return tokenXGrant.token;
+}
+
+function throwTokenXExchangeFailure(targetApi: TokenXTargetApi): never {
+  logger.error(
+    {
+      event_type: "tokenx_obo_exchange_failed",
+      operation: "exchange_tokenx_obo",
+      error_code: "TOKENX_OBO_EXCHANGE_FAILED",
+      upstream: tokenXTargetApiToUpstream(targetApi),
+    },
+    "TokenX OBO exchange failed",
+  );
+  throw new HttpError(401, "Login required");
 }
 
 export function tokenXTargetApiToUpstream(
