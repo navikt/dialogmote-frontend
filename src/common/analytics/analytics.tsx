@@ -1,5 +1,5 @@
+import { captureException } from "@nais/apm";
 import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
-import { logger } from "@navikt/next-logger";
 import type { Events } from "@/common/analytics/events";
 import type { Audience } from "@/common/hooks/routeHooks";
 import { isDemoOrLocal } from "@/common/publicEnv";
@@ -40,6 +40,9 @@ export const sendTrackingEvent = async (
     if (msg.includes("Analytics instance not found")) {
       return; // Ignore, user has not consented to analytics
     }
-    logger.error(`Analytics logging failed. event=${eventName} message=${msg}`);
+    captureException(
+      error instanceof Error ? error : new Error("Analytics logging failed"),
+      { context: { event: eventName } },
+    );
   }
 };

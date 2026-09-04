@@ -1,5 +1,4 @@
 import { BodyLong } from "@navikt/ds-react";
-import { logger } from "@navikt/next-logger";
 import type { ReactNode } from "react";
 import Receipt from "@/common/components/motebehov/receipt/Receipt";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
@@ -40,12 +39,7 @@ export const MotebehovHarSvartPanel = ({
         : texts.svarNeiTitle;
 
   if (!formSnapshot) {
-    logger.error(
-      "MotebehovHarSvartPanel: formSnapshot is missing, this should not happen.",
-    );
-    throw new Error(
-      "Beklager, det oppstod en feil ved henting av svaret ditt.",
-    );
+    throw new Error("Motebehov response is missing formSnapshot");
   }
 
   return (

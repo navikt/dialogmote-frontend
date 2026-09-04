@@ -2,10 +2,13 @@ import "@navikt/dinesykmeldte-sidemeny/dist/dinesykmeldte-sidemeny.css";
 import "../styles/globals.css";
 import { Box, Theme } from "@navikt/ds-react";
 import { configureLogger } from "@navikt/next-logger";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  MutationCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
-import { useEffect } from "react";
 import { shouldRetryQuery } from "@/common/api/queryRetry";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
@@ -15,7 +18,8 @@ import { TestScenarioSelector } from "@/common/components/testscenarioselector/T
 import { useAudience } from "@/common/hooks/routeHooks";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { NotificationProvider } from "@/context/NotificationContext";
-import { initFaro } from "../faro/initFaro";
+import { ApmRouteTracker } from "@/observability/ApmRouteTracker";
+import { reportBrowserMutationError } from "@/observability/browser";
 
 configureLogger({
   basePath: "/syk/dialogmoter",
@@ -33,6 +37,11 @@ const TestScenarioDevTools = () => {
 };
 
 const queryClient = new QueryClient({
+  mutationCache: new MutationCache({
+    onError: (error) => {
+      reportBrowserMutationError(error);
+    },
+  }),
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -45,12 +54,9 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
   const { isAudienceSykmeldt } = useAudience();
 
-  useEffect(() => {
-    initFaro();
-  }, []);
-
   return (
     <DMErrorBoundary>
+      <ApmRouteTracker />
       <NotificationProvider>
         <QueryClientProvider client={queryClient}>
           <Theme theme="light" asChild>

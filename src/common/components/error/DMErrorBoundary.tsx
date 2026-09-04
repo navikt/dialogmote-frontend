@@ -1,23 +1,16 @@
 import type { ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { logError } from "@/common/utils/logUtils";
 import PageError from "./PageError";
 
 interface Props {
   children: ReactNode;
 }
 
-const errorHandler = (error: unknown) => {
-  const err = error instanceof Error ? error : new Error("Unknown error");
-  logError(err, "ErrorBoundary");
-};
-
 export const DMErrorBoundary = ({ children }: Props) => {
+  // React 19 reports caught render errors to console; @nais/apm captures that
+  // signal. An onError reporter here would emit the same exception twice.
   return (
-    <ErrorBoundary
-      FallbackComponent={() => <PageError />}
-      onError={errorHandler}
-    >
+    <ErrorBoundary FallbackComponent={() => <PageError />}>
       {children}
     </ErrorBoundary>
   );

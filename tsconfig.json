@@ -22,6 +22,7 @@
       "@/context/*": ["./src/context/*"],
       "@/fixtures/*": ["./src/fixtures/*"],
       "@/mocks/*": ["./src/mocks/*"],
+      "@/observability/*": ["./src/observability/*"],
       "@/types/*": ["./src/types/*"]
     }
   },
