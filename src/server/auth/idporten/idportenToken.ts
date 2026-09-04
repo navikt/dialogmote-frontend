@@ -26,7 +26,6 @@ export async function validateIdportenToken(
 
   if (!(await validateToken(token))) {
     const reason = "Invalid idporten token";
-    logger.warn(reason);
     return { success: false, reason };
   }
 

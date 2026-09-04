@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
+import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
 import { tokenXFetchGetBytes } from "@/server/tokenXFetch/tokenXFetchGet";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
@@ -20,6 +21,7 @@ const handler = async (
     : await tokenXFetchGetBytes({
         req,
         targetApi: TokenXTargetApi.ISDIALOGMOTE,
+        operation: RuntimeOperation.BREV_PDF_FETCH,
         endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/narmesteleder/brev/${uuid}/pdf`,
       });
   res

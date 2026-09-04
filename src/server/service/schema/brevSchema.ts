@@ -95,8 +95,14 @@ function transformComponentType(type: unknown): string {
 
   if (parsedType.success) return parsedType.data;
 
-  logger.error(
-    `Unknown component type received in brev-schema: ${String(type)}`,
+  logger.warn(
+    {
+      event_type: "dialogmote_brev_component_type_unknown",
+      operation: "brev_component_normalize",
+      error_code: "UNKNOWN_BREV_COMPONENT_TYPE",
+      upstream: "isdialogmote",
+    },
+    "Unknown brev component type; using UNKNOWN fallback",
   );
   return "UNKNOWN";
 }
@@ -106,7 +112,15 @@ function transformDocumentKey(key: unknown): string | null {
 
   if (parsedKey.success) return parsedKey.data;
 
-  logger.error(`Unknown document key received in brev-schema: ${String(key)}`);
+  logger.warn(
+    {
+      event_type: "dialogmote_brev_document_key_unknown",
+      operation: "brev_component_normalize",
+      error_code: "UNKNOWN_BREV_DOCUMENT_KEY",
+      upstream: "isdialogmote",
+    },
+    "Unknown brev document key; using UNKNOWN fallback",
+  );
   return "UNKNOWN";
 }
 

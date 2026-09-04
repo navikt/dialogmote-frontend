@@ -1,12 +1,31 @@
 import { logger } from "@navikt/next-logger";
 import { validateIdportenToken } from "@navikt/oasis";
+import { HttpError } from "@/common/utils/errors/HttpError";
 import serverEnv from "@/server/utils/serverEnv";
 
 export async function validateToken(token: string): Promise<boolean> {
-  const validation = await validateIdportenToken(token);
+  let validation: Awaited<ReturnType<typeof validateIdportenToken>>;
+  try {
+    validation = await validateIdportenToken(token);
+  } catch {
+    logTokenValidationFailure("IDPORTEN_TOKEN_VALIDATION_ERROR");
+    throw new HttpError(500, "ID-porten token validation failed");
+  }
 
   if (!validation.ok) {
-    logger.error(`Token validation failed: ${validation.error}`);
+    const operation = "validate_idporten_token";
+    if (validation.errorType === "token expired") {
+      logger.warn(
+        {
+          event_type: "idporten_token_expired",
+          operation,
+          error_code: "IDPORTEN_TOKEN_EXPIRED",
+        },
+        "ID-porten token expired",
+      );
+    } else {
+      logTokenValidationFailure();
+    }
     return false;
   }
 
@@ -24,4 +43,19 @@ export async function validateToken(token: string): Promise<boolean> {
   }
 
   return true;
+}
+
+function logTokenValidationFailure(
+  errorCode:
+    | "IDPORTEN_TOKEN_VALIDATION_FAILED"
+    | "IDPORTEN_TOKEN_VALIDATION_ERROR" = "IDPORTEN_TOKEN_VALIDATION_FAILED",
+): void {
+  logger.error(
+    {
+      event_type: "idporten_token_validation_failed",
+      operation: "validate_idporten_token",
+      error_code: errorCode,
+    },
+    "ID-porten token validation failed",
+  );
 }
