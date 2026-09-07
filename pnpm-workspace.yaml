@@ -6,6 +6,9 @@ allowBuilds:
   sharp: true
 
 minimumReleaseAge: 4320
+# Verified release required for the Dialogmøte survey rollout.
+minimumReleaseAgeExclude:
+  - "@navikt/lumi-survey@2.2.1"
 blockExoticSubdeps: true
 
 # GitHub Packages omits @nais/apm's optional-peer metadata. The app uses the
