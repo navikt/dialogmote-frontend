@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
+import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 
@@ -13,6 +14,7 @@ const handler = async (
     await tokenXFetchPost({
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
+      operation: RuntimeOperation.MOTEBEHOV_COMPLETE,
       endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/arbeidstaker/motebehov/ferdigstill`,
     });
   }

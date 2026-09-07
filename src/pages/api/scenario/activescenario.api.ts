@@ -17,7 +17,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const sessionId = req.headers[TEST_SESSION_ID];
 
     if (typeof sessionId !== "string") {
-      return handleQueryParamError(sessionId);
+      return handleQueryParamError();
     }
 
     const newScenario: TestScenario = req.body;

@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
+import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
@@ -36,6 +37,7 @@ const handler = async (
     await tokenXFetchPost({
       req,
       targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      operation: RuntimeOperation.BREV_RESPONSE_SUBMIT,
       endpoint: `${serverEnv.ISDIALOGMOTE_HOST}/api/v2/arbeidstaker/brev/${uuid}/respons`,
       data: svar,
     });

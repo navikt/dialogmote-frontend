@@ -8,6 +8,7 @@ import {
 import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
+import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import type { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
@@ -62,6 +63,7 @@ const handler = async (
     await tokenXFetchPost({
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
+      operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
       endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov`,
       data: svar,
     });

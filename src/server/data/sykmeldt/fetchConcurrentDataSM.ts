@@ -1,13 +1,8 @@
 import type { NextApiRequest } from "next";
-import {
-  getIsdialogmoteTokenX,
-  getMotebehovTokenX,
-} from "@/server/auth/tokenx";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { getBrevSM } from "@/server/service/brevService";
 import { getMotebehovSM } from "@/server/service/motebehovService";
 import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
-import { handleSchemaParsingError } from "@/server/utils/errors";
 import { isMockBackend } from "@/server/utils/serverEnv";
 import type { Brev } from "@/types/shared/brev";
 
@@ -24,31 +19,11 @@ export const fetchConcurrentDataSM = async (
     const mockData = getMockDb(req);
     return { motebehov: mockData.motebehov, brevArray: mockData.brev };
   } else {
-    const motebehovTokenPromise = getMotebehovTokenX(req);
-    const isDialogmoteTokenPromise = getIsdialogmoteTokenX(req);
-    const [motebehovToken, isDialogmoteToken] = await Promise.all([
-      motebehovTokenPromise,
-      isDialogmoteTokenPromise,
+    const [motebehov, brevArray] = await Promise.all([
+      getMotebehovSM(req),
+      getBrevSM(req),
     ]);
 
-    const motebehovPromise = getMotebehovSM(motebehovToken);
-    const isDialogmotePromise = getBrevSM(isDialogmoteToken);
-
-    const [motebehovRes, isDialogmoteRes] = await Promise.all([
-      motebehovPromise,
-      isDialogmotePromise,
-    ]);
-
-    if (motebehovRes.success && isDialogmoteRes.success) {
-      return { motebehov: motebehovRes.data, brevArray: isDialogmoteRes.data };
-    } else if (!motebehovRes.success) {
-      handleSchemaParsingError("Sykmeldt", "Motebehov", motebehovRes.error);
-    } else if (!isDialogmoteRes.success) {
-      handleSchemaParsingError(
-        "Sykmeldt",
-        "IsDialogmote",
-        isDialogmoteRes.error,
-      );
-    }
+    return { motebehov, brevArray };
   }
 };

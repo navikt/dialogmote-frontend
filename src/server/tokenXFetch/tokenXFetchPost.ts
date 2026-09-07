@@ -5,10 +5,15 @@ import {
   exchangeIdPortenTokenForTokenXOboToken,
   type TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
+import {
+  logUpstreamRequestFailure,
+  type RuntimeOperation,
+} from "@/server/observability/runtimeErrorContract";
 
 type TokenXFetchPostBaseArgs = {
   req: NextApiRequest;
   targetApi: TokenXTargetApi;
+  operation: RuntimeOperation;
   endpoint: string;
   data?: unknown;
   personIdent?: string;
@@ -24,6 +29,7 @@ export function tokenXFetchPost(
 export async function tokenXFetchPost<ResponseData>({
   req,
   targetApi,
+  operation,
   endpoint,
   data,
   responseType,
@@ -38,10 +44,20 @@ export async function tokenXFetchPost<ResponseData>({
     targetApi,
   );
 
-  return post(endpoint, data, {
-    accessToken: oboToken,
-    responseType,
-    personIdent,
-    orgnummer,
-  });
+  try {
+    return await post(endpoint, data, {
+      accessToken: oboToken,
+      responseType,
+      personIdent,
+      orgnummer,
+    });
+  } catch (error) {
+    logUpstreamRequestFailure({
+      operation,
+      targetApi,
+      method: "POST",
+      error,
+    });
+    throw error;
+  }
 }
