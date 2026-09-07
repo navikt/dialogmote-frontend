@@ -156,6 +156,7 @@ const getServerAllowedOrigins = (): Set<string> => {
   // These env vars are not exposed to the browser bundle; we only use them on the server.
   const raw = [
     process.env.ISDIALOGMOTE_HOST,
+    process.env.LUMI_API_HOST,
     process.env.SYFOMOTEBEHOV_HOST,
     process.env.DINESYKMELDTE_BACKEND_HOST,
   ].filter(Boolean) as string[];

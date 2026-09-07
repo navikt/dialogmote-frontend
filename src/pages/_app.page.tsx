@@ -1,5 +1,6 @@
 import "@navikt/dinesykmeldte-sidemeny/dist/dinesykmeldte-sidemeny.css";
 import "../styles/globals.css";
+import "@navikt/lumi-survey/styles.css";
 import { Box, Theme } from "@navikt/ds-react";
 import { configureLogger } from "@navikt/next-logger";
 import {

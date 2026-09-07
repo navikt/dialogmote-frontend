@@ -54,6 +54,12 @@ spec:
   ingresses:
     - "https://www.ekstern.dev.nav.no/syk/dialogmoter"
   env:
+    - name: LUMI_SURVEY_ENABLED
+      value: "true"
+    - name: LUMI_API_HOST
+      value: http://lumi-api.team-esyfo
+    - name: LUMI_API_CLIENT_ID
+      value: "dev-gcp:team-esyfo:lumi-api"
     - name: NPM_CONFIG_CACHE
       value: /tmp
     - name: DECORATOR_URL
@@ -93,6 +99,8 @@ spec:
   accessPolicy:
     outbound:
       rules:
+        - application: lumi-api
+          namespace: team-esyfo
         - application: isdialogmote
           namespace: teamsykefravr
         - application: sykmeldinger-arbeidsgiver

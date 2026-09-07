@@ -79,3 +79,29 @@ describe("TokenX exchange observability", () => {
     );
   });
 });
+
+describe("Lumi TokenX target", () => {
+  it("uses the configured Lumi audience with the existing OBO exchange", async () => {
+    const previous = process.env.LUMI_API_CLIENT_ID;
+    process.env.LUMI_API_CLIENT_ID = "dev-gcp:team-esyfo:lumi-api";
+    mocks.requestTokenxOboToken.mockResolvedValueOnce({
+      ok: true,
+      token: "obo-result",
+    });
+    try {
+      await expect(
+        exchangeIdPortenTokenForTokenXOboToken(
+          "idporten-token",
+          TokenXTargetApi.LUMI_API,
+        ),
+      ).resolves.toBe("obo-result");
+      expect(mocks.requestTokenxOboToken).toHaveBeenLastCalledWith(
+        "idporten-token",
+        "dev-gcp:team-esyfo:lumi-api",
+      );
+    } finally {
+      if (previous === undefined) delete process.env.LUMI_API_CLIENT_ID;
+      else process.env.LUMI_API_CLIENT_ID = previous;
+    }
+  });
+});
