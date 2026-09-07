@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -7,22 +6,16 @@ import { surveySubmissionSchema } from "@/server/lumi/submission";
 import { DialogmoteSurvey } from "./DialogmoteSurveyInvitation";
 import { dialogmoteSurvey } from "./dialogmoteSurvey";
 
-vi.mock("@/common/api/fetch", () => ({ get: async () => ({ enabled: true }) }));
 vi.mock("next/router", () => ({
   useRouter: () => ({ basePath: "/syk/dialogmoter" }),
 }));
 
-describe("shared survey keyboard invitation", () => {
+describe("shared Dialogmøte survey", () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it("keeps the form closed until the invitation is activated with the keyboard", async () => {
     const user = userEvent.setup();
-    const client = new QueryClient();
-    const { container } = render(
-      <QueryClientProvider client={client}>
-        <DialogmoteSurvey />
-      </QueryClientProvider>,
-    );
+    const { container } = render(<DialogmoteSurvey />);
     const invitation = await screen.findByRole("button", {
       name: "Del erfaringer med dialogmøte 1",
     });
@@ -51,14 +44,10 @@ describe("shared survey keyboard invitation", () => {
     const user = userEvent.setup();
     const fetch = vi
       .fn()
+      .mockResolvedValueOnce(new Response(null, { status: 503 }))
       .mockResolvedValue(new Response(null, { status: 204 }));
     vi.stubGlobal("fetch", fetch);
-    const client = new QueryClient();
-    render(
-      <QueryClientProvider client={client}>
-        <DialogmoteSurvey />
-      </QueryClientProvider>,
-    );
+    render(<DialogmoteSurvey />);
     await user.click(
       await screen.findByRole("button", {
         name: "Del erfaringer med dialogmøte 1",
@@ -70,6 +59,16 @@ describe("shared survey keyboard invitation", () => {
         name: "Jeg er usikker på hva dialogmøte 1 er",
       }),
     );
+    await user.click(screen.getByRole("button", { name: "Send" }));
+    await screen.findByText(/Kunne ikke sende tilbakemeldingen/);
+    expect(
+      screen.queryByRole("heading", { name: dialogmoteSurvey.success.title }),
+    ).not.toBeInTheDocument();
+    expect(fetch).toHaveBeenCalledWith("/syk/dialogmoter/api/lumi/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: expect.any(String),
+    });
     await user.click(screen.getByRole("button", { name: "Send" }));
     await screen.findByRole("heading", {
       name: dialogmoteSurvey.success.title,
@@ -94,12 +93,7 @@ describe("shared survey keyboard invitation", () => {
       .fn()
       .mockResolvedValue(new Response(null, { status: 204 }));
     vi.stubGlobal("fetch", fetch);
-    const client = new QueryClient();
-    render(
-      <QueryClientProvider client={client}>
-        <DialogmoteSurvey />
-      </QueryClientProvider>,
-    );
+    render(<DialogmoteSurvey />);
     await user.click(
       await screen.findByRole("button", {
         name: "Del erfaringer med dialogmøte 1",

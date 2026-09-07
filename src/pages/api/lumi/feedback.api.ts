@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
-import { isDialogmoteSurveyEnabled } from "@/server/lumi/config";
 import {
   surveySubmissionSchema,
   withSurveyContext,
@@ -20,10 +19,6 @@ export default async function handler(
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     res.status(405).end();
-    return;
-  }
-  if (!isDialogmoteSurveyEnabled()) {
-    res.status(404).end();
     return;
   }
   const parsed = surveySubmissionSchema.safeParse(req.body);

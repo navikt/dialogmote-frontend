@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   dialogmoteSurvey,
   dialogmoteSurveyId,
   dialogmoteSurveyRevision,
 } from "@/common/components/lumi/dialogmoteSurvey";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import configHandler from "./config.api";
 import handler, { config } from "./feedback.api";
 
 const mocks = vi.hoisted(() => ({
@@ -75,29 +74,6 @@ describe("Lumi feedback API", () => {
   beforeEach(() => {
     mocks.post.mockReset().mockResolvedValue(undefined);
     mocks.mockBackend = false;
-    vi.stubEnv("LUMI_SURVEY_ENABLED", "true");
-  });
-  afterEach(() => vi.unstubAllEnvs());
-
-  it("checks the runtime launch switch both for discovery and direct submission", async () => {
-    vi.stubEnv("LUMI_SURVEY_ENABLED", "false");
-    const discovery = response();
-    configHandler(
-      { method: "GET" } as NextApiRequest,
-      discovery as unknown as NextApiResponse,
-    );
-    expect(discovery.json).toHaveBeenCalledWith({ enabled: false });
-    expect(discovery.setHeader).toHaveBeenCalledWith(
-      "Cache-Control",
-      "no-store",
-    );
-    const res = response();
-    await handler(
-      { method: "POST", body: payload() } as NextApiRequest,
-      res as unknown as NextApiResponse,
-    );
-    expect(res.status).toHaveBeenCalledWith(404);
-    expect(mocks.post).not.toHaveBeenCalled();
   });
 
   it("rejects unsupported methods and invalid or unrelated surveys before forwarding", async () => {

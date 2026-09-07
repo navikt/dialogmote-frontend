@@ -1,5 +1,4 @@
 export interface IServerEnvironmentVariables {
-  LUMI_SURVEY_ENABLED: string;
   LUMI_API_HOST: string;
   LUMI_API_CLIENT_ID: string;
   LOG_LEVEL: "fatal" | "error" | "warn" | "info" | "debug" | "trace";

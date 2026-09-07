@@ -67,21 +67,6 @@ Oppslag av sykmeldt i arbeidsgiverflyten.
 
 For å komme i gang med bygging og kjøring av appen, sjekk ut mise tasks.
 
-### Survey om dialogmøte 1
-
-Arbeidsgiveroversikten tilbyr en frivillig survey etter at siden er lastet. Oppsettet i `src/common/components/lumi/dialogmoteSurvey.ts` er TypeScript-eksporten fra [delt versjon 3 i Lumi](https://lumi-dashboard.ansatt.nav.no/surveyverksted/revisions/ea3ea894-aef5-49e5-819e-9d1520c62125?team=team-esyfo). Behold spørsmål-ID-er og svarverdier ved senere oppdateringer.
-
-`LUMI_SURVEY_ENABLED` styrer visning og innsending ved kjøretid: aktivert lokalt, i demo og dev, deaktivert i prod. Innsending går gjennom appens `/api/lumi/feedback` og eksisterende TokenX-flyt til Lumi. API-et trenger både frontendens outbound-regel og en inbound-regel for `dialogmote-frontend` i `team-esyfo`. Lokal kjøring og demo med `MOCK_BACKEND=true` lagrer ingen svar. URL, fødselsnummer og opplysninger om den sykmeldte legges ikke ved svarene.
-
-Prøv arbeidsgiveroversikten lokalt på `/syk/dialogmoter/arbeidsgiver/1`. Åpne «Del erfaringer med dialogmøte 1» og kontroller:
-
-- «Gjennomført» gir ett oppfølgingsspørsmål på neste side.
-- «Ikke gjennomført» og begge «Annet»-valg gir egne sider for fritekst.
-- Tilbake og bytte av hovedsvar fjerner den gamle grenen fra innsendingen.
-- «Ikke hatt ansvar» og «Usikker» kan sendes fra første spørsmål.
-
-Surveyen viser «Steg N» fordi antall sider avhenger av svarene. I dev må det også kontrolleres at innsendingen vises på `dialogmote-1` i Lumi; lokal testing verifiserer ikke TokenX eller nettverkspolicyen i klyngen.
-
 ## For Nav-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen [#esyfo](https://nav-it.slack.com/archives/C012X796B4L).

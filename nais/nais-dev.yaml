@@ -54,8 +54,6 @@ spec:
   ingresses:
     - "https://www.ekstern.dev.nav.no/syk/dialogmoter"
   env:
-    - name: LUMI_SURVEY_ENABLED
-      value: "true"
     - name: LUMI_API_HOST
       value: http://lumi-api.team-esyfo
     - name: LUMI_API_CLIENT_ID
