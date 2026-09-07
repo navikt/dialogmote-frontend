@@ -68,19 +68,16 @@ describe("ID-porten token validation ownership", () => {
       errorType: "unknown",
     });
 
-    await expect(validateIdportenToken({} as IncomingMessage)).resolves.toEqual(
-      {
-        success: false,
-        reason: "Invalid idporten token",
-      },
-    );
+    await expect(
+      validateIdportenToken({} as IncomingMessage),
+    ).rejects.toMatchObject({ code: 500 });
     expect(mocks.warn).not.toHaveBeenCalled();
     expect(mocks.error).toHaveBeenCalledOnce();
     expect(mocks.error).toHaveBeenCalledWith(
       {
         event_type: "idporten_token_validation_failed",
         operation: "validate_idporten_token",
-        error_code: "IDPORTEN_TOKEN_VALIDATION_FAILED",
+        error_code: "IDPORTEN_TOKEN_VALIDATION_ERROR",
       },
       "ID-porten token validation failed",
     );

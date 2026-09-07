@@ -22,35 +22,25 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
   }
 
   if (!tokenXGrant.ok) {
-    throwTokenXExchangeFailure(targetApi);
+    // Oasis does not distinguish rejected grants from provider/network failures.
+    // The ID-porten token was already validated before requesting this exchange.
+    throwTokenXExchangeError(targetApi);
   }
 
   return tokenXGrant.token;
 }
 
-function throwTokenXExchangeFailure(targetApi: TokenXTargetApi): never {
-  logTokenXExchangeError(targetApi, "TOKENX_OBO_EXCHANGE_FAILED");
-  throw new HttpError(401, "Login required");
-}
-
 function throwTokenXExchangeError(targetApi: TokenXTargetApi): never {
-  logTokenXExchangeError(targetApi, "TOKENX_OBO_EXCHANGE_ERROR");
-  throw new HttpError(500, "TokenX OBO exchange failed");
-}
-
-function logTokenXExchangeError(
-  targetApi: TokenXTargetApi,
-  errorCode: "TOKENX_OBO_EXCHANGE_FAILED" | "TOKENX_OBO_EXCHANGE_ERROR",
-): void {
   logger.error(
     {
       event_type: "tokenx_obo_exchange_failed",
       operation: "exchange_tokenx_obo",
-      error_code: errorCode,
+      error_code: "TOKENX_OBO_EXCHANGE_ERROR",
       upstream: tokenXTargetApiToUpstream(targetApi),
     },
     "TokenX OBO exchange failed",
   );
+  throw new HttpError(500, "TokenX OBO exchange failed");
 }
 
 export function tokenXTargetApiToUpstream(

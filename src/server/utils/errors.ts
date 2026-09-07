@@ -1,9 +1,7 @@
 import { logger } from "@navikt/next-logger";
 import { HttpError } from "@/common/utils/errors/HttpError";
 
-export const handleQueryParamError = (
-  ..._params: (string | string[] | undefined)[]
-): never => {
+export const handleQueryParamError = (): never => {
   logger.error(
     {
       event_type: "dialogmote_query_param_invalid",

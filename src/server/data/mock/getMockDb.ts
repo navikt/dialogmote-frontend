@@ -39,7 +39,7 @@ const getMockDb = (req: NextApiRequest): MockSetup => {
   const sessionId = req.headers[TEST_SESSION_ID];
 
   if (typeof sessionId !== "string") {
-    return handleQueryParamError(sessionId);
+    return handleQueryParamError();
   }
 
   // global._mockDb = new FakeMockDB();

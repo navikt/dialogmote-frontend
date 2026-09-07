@@ -9,11 +9,7 @@ vi.mock("@navikt/next-logger", () => ({
 
 describe("query param errors", () => {
   it("logger en lukket hendelse uten rå parameterverdier", () => {
-    const secret = "session-01017012345";
-
-    expect(() => handleQueryParamError(secret)).toThrow(
-      "Malformed query params",
-    );
+    expect(() => handleQueryParamError()).toThrow("Malformed query params");
     expect(mocks.error).toHaveBeenCalledWith(
       {
         event_type: "dialogmote_query_param_invalid",
@@ -22,6 +18,5 @@ describe("query param errors", () => {
       },
       "Malformed query params",
     );
-    expect(JSON.stringify(mocks.error.mock.calls)).not.toContain(secret);
   });
 });

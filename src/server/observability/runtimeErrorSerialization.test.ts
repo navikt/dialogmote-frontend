@@ -145,7 +145,6 @@ describe("serialized runtime error contract", () => {
     logResponseSchemaFailure({
       operation: RuntimeOperation.BREV_LIST_FETCH,
       targetApi: TokenXTargetApi.ISDIALOGMOTE,
-      errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
       validationError: parsed.error,
     });
 
