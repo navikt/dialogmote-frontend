@@ -4,6 +4,7 @@ import { HttpError } from "@/common/utils/errors/HttpError";
 import serverEnv from "@/server/utils/serverEnv";
 
 export enum TokenXTargetApi {
+  LUMI_API = "LUMI_API",
   SYFOMOTEBEHOV = "SYFOMOTEBEHOV",
   ISDIALOGMOTE = "ISDIALOGMOTE",
   DINESYKMELDTE_BACKEND = "DINESYKMELDTE_BACKEND",
@@ -45,8 +46,10 @@ function throwTokenXExchangeError(targetApi: TokenXTargetApi): never {
 
 export function tokenXTargetApiToUpstream(
   targetApi: TokenXTargetApi,
-): "syfomotebehov" | "isdialogmote" | "dinesykmeldte-backend" {
+): "syfomotebehov" | "isdialogmote" | "dinesykmeldte-backend" | "lumi-api" {
   switch (targetApi) {
+    case TokenXTargetApi.LUMI_API:
+      return "lumi-api";
     case TokenXTargetApi.SYFOMOTEBEHOV:
       return "syfomotebehov";
     case TokenXTargetApi.ISDIALOGMOTE:
@@ -60,6 +63,8 @@ export function tokenXTargetApiToUpstream(
 
 function getClientIdForTokenXTargetApi(targetApi: TokenXTargetApi): string {
   switch (targetApi) {
+    case TokenXTargetApi.LUMI_API:
+      return serverEnv.LUMI_API_CLIENT_ID;
     case TokenXTargetApi.SYFOMOTEBEHOV:
       return serverEnv.SYFOMOTEBEHOV_CLIENT_ID;
     case TokenXTargetApi.ISDIALOGMOTE:

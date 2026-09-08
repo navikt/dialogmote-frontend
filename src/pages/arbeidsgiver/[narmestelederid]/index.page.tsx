@@ -2,6 +2,7 @@ import { Skeleton } from "@navikt/ds-react";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
+import { DialogmoteSurvey } from "@/common/components/lumi/DialogmoteSurveyInvitation";
 import { MotebehovPanelAG } from "@/common/components/motebehov/panel/MotebehovPanelAG";
 import MoteinnkallingPanel from "@/common/components/moteinnkalling/MoteinnkallingPanel";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
@@ -54,6 +55,7 @@ const Home: NextPage = () => {
       <Content dialogmoteData={dialogmoteData} />
       <VideoPanel />
       <PersonvernInfo />
+      {dialogmoteData.isSuccess && <DialogmoteSurvey />}
     </ArbeidsgiverSide>
   );
 };
