@@ -5,14 +5,7 @@ import {
   dialogmoteSurveyRevision,
 } from "@/common/components/lumi/dialogmoteSurvey";
 
-const fieldType = z.enum([
-  "RATING",
-  "TEXT",
-  "SINGLE_CHOICE",
-  "MULTI_CHOICE",
-  "DATE",
-]);
-const field = z.object({ fieldId: z.string().min(1), fieldType }).passthrough();
+const transportObject = z.record(z.string(), z.unknown());
 const viewport = z.object({
   width: z.number().nonnegative(),
   height: z.number().nonnegative(),
@@ -28,38 +21,9 @@ export const surveySubmissionSchema = z.object({
   startedAt: z.iso.datetime().nullish(),
   timeToCompleteMs: z.number().nonnegative().nullish(),
   deduplicationKey: z.string().min(1).max(200),
-  definition: z.object({
-    surveyType: z.literal(dialogmoteSurvey.type ?? "custom"),
-    fields: z.array(field).min(1).max(50),
-  }),
-  flow: z
-    .object({
-      schemaVersion: z.literal(1),
-      evaluatorVersion: z.literal("visible-if-v1"),
-      fields: z
-        .array(z.object({ fieldId: z.string().min(1) }).passthrough())
-        .max(50),
-    })
-    .optional(),
-  answers: z
-    .array(
-      field.extend({
-        question: z.object({ label: z.string() }).passthrough(),
-        value: z
-          .object({
-            type: z.enum([
-              "rating",
-              "text",
-              "singleChoice",
-              "multiChoice",
-              "date",
-            ]),
-          })
-          .passthrough(),
-      }),
-    )
-    .min(1)
-    .max(50),
+  definition: transportObject,
+  flow: transportObject.optional(),
+  answers: z.array(transportObject).min(1),
   context: z
     .object({
       deviceType: z.enum(["mobile", "tablet", "desktop"]).nullish(),

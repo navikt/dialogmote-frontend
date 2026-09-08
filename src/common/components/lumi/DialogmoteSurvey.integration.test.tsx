@@ -13,30 +13,28 @@ vi.mock("next/router", () => ({
 describe("shared Dialogmøte survey", () => {
   afterEach(() => vi.unstubAllGlobals());
 
-  it("keeps the form closed until the invitation is activated with the keyboard", async () => {
+  it("opens the welcome page automatically and supports starting with the keyboard", async () => {
     const user = userEvent.setup();
     const { container } = render(<DialogmoteSurvey />);
-    const invitation = await screen.findByRole("button", {
-      name: "Del erfaringer med dialogmøte 1",
+    await screen.findByRole("heading", {
+      name: dialogmoteSurvey.intro.title,
     });
     expect(screen.queryByRole("radio")).not.toBeInTheDocument();
-    await user.tab();
-    expect(invitation).toHaveFocus();
-    await user.keyboard("{Enter}");
-    if (dialogmoteSurvey.intro) {
-      await screen.findByRole("heading", {
-        name: dialogmoteSurvey.intro.title,
-      });
-      await user.click(
-        screen.getByRole("button", {
-          name: "Start",
-        }),
-      );
+    const start = screen.getByRole("button", { name: "Start" });
+    for (
+      let index = 0;
+      index < 5 && document.activeElement !== start;
+      index++
+    ) {
+      await user.tab();
     }
+    expect(start).toHaveFocus();
+    await user.keyboard("{Enter}");
     await screen.findByRole("heading", {
       name: dialogmoteSurvey.pages[0].questions[0].prompt,
     });
     expect(screen.getAllByRole("radio")).toHaveLength(4);
+    expect(screen.getByText("Steg 1")).toBeInTheDocument();
     expect(await axe(container)).toHaveNoViolations();
   });
 
@@ -48,12 +46,7 @@ describe("shared Dialogmøte survey", () => {
       .mockResolvedValue(new Response(null, { status: 204 }));
     vi.stubGlobal("fetch", fetch);
     render(<DialogmoteSurvey />);
-    await user.click(
-      await screen.findByRole("button", {
-        name: "Del erfaringer med dialogmøte 1",
-      }),
-    );
-    await user.click(screen.getByRole("button", { name: "Start" }));
+    await user.click(await screen.findByRole("button", { name: "Start" }));
     await user.click(
       screen.getByRole("radio", {
         name: "Jeg er usikker på hva dialogmøte 1 er",
@@ -66,7 +59,8 @@ describe("shared Dialogmøte survey", () => {
     ).not.toBeInTheDocument();
     expect(fetch).toHaveBeenCalledWith("/syk/dialogmoter/api/lumi/feedback", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: expect.objectContaining({ "Content-Type": "application/json" }),
+      credentials: "include",
       body: expect.any(String),
     });
     await user.click(screen.getByRole("button", { name: "Send" }));
@@ -94,12 +88,7 @@ describe("shared Dialogmøte survey", () => {
       .mockResolvedValue(new Response(null, { status: 204 }));
     vi.stubGlobal("fetch", fetch);
     render(<DialogmoteSurvey />);
-    await user.click(
-      await screen.findByRole("button", {
-        name: "Del erfaringer med dialogmøte 1",
-      }),
-    );
-    await user.click(screen.getByRole("button", { name: "Start" }));
+    await user.click(await screen.findByRole("button", { name: "Start" }));
     await user.click(screen.getByRole("radio", { name: /Jeg har fulgt opp/ }));
     await user.click(screen.getByRole("button", { name: "Neste" }));
     await user.click(screen.getByRole("checkbox", { name: "Annet" }));
