@@ -14,6 +14,6 @@ blockExoticSubdeps: true
 # GitHub Packages omits @nais/apm's optional-peer metadata. The app uses the
 # root browser API, not the optional React adapter.
 overrides:
-  "@nais/apm@0.6.0>@grafana/faro-react": "-"
-  "@nais/apm@0.6.0>react-router": "-"
-  "@nais/apm@0.6.0>react-router-dom": "-"
+  "@nais/apm@0.6.3>@grafana/faro-react": "-"
+  "@nais/apm@0.6.3>react-router": "-"
+  "@nais/apm@0.6.3>react-router-dom": "-"
