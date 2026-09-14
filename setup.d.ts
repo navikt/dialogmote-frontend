@@ -1,4 +1,4 @@
-import "vitest";
+import "@testing-library/jest-dom/vitest";
 import "@navikt/ds-react/types/theme";
 import type { AxeMatchers } from "vitest-axe/matchers";
 

@@ -40,5 +40,12 @@ updates:
           - "@types/react"
           - "@types/react-dom"
     ignore:
-      - dependency-name: "next"
-        versions: ["16.3.1"]
+      - dependency-name: "@types/node"
+        update-types:
+          - "version-update:semver-major"
+      # Update the package and version-qualified pnpm overrides together.
+      - dependency-name: "@nais/apm"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
