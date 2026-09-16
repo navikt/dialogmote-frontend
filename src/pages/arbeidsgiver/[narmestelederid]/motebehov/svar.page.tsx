@@ -11,8 +11,8 @@ import {
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
 } from "@/common/constants/staticUrls";
 import type {
+  MotebehovSvarFormRequestAG,
   MotebehovSvarRequest,
-  MotebehovSvarRequestAG,
 } from "@/types/shared/motebehov";
 
 export const commonTextsForSvarAGAndSM = {
@@ -65,7 +65,7 @@ const SvarBehov = (): ReactElement => {
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarRequestAG = {
+    const svar: MotebehovSvarFormRequestAG = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       formSubmission: motebehovSvar,

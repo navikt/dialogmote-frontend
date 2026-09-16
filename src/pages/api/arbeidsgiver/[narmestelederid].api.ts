@@ -20,6 +20,7 @@ const handler = async (
     req,
     sykmeldtDTO.fnr,
     sykmeldtDTO.orgnummer,
+    narmestelederid,
   );
 
   if (data) {

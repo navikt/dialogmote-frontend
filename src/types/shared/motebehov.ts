@@ -26,5 +26,11 @@ export type MotebehovSvarRequest = {
 export type MotebehovSvarRequestAG = {
   arbeidstakerFnr: string;
   virksomhetsnummer: string;
+  narmesteLederId: string;
   formSubmission: MotebehovSvarRequest;
 };
+
+export type MotebehovSvarFormRequestAG = Omit<
+  MotebehovSvarRequestAG,
+  "narmesteLederId"
+>;

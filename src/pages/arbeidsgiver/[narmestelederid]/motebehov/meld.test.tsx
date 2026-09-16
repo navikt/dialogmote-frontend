@@ -50,6 +50,7 @@ describe("meld page arbeidsgiver", () => {
         expect(requestResolver).toHaveBeenCalledWith({
           arbeidstakerFnr: "12345678912345",
           virksomhetsnummer: "123456789",
+          narmesteLederId: "123",
           formSubmission: {
             harMotebehov: true,
             formSnapshot: {
@@ -134,6 +135,7 @@ describe("meld page arbeidsgiver", () => {
         expect(requestResolver).toHaveBeenCalledWith({
           arbeidstakerFnr: "12345678912345",
           virksomhetsnummer: "123456789",
+          narmesteLederId: "123",
           formSubmission: {
             harMotebehov: true,
             formSnapshot: {

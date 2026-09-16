@@ -6,8 +6,8 @@ import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
 import type {
+  MotebehovSvarFormRequestAG,
   MotebehovSvarRequest,
-  MotebehovSvarRequestAG,
 } from "@/types/shared/motebehov";
 import {
   arbeidsgiverLesMerLenkerSentence,
@@ -30,7 +30,7 @@ const MeldBehov = (): ReactElement => {
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarRequestAG = {
+    const svar: MotebehovSvarFormRequestAG = {
       virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
       arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       formSubmission: motebehovSvar,

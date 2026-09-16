@@ -1,6 +1,7 @@
 import { logger } from "@navikt/next-logger";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
+import { isValidNarmestelederId } from "@/common/utils/validateNarmestelederId";
 import {
   meldMotebehovAGOutputFixture,
   svarMotebehovAGOutputFixture,
@@ -17,7 +18,24 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
+  if (!isMockBackend) {
+    const svarLength = JSON.stringify(req.body)?.length ?? 0;
+
+    if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
+      logger.error(
+        `Motebehov svar request is too large. Size: ${svarLength} characters`,
+      );
+      res.status(413).end();
+      return;
+    }
+  }
+
   const svar: MotebehovSvarRequestAG = req.body;
+  if (!isValidNarmestelederId(svar?.narmesteLederId)) {
+    logger.warn("Received invalid arbeidsgiver motebehov request");
+    res.status(400).end();
+    return;
+  }
 
   if (isMockBackend) {
     const data = getMockDb(req);
@@ -50,16 +68,6 @@ const handler = async (
       },
     };
   } else {
-    const svarLength = JSON.stringify(svar).length;
-
-    if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
-      logger.error(
-        `Motebehov svar request is too large. Size: ${svarLength} characters`,
-      );
-      res.status(413).end();
-      return;
-    }
-
     await tokenXFetchPost({
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,

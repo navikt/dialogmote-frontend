@@ -9,8 +9,14 @@ export async function getMotebehovAG(
   req: NextApiRequest,
   fnr: string,
   orgnummer: string,
+  narmesteLederId: string,
 ) {
-  const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
+  const query = new URLSearchParams({
+    fnr,
+    virksomhetsnummer: orgnummer,
+    narmesteLederId,
+  });
+  const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?${query}`;
 
   return tokenXFetchGet({
     req,

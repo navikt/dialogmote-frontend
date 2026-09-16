@@ -11,6 +11,7 @@ export const fetchConcurrentDataAG = async (
   req: NextApiRequest,
   fnr: string,
   orgnummer: string,
+  narmesteLederId: string,
 ): Promise<
   | {
       motebehov: MotebehovStatusDTO;
@@ -23,7 +24,7 @@ export const fetchConcurrentDataAG = async (
     return { motebehov: mockData.motebehov, brevArray: mockData.brev };
   } else {
     const [motebehov, brevArray] = await Promise.all([
-      getMotebehovAG(req, fnr, orgnummer),
+      getMotebehovAG(req, fnr, orgnummer, narmesteLederId),
       getBrevAG(req, fnr),
     ]);
     logger.info("Fetching DM data AG ok");
