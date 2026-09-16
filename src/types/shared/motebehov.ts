@@ -28,4 +28,6 @@ export type MotebehovSvarRequestAG = {
   formSubmission: MotebehovSvarRequest;
 };
 
-export type MotebehovSvarFormRequestAG = MotebehovSvarRequest;
+export type MotebehovSvarFormRequestAG = {
+  formSubmission: MotebehovSvarRequest;
+};

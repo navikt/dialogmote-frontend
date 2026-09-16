@@ -63,12 +63,20 @@ export async function tokenXFetchPost({
 
   let response: unknown | Uint8Array;
   try {
-    response = await post<unknown>(endpoint, data, {
-      accessToken: oboToken,
-      responseType,
-      personIdent,
-      orgnummer,
-    });
+    response =
+      responseType === "arraybuffer"
+        ? await post<Uint8Array, "arraybuffer">(endpoint, data, {
+            accessToken: oboToken,
+            responseType,
+            personIdent,
+            orgnummer,
+          })
+        : await post<unknown>(endpoint, data, {
+            accessToken: oboToken,
+            responseType,
+            personIdent,
+            orgnummer,
+          });
   } catch (error) {
     logUpstreamRequestFailure({
       operation,
