@@ -56,7 +56,6 @@ describe("arbeidsgiver dialogmote API", () => {
     expect(mocks.fetchConcurrentDataAG).toHaveBeenCalledWith(
       req,
       "synthetic-fnr",
-      "synthetic-orgnummer",
       "synthetic-leder-id",
     );
     expect(res.json).toHaveBeenCalledWith({});

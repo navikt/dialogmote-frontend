@@ -1,7 +1,6 @@
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
 import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
 import type { ReactElement } from "react";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
 import { ArbeidsgiverSvarPaaBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
@@ -61,13 +60,10 @@ export const arbeidsgiverLesMerLenkerSentence = (
 );
 
 const SvarBehov = (): ReactElement => {
-  const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarFormRequestAG = {
-      virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
-      arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       formSubmission: motebehovSvar,
     };
     mutate(svar);

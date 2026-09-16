@@ -1,6 +1,5 @@
 import { BodyLong, BodyShort } from "@navikt/ds-react";
 import type { ReactElement } from "react";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
@@ -26,13 +25,10 @@ const texts = {
 };
 
 const MeldBehov = (): ReactElement => {
-  const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
     const svar: MotebehovSvarFormRequestAG = {
-      virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
-      arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
       formSubmission: motebehovSvar,
     };
     mutate(svar);

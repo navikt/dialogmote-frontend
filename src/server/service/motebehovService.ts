@@ -2,27 +2,20 @@ import type { NextApiRequest } from "next";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
 import { tokenXFetchGet } from "@/server/tokenXFetch/tokenXFetchGet";
+import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv from "@/server/utils/serverEnv";
 import { motebehovStatusSchema } from "./schema/motebehovSchema";
 
 export async function getMotebehovAG(
   req: NextApiRequest,
-  fnr: string,
-  orgnummer: string,
   narmesteLederId: string,
 ) {
-  const query = new URLSearchParams({
-    fnr,
-    virksomhetsnummer: orgnummer,
-    narmesteLederId,
-  });
-  const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?${query}`;
-
-  return tokenXFetchGet({
+  return tokenXFetchPost({
     req,
     targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
     operation: RuntimeOperation.MOTEBEHOV_FETCH,
-    endpoint: url,
+    endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v5/arbeidsgiver/motebehov/status`,
+    data: { narmesteLederId },
     responseDataSchema: motebehovStatusSchema,
   });
 }

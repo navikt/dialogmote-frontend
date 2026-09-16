@@ -10,7 +10,6 @@ import type { Brev } from "@/types/shared/brev";
 export const fetchConcurrentDataAG = async (
   req: NextApiRequest,
   fnr: string,
-  orgnummer: string,
   narmesteLederId: string,
 ): Promise<
   | {
@@ -24,7 +23,7 @@ export const fetchConcurrentDataAG = async (
     return { motebehov: mockData.motebehov, brevArray: mockData.brev };
   } else {
     const [motebehov, brevArray] = await Promise.all([
-      getMotebehovAG(req, fnr, orgnummer, narmesteLederId),
+      getMotebehovAG(req, narmesteLederId),
       getBrevAG(req, fnr),
     ]);
     logger.info("Fetching DM data AG ok");

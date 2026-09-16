@@ -18,19 +18,17 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  if (!isMockBackend) {
-    const svarLength = JSON.stringify(req.body)?.length ?? 0;
+  const svar: MotebehovSvarRequestAG = req.body;
+  const svarLength = JSON.stringify(svar)?.length ?? 0;
 
-    if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
-      logger.error(
-        `Motebehov svar request is too large. Size: ${svarLength} characters`,
-      );
-      res.status(413).end();
-      return;
-    }
+  if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
+    logger.error(
+      `Motebehov svar request is too large. Size: ${svarLength} characters`,
+    );
+    res.status(413).end();
+    return;
   }
 
-  const svar: MotebehovSvarRequestAG = req.body;
   if (!isValidNarmestelederId(svar?.narmesteLederId)) {
     logger.warn("Received invalid arbeidsgiver motebehov request");
     res.status(400).end();
@@ -72,7 +70,7 @@ const handler = async (
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
-      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov`,
+      endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v5/arbeidsgiver/motebehov`,
       data: svar,
     });
   }

@@ -109,14 +109,16 @@ export const logUpstreamRequestFailure = ({
 export const logResponseSchemaFailure = ({
   operation,
   targetApi,
+  method = "GET",
   validationError,
 }: Omit<RequestFailure, "error" | "method"> & {
+  method?: "GET" | "POST";
   validationError: ZodError;
 }): void => {
   logRuntimeError({
     operation,
     targetApi,
-    method: "GET",
+    method,
     errorCode: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
     validationError,
   });

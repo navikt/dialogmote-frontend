@@ -61,8 +61,6 @@ describe("svar page arbeidsgiver", () => {
 
       await waitFor(() =>
         expect(requestResolver).toHaveBeenCalledWith({
-          arbeidstakerFnr: "12345678912345",
-          virksomhetsnummer: "123456789",
           narmesteLederId: "123",
           formSubmission: {
             harMotebehov: false,
@@ -146,8 +144,6 @@ describe("svar page arbeidsgiver", () => {
 
       await waitFor(() =>
         expect(requestResolver).toHaveBeenCalledWith({
-          arbeidstakerFnr: "12345678912345",
-          virksomhetsnummer: "123456789",
           narmesteLederId: "123",
           formSubmission: {
             harMotebehov: true,
@@ -265,8 +261,6 @@ describe("svar page arbeidsgiver", () => {
 
       await waitFor(() =>
         expect(requestResolver).toHaveBeenCalledWith({
-          arbeidstakerFnr: "12345678912345",
-          virksomhetsnummer: "123456789",
           narmesteLederId: "123",
           formSubmission: {
             harMotebehov: true,

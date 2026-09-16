@@ -19,7 +19,6 @@ const handler = async (
   const data = await fetchConcurrentDataAG(
     req,
     sykmeldtDTO.fnr,
-    sykmeldtDTO.orgnummer,
     narmestelederid,
   );
 

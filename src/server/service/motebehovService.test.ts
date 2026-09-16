@@ -7,10 +7,14 @@ import { motebehovStatusSchema } from "./schema/motebehovSchema";
 
 const mocks = vi.hoisted(() => ({
   get: vi.fn(),
+  post: vi.fn(),
 }));
 
 vi.mock("@/server/tokenXFetch/tokenXFetchGet", () => ({
   tokenXFetchGet: mocks.get,
+}));
+vi.mock("@/server/tokenXFetch/tokenXFetchPost", () => ({
+  tokenXFetchPost: mocks.post,
 }));
 
 vi.mock("@/server/utils/serverEnv", () => ({
@@ -22,25 +26,24 @@ vi.mock("@/server/utils/serverEnv", () => ({
 describe("getMotebehovAG", () => {
   beforeEach(() => {
     mocks.get.mockReset().mockResolvedValue(undefined);
+    mocks.post.mockReset().mockResolvedValue(undefined);
   });
 
-  it("includes narmesteLederId in the syfomotebehov query", async () => {
+  it("sends only narmesteLederId in a POST body", async () => {
     const req = {} as NextApiRequest;
 
-    await getMotebehovAG(
-      req,
-      "synthetic-fnr",
-      "synthetic-orgnummer",
-      "synthetic-leder-id",
-    );
+    await getMotebehovAG(req, "synthetic-leder-id");
 
-    expect(mocks.get).toHaveBeenCalledWith({
+    expect(mocks.post).toHaveBeenCalledWith({
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
       operation: RuntimeOperation.MOTEBEHOV_FETCH,
       endpoint:
-        "https://syfomotebehov.invalid/syfomotebehov/api/v4/motebehov?fnr=synthetic-fnr&virksomhetsnummer=synthetic-orgnummer&narmesteLederId=synthetic-leder-id",
+        "https://syfomotebehov.invalid/syfomotebehov/api/v5/arbeidsgiver/motebehov/status",
+      data: { narmesteLederId: "synthetic-leder-id" },
       responseDataSchema: motebehovStatusSchema,
     });
+    expect(JSON.stringify(mocks.post.mock.calls)).not.toContain("fnr");
+    expect(JSON.stringify(mocks.post.mock.calls)).not.toContain("orgnummer");
   });
 });

@@ -36,8 +36,6 @@ const response = () => {
 };
 
 const requestBody = {
-  arbeidstakerFnr: "synthetic-fnr",
-  virksomhetsnummer: "synthetic-orgnummer",
   narmesteLederId: "synthetic-leder-id",
   formSubmission: {
     harMotebehov: true,
@@ -55,7 +53,7 @@ describe("arbeidsgiver motebehov API", () => {
     mocks.warn.mockReset();
   });
 
-  it("forwards narmesteLederId to syfomotebehov", async () => {
+  it("forwards only narmesteLederId and form submission to syfomotebehov", async () => {
     const req = { body: requestBody } as NextApiRequest;
     const res = response();
 
@@ -65,7 +63,8 @@ describe("arbeidsgiver motebehov API", () => {
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
-      endpoint: "https://syfomotebehov.invalid/syfomotebehov/api/v4/motebehov",
+      endpoint:
+        "https://syfomotebehov.invalid/syfomotebehov/api/v5/arbeidsgiver/motebehov",
       data: requestBody,
     });
     expect(mocks.post.mock.calls[0]?.[0].data).toBe(requestBody);
