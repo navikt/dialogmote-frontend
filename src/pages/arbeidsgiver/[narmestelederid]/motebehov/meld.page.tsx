@@ -4,10 +4,7 @@ import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebeho
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
-import type {
-  MotebehovSvarFormRequestAG,
-  MotebehovSvarRequest,
-} from "@/types/shared/motebehov";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 import {
   arbeidsgiverLesMerLenkerSentence,
   commonTextsForAGSvarAndMeld,
@@ -28,10 +25,7 @@ const MeldBehov = (): ReactElement => {
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarFormRequestAG = {
-      formSubmission: motebehovSvar,
-    };
-    mutate(svar);
+    mutate(motebehovSvar);
   };
 
   return (

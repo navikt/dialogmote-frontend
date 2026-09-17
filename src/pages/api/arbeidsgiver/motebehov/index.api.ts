@@ -84,10 +84,7 @@ const handler = async (
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
       endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v5/arbeidsgiver/motebehov`,
-      data: {
-        narmesteLederId: svar.narmesteLederId,
-        formSubmission: svar.formSubmission,
-      },
+      data: parsedSvar.data,
     });
   }
   res.status(200).end();

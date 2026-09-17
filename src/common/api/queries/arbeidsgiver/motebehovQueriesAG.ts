@@ -5,7 +5,7 @@ import { useApiBasePath, useLandingUrl } from "@/common/hooks/routeHooks";
 import { useNarmesteLederId } from "@/common/hooks/useNarmesteLederId";
 import { useNotifications } from "@/context/NotificationContext";
 import type {
-  MotebehovSvarFormRequestAG,
+  MotebehovSvarRequest,
   MotebehovSvarRequestAG,
 } from "@/types/shared/motebehov";
 
@@ -17,14 +17,14 @@ export const useSvarPaMotebehovAG = () => {
   const { displaySuccessToast, displayErrorToast, clearNotifications } =
     useNotifications();
 
-  const postSvar = (svar: MotebehovSvarFormRequestAG) => {
+  const postSvar = (formSubmission: MotebehovSvarRequest) => {
     if (!narmesteLederId) {
       throw new Error("Cannot submit motebehov without narmesteLederId");
     }
 
     const request: MotebehovSvarRequestAG = {
-      ...svar,
       narmesteLederId,
+      formSubmission,
     };
     return post(`${basepath}/motebehov`, request);
   };

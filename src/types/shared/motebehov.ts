@@ -27,7 +27,3 @@ export type MotebehovSvarRequestAG = {
   narmesteLederId: string;
   formSubmission: MotebehovSvarRequest;
 };
-
-export type MotebehovSvarFormRequestAG = {
-  formSubmission: MotebehovSvarRequest;
-};

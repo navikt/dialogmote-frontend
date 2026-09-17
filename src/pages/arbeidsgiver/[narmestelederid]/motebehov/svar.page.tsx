@@ -9,10 +9,7 @@ import {
   ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL,
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
 } from "@/common/constants/staticUrls";
-import type {
-  MotebehovSvarFormRequestAG,
-  MotebehovSvarRequest,
-} from "@/types/shared/motebehov";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 
 export const commonTextsForSvarAGAndSM = {
   topBodyText:
@@ -63,10 +60,7 @@ const SvarBehov = (): ReactElement => {
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarFormRequestAG = {
-      formSubmission: motebehovSvar,
-    };
-    mutate(svar);
+    mutate(motebehovSvar);
   };
 
   return (
