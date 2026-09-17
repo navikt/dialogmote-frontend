@@ -29,21 +29,26 @@ describe("getMotebehovAG", () => {
     mocks.post.mockReset().mockResolvedValue(undefined);
   });
 
-  it("sends only narmesteLederId in a POST body", async () => {
+  it("gets status using only narmesteLederId in the path", async () => {
     const req = {} as NextApiRequest;
 
-    await getMotebehovAG(req, "synthetic-leder-id");
+    await getMotebehovAG(req, "00000000-0000-4000-8000-000000000000");
 
-    expect(mocks.post).toHaveBeenCalledWith({
+    expect(mocks.get).toHaveBeenCalledWith({
       req,
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
       operation: RuntimeOperation.MOTEBEHOV_FETCH,
       endpoint:
-        "https://syfomotebehov.invalid/syfomotebehov/api/v5/arbeidsgiver/motebehov/status",
-      data: { narmesteLederId: "synthetic-leder-id" },
+        "https://syfomotebehov.invalid/syfomotebehov/api/v5/arbeidsgiver/motebehov/00000000-0000-4000-8000-000000000000",
       responseDataSchema: motebehovStatusSchema,
     });
-    expect(JSON.stringify(mocks.post.mock.calls)).not.toContain("fnr");
-    expect(JSON.stringify(mocks.post.mock.calls)).not.toContain("orgnummer");
+    expect(mocks.post).not.toHaveBeenCalled();
+
+    const args = mocks.get.mock.calls[0]?.[0] as Record<string, unknown>;
+    expect(args).not.toHaveProperty("data");
+    expect(args).not.toHaveProperty("personIdent");
+    expect(args).not.toHaveProperty("orgnummer");
+    expect(JSON.stringify(mocks.get.mock.calls)).not.toContain("fnr");
+    expect(JSON.stringify(mocks.get.mock.calls)).not.toContain("orgnummer");
   });
 });
