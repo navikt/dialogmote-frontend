@@ -1,6 +1,7 @@
 import { logger } from "@navikt/next-logger";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
 import { isValidNarmestelederId } from "@/common/utils/validateNarmestelederId";
 import {
   meldMotebehovAGOutputFixture,
@@ -10,16 +11,23 @@ import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
+import { formSnapshotRequestSchema } from "@/server/service/schema/formSnapshotSchema";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
-import type { MotebehovSvarRequestAG } from "@/types/shared/motebehov";
+
+const motebehovSvarRequestAGSchema = z.object({
+  narmesteLederId: z.string(),
+  formSubmission: z.object({
+    harMotebehov: z.boolean(),
+    formSnapshot: formSnapshotRequestSchema,
+  }),
+});
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> => {
-  const svar: MotebehovSvarRequestAG = req.body;
-  const svarLength = JSON.stringify(svar)?.length ?? 0;
+  const svarLength = JSON.stringify(req.body)?.length ?? 0;
 
   if (svarLength > MAX_LENGTH_MOTEBEHOV_SVAR_JSON) {
     logger.error(
@@ -29,11 +37,16 @@ const handler = async (
     return;
   }
 
-  if (!isValidNarmestelederId(svar?.narmesteLederId)) {
+  const parsedSvar = motebehovSvarRequestAGSchema.safeParse(req.body);
+  if (
+    !parsedSvar.success ||
+    !isValidNarmestelederId(parsedSvar.data.narmesteLederId)
+  ) {
     logger.warn("Received invalid arbeidsgiver motebehov request");
     res.status(400).end();
     return;
   }
+  const svar = parsedSvar.data;
 
   if (isMockBackend) {
     const data = getMockDb(req);
@@ -71,7 +84,10 @@ const handler = async (
       targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
       endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v5/arbeidsgiver/motebehov`,
-      data: svar,
+      data: {
+        narmesteLederId: svar.narmesteLederId,
+        formSubmission: svar.formSubmission,
+      },
     });
   }
   res.status(200).end();

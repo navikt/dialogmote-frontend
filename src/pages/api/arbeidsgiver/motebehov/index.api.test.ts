@@ -42,7 +42,14 @@ const requestBody = {
     formSnapshot: {
       formIdentifier: "motebehov-arbeidsgiver-meld",
       formSemanticVersion: "1.0.0",
-      fieldSnapshots: [],
+      fieldSnapshots: [
+        {
+          fieldId: "begrunnelse",
+          fieldType: "TEXT",
+          label: "Begrunnelse for mote",
+          value: "Legitim begrunnelse",
+        },
+      ],
     },
   },
 };
@@ -53,8 +60,25 @@ describe("arbeidsgiver motebehov API", () => {
     mocks.warn.mockReset();
   });
 
-  it("forwards only narmesteLederId and form submission to syfomotebehov", async () => {
-    const req = { body: requestBody } as NextApiRequest;
+  it("discards unknown fields before forwarding to syfomotebehov", async () => {
+    const req = {
+      body: {
+        ...requestBody,
+        formSubmission: {
+          ...requestBody.formSubmission,
+          formSnapshot: {
+            ...requestBody.formSubmission.formSnapshot,
+            fieldSnapshots: [
+              {
+                ...requestBody.formSubmission.formSnapshot.fieldSnapshots[0],
+                piiCanary: "must-not-be-forwarded",
+              },
+            ],
+          },
+          piiCanary: "must-not-be-forwarded",
+        },
+      },
+    } as NextApiRequest;
     const res = response();
 
     await handler(req, res as unknown as NextApiResponse);
@@ -65,10 +89,36 @@ describe("arbeidsgiver motebehov API", () => {
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
       endpoint:
         "https://syfomotebehov.invalid/syfomotebehov/api/v5/arbeidsgiver/motebehov",
-      data: requestBody,
+      data: {
+        narmesteLederId: requestBody.narmesteLederId,
+        formSubmission: requestBody.formSubmission,
+      },
     });
-    expect(mocks.post.mock.calls[0]?.[0].data).toBe(requestBody);
+    expect(mocks.post.mock.calls[0]?.[0].data).not.toHaveProperty(
+      "formSubmission.piiCanary",
+    );
+    expect(mocks.post.mock.calls[0]?.[0].data).not.toHaveProperty(
+      "formSubmission.formSnapshot.fieldSnapshots[0].piiCanary",
+    );
     expect(res.status).toHaveBeenCalledWith(200);
+  });
+
+  it("rejects an invalid form submission before forwarding", async () => {
+    const req = {
+      body: {
+        ...requestBody,
+        formSubmission: { harMotebehov: "true" },
+      },
+    } as NextApiRequest;
+    const res = response();
+
+    await handler(req, res as unknown as NextApiResponse);
+
+    expect(mocks.post).not.toHaveBeenCalled();
+    expect(mocks.warn).toHaveBeenCalledWith(
+      "Received invalid arbeidsgiver motebehov request",
+    );
+    expect(res.status).toHaveBeenCalledWith(400);
   });
 
   it("rejects an invalid narmesteLederId before forwarding", async () => {
