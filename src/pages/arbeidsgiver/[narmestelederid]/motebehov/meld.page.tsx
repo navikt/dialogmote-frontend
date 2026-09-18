@@ -1,14 +1,10 @@
 import { BodyLong, BodyShort } from "@navikt/ds-react";
 import type { ReactElement } from "react";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import MeldBehovForm from "@/common/components/motebehov/MeldBehovForm";
 import { ArbeidsgiverMeldBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
 import ArbeidsgiverSide from "@/common/components/page/ArbeidsgiverSide";
-import type {
-  MotebehovSvarRequest,
-  MotebehovSvarRequestAG,
-} from "@/types/shared/motebehov";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 import {
   arbeidsgiverLesMerLenkerSentence,
   commonTextsForAGSvarAndMeld,
@@ -26,16 +22,10 @@ const texts = {
 };
 
 const MeldBehov = (): ReactElement => {
-  const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarRequestAG = {
-      virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
-      arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
-      formSubmission: motebehovSvar,
-    };
-    mutate(svar);
+    mutate(motebehovSvar);
   };
 
   return (

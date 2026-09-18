@@ -7,16 +7,13 @@ import { motebehovStatusSchema } from "./schema/motebehovSchema";
 
 export async function getMotebehovAG(
   req: NextApiRequest,
-  fnr: string,
-  orgnummer: string,
+  narmesteLederId: string,
 ) {
-  const url = `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v4/motebehov?fnr=${fnr}&virksomhetsnummer=${orgnummer}`;
-
   return tokenXFetchGet({
     req,
     targetApi: TokenXTargetApi.SYFOMOTEBEHOV,
     operation: RuntimeOperation.MOTEBEHOV_FETCH,
-    endpoint: url,
+    endpoint: `${serverEnv.SYFOMOTEBEHOV_HOST}/syfomotebehov/api/v5/arbeidsgiver/motebehov/${narmesteLederId}`,
     responseDataSchema: motebehovStatusSchema,
   });
 }

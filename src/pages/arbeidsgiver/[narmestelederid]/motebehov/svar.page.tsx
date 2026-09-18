@@ -1,7 +1,6 @@
 import { ExternalLinkIcon } from "@navikt/aksel-icons";
 import { BodyLong, BodyShort, Link } from "@navikt/ds-react";
 import type { ReactElement } from "react";
-import { useDialogmoteDataAG } from "@/common/api/queries/arbeidsgiver/dialogmoteDataQueryAG";
 import { useSvarPaMotebehovAG } from "@/common/api/queries/arbeidsgiver/motebehovQueriesAG";
 import SvarBehovForm from "@/common/components/motebehov/SvarBehovForm";
 import { ArbeidsgiverSvarPaaBehovGuidePanel } from "@/common/components/motebehov/SvarOgMeldBehovGuidePanels";
@@ -10,10 +9,7 @@ import {
   ARBEIDSGIVER_DIALOGMOTE_MED_NAV_INFO_URL,
   ARBEIDSGIVER_VIRKEMIDLER_OG_TILTAK_INFO_URL,
 } from "@/common/constants/staticUrls";
-import type {
-  MotebehovSvarRequest,
-  MotebehovSvarRequestAG,
-} from "@/types/shared/motebehov";
+import type { MotebehovSvarRequest } from "@/types/shared/motebehov";
 
 export const commonTextsForSvarAGAndSM = {
   topBodyText:
@@ -61,16 +57,10 @@ export const arbeidsgiverLesMerLenkerSentence = (
 );
 
 const SvarBehov = (): ReactElement => {
-  const dialogmoteData = useDialogmoteDataAG();
   const { mutate, isPending } = useSvarPaMotebehovAG();
 
   const submitSvar = (motebehovSvar: MotebehovSvarRequest) => {
-    const svar: MotebehovSvarRequestAG = {
-      virksomhetsnummer: dialogmoteData.data?.sykmeldt?.orgnummer || "",
-      arbeidstakerFnr: dialogmoteData.data?.sykmeldt?.fnr || "",
-      formSubmission: motebehovSvar,
-    };
-    mutate(svar);
+    mutate(motebehovSvar);
   };
 
   return (
