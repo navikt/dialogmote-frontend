@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { fetchConcurrentDataSM } from "@/server/data/sykmeldt/fetchConcurrentDataSM";
 import { mapDialogmoteDataSM } from "@/server/data/sykmeldt/mapDialogmoteDataSM";
+import { withUpstreamErrorResponse } from "@/server/observability/withUpstreamErrorResponse";
 
 const handler = async (
   req: NextApiRequest,
@@ -17,4 +18,4 @@ const handler = async (
   }
 };
 
-export default handler;
+export default withUpstreamErrorResponse(handler);

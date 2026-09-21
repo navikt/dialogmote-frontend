@@ -54,7 +54,7 @@ describe("runtime error contract", () => {
         error_code: "UPSTREAM_NETWORK_ERROR",
         upstream: "syfomotebehov",
       }),
-      "Upstream request failed",
+      "Kunne ikke sende møtebehov",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain(
       "secret network detail",

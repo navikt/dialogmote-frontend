@@ -1,6 +1,8 @@
-import { logger } from "@navikt/next-logger";
+import { defineEvent } from "@navikt/esyfo-logger";
 import { requestTokenxOboToken } from "@navikt/oasis";
-import { HttpError } from "@/common/utils/errors/HttpError";
+import { transportFailureDiagnostics } from "@/common/utils/failureDiagnostics";
+import { LoggedUpstreamError } from "@/server/observability/LoggedUpstreamError";
+import { appLog } from "@/server/observability/logger";
 import serverEnv from "@/server/utils/serverEnv";
 
 export enum TokenXTargetApi {
@@ -18,30 +20,53 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
   let tokenXGrant: Awaited<ReturnType<typeof requestTokenxOboToken>>;
   try {
     tokenXGrant = await requestTokenxOboToken(idPortenToken, clientId);
-  } catch {
-    throwTokenXExchangeError(targetApi);
+  } catch (error) {
+    throwTokenXExchangeError(targetApi, error);
   }
 
   if (!tokenXGrant.ok) {
     // Oasis does not distinguish rejected grants from provider/network failures.
     // The ID-porten token was already validated before requesting this exchange.
-    throwTokenXExchangeError(targetApi);
+    throwTokenXExchangeError(targetApi, tokenXGrant.error);
   }
 
   return tokenXGrant.token;
 }
 
-function throwTokenXExchangeError(targetApi: TokenXTargetApi): never {
-  logger.error(
-    {
-      event_type: "tokenx_obo_exchange_failed",
-      operation: "exchange_tokenx_obo",
-      error_code: "TOKENX_OBO_EXCHANGE_ERROR",
-      upstream: tokenXTargetApiToUpstream(targetApi),
-    },
-    "TokenX OBO exchange failed",
-  );
-  throw new HttpError(500, "TokenX OBO exchange failed");
+const tokenExchangeFailed = defineEvent<{
+  failure_kind: string;
+  error_code: string;
+  cause_type?: string;
+  failure_stage: "token_exchange";
+  dependency: "tokenx";
+  upstream: string;
+}>({
+  name: "tokenx_obo_exchange_failed",
+  operation: "exchange_tokenx_obo",
+  level: "error",
+  message: "TokenX OBO exchange failed",
+});
+
+function throwTokenXExchangeError(
+  targetApi: TokenXTargetApi,
+  cause: unknown,
+): never {
+  const diagnostics = transportFailureDiagnostics(cause);
+  appLog.event(tokenExchangeFailed, {
+    ...diagnostics,
+    failure_kind:
+      diagnostics.failure_kind === "unknown"
+        ? "token"
+        : diagnostics.failure_kind,
+    error_code:
+      diagnostics.failure_kind === "unknown"
+        ? "TOKENX_OBO_EXCHANGE_ERROR"
+        : diagnostics.error_code,
+    failure_stage: "token_exchange",
+    dependency: "tokenx",
+    upstream: tokenXTargetApiToUpstream(targetApi),
+  });
+  throw new LoggedUpstreamError(500, "TokenX OBO exchange failed");
 }
 
 export function tokenXTargetApiToUpstream(

@@ -11,6 +11,7 @@ import { MAX_LENGTH_MOTEBEHOV_SVAR_JSON } from "@/pages/api/constants";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
+import { withUpstreamErrorResponse } from "@/server/observability/withUpstreamErrorResponse";
 import { formSnapshotRequestSchema } from "@/server/service/schema/formSnapshotSchema";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
@@ -89,4 +90,4 @@ const handler = async (
   }
   res.status(200).end();
 };
-export default handler;
+export default withUpstreamErrorResponse(handler);
