@@ -60,14 +60,14 @@ const secretCause = () =>
 const expectSafeFailure = (
   res: ReturnType<typeof response>,
   event: string,
-  kind: string,
+  errorCode: string,
 ) => {
   expect(res.status).toHaveBeenCalledWith(500);
   expect(res.end).toHaveBeenCalledWith("Internal Server Error");
   expect(mocks.lines).toHaveLength(1);
   expect(JSON.parse(mocks.lines[0])).toMatchObject({
     event_type: event,
-    failure_kind: kind,
+    error_code: errorCode,
   });
   expect(mocks.lines.join()).not.toContain("secret-");
   expect(inspect(res.end.mock.calls)).not.toContain("secret-");
@@ -94,7 +94,7 @@ describe("upstream failures at the actual Pages API boundary", () => {
     );
     const res = response();
     await arbeidsgiverHandler(req, res as unknown as NextApiResponse);
-    expectSafeFailure(res, "dialogmote_sykmeldt_fetch_failed", "dns");
+    expectSafeFailure(res, "dialogmote_sykmeldt_fetch_failed", "ENOTFOUND");
   });
 
   it("consumes JSON parse errors containing response content", async () => {
@@ -109,7 +109,7 @@ describe("upstream failures at the actual Pages API boundary", () => {
     expectSafeFailure(
       res,
       "dialogmote_sykmeldt_fetch_failed",
-      "invalid_response",
+      "UPSTREAM_RESPONSE_PARSE_ERROR",
     );
   });
 
@@ -119,7 +119,7 @@ describe("upstream failures at the actual Pages API boundary", () => {
     vi.stubGlobal("fetch", fetch);
     const res = response();
     await arbeidsgiverHandler(req, res as unknown as NextApiResponse);
-    expectSafeFailure(res, "tokenx_obo_exchange_failed", "dns");
+    expectSafeFailure(res, "tokenx_obo_exchange_failed", "ENOTFOUND");
     expect(fetch).not.toHaveBeenCalled();
   });
 
@@ -147,14 +147,14 @@ describe("upstream failures at the actual Pages API boundary", () => {
     );
     const res = response();
     await sykmeldtHandler(req, res as unknown as NextApiResponse);
-    expectSafeFailure(res, "dialogmote_motebehov_fetch_failed", "dns");
+    expectSafeFailure(res, "dialogmote_motebehov_fetch_failed", "ENOTFOUND");
   });
 
   it("consumes an actual POST failure at the same boundary", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(secretCause()));
     const res = response();
     await markReadHandler(req, res as unknown as NextApiResponse);
-    expectSafeFailure(res, "dialogmote_brev_mark_read_failed", "dns");
+    expectSafeFailure(res, "dialogmote_brev_mark_read_failed", "ENOTFOUND");
   });
 
   it("keeps authentication rejection behavior outside the upstream boundary", async () => {

@@ -53,15 +53,9 @@ function throwTokenXExchangeError(
 ): never {
   const diagnostics = transportFailureDiagnostics(cause);
   appLog.event(tokenExchangeFailed, {
+    error_code: "TOKENX_OBO_EXCHANGE_ERROR",
     ...diagnostics,
-    failure_kind:
-      diagnostics.failure_kind === "unknown"
-        ? "token"
-        : diagnostics.failure_kind,
-    error_code:
-      diagnostics.failure_kind === "unknown"
-        ? "TOKENX_OBO_EXCHANGE_ERROR"
-        : diagnostics.error_code,
+    failure_kind: "token",
     failure_stage: "token_exchange",
     dependency: "tokenx",
     upstream: tokenXTargetApiToUpstream(targetApi),

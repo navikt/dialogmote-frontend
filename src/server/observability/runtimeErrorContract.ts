@@ -5,10 +5,7 @@ import {
   FetchResponseParseError,
 } from "@/common/api/fetch/errors";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import {
-  type FailureKind,
-  transportFailureDiagnostics,
-} from "@/common/utils/failureDiagnostics";
+import { transportFailureDiagnostics } from "@/common/utils/failureDiagnostics";
 import {
   type TokenXTargetApi,
   tokenXTargetApiToUpstream,
@@ -60,7 +57,7 @@ type RequestFailure = {
 
 type RequestDiagnostics = {
   error_code: string;
-  failure_kind: FailureKind;
+  failure_kind?: string;
   failure_stage: string;
   cause_type?: string;
   upstreamStatus?: number;
@@ -91,6 +88,7 @@ const classifyRequestFailure = (
   }
   if (error instanceof FetchNetworkError) {
     return {
+      error_code: RuntimeErrorCode.UPSTREAM_NETWORK_ERROR,
       ...transportFailureDiagnostics(error),
       failure_stage: "request" as const,
     };
@@ -107,8 +105,8 @@ const classifyRequestFailure = (
     };
   }
   return {
-    ...transportFailureDiagnostics(error),
     error_code: RuntimeErrorCode.UPSTREAM_REQUEST_ERROR,
+    ...transportFailureDiagnostics(error),
     failure_stage: "request" as const,
   };
 };
@@ -130,18 +128,6 @@ const requestEvent = (operation: RuntimeOperation) =>
     level: "error",
     message: requestFailureMessage[operation],
   });
-const requestEvents = {
-  lumi_feedback_submit: requestEvent(RuntimeOperation.LUMI_FEEDBACK_SUBMIT),
-  brev_list_fetch: requestEvent(RuntimeOperation.BREV_LIST_FETCH),
-  brev_pdf_fetch: requestEvent(RuntimeOperation.BREV_PDF_FETCH),
-  brev_mark_read: requestEvent(RuntimeOperation.BREV_MARK_READ),
-  brev_response_submit: requestEvent(RuntimeOperation.BREV_RESPONSE_SUBMIT),
-  motebehov_submit: requestEvent(RuntimeOperation.MOTEBEHOV_SUBMIT),
-  motebehov_complete: requestEvent(RuntimeOperation.MOTEBEHOV_COMPLETE),
-  motebehov_fetch: requestEvent(RuntimeOperation.MOTEBEHOV_FETCH),
-  sykmeldt_fetch: requestEvent(RuntimeOperation.SYKMELDT_FETCH),
-};
-
 const relationNotFoundEvent = defineEvent<RequestLogContext>({
   name: "dialogmote_sykmeldt_fetch_failed",
   operation: RuntimeOperation.SYKMELDT_FETCH,
@@ -162,7 +148,7 @@ const logRuntimeError = ({
   upstreamStatus?: number;
   validationError?: ZodError;
   diagnostics?: {
-    failure_kind: string;
+    failure_kind?: string;
     failure_stage: string;
     cause_type?: string;
   };
@@ -170,7 +156,7 @@ const logRuntimeError = ({
   appLog.event(
     errorCode === "SYKMELDT_NOT_FOUND"
       ? relationNotFoundEvent
-      : requestEvents[operation],
+      : requestEvent(operation),
     {
       error_code: errorCode,
       upstream: tokenXTargetApiToUpstream(targetApi),
