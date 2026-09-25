@@ -1,12 +1,14 @@
 import type { NextApiRequest } from "next";
 import type { z } from "zod";
 import { get } from "@/common/api/fetch";
+import { isAbortError } from "@/common/api/fetch/errors";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { validateAndGetIdportenToken } from "@/server/auth/idporten/idportenToken";
 import {
   exchangeIdPortenTokenForTokenXOboToken,
   type TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
+import { LoggedUpstreamError } from "@/server/observability/LoggedUpstreamError";
 import {
   logResponseSchemaFailure,
   logUpstreamRequestFailure,
@@ -35,13 +37,16 @@ const withTokenXGet = async <ResponseData>(
   try {
     return await request(accessToken);
   } catch (error) {
+    if (isAbortError(error)) throw error;
     logUpstreamRequestFailure({
       operation,
       targetApi,
       method: "GET",
       error,
     });
-    throw error;
+    throw new LoggedUpstreamError(
+      error instanceof HttpError ? error.code : 500,
+    );
   }
 };
 
@@ -67,7 +72,10 @@ export async function tokenXFetchGet<S extends z.ZodType>({
       targetApi: args.targetApi,
       validationError: parsed.error,
     });
-    throw new HttpError(500, "Upstream response did not match expected schema");
+    throw new LoggedUpstreamError(
+      500,
+      "Upstream response did not match expected schema",
+    );
   }
 
   return parsed.data;

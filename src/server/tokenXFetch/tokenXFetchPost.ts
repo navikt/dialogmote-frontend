@@ -1,10 +1,13 @@
 import type { NextApiRequest } from "next";
 import { post } from "@/common/api/fetch";
+import { isAbortError } from "@/common/api/fetch/errors";
+import { HttpError } from "@/common/utils/errors/HttpError";
 import { validateAndGetIdportenToken } from "@/server/auth/idporten/idportenToken";
 import {
   exchangeIdPortenTokenForTokenXOboToken,
   type TokenXTargetApi,
 } from "@/server/auth/tokenXExchange";
+import { LoggedUpstreamError } from "@/server/observability/LoggedUpstreamError";
 import {
   logUpstreamRequestFailure,
   type RuntimeOperation,
@@ -52,12 +55,15 @@ export async function tokenXFetchPost<ResponseData>({
       orgnummer,
     });
   } catch (error) {
+    if (isAbortError(error)) throw error;
     logUpstreamRequestFailure({
       operation,
       targetApi,
       method: "POST",
       error,
     });
-    throw error;
+    throw new LoggedUpstreamError(
+      error instanceof HttpError ? error.code : 500,
+    );
   }
 }

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
+import { withUpstreamErrorResponse } from "@/server/observability/withUpstreamErrorResponse";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 
@@ -20,4 +21,4 @@ const handler = async (
   }
   res.status(200).end();
 };
-export default handler;
+export default withUpstreamErrorResponse(handler);

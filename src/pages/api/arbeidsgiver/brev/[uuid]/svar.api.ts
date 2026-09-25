@@ -3,6 +3,7 @@ import { isDemoOrLocal, isLocal } from "@/common/publicEnv";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import getMockDb from "@/server/data/mock/getMockDb";
 import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
+import { withUpstreamErrorResponse } from "@/server/observability/withUpstreamErrorResponse";
 import { tokenXFetchPost } from "@/server/tokenXFetch/tokenXFetchPost";
 import serverEnv from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
@@ -43,4 +44,4 @@ const handler = async (
   }
   res.status(200).end();
 };
-export default handler;
+export default withUpstreamErrorResponse(handler);

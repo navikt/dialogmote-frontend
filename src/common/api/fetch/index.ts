@@ -79,7 +79,7 @@ const parseJsonResponse = async <ResponseData>({
     text = await response.text();
   } catch (error) {
     if (isAbortError(error)) throw error;
-    throwParseError(requestUrl, method, "body_read");
+    throwParseError(requestUrl, method, "body_read", error);
   }
   if (!text) {
     return undefined as ResponseData;
@@ -87,8 +87,8 @@ const parseJsonResponse = async <ResponseData>({
 
   try {
     return JSON.parse(text) as ResponseData;
-  } catch {
-    throwParseError(requestUrl, method, "invalid_json");
+  } catch (error) {
+    throwParseError(requestUrl, method, "invalid_json", error);
   }
 };
 
@@ -109,34 +109,53 @@ const parseResponse = async <ResponseData>({
       return new Uint8Array(buffer) as ResponseData;
     } catch (error) {
       if (isAbortError(error)) throw error;
-      throwParseError(requestUrl, method, "body_read");
+      throwParseError(requestUrl, method, "body_read", error);
     }
   }
 
   return parseJsonResponse<ResponseData>({ response, requestUrl, method });
 };
 
-const throwHttpError = (
+const throwHttpError = async (
   response: Response,
   requestUrl: string,
   method: "GET" | "POST",
-): never => {
+): Promise<never> => {
   if (response.status === 401 && typeof window !== "undefined") {
     loginUser();
   }
 
+  // Only this code is part of the reviewed API contract; never retain a body.
+  let upstreamErrorCode: "SYKMELDT_NOT_FOUND" | undefined;
+  if (response.status === 404) {
+    const body: unknown = await response.json().catch((error: unknown) => {
+      if (isAbortError(error)) throw error;
+      return undefined;
+    });
+    if (
+      typeof body === "object" &&
+      body !== null &&
+      "error_code" in body &&
+      body.error_code === "SYKMELDT_NOT_FOUND"
+    ) {
+      upstreamErrorCode = "SYKMELDT_NOT_FOUND";
+    }
+  }
   throw new HttpError(
     response.status,
     `Request failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)} status=${response.status}`,
+    { upstreamErrorCode },
   );
 };
 
 const throwNetworkError = (
   requestUrl: string,
   method: "GET" | "POST",
+  cause: unknown,
 ): never => {
   throw new FetchNetworkError(
     `Network request failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
+    { cause },
   );
 };
 
@@ -144,10 +163,12 @@ function throwParseError(
   requestUrl: string,
   method: "GET" | "POST",
   failureReason: FetchResponseFailureReason,
+  cause: unknown,
 ): never {
   throw new FetchResponseParseError(
     `Response parsing failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
     failureReason,
+    { cause },
   );
 }
 
@@ -226,7 +247,7 @@ async function request<ResponseData>({
     });
   } catch (error) {
     if (isAbortError(error)) throw error;
-    throwNetworkError(requestUrl, method);
+    throwNetworkError(requestUrl, method, error);
   }
 
   if (!response) {
@@ -234,7 +255,7 @@ async function request<ResponseData>({
   }
 
   if (!response.ok) {
-    throwHttpError(response, requestUrl, method);
+    await throwHttpError(response, requestUrl, method);
   }
 
   return parseResponse<ResponseData>({

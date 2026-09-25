@@ -8,6 +8,7 @@ import {
 } from "@opentelemetry/api";
 import {
   afterAll,
+  afterEach,
   beforeAll,
   beforeEach,
   describe,
@@ -16,6 +17,7 @@ import {
   vi,
 } from "vitest";
 import { literal, object } from "zod";
+import { get } from "@/common/api/fetch";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import {
@@ -93,6 +95,10 @@ describe("serialized runtime error contract", () => {
     serializedLogLines.length = 0;
   });
 
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   afterAll(() => {
     context.disable();
   });
@@ -120,7 +126,7 @@ describe("serialized runtime error contract", () => {
       method: "GET",
       upstream_status: 503,
       trace_id: traceId,
-      message: "Upstream request failed",
+      message: "Kunne ikke hente PDF for dialogmøtebrev",
     });
     expect(parsed).not.toHaveProperty("status");
     expect(parsed).not.toHaveProperty("err");
@@ -160,4 +166,71 @@ describe("serialized runtime error contract", () => {
     expect(logLine).not.toContain(privateValue);
     expect(logLine).not.toMatch(/01017012345|example\.test|person\/123/);
   });
+  it.each(["ENOTFOUND", "ETIMEDOUT", "ECONNREFUSED", "CERT_HAS_EXPIRED"])(
+    "keeps %s diagnosis from the actual fetch boundary without leaking cause content",
+    async (code) => {
+      const cause = Object.assign(
+        new Error("secret-network-canary-01017012345"),
+        { code, headers: { Authorization: "secret-token-canary" } },
+      );
+      const original = new TypeError("secret-url-canary", { cause });
+      vi.stubGlobal("fetch", vi.fn().mockRejectedValue(original));
+      const error = await get("/syk/dialogmoter/api/brev").catch(
+        (caught: unknown) => caught,
+      );
+      expect(error).toHaveProperty("cause", original);
+      logUpstreamRequestFailure({
+        operation: RuntimeOperation.BREV_LIST_FETCH,
+        targetApi: TokenXTargetApi.ISDIALOGMOTE,
+        method: "GET",
+        error,
+      });
+      expect(serializedLogLines).toHaveLength(1);
+      expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+        error_code: code,
+        failure_stage: "request",
+        cause_type: "Error",
+      });
+      expect(serializedLogLines[0]).not.toMatch(/secret-|01017012345/);
+    },
+  );
+
+  it.each([
+    ["SYKMELDT_NOT_FOUND", "SYKMELDT_NOT_FOUND"],
+    ["secret-response-code", "UPSTREAM_HTTP_ERROR"],
+  ])(
+    "recognizes only the explicit missing-relation code %s on 404",
+    async (code, errorCode) => {
+      vi.stubGlobal(
+        "fetch",
+        vi
+          .fn()
+          .mockResolvedValue(
+            Response.json(
+              { error_code: code, reason: "secret-body-canary" },
+              { status: 404 },
+            ),
+          ),
+      );
+      const error = await get(
+        "/syk/dialogmoter/api/arbeidsgiver/relation",
+      ).catch((caught: unknown) => caught);
+      logUpstreamRequestFailure({
+        operation: RuntimeOperation.SYKMELDT_FETCH,
+        targetApi: TokenXTargetApi.DINESYKMELDTE_BACKEND,
+        method: "GET",
+        error,
+      });
+      expect(serializedLogLines).toHaveLength(1);
+      expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+        level: "error",
+        event_type: "dialogmote_sykmeldt_fetch_failed",
+        error_code: errorCode,
+        upstream_status: 404,
+        failure_stage: "response",
+        upstream: "dinesykmeldte-backend",
+      });
+      expect(serializedLogLines[0]).not.toContain("secret-");
+    },
+  );
 });
