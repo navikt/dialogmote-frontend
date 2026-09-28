@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { fetchConcurrentDataAG } from "@/server/data/arbeidsgiver/fetchConcurrentDataAG";
 import { fetchSykmeldtAG } from "@/server/data/arbeidsgiver/fetchSykmeldtAG";
 import { mapDialogmoteDataAG } from "@/server/data/arbeidsgiver/mapDialogmoteDataAG";
+import { withUpstreamErrorResponse } from "@/server/observability/withUpstreamErrorResponse";
 import { logMissingMoteinnkallingAG } from "@/server/utils/logMissingMoteinnkallingAG";
 
 const handler = async (
@@ -38,4 +39,4 @@ const handler = async (
     res.status(500).json({ error: "Failed to fetch data" });
   }
 };
-export default handler;
+export default withUpstreamErrorResponse(handler);

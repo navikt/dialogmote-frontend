@@ -13,8 +13,9 @@ export class FetchResponseParseError extends Error {
   constructor(
     message?: string,
     readonly failureReason: FetchResponseFailureReason = "invalid_json",
+    options?: ErrorOptions,
   ) {
-    super(message);
+    super(message, options);
   }
 }
 

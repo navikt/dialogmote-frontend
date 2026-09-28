@@ -78,8 +78,10 @@ describe("tokenXFetchGet", () => {
         upstream: "isdialogmote",
         method: "GET",
         upstream_status: 503,
+        failure_kind: "http",
+        failure_stage: "response",
       },
-      "Upstream request failed",
+      "Kunne ikke hente dialogmøtebrev",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain("safe-canary");
     expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("endpoint");
@@ -101,13 +103,21 @@ describe("tokenXFetchGet", () => {
         event_type: "dialogmote_brev_list_fetch_failed",
         operation: "brev_list_fetch",
         error_code: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
+        failure_kind: "invalid_response",
+        failure_stage: "response_validation",
         upstream: "isdialogmote",
         method: "GET",
         validation_error: expect.stringContaining("value"),
       },
-      "Upstream request failed",
+      "Kunne ikke hente dialogmøtebrev",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain("safe-canary");
     expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("endpoint");
+  });
+  it("preserves cancellation without a terminal error event", async () => {
+    const error = new DOMException("Cancelled", "AbortError");
+    mocks.get.mockRejectedValue(error);
+    await expect(tokenXFetchGet(args)).rejects.toBe(error);
+    expect(mocks.error).not.toHaveBeenCalled();
   });
 });

@@ -1,5 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { FetchNetworkError } from "@/common/api/fetch/errors";
+import {
+  FetchNetworkError,
+  FetchResponseParseError,
+} from "@/common/api/fetch/errors";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import {
@@ -40,6 +43,48 @@ describe("runtime error contract", () => {
     },
   );
 
+  it("bevarer transportårsak når lesing av responsbody feiler", () => {
+    logUpstreamRequestFailure({
+      operation: RuntimeOperation.BREV_PDF_FETCH,
+      targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      method: "GET",
+      error: new FetchResponseParseError("safe", "body_read", {
+        cause: new TypeError("secret body detail", {
+          cause: Object.assign(new Error("secret socket detail"), {
+            code: "UND_ERR_BODY_TIMEOUT",
+          }),
+        }),
+      }),
+    });
+
+    expect(mocks.error.mock.calls[0]?.[0]).toEqual(
+      expect.objectContaining({
+        error_code: "UND_ERR_BODY_TIMEOUT",
+        cause_type: "Error",
+        failure_stage: "response_parse",
+      }),
+    );
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("failure_kind");
+    expect(JSON.stringify(mocks.error.mock.calls)).not.toMatch(/secret/);
+  });
+
+  it("beholder lukket kode når body-read-feil mangler kjent årsak", () => {
+    logUpstreamRequestFailure({
+      operation: RuntimeOperation.BREV_PDF_FETCH,
+      targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      method: "GET",
+      error: new FetchResponseParseError("safe", "body_read"),
+    });
+
+    expect(mocks.error.mock.calls[0]?.[0]).toEqual(
+      expect.objectContaining({
+        error_code: "UPSTREAM_RESPONSE_BODY_READ_FAILED",
+        cause_type: "FetchResponseParseError",
+      }),
+    );
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("failure_kind");
+  });
+
   it("klassifiserer nettverksfeil uten å logge feilobjektet", () => {
     logUpstreamRequestFailure({
       operation: RuntimeOperation.MOTEBEHOV_SUBMIT,
@@ -54,7 +99,7 @@ describe("runtime error contract", () => {
         error_code: "UPSTREAM_NETWORK_ERROR",
         upstream: "syfomotebehov",
       }),
-      "Upstream request failed",
+      "Kunne ikke sende møtebehov",
     );
     expect(JSON.stringify(mocks.error.mock.calls)).not.toContain(
       "secret network detail",

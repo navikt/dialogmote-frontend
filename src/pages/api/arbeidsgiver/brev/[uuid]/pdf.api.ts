@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { TokenXTargetApi } from "@/server/auth/tokenXExchange";
 import { pdfMock } from "@/server/data/mock/brev/pdfMock";
 import { RuntimeOperation } from "@/server/observability/runtimeErrorContract";
+import { withUpstreamErrorResponse } from "@/server/observability/withUpstreamErrorResponse";
 import { tokenXFetchGetBytes } from "@/server/tokenXFetch/tokenXFetchGet";
 import serverEnv, { isMockBackend } from "@/server/utils/serverEnv";
 import { isValidUuid } from "@/server/utils/validateUuid";
@@ -31,4 +32,4 @@ const handler = async (
     .end(pdf);
 };
 
-export default handler;
+export default withUpstreamErrorResponse(handler);
