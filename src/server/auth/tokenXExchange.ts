@@ -1,6 +1,9 @@
 import { defineEvent } from "@navikt/esyfo-logger";
 import { requestTokenxOboToken } from "@navikt/oasis";
-import { transportFailureDiagnostics } from "@/common/utils/failureDiagnostics";
+import {
+  type TransportFailureDiagnostics,
+  transportFailureDiagnostics,
+} from "@/common/utils/failureDiagnostics";
 import { LoggedUpstreamError } from "@/server/observability/LoggedUpstreamError";
 import { appLog } from "@/server/observability/logger";
 import serverEnv from "@/server/utils/serverEnv";
@@ -34,12 +37,14 @@ export async function exchangeIdPortenTokenForTokenXOboToken(
 }
 
 const tokenExchangeFailed = defineEvent<{
-  failure_kind: string;
-  error_code: string;
-  cause_type?: string;
+  failure_kind: "token";
+  error_code:
+    | "TOKENX_OBO_EXCHANGE_ERROR"
+    | NonNullable<TransportFailureDiagnostics["error_code"]>;
+  cause_type?: TransportFailureDiagnostics["cause_type"];
   failure_stage: "token_exchange";
   dependency: "tokenx";
-  upstream: string;
+  upstream: ReturnType<typeof tokenXTargetApiToUpstream>;
 }>({
   name: "tokenx_obo_exchange_failed",
   operation: "exchange_tokenx_obo",

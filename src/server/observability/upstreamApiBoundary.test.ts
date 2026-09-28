@@ -98,6 +98,32 @@ describe("upstream failures at the actual Pages API boundary", () => {
     expectSafeFailure(res, "dialogmote_sykmeldt_fetch_failed", "ENOTFOUND");
   });
 
+  it("keeps the unresolved sykmeldt lookup visible as one terminal failure", async () => {
+    const fetch = vi
+      .fn()
+      .mockResolvedValue(
+        Response.json(
+          { error_code: "SYKMELDT_NOT_FOUND", reason: "secret-body-canary" },
+          { status: 404 },
+        ),
+      );
+    vi.stubGlobal("fetch", fetch);
+    const res = response();
+    await arbeidsgiverHandler(req, res as unknown as NextApiResponse);
+    expectSafeFailure(
+      res,
+      "dialogmote_sykmeldt_fetch_failed",
+      "SYKMELDT_NOT_FOUND",
+    );
+    expect(fetch).toHaveBeenCalledOnce();
+    expect(JSON.parse(mocks.lines[0])).toMatchObject({
+      level: "error",
+      upstream: "dinesykmeldte-backend",
+      upstream_status: 404,
+      message: "Ingen sykmeldt funnet innenfor den innloggede lederens tilgang",
+    });
+  });
+
   it("consumes JSON parse errors containing response content", async () => {
     vi.stubGlobal(
       "fetch",

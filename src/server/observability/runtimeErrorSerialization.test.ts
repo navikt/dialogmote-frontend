@@ -270,7 +270,7 @@ describe("serialized runtime error contract", () => {
     ["SYKMELDT_NOT_FOUND", "SYKMELDT_NOT_FOUND"],
     ["secret-response-code", "UPSTREAM_HTTP_ERROR"],
   ])(
-    "recognizes only the explicit missing-relation code %s on 404",
+    "recognizes only the explicit sykmeldt-not-found code %s on 404",
     async (code, errorCode) => {
       vi.stubGlobal(
         "fetch",
@@ -301,6 +301,61 @@ describe("serialized runtime error contract", () => {
         failure_stage: "response",
         upstream: "dinesykmeldte-backend",
       });
+      expect(serializedLogLines[0]).not.toContain("secret-");
+    },
+  );
+
+  it.each([
+    [
+      404,
+      undefined,
+      RuntimeOperation.SYKMELDT_FETCH,
+      TokenXTargetApi.DINESYKMELDTE_BACKEND,
+    ],
+    [
+      503,
+      "SYKMELDT_NOT_FOUND",
+      RuntimeOperation.SYKMELDT_FETCH,
+      TokenXTargetApi.DINESYKMELDTE_BACKEND,
+    ],
+    [
+      404,
+      "SYKMELDT_NOT_FOUND",
+      RuntimeOperation.SYKMELDT_FETCH,
+      TokenXTargetApi.ISDIALOGMOTE,
+    ],
+    [
+      404,
+      "SYKMELDT_NOT_FOUND",
+      RuntimeOperation.BREV_LIST_FETCH,
+      TokenXTargetApi.DINESYKMELDTE_BACKEND,
+    ],
+  ] as const)(
+    "does not infer a missing sykmeldt for HTTP %s, code %s, operation %s, service %s",
+    async (status, code, operation, targetApi) => {
+      vi.stubGlobal(
+        "fetch",
+        vi
+          .fn()
+          .mockResolvedValue(
+            Response.json(
+              { error_code: code, reason: "secret-body-canary" },
+              { status },
+            ),
+          ),
+      );
+      const error = await get("/api/sykmeldt").catch(
+        (caught: unknown) => caught,
+      );
+      logUpstreamRequestFailure({ operation, targetApi, method: "GET", error });
+      expect(serializedLogLines).toHaveLength(1);
+      expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+        level: "error",
+        error_code: "UPSTREAM_HTTP_ERROR",
+        upstream_status: status,
+        failure_kind: "http",
+      });
+      expect(serializedLogLines[0]).not.toContain("Ingen sykmeldt funnet");
       expect(serializedLogLines[0]).not.toContain("secret-");
     },
   );

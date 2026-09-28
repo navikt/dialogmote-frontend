@@ -1,11 +1,14 @@
-import { defineEvent } from "@navikt/esyfo-logger";
+import { defineEvent, type Event } from "@navikt/esyfo-logger";
 import { prettifyError, type ZodError } from "zod";
 import {
   FetchNetworkError,
   FetchResponseParseError,
 } from "@/common/api/fetch/errors";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import { transportFailureDiagnostics } from "@/common/utils/failureDiagnostics";
+import {
+  type TransportFailureDiagnostics,
+  transportFailureDiagnostics,
+} from "@/common/utils/failureDiagnostics";
 import {
   type TokenXTargetApi,
   tokenXTargetApiToUpstream,
@@ -46,7 +49,13 @@ const RuntimeErrorCode = {
   UPSTREAM_RESPONSE_PARSE_ERROR: "UPSTREAM_RESPONSE_PARSE_ERROR",
   UPSTREAM_RESPONSE_SCHEMA_MISMATCH: "UPSTREAM_RESPONSE_SCHEMA_MISMATCH",
   UPSTREAM_REQUEST_ERROR: "UPSTREAM_REQUEST_ERROR",
+  UPSTREAM_RESPONSE_BODY_READ_FAILED: "UPSTREAM_RESPONSE_BODY_READ_FAILED",
+  SYKMELDT_NOT_FOUND: "SYKMELDT_NOT_FOUND",
 } as const;
+
+type RuntimeErrorCode =
+  | (typeof RuntimeErrorCode)[keyof typeof RuntimeErrorCode]
+  | NonNullable<TransportFailureDiagnostics["error_code"]>;
 
 type RequestFailure = {
   operation: RuntimeOperation;
@@ -56,10 +65,16 @@ type RequestFailure = {
 };
 
 type RequestDiagnostics = {
-  error_code: string;
-  failure_kind?: string;
-  failure_stage: string;
-  cause_type?: string;
+  error_code: RuntimeErrorCode;
+  failure_kind?: "domain" | "http" | "invalid_response";
+  failure_stage:
+    | "response"
+    | "request"
+    | "response_parse"
+    | "response_validation";
+  cause_type?:
+    | TransportFailureDiagnostics["cause_type"]
+    | "FetchResponseParseError";
   upstreamStatus?: number;
 };
 
@@ -70,16 +85,16 @@ const classifyRequestFailure = (
 ): RequestDiagnostics => {
   if (error instanceof HttpError) {
     const status = error.code;
-    const relationNotFound =
+    const sykmeldtNotFound =
       status === 404 &&
       error.upstreamErrorCode === "SYKMELDT_NOT_FOUND" &&
       operation === RuntimeOperation.SYKMELDT_FETCH &&
       tokenXTargetApiToUpstream(targetApi) === "dinesykmeldte-backend";
     return {
-      error_code: relationNotFound
-        ? "SYKMELDT_NOT_FOUND"
+      error_code: sykmeldtNotFound
+        ? RuntimeErrorCode.SYKMELDT_NOT_FOUND
         : RuntimeErrorCode.UPSTREAM_HTTP_ERROR,
-      failure_kind: relationNotFound ? "domain" : "http",
+      failure_kind: sykmeldtNotFound ? "domain" : "http",
       failure_stage: "response" as const,
       ...(Number.isInteger(status) && status >= 100 && status <= 599
         ? { upstreamStatus: status }
@@ -97,7 +112,7 @@ const classifyRequestFailure = (
     return {
       error_code:
         error.failureReason === "body_read"
-          ? "UPSTREAM_RESPONSE_BODY_READ_FAILED"
+          ? RuntimeErrorCode.UPSTREAM_RESPONSE_BODY_READ_FAILED
           : RuntimeErrorCode.UPSTREAM_RESPONSE_PARSE_ERROR,
       ...(error.failureReason === "invalid_json"
         ? { failure_kind: "invalid_response" }
@@ -115,27 +130,34 @@ const classifyRequestFailure = (
 };
 
 type RequestLogContext = {
-  error_code: string;
-  upstream: string;
+  error_code: RuntimeErrorCode;
+  upstream: ReturnType<typeof tokenXTargetApiToUpstream>;
   method: "GET" | "POST";
   upstream_status?: number;
-  failure_kind?: string;
-  failure_stage?: string;
-  cause_type?: string;
+  failure_kind?: RequestDiagnostics["failure_kind"];
+  failure_stage?: RequestDiagnostics["failure_stage"];
+  cause_type?: RequestDiagnostics["cause_type"];
   validation_error?: string;
 };
-const requestEvent = (operation: RuntimeOperation) =>
-  defineEvent<RequestLogContext>({
-    name: `dialogmote_${operation}_failed`,
+const requestEvents = Object.fromEntries(
+  Object.entries(requestFailureMessage).map(([operation, message]) => [
     operation,
-    level: "error",
-    message: requestFailureMessage[operation],
-  });
-const relationNotFoundEvent = defineEvent<RequestLogContext>({
+    defineEvent<RequestLogContext>({
+      name: `dialogmote_${operation}_failed`,
+      operation,
+      level: "error",
+      message,
+    }),
+  ]),
+) as Record<RuntimeOperation, Event<RequestLogContext>>;
+
+// This lookup also requires sykmelding data; its null result does not prove an invalid leader relation.
+// The frontend cannot complete the operation and still returns HTTP 500.
+const sykmeldtNotFoundEvent = defineEvent<RequestLogContext>({
   name: "dialogmote_sykmeldt_fetch_failed",
   operation: RuntimeOperation.SYKMELDT_FETCH,
   level: "error",
-  message: "Ingen sykmeldt funnet for den innloggede lederens relasjon",
+  message: "Ingen sykmeldt funnet innenfor den innloggede lederens tilgang",
 });
 
 const logRuntimeError = ({
@@ -147,19 +169,18 @@ const logRuntimeError = ({
   validationError,
   diagnostics,
 }: Omit<RequestFailure, "error"> & {
-  errorCode: string;
+  errorCode: RuntimeErrorCode;
   upstreamStatus?: number;
   validationError?: ZodError;
-  diagnostics?: {
-    failure_kind?: string;
-    failure_stage: string;
-    cause_type?: string;
-  };
+  diagnostics?: Pick<
+    RequestDiagnostics,
+    "failure_kind" | "failure_stage" | "cause_type"
+  >;
 }): void => {
   appLog.event(
     errorCode === "SYKMELDT_NOT_FOUND"
-      ? relationNotFoundEvent
-      : requestEvent(operation),
+      ? sykmeldtNotFoundEvent
+      : requestEvents[operation],
     {
       error_code: errorCode,
       upstream: tokenXTargetApiToUpstream(targetApi),
