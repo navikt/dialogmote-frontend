@@ -94,11 +94,17 @@ const classifyRequestFailure = (
     };
   }
   if (error instanceof FetchResponseParseError) {
+    if (error.failureReason === "body_read") {
+      return {
+        error_code: "UPSTREAM_RESPONSE_BODY_READ_FAILED",
+        cause_type: "FetchResponseParseError",
+        ...transportFailureDiagnostics(error),
+        failure_kind: "invalid_response" as const,
+        failure_stage: "response_parse" as const,
+      };
+    }
     return {
-      error_code:
-        error.failureReason === "body_read"
-          ? "UPSTREAM_RESPONSE_BODY_READ_FAILED"
-          : RuntimeErrorCode.UPSTREAM_RESPONSE_PARSE_ERROR,
+      error_code: RuntimeErrorCode.UPSTREAM_RESPONSE_PARSE_ERROR,
       failure_kind: "invalid_response" as const,
       failure_stage: "response_parse" as const,
       cause_type: "FetchResponseParseError",

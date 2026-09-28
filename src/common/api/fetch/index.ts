@@ -168,7 +168,8 @@ function throwParseError(
   throw new FetchResponseParseError(
     `Response parsing failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
     failureReason,
-    { cause },
+    // Parser and body-read causes can contain response content; keep them server-side only.
+    typeof window === "undefined" ? { cause } : undefined,
   );
 }
 

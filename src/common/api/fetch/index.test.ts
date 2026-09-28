@@ -87,6 +87,37 @@ describe("safe fetch errors", () => {
     );
   });
 
+  it("sender ikke parserens rå årsak med parsefeil i nettleseren", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValue(
+          new Response("ola-nordmann 01017012345", { status: 200 }),
+        ),
+    );
+
+    const error = await get(endpoint).catch((caught) => caught as Error);
+
+    expect(error).toBeInstanceOf(FetchResponseParseError);
+    expect((error as Error).cause).toBeUndefined();
+  });
+
+  it("beholder rå årsak for parsefeil på serversiden", async () => {
+    const bodyTimeout = Object.assign(new Error("body timeout"), {
+      code: "UND_ERR_BODY_TIMEOUT",
+    });
+    const response = new Response(undefined, { status: 200 });
+    vi.spyOn(response, "text").mockRejectedValue(bodyTimeout);
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(response));
+    vi.stubGlobal("window", undefined);
+
+    const error = await get(endpoint).catch((caught) => caught as Error);
+
+    expect(error).toBeInstanceOf(FetchResponseParseError);
+    expect((error as Error).cause).toBe(bodyTimeout);
+  });
+
   it("skiller body-read-feil fra ugyldig JSON uten rå feildetaljer", async () => {
     const response = new Response(undefined, { status: 200 });
     vi.spyOn(response, "text").mockRejectedValue(
