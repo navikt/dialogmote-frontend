@@ -155,7 +155,8 @@ const throwNetworkError = (
 ): never => {
   throw new FetchNetworkError(
     `Network request failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
-    { cause },
+    // Browser telemetry serializes Error.cause; retain raw causes only on the server.
+    typeof window === "undefined" ? { cause } : undefined,
   );
 };
 
@@ -168,7 +169,6 @@ function throwParseError(
   throw new FetchResponseParseError(
     `Response parsing failed: method=${method} endpoint=${normalizeTelemetryEndpoint(requestUrl)}`,
     failureReason,
-    // Parser and body-read causes can contain response content; keep them server-side only.
     typeof window === "undefined" ? { cause } : undefined,
   );
 }

@@ -75,6 +75,7 @@ const expectSafeFailure = (
 
 describe("upstream failures at the actual Pages API boundary", () => {
   beforeEach(() => {
+    vi.stubGlobal("window", undefined);
     mocks.lines.length = 0;
     mocks.exchange
       .mockReset()

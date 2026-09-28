@@ -61,10 +61,10 @@ describe("runtime error contract", () => {
       expect.objectContaining({
         error_code: "UND_ERR_BODY_TIMEOUT",
         cause_type: "Error",
-        failure_kind: "invalid_response",
         failure_stage: "response_parse",
       }),
     );
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("failure_kind");
     expect(JSON.stringify(mocks.error.mock.calls)).not.toMatch(/secret/);
   });
 
@@ -82,6 +82,7 @@ describe("runtime error contract", () => {
         cause_type: "FetchResponseParseError",
       }),
     );
+    expect(mocks.error.mock.calls[0]?.[0]).not.toHaveProperty("failure_kind");
   });
 
   it("klassifiserer nettverksfeil uten å logge feilobjektet", () => {

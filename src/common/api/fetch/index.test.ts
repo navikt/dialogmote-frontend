@@ -1,3 +1,4 @@
+import { inspect } from "node:util";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { FetchNetworkError, FetchResponseParseError } from "./errors";
 import { get } from "./index";
@@ -42,7 +43,10 @@ describe("safe fetch errors", () => {
       vi.fn().mockRejectedValue(new Error(`Failed for ${leaderId}`)),
     );
 
-    await expect(get(endpoint)).rejects.toEqual(
+    const error = await get(endpoint).catch((caught: unknown) => caught);
+    expect(error).not.toHaveProperty("cause");
+    expect(inspect(error, { depth: 10 })).not.toContain(leaderId);
+    expect(error).toEqual(
       expect.objectContaining({
         failureReason: "network",
         name: new FetchNetworkError().name,
@@ -78,7 +82,12 @@ describe("safe fetch errors", () => {
         ),
     );
 
-    await expect(get(endpoint)).rejects.toEqual(
+    const error = await get(endpoint).catch((caught: unknown) => caught);
+    expect(error).not.toHaveProperty("cause");
+    expect(inspect(error, { depth: 10 })).not.toMatch(
+      /ola-nordmann|01017012345/,
+    );
+    expect(error).toEqual(
       expect.objectContaining({
         failureReason: "invalid_json",
         name: new FetchResponseParseError().name,
@@ -87,57 +96,38 @@ describe("safe fetch errors", () => {
     );
   });
 
-  it("sender ikke parserens rå årsak med parsefeil i nettleseren", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi
-        .fn()
-        .mockResolvedValue(
-          new Response("ola-nordmann 01017012345", { status: 200 }),
-        ),
-    );
+  it.each(["json", "arraybuffer"] as const)(
+    "skiller %s body-read-feil fra ugyldig JSON uten rå feildetaljer",
+    async (responseType) => {
+      const response = new Response(undefined, { status: 200 });
+      vi.spyOn(
+        response,
+        responseType === "json" ? "text" : "arrayBuffer",
+      ).mockRejectedValue(
+        new Error(`Kunne ikke lese ola-nordmann 01017012345 fra ${endpoint}`),
+      );
+      vi.stubGlobal("fetch", vi.fn().mockResolvedValue(response));
 
-    const error = await get(endpoint).catch((caught) => caught as Error);
+      const error = await get(endpoint, { responseType }).catch(
+        (caught: unknown) => caught,
+      );
 
-    expect(error).toBeInstanceOf(FetchResponseParseError);
-    expect((error as Error).cause).toBeUndefined();
-  });
-
-  it("beholder rå årsak for parsefeil på serversiden", async () => {
-    const bodyTimeout = Object.assign(new Error("body timeout"), {
-      code: "UND_ERR_BODY_TIMEOUT",
-    });
-    const response = new Response(undefined, { status: 200 });
-    vi.spyOn(response, "text").mockRejectedValue(bodyTimeout);
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(response));
-    vi.stubGlobal("window", undefined);
-
-    const error = await get(endpoint).catch((caught) => caught as Error);
-
-    expect(error).toBeInstanceOf(FetchResponseParseError);
-    expect((error as Error).cause).toBe(bodyTimeout);
-  });
-
-  it("skiller body-read-feil fra ugyldig JSON uten rå feildetaljer", async () => {
-    const response = new Response(undefined, { status: 200 });
-    vi.spyOn(response, "text").mockRejectedValue(
-      new Error(`Kunne ikke lese ola-nordmann 01017012345 fra ${endpoint}`),
-    );
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(response));
-
-    const error = await get(endpoint).catch((caught) => caught as Error);
-
-    expect(error).toEqual(
-      expect.objectContaining({
-        failureReason: "body_read",
-        name: new FetchResponseParseError().name,
-        message: `Response parsing failed: method=GET endpoint=${normalizedEndpoint}`,
-      }),
-    );
-    expect(JSON.stringify(error)).not.toMatch(
-      /leader_ref|01017012345|ola-nordmann/,
-    );
-  });
+      expect(error).not.toHaveProperty("cause");
+      expect(inspect(error, { depth: 10 })).not.toMatch(
+        /leader_ref|01017012345|ola-nordmann/,
+      );
+      expect(error).toEqual(
+        expect.objectContaining({
+          failureReason: "body_read",
+          name: new FetchResponseParseError().name,
+          message: `Response parsing failed: method=GET endpoint=${normalizedEndpoint}`,
+        }),
+      );
+      expect(JSON.stringify(error)).not.toMatch(
+        /leader_ref|01017012345|ola-nordmann/,
+      );
+    },
+  );
 
   it("bevarer AbortError som oppstår under lesing av responsbody", async () => {
     const abortError = new DOMException(

@@ -91,6 +91,7 @@ describe("serialized runtime error contract", () => {
   });
 
   beforeEach(() => {
+    vi.stubGlobal("window", undefined);
     activeContext = ROOT_CONTEXT;
     serializedLogLines.length = 0;
   });
@@ -194,6 +195,76 @@ describe("serialized runtime error contract", () => {
       expect(serializedLogLines[0]).not.toMatch(/secret-|01017012345/);
     },
   );
+
+  it.each([
+    ["json", "UND_ERR_BODY_TIMEOUT", "UND_ERR_BODY_TIMEOUT"],
+    ["arraybuffer", "UND_ERR_BODY_TIMEOUT", "UND_ERR_BODY_TIMEOUT"],
+    ["json", "ECONNRESET", "ECONNRESET"],
+    ["arraybuffer", "ECONNRESET", "ECONNRESET"],
+    ["json", "secret-unknown-code", "UPSTREAM_RESPONSE_BODY_READ_FAILED"],
+    [
+      "arraybuffer",
+      "secret-unknown-code",
+      "UPSTREAM_RESPONSE_BODY_READ_FAILED",
+    ],
+  ] as const)(
+    "keeps safe %s body-read diagnosis for %s",
+    async (responseType, code, expectedCode) => {
+      const cause = Object.assign(new Error("secret-body-canary-01017012345"), {
+        code,
+        headers: { Authorization: "secret-token-canary" },
+      });
+      const original = new TypeError("secret-response-url", { cause });
+      const response = new Response(undefined, { status: 200 });
+      vi.spyOn(
+        response,
+        responseType === "json" ? "text" : "arrayBuffer",
+      ).mockRejectedValue(original);
+      vi.stubGlobal("fetch", vi.fn().mockResolvedValue(response));
+      const error = await get("/api/sykmeldt/brev/reference/pdf", {
+        responseType,
+      }).catch((caught: unknown) => caught);
+      expect(error).toHaveProperty("cause", original);
+      logUpstreamRequestFailure({
+        operation: RuntimeOperation.BREV_PDF_FETCH,
+        targetApi: TokenXTargetApi.ISDIALOGMOTE,
+        method: "GET",
+        error,
+      });
+      expect(serializedLogLines).toHaveLength(1);
+      const serialized = JSON.parse(serializedLogLines[0]);
+      expect(serialized).toMatchObject({
+        error_code: expectedCode,
+        failure_stage: "response_parse",
+        cause_type: "Error",
+      });
+      expect(serialized).not.toHaveProperty("failure_kind");
+      expect(serializedLogLines[0]).not.toMatch(/secret-|01017012345/);
+    },
+  );
+
+  it("keeps the JSON error type without serializing response content", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response("secret-body-canary")),
+    );
+    const error = await get("/api/sykmeldt").catch((caught: unknown) => caught);
+    expect(error).toHaveProperty("cause", expect.any(SyntaxError));
+    logUpstreamRequestFailure({
+      operation: RuntimeOperation.BREV_LIST_FETCH,
+      targetApi: TokenXTargetApi.ISDIALOGMOTE,
+      method: "GET",
+      error,
+    });
+    expect(serializedLogLines).toHaveLength(1);
+    expect(JSON.parse(serializedLogLines[0])).toMatchObject({
+      error_code: "UPSTREAM_RESPONSE_PARSE_ERROR",
+      failure_kind: "invalid_response",
+      failure_stage: "response_parse",
+      cause_type: "SyntaxError",
+    });
+    expect(serializedLogLines[0]).not.toContain("secret-");
+  });
 
   it.each([
     ["SYKMELDT_NOT_FOUND", "SYKMELDT_NOT_FOUND"],
