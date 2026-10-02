@@ -29,8 +29,8 @@ importers:
         specifier: ^8.16.2
         version: 8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@navikt/esyfo-logger':
-        specifier: 0.2.1
-        version: 0.2.1
+        specifier: 0.3.0
+        version: 0.3.0
       '@navikt/lumi-survey':
         specifier: 2.2.3
         version: 2.2.3(@navikt/ds-css@8.16.2)(@navikt/ds-react@8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -622,8 +622,8 @@ packages:
   '@navikt/ds-tokens@8.16.2':
     resolution: {integrity: sha512-WXtLRb034uUN1SUBEg+AYUrAu0zm+P0xuUheIWABEDpWnVGmfXDng7lIW5JDFbut3rQIa1xfzvUfeL3ghc4eng==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.16.2/a22ed996203e7730664ed43d7025c68609c937a8}
 
-  '@navikt/esyfo-logger@0.2.1':
-    resolution: {integrity: sha512-nTVI73gVtjdWiqcV7/VTb1x/4ua0SgEN19djaqb3wnKkKTIjIl1Z0PuG+Jq5G/3NBba4GWmQztnrwCi1/QihKQ==, tarball: https://npm.pkg.github.com/download/@navikt/esyfo-logger/0.2.1/17980f9fa7c88a4363fccd55c2a903f5b7ed51f1}
+  '@navikt/esyfo-logger@0.3.0':
+    resolution: {integrity: sha512-WcmXhNT1Hgo1pH99IF1cFsTewKZ9tlk3C5TH9ZXVunaxnuZHaM3yUa0TVF39gczVc1Z7ObIak4rdVEokcOcCRQ==, tarball: https://npm.pkg.github.com/download/@navikt/esyfo-logger/0.3.0/659327298747baf9ea36d31c33ca67c7363b971f}
     engines: {node: '>=24'}
 
   '@navikt/lumi-survey@2.2.3':
@@ -2974,7 +2974,7 @@ snapshots:
 
   '@navikt/ds-tokens@8.16.2': {}
 
-  '@navikt/esyfo-logger@0.2.1': {}
+  '@navikt/esyfo-logger@0.3.0': {}
 
   '@navikt/lumi-survey@2.2.3(@navikt/ds-css@8.16.2)(@navikt/ds-react@8.16.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
