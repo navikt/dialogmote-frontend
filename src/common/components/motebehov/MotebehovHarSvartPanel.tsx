@@ -1,4 +1,4 @@
-import { BodyLong } from "@navikt/ds-react";
+import { BodyLong, Heading } from "@navikt/ds-react";
 import type { ReactNode } from "react";
 import Receipt from "@/common/components/motebehov/receipt/Receipt";
 import DialogmotePanel from "@/common/components/panel/DialogmotePanel";
@@ -19,6 +19,9 @@ const texts = {
   meldTitle: "Du har bedt om et dialogmøte med Nav",
   textSvart:
     "Vi vil bruke svaret ditt når vi vurderer om det er nødvendig med dialogmøte.",
+  svarfristTitle: "Hva skjer nå?",
+  svarfristText:
+    "Du får svar fra en veileder i Nav innen tre uker. Svaret er enten en innkalling til dialogmøte eller en tilbakemelding om at det ikke blir møte.",
 };
 
 export const MotebehovHarSvartPanel = ({
@@ -45,6 +48,15 @@ export const MotebehovHarSvartPanel = ({
   return (
     <DialogmotePanel title={panelTitle}>
       <BodyLong>{texts.textSvart}</BodyLong>
+
+      {motebehovSvar.harMotebehov && (
+        <div>
+          <Heading size="small" level="3" spacing>
+            {texts.svarfristTitle}
+          </Heading>
+          <BodyLong>{texts.svarfristText}</BodyLong>
+        </div>
+      )}
 
       <Receipt opprettetDato={opprettetDato} formSnapshot={formSnapshot} />
 
