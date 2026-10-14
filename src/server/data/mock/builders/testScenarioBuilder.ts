@@ -1,3 +1,9 @@
+import {
+  meldMotebehovAGOutputFixture,
+  meldMotebehovSMResponseFixture,
+  svarMotebehovAGOutputFixture,
+  svarMotebehovSMResponseFixture,
+} from "@/mocks/data/fixtures/form";
 import type { MockSetup, TestScenario } from "@/server/data/mock/getMockDb";
 import type { MotebehovStatusDTO } from "@/server/service/schema/motebehovSchema";
 import type { Brev } from "@/types/shared/brev";
@@ -9,7 +15,12 @@ export class TestScenarioBuilder {
     this.mockData = {
       sykmeldt: undefined,
       brev: [],
-      motebehov: {
+      motebehovSM: {
+        visMotebehov: false,
+        skjemaType: "MELD_BEHOV",
+        motebehov: null,
+      },
+      motebehovAG: {
         visMotebehov: false,
         skjemaType: "MELD_BEHOV",
         motebehov: null,
@@ -37,7 +48,40 @@ export class TestScenarioBuilder {
   }
 
   withMotebehov(motebehov: MotebehovStatusDTO) {
-    this.mockData.motebehov = motebehov;
+    this.mockData.motebehovSM = structuredClone(motebehov);
+    this.mockData.motebehovAG = structuredClone(motebehov);
+
+    const smSubmission = this.mockData.motebehovSM.motebehov;
+    const agSubmission = this.mockData.motebehovAG.motebehov;
+    const isSvar = motebehov.skjemaType === "SVAR_BEHOV";
+
+    if (smSubmission) {
+      smSubmission.innmelderType = "ARBEIDSTAKER";
+      smSubmission.formValues.formSnapshot = {
+        formIdentifier: isSvar
+          ? "motebehov-arbeidstaker-svar"
+          : "motebehov-arbeidstaker-meld",
+        formSemanticVersion: "1.0.0",
+        fieldSnapshots: structuredClone(
+          isSvar
+            ? svarMotebehovSMResponseFixture
+            : meldMotebehovSMResponseFixture,
+        ),
+      };
+    }
+
+    if (agSubmission) {
+      agSubmission.innmelderType = "ARBEIDSGIVER";
+      agSubmission.formValues.formSnapshot = {
+        formIdentifier: isSvar
+          ? "motebehov-arbeidsgiver-svar"
+          : "motebehov-arbeidsgiver-meld",
+        formSemanticVersion: "1.0.0",
+        fieldSnapshots: structuredClone(
+          isSvar ? svarMotebehovAGOutputFixture : meldMotebehovAGOutputFixture,
+        ),
+      };
+    }
     return this;
   }
 

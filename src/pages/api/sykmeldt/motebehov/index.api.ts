@@ -27,7 +27,7 @@ const handler = async (
       res.status(500).json({ message: "Mock db missing sykmeldt" });
       return;
     }
-    getMockDb(req).motebehov.motebehov = {
+    data.motebehovSM.motebehov = {
       id: uuidv4(),
       opprettetDato: new Date().toISOString(),
       aktorId: "12345",
@@ -37,12 +37,12 @@ const handler = async (
       behandletVeilederIdent: null,
       tildeltEnhet: null,
       opprettetAv: data.sykmeldt.fnr,
-      skjemaType: data.motebehov.skjemaType,
+      skjemaType: data.motebehovSM.skjemaType,
       innmelderType: "ARBEIDSTAKER",
       formValues: {
         harMotebehov: svar.harMotebehov,
         formSnapshot:
-          data.motebehov.skjemaType === "SVAR_BEHOV"
+          data.motebehovSM.skjemaType === "SVAR_BEHOV"
             ? {
                 formIdentifier: "motebehov-arbeidstaker-svar",
                 formSemanticVersion: "1.0.0",
