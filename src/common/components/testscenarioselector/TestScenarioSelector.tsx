@@ -94,6 +94,13 @@ export const TestScenarioSelector = () => {
                 >
                   Endret Dialogmøte
                 </RadioWithHelpText>
+
+                <RadioWithHelpText
+                  value={"DIALOGMOTE_ENDRET_V2"}
+                  helpText={"Dialogmøtet har blitt endret (brevtype ENDRET)"}
+                >
+                  Endret Dialogmøte (ENDRET)
+                </RadioWithHelpText>
               </RadioGroup>
             </div>
 

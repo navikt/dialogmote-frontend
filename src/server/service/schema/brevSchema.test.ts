@@ -74,4 +74,23 @@ describe("brevSchema unknown component values", () => {
       /secret-type|secret-key|01017012345|975289753/,
     );
   });
+
+  it("aksepterer brevType ENDRET", () => {
+    const parsed = brevSchema.safeParse({
+      uuid: "safe-brev-id",
+      deltakerUuid: "safe-deltaker-id",
+      createdAt: "2026-08-31T12:00:00Z",
+      brevType: "ENDRET",
+      lestDato: null,
+      fritekst: "",
+      sted: "",
+      tid: "",
+      videoLink: null,
+      document: [],
+      virksomhetsnummer: "safe-orgnummer",
+      svar: null,
+    });
+
+    expect(parsed.success).toBe(true);
+  });
 });

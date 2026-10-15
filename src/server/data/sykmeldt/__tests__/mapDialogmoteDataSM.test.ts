@@ -99,6 +99,29 @@ describe("mapDialogmoteDataSM", () => {
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("NYTT_TID_STED");
     });
 
+    it("should return innkalling and hide motebehov when latest brev is ENDRET", () => {
+      const moteInnkalling = createBrevDTO({
+        brevType: "INNKALT",
+        createdAt: "2023-06-06",
+      });
+      const moteEndret = createBrevDTO({
+        brevType: "ENDRET",
+        createdAt: "2023-06-07",
+      });
+
+      const dialogmoteData = mapDialogmoteDataSM(
+        {
+          visMotebehov: true,
+          skjemaType: "MELD_BEHOV",
+          motebehov: null,
+        },
+        [moteInnkalling, moteEndret],
+      );
+
+      expect(dialogmoteData.moteinnkalling?.brevType).toEqual("ENDRET");
+      expect(dialogmoteData.motebehov.visMotebehov).toBe(false);
+    });
+
     it("should return innkalling when latest brev is avlysning", () => {
       const referat = createBrevDTO({
         brevType: "REFERAT",

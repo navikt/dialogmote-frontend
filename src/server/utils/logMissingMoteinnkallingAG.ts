@@ -35,7 +35,10 @@ export async function logMissingMoteinnkallingAG({
   if (dialogmoteData.moteinnkalling) return;
 
   const hasInnkallingOrNyttTidSted = brevArray.some(
-    (b) => b.brevType === "INNKALT" || b.brevType === "NYTT_TID_STED",
+    (b) =>
+      b.brevType === "INNKALT" ||
+      b.brevType === "NYTT_TID_STED" ||
+      b.brevType === "ENDRET",
   );
   const latestBrevType = brevArray.length > 0 ? brevArray[0]?.brevType : null;
   const reason =

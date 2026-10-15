@@ -29,6 +29,18 @@ const getTexts = (brevType: BrevType) => {
         buttonText: "Se endringen",
         trackingName: Events.SeEndring,
       };
+    case "ENDRET":
+      return {
+        title: "Dialogmøtet er endret",
+        description:
+          "Dialogmøtet du er innkalt til, er endret. Svar på om tidspunktet passer for deg eller ikke.",
+        description2:
+          "Se endringen for informasjon, og send svaret ditt nederst på siden.",
+        descriptionNotResponded:
+          "Du har ikke svart på om du kommer til dette dialogmøtet. Åpne endringen og svar nederst på siden.",
+        buttonText: "Se endringen",
+        trackingName: Events.SeEndring,
+      };
     default:
       return {
         title: "Du er innkalt til dialogmøte",

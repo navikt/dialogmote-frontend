@@ -33,6 +33,7 @@ const brevType = union([
   literal("INNKALT"),
   literal("AVLYST"),
   literal("NYTT_TID_STED"),
+  literal("ENDRET"),
   literal("REFERAT"),
   literal("REFERAT_ENDRET"),
 ]);
@@ -86,7 +87,7 @@ export const brevSchema = object({
   tid: string(),
   videoLink: string().nullable(),
   document: array(documentComponent),
-  virksomhetsnummer: string(),
+virksomhetsnummer: string(),
   svar: svar.nullable(),
 });
 
