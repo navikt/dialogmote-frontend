@@ -9,6 +9,8 @@ import { getMockSetupForScenario } from "./activeMockData";
 export type TestScenario =
   | "MELD_BEHOV"
   | "SVAR_BEHOV"
+  | "MOTEBEHOV_MELDT"
+  | "MOTEBEHOV_SVART_JA"
   | "DIALOGMOTE_INNKALLING"
   | "DIALOGMOTE_ENDRET"
   | "DIALOGMOTE_AVLYST";
@@ -16,7 +18,8 @@ export type TestScenario =
 export interface MockSetup {
   sykmeldt?: SykmeldtDTO; //For arbeidsgiver
   brev: Brev[];
-  motebehov: MotebehovStatusDTO;
+  motebehovSM: MotebehovStatusDTO;
+  motebehovAG: MotebehovStatusDTO;
   activeTestScenario: TestScenario;
 }
 
