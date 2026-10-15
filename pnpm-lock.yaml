@@ -31,9 +31,6 @@ importers:
       '@navikt/esyfo-logger':
         specifier: 0.3.0
         version: 0.3.0
-      '@navikt/lumi-survey':
-        specifier: 2.2.3
-        version: 2.2.3(@navikt/ds-css@8.18.0)(@navikt/ds-react@8.18.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@navikt/nav-dekoratoren-moduler':
         specifier: ^4.5.0
         version: 4.5.0(html-react-parser@5.2.2(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
@@ -625,14 +622,6 @@ packages:
   '@navikt/esyfo-logger@0.3.0':
     resolution: {integrity: sha512-WcmXhNT1Hgo1pH99IF1cFsTewKZ9tlk3C5TH9ZXVunaxnuZHaM3yUa0TVF39gczVc1Z7ObIak4rdVEokcOcCRQ==, tarball: https://npm.pkg.github.com/download/@navikt/esyfo-logger/0.3.0/659327298747baf9ea36d31c33ca67c7363b971f}
     engines: {node: '>=24'}
-
-  '@navikt/lumi-survey@2.2.3':
-    resolution: {integrity: sha512-kwIVhSEK+0+Pq/w90kzhC+gq70C/Z662hrQ3dZwFndBOs0HO4IxiUqQq8v58mCnMWo4p9YKIgIrwi2YZwQI+eg==, tarball: https://npm.pkg.github.com/download/@navikt/lumi-survey/2.2.3/cce71df40684ba25b4abd8df545318ec8ac2758e}
-    peerDependencies:
-      '@navikt/ds-css': '>=8'
-      '@navikt/ds-react': '>=8'
-      react: '>=18'
-      react-dom: '>=18'
 
   '@navikt/nav-dekoratoren-moduler@4.5.0':
     resolution: {integrity: sha512-0eTtpgk+kOGjxncAA5PT2+yLPIobPdvIMVJzWDVdlZmuKUGG1NMoom8DYtnCPkro3Mw+dZeoFJ0TVY+4F57J5Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.0/e3c7d8e6e3f2efd2fb46952564e6c9c47ca200ad}
@@ -2957,14 +2946,6 @@ snapshots:
   '@navikt/ds-tokens@8.18.0': {}
 
   '@navikt/esyfo-logger@0.3.0': {}
-
-  '@navikt/lumi-survey@2.2.3(@navikt/ds-css@8.18.0)(@navikt/ds-react@8.18.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
-    dependencies:
-      '@navikt/aksel-icons': 8.18.0
-      '@navikt/ds-css': 8.18.0
-      '@navikt/ds-react': 8.18.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      react: 19.3.0
-      react-dom: 19.3.0(react@19.3.0)
 
   '@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@5.2.2(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)':
     dependencies:
