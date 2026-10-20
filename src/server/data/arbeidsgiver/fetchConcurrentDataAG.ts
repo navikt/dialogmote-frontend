@@ -20,7 +20,7 @@ export const fetchConcurrentDataAG = async (
 > => {
   if (isMockBackend) {
     const mockData = getMockDb(req);
-    return { motebehov: mockData.motebehov, brevArray: mockData.brev };
+    return { motebehov: mockData.motebehovAG, brevArray: mockData.brev };
   } else {
     const [motebehov, brevArray] = await Promise.all([
       getMotebehovAG(req, narmesteLederId),

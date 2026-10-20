@@ -51,7 +51,7 @@ const handler = async (
 
   if (isMockBackend) {
     const data = getMockDb(req);
-    getMockDb(req).motebehov.motebehov = {
+    data.motebehovAG.motebehov = {
       id: uuidv4(),
       opprettetDato: new Date().toISOString(),
       aktorId: "12345",
@@ -61,12 +61,12 @@ const handler = async (
       behandletVeilederIdent: null,
       tildeltEnhet: null,
       opprettetAv: "12345678901",
-      skjemaType: data.motebehov.skjemaType,
+      skjemaType: data.motebehovAG.skjemaType,
       innmelderType: "ARBEIDSGIVER",
       formValues: {
         harMotebehov: svar.formSubmission.harMotebehov,
         formSnapshot:
-          data.motebehov.skjemaType === "SVAR_BEHOV"
+          data.motebehovAG.skjemaType === "SVAR_BEHOV"
             ? {
                 formIdentifier: "motebehov-arbeidsgiver-svar",
                 formSemanticVersion: "1.0.0",

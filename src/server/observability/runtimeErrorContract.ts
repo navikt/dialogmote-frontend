@@ -16,7 +16,6 @@ import {
 import { appLog } from "./logger";
 
 export const RuntimeOperation = {
-  LUMI_FEEDBACK_SUBMIT: "lumi_feedback_submit",
   BREV_LIST_FETCH: "brev_list_fetch",
   BREV_PDF_FETCH: "brev_pdf_fetch",
   BREV_MARK_READ: "brev_mark_read",
@@ -31,7 +30,6 @@ export type RuntimeOperation =
   (typeof RuntimeOperation)[keyof typeof RuntimeOperation];
 
 const requestFailureMessage: Record<RuntimeOperation, string> = {
-  lumi_feedback_submit: "Kunne ikke sende tilbakemelding til Lumi",
   brev_list_fetch: "Kunne ikke hente dialogmøtebrev",
   brev_pdf_fetch: "Kunne ikke hente PDF for dialogmøtebrev",
   brev_mark_read: "Kunne ikke markere dialogmøtebrev som lest",

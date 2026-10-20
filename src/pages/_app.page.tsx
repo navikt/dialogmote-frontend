@@ -1,6 +1,5 @@
 import "@navikt/dinesykmeldte-sidemeny/dist/dinesykmeldte-sidemeny.css";
 import "../styles/globals.css";
-import "@navikt/lumi-survey/styles.css";
 import { Box, Theme } from "@navikt/ds-react";
 import { configureLogger } from "@navikt/next-logger";
 import {
@@ -13,9 +12,9 @@ import type { AppProps } from "next/app";
 import { shouldRetryQuery } from "@/common/api/queryRetry";
 import { BreadcrumbsAppenderAG } from "@/common/breadcrumbs/BreadcrumbsAppenderAG";
 import { BreadcrumbsAppenderSM } from "@/common/breadcrumbs/BreadcrumbsAppenderSM";
+import { DemoBanner } from "@/common/components/demobanner/DemoBanner";
 import { DMErrorBoundary } from "@/common/components/error/DMErrorBoundary";
 import { NotificationBar } from "@/common/components/notificationbar/NotificationBar";
-import { TestScenarioSelector } from "@/common/components/testscenarioselector/TestScenarioSelector";
 import { useAudience } from "@/common/hooks/routeHooks";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { NotificationProvider } from "@/context/NotificationContext";
@@ -28,13 +27,6 @@ configureLogger({
 
 const minutesToMillis = (minutes: number) => {
   return 1000 * 60 * minutes;
-};
-
-const TestScenarioDevTools = () => {
-  if (isDemoOrLocal) {
-    return <TestScenarioSelector />;
-  }
-  return null;
 };
 
 const queryClient = new QueryClient({
@@ -63,6 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Theme theme="light" asChild>
             <Box asChild background="neutral-soft">
               <main tabIndex={-1} id="maincontent" className="min-h-screen">
+                {isDemoOrLocal && <DemoBanner />}
                 {isAudienceSykmeldt ? (
                   <BreadcrumbsAppenderSM />
                 ) : (
@@ -70,7 +63,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 )}
                 <NotificationBar />
                 <Component {...pageProps} />
-                <TestScenarioDevTools />
               </main>
             </Box>
           </Theme>
