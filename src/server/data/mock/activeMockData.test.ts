@@ -19,6 +19,7 @@ describe("mock scenarios", () => {
     "MOTEBEHOV_SVART_JA",
     "DIALOGMOTE_INNKALLING",
     "DIALOGMOTE_ENDRET",
+    "DIALOGMOTE_ENDRET_V2",
     "DIALOGMOTE_AVLYST",
   ])("resolves %s with independent audience data", (scenario) => {
     const setup = getMockSetupForScenario(scenario);

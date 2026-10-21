@@ -13,6 +13,7 @@ export type TestScenario =
   | "MOTEBEHOV_SVART_JA"
   | "DIALOGMOTE_INNKALLING"
   | "DIALOGMOTE_ENDRET"
+  | "DIALOGMOTE_ENDRET_V2"
   | "DIALOGMOTE_AVLYST";
 
 export interface MockSetup {

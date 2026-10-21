@@ -16,7 +16,8 @@ export const mapBrevData = (brevArray?: BrevDTO[]) => {
       latestBrev?.brevType === "REFERAT_ENDRET",
     isLatestBrevOngoingMoteinnkalling:
       latestBrev?.brevType === "INNKALT" ||
-      latestBrev?.brevType === "NYTT_TID_STED",
+      latestBrev?.brevType === "NYTT_TID_STED" ||
+      latestBrev?.brevType === "ENDRET",
     referater: mapReferater(brevArraySorted),
   };
 };
