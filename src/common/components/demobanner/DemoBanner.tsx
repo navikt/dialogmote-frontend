@@ -69,6 +69,9 @@ export const DemoBanner = () => {
                 Innkalling til Dialogmøte
               </option>
               <option value="DIALOGMOTE_ENDRET">Endret Dialogmøte</option>
+              <option value="DIALOGMOTE_ENDRET_V2">
+                Endret Dialogmøte (ENDRET)
+              </option>
               <option value="DIALOGMOTE_AVLYST">Avlyst Dialogmøte</option>
             </optgroup>
           </Select>

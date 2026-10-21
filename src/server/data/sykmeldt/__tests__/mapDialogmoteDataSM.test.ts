@@ -119,7 +119,7 @@ describe("mapDialogmoteDataSM", () => {
       );
 
       expect(dialogmoteData.moteinnkalling?.brevType).toEqual("ENDRET");
-      expect(dialogmoteData.motebehov.visMotebehov).toBe(false);
+      expect(dialogmoteData.motebehov).toBeUndefined();
     });
 
     it("should return innkalling when latest brev is avlysning", () => {

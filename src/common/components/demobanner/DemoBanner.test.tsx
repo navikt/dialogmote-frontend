@@ -84,9 +84,10 @@ describe("DemoBanner", () => {
     ).toEqual([
       "Innkalling til Dialogmøte",
       "Endret Dialogmøte",
+      "Endret Dialogmøte (ENDRET)",
       "Avlyst Dialogmøte",
     ]);
-    expect(screen.getAllByRole("option")).toHaveLength(7);
+    expect(screen.getAllByRole("option")).toHaveLength(8);
   });
 
   it.each(["MOTEBEHOV_MELDT", "MOTEBEHOV_SVART_JA"])(
