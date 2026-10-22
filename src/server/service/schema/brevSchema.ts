@@ -87,7 +87,7 @@ export const brevSchema = object({
   tid: string(),
   videoLink: string().nullable(),
   document: array(documentComponent),
-virksomhetsnummer: string(),
+  virksomhetsnummer: string(),
   svar: svar.nullable(),
 });
 
