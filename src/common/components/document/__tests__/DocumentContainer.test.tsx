@@ -22,7 +22,7 @@ describe("DocumentContainer", () => {
     );
   });
 
-  it("should render", () => {
+  it("should render", async () => {
     const document = [
       createDocumentComponent({ texts: ["test-text-1"] }),
       createDocumentComponent(),
@@ -39,9 +39,11 @@ describe("DocumentContainer", () => {
     );
 
     expect(screen.getByText("test-text-1")).toBeInTheDocument();
+    // Await the lest-request so it does not leak into later tests.
+    await waitFor(() => expect(requestResolver).toHaveBeenCalledTimes(1));
   });
 
-  it("should render with legacy header", () => {
+  it("should render with legacy header", async () => {
     const document = [
       createDocumentComponent({ type: "PARAGRAPH" }),
       createDocumentComponent(),
@@ -58,6 +60,7 @@ describe("DocumentContainer", () => {
     );
 
     expect(screen.getByText("Test_title")).toBeInTheDocument();
+    await waitFor(() => expect(requestResolver).toHaveBeenCalledTimes(1));
   });
 
   it("should invoke mutation.mutate when lestDato is undefined", async () => {
