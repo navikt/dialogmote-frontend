@@ -103,7 +103,7 @@ importers:
         version: 10.4.2
       '@testing-library/jest-dom':
         specifier: ^7.0.1
-        version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))
+        version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))
       '@testing-library/react':
         specifier: ^16.3.3
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -132,8 +132,8 @@ importers:
         specifier: ^2.2.2
         version: 2.2.2
       msw:
-        specifier: ^3.0.3
-        version: 3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+        specifier: ^3.0.4
+        version: 3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
       next-router-mock:
         specifier: ^1.0.5
         version: 1.0.5(next@16.4.5(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
@@ -154,13 +154,13 @@ importers:
         version: 8.3.6(@types/node@24.19.2)(jiti@2.7.0)
       vitest:
         specifier: ^5.1.0
-        version: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+        version: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
       vitest-axe:
         specifier: ^0.1.0
-        version: 0.1.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))
+        version: 0.1.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))
       vitest-canvas-mock:
         specifier: ^1.2.0
-        version: 1.2.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))
+        version: 1.2.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))
 
 packages:
 
@@ -527,21 +527,12 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@inquirer/ansi@2.0.7':
-    resolution: {integrity: sha512-3eTuUO1vH2cZm2ZKHeQxnOqlTi9EfZDGgIe3BL3I4u+rJHocr9Fz86M4fjYABPvFnQG/gGK551HqDiIcETwU6Q==}
+  '@inquirer/ansi@2.0.10':
+    resolution: {integrity: sha512-dwrc+1aqVZpHNkNDswXGtn1typ+Pxpo5FHZRyBw1le7onEJUkPUkYOY1FIFC1LvFMYUqqLuWBwElhAmencL7MQ==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
 
-  '@inquirer/confirm@6.1.1':
-    resolution: {integrity: sha512-eb8DBZcz/2qHWQda4rk2JiQk5h9QV/cVHi1yjt0f69WFZMRFn0sJTye3EAP8icut8UDMjQPsaH5KbcOogefrFQ==}
-    engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
-    peerDependencies:
-      '@types/node': '>=18'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-
-  '@inquirer/core@11.2.1':
-    resolution: {integrity: sha512-Qd6GJT1yVyrZZCfN8W2qKF5ApmqryXRhRKCuip8h01x2w/esJQ2XIYc6f9abMIHgKQdBfFTSOdbHRLAhuM09UA==}
+  '@inquirer/confirm@6.3.5':
+    resolution: {integrity: sha512-BJ59BOyURiZiAxdr9AuRu38/k+rV+DcTIM2fUF/c/BXrab6H8zMZTTOl3LgkSJH96Xob2vOJxDiBkHiz32Xx2w==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
       '@types/node': '>=18'
@@ -549,12 +540,21 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/figures@2.0.7':
-    resolution: {integrity: sha512-aJ8TBPOGB6f/2qziPfElISTCEd5XOYTFckA2SGjhNmiKzfK/u4ot3v0DUzGVdUnKjN10EqnnEPck36BkyfLnJw==}
+  '@inquirer/core@12.0.6':
+    resolution: {integrity: sha512-5yxn2LsJ8Tu4ei2a+yNkmFRhM/cb+JMEsEs/AW6CCOnBnpMy4IjYiPMFyHtYq8weOmlTyqqCx40y0DsD7OsEPw==}
+    engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
+    peerDependencies:
+      '@types/node': '>=18'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+
+  '@inquirer/figures@2.0.10':
+    resolution: {integrity: sha512-51elrUJV3jZpvD0ygz8+U10Kc6+Lzqln+/tYmnbhy6jo5oXpE6hMCcv+OTBC0enwJXsb3JIuT3VtEinRNCSK2A==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
 
-  '@inquirer/type@4.0.7':
-    resolution: {integrity: sha512-t28inv14nMQ1PhKpsJPY+kEs/c00qzeCOS2gTNRyTjG5d6qsVA2fItxW4hkvGZ5lvanGLdtCzVIx5dwdRpN1+g==}
+  '@inquirer/type@4.2.1':
+    resolution: {integrity: sha512-lDkPsnv5M5CcYB2T1qTc3dobNTPkVr4DU3Ic2Q6SW8/qVRHgvzdRdmVZ6YqG9Ag1aJTeMsLU0s0WPRh3CZWDQQ==}
     engines: {node: '>=23.5.0 || ^22.13.0 || ^20.17.0'}
     peerDependencies:
       '@types/node': '>=18'
@@ -594,8 +594,8 @@ packages:
   '@msw/url@0.1.2':
     resolution: {integrity: sha512-DdeBLQxQ+ZrtmwEmaj7GQ7lbzPCgbbbyAqOz/I4ulo68hwBpfdNvQJ5bmihJUkAAKOeCmqCIG3OFZGosqFN4mA==}
 
-  '@mswjs/interceptors@0.45.9':
-    resolution: {integrity: sha512-NmEzpWbbiWpudgqKVZtGdSAvQGIYyj7Rf8ea+1hJEo+Dn0YvPHtiz577US7kGg0sCaZtPelrdqV4SfwwGJq1cA==}
+  '@mswjs/interceptors@0.45.11':
+    resolution: {integrity: sha512-+ISPERIRIHhSVnFQRGCP9jDJXxn0/z2+pWWbXUym6JUfpUCRW2Pvro4P9RBKGYUKTKAULszKurKMTQIsaJUIgQ==}
     engines: {node: '>=22'}
 
   '@nais/apm@0.6.3':
@@ -1353,8 +1353,8 @@ packages:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
 
-  ansi-regex@6.4.0:
-    resolution: {integrity: sha512-KzTVk2tCWAHtYrvvvaP8bJKJq2pVinhLcGEQdtLIYPbmNGNyYe8QwNaTUYQp2J7/vIsUKt5QCqAfUkYyG9DkOw==}
+  ansi-regex@6.5.0:
+    resolution: {integrity: sha512-zhvbbbdt1kbw7EJ9OQoxmQcuaNR9P5kTj7e/YdmOSU10aHWbycofJxA6jKfoEy3vlLdctOF9ZHaxLtmSm998wQ==}
     engines: {node: '>=12'}
 
   ansi-styles@5.2.0:
@@ -1442,8 +1442,8 @@ packages:
   colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
 
-  cookie@2.0.1:
-    resolution: {integrity: sha512-yuToqVvRrj6pfDXREyQAAv8SkAEk/8GS3jQRTiUMm66TVtBYmqQeoEjL2Lmq8Rpo6271vH76InTChTitEAm65w==}
+  cookie@2.0.2:
+    resolution: {integrity: sha512-SL0cVuEdETEp7pN0FuZb01toc3vnODEfVUCooxG1SJN0yIirh7JMb9X9bvfCFf0vzzbT68RdbKDHYTiWy7a7iw==}
     engines: {node: '>=22'}
 
   copy-anything@4.1.5:
@@ -1883,8 +1883,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  msw@3.0.3:
-    resolution: {integrity: sha512-hsXUCt2gK12q1IUBY9VmMun+yC60eEpVzegAFN5aGZbXhrGqtgPARVWn2ew4mezYvk1G8yhFha9myGSyRyRGWg==}
+  msw@3.0.4:
+    resolution: {integrity: sha512-lrILj+WEoJ4pp3SZHdEDnnZvP6jfWrNua+v2jgXz82RAaATAVqOqMNMxj2n2TUMNR9JP/eWG5tBry3mKnxPNbA==}
     engines: {node: '>=22.12.0'}
     hasBin: true
     peerDependencies:
@@ -2133,8 +2133,8 @@ packages:
     resolution: {integrity: sha512-CqbIVfk/7GL3ITwZI55lcPbpQbjHZ2DD5cUj4iH7E9YsCfHNJV1mx7yNp86Z84w5IpmkZZS/2s5vPOWmVWSdQg==}
     engines: {node: '>=10'}
 
-  set-cookie-parser@3.1.2:
-    resolution: {integrity: sha512-5/r/lTwbJ3zQ+qwdUFZYeRNqda7P5HD8zQKqlSjdGt1/S0cjLAphHusj4Y58ahDtWn/g32xrIS58/ikOvwl0Lw==}
+  set-cookie-parser@3.2.2:
+    resolution: {integrity: sha512-df017qMeYuXo4emL09nlyMpi2i2MtEIKS/6jtXH3vmjFgIRsOi852/5RmhJ4EkvN3ZF8jXadM/EkTPXgc8yPIw==}
 
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
@@ -2274,11 +2274,11 @@ packages:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
-  tldts-core@7.4.18:
-    resolution: {integrity: sha512-KI2PKvCmvQI/xD6ypPqkU0i7oxNXR/O58RLRaHR4svsgVUQ2JE/XC8BtMbG6PSehD27I8sZJRcC1ASnCy6lp3g==}
+  tldts-core@7.4.19:
+    resolution: {integrity: sha512-goNXV6Ho9TIOfpJZanTd6CKG5DyYgYAL+k+22T0SLh8l6+KHIfBUPFuePuSZv05UttIaaLmI9tb7TmGIdK5AkQ==}
 
-  tldts@7.4.18:
-    resolution: {integrity: sha512-somxA8xKAUzlAxl0TX/jMSYIbRNFIVGnI96pVGJPeMc5BsHmfVXn6mOJT6U++ELnl04eGfzpfcEuZe8WiASkXg==}
+  tldts@7.4.19:
+    resolution: {integrity: sha512-48dH6aSpQnpbzDUc4vIQZ1VjB8tkK+e8c1yx05/SZK+rkssgjEOlxDd/yU8/a4vGYQ9vRgJr9dwMq9TJ0b3X2Q==}
     hasBin: true
 
   toidentifier@1.0.1:
@@ -2300,8 +2300,8 @@ packages:
   tslib@2.9.1:
     resolution: {integrity: sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==}
 
-  type-fest@5.8.0:
-    resolution: {integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==}
+  type-fest@5.10.0:
+    resolution: {integrity: sha512-NoSdpq/WEiAg5sjmBkmV/hfxv6HJH4NqPNrqjtSO5CwRmpsDfaf4begxW34KdJykH/l1yHtwBWQkCRdoXO8mPA==}
     engines: {node: '>=20'}
 
   typescript@7.0.2:
@@ -2779,20 +2779,20 @@ snapshots:
   '@img/sharp-win32-x64@0.35.5':
     optional: true
 
-  '@inquirer/ansi@2.0.7': {}
+  '@inquirer/ansi@2.0.10': {}
 
-  '@inquirer/confirm@6.1.1(@types/node@24.19.2)':
+  '@inquirer/confirm@6.3.5(@types/node@24.19.2)':
     dependencies:
-      '@inquirer/core': 11.2.1(@types/node@24.19.2)
-      '@inquirer/type': 4.0.7(@types/node@24.19.2)
+      '@inquirer/core': 12.0.6(@types/node@24.19.2)
+      '@inquirer/type': 4.2.1(@types/node@24.19.2)
     optionalDependencies:
       '@types/node': 24.19.2
 
-  '@inquirer/core@11.2.1(@types/node@24.19.2)':
+  '@inquirer/core@12.0.6(@types/node@24.19.2)':
     dependencies:
-      '@inquirer/ansi': 2.0.7
-      '@inquirer/figures': 2.0.7
-      '@inquirer/type': 4.0.7(@types/node@24.19.2)
+      '@inquirer/ansi': 2.0.10
+      '@inquirer/figures': 2.0.10
+      '@inquirer/type': 4.2.1(@types/node@24.19.2)
       cli-width: 4.1.0
       fast-wrap-ansi: 0.2.2
       mute-stream: 3.0.0
@@ -2800,9 +2800,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.19.2
 
-  '@inquirer/figures@2.0.7': {}
+  '@inquirer/figures@2.0.10': {}
 
-  '@inquirer/type@4.0.7(@types/node@24.19.2)':
+  '@inquirer/type@4.2.1(@types/node@24.19.2)':
     optionalDependencies:
       '@types/node': 24.19.2
 
@@ -2853,7 +2853,7 @@ snapshots:
 
   '@msw/url@0.1.2': {}
 
-  '@mswjs/interceptors@0.45.9':
+  '@mswjs/interceptors@0.45.11':
     dependencies:
       '@open-draft/until': 3.0.1
       '@types/debug': 4.1.13
@@ -3321,7 +3321,7 @@ snapshots:
       picocolors: 1.1.1
       pretty-format: 27.5.1
 
-  '@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))':
+  '@testing-library/jest-dom@7.0.1(@testing-library/dom@10.4.2)(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))':
     dependencies:
       '@adobe/css-tools': 4.5.0
       '@testing-library/dom': 10.4.2
@@ -3331,7 +3331,7 @@ snapshots:
       picocolors: 1.1.1
       redent: 3.0.0
     optionalDependencies:
-      vitest: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+      vitest: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
 
   '@testing-library/react@16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
@@ -3449,14 +3449,14 @@ snapshots:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.3.6(@types/node@24.19.2)(jiti@2.7.0)
 
-  '@vitest/mocker@5.1.0(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))':
+  '@vitest/mocker@5.1.0(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.1.0
       estree-walker: 3.0.3
       magic-string: 1.4.5
     optionalDependencies:
-      msw: 3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+      msw: 3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
       vite: 8.3.6(@types/node@24.19.2)(jiti@2.7.0)
 
   '@vitest/spy@5.1.0': {}
@@ -3467,7 +3467,7 @@ snapshots:
 
   ansi-regex@5.0.1: {}
 
-  ansi-regex@6.4.0: {}
+  ansi-regex@6.5.0: {}
 
   ansi-styles@5.2.0: {}
 
@@ -3527,7 +3527,7 @@ snapshots:
 
   colorette@2.0.20: {}
 
-  cookie@2.0.1: {}
+  cookie@2.0.2: {}
 
   copy-anything@4.1.5: {}
 
@@ -3663,7 +3663,7 @@ snapshots:
   headers-polyfill@5.0.1:
     dependencies:
       '@types/set-cookie-parser': 2.4.10
-      set-cookie-parser: 3.1.2
+      set-cookie-parser: 3.2.2
 
   help-me@5.0.0: {}
 
@@ -3888,18 +3888,18 @@ snapshots:
 
   ms@2.1.3: {}
 
-  msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)):
+  msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)):
     dependencies:
-      '@inquirer/confirm': 6.1.1(@types/node@24.19.2)
+      '@inquirer/confirm': 6.3.5(@types/node@24.19.2)
       '@msw/url': 0.1.2
-      '@mswjs/interceptors': 0.45.9
-      cookie: 2.0.1
+      '@mswjs/interceptors': 0.45.11
+      cookie: 2.0.2
       headers-polyfill: 5.0.1
       is-node-process: 1.2.0
       outvariant: 1.4.3
       rettime: 0.11.12
       tough-cookie: 6.0.2
-      type-fest: 5.8.0
+      type-fest: 5.10.0
       until-async: 3.0.2
       yargs: 18.2.0
     optionalDependencies:
@@ -4155,7 +4155,7 @@ snapshots:
 
   seroval@1.6.12: {}
 
-  set-cookie-parser@3.1.2: {}
+  set-cookie-parser@3.2.2: {}
 
   setprototypeof@1.2.0: {}
 
@@ -4250,7 +4250,7 @@ snapshots:
 
   strip-ansi@7.2.0:
     dependencies:
-      ansi-regex: 6.4.0
+      ansi-regex: 6.5.0
 
   strip-indent@3.0.0:
     dependencies:
@@ -4304,17 +4304,17 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.7)
       picomatch: 4.0.7
 
-  tldts-core@7.4.18: {}
+  tldts-core@7.4.19: {}
 
-  tldts@7.4.18:
+  tldts@7.4.19:
     dependencies:
-      tldts-core: 7.4.18
+      tldts-core: 7.4.19
 
   toidentifier@1.0.1: {}
 
   tough-cookie@6.0.2:
     dependencies:
-      tldts: 7.4.18
+      tldts: 7.4.19
 
   tr46@7.0.0:
     dependencies:
@@ -4324,7 +4324,7 @@ snapshots:
 
   tslib@2.9.1: {}
 
-  type-fest@5.8.0:
+  type-fest@5.10.0:
     dependencies:
       tagged-tag: 1.0.0
 
@@ -4375,7 +4375,7 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.7.0
 
-  vitest-axe@0.1.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))):
+  vitest-axe@0.1.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))):
     dependencies:
       aria-query: 5.3.0
       axe-core: 4.9.1
@@ -4383,18 +4383,18 @@ snapshots:
       dom-accessibility-api: 0.5.16
       lodash-es: 4.17.23
       redent: 3.0.0
-      vitest: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+      vitest: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
 
-  vitest-canvas-mock@1.2.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))):
+  vitest-canvas-mock@1.2.0(vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))):
     dependencies:
       cssfontparser: 1.2.1
       moo-color: 1.0.3
-      vitest: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+      vitest: 5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
 
-  vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)):
+  vitest@5.1.0(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(jsdom@30.1.3)(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.1.0(msw@3.0.3(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
+      '@vitest/mocker': 5.1.0(msw@3.0.4(@types/node@24.19.2)(typescript@7.0.2)(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0)))(vite@8.3.6(@types/node@24.19.2)(jiti@2.7.0))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
