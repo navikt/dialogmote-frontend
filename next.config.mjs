@@ -44,6 +44,9 @@ const moduleExports = {
   reactStrictMode: true,
   basePath: "/syk/dialogmoter",
   assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || "",
+  // Assets load from the CDN. Without CORS mode, the browser hides script
+  // errors from them, and Faro reports only "Script error.".
+  crossOrigin: "anonymous",
   pageExtensions: ["page.tsx", "page.ts", "page.js", "api.ts"],
   output: "standalone",
   productionBrowserSourceMaps: true,
