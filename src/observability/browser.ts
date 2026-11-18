@@ -9,7 +9,11 @@ import {
 import { getFetchFailureReason, isAbortError } from "@/common/api/fetch/errors";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import { BROWSER_BASE_PATH, getCurrentBrowserPage } from "./routes";
+import {
+  BROWSER_BASE_PATH,
+  getCurrentBrowserPage,
+  normalizeTelemetryEndpoint,
+} from "./routes";
 
 export {
   BROWSER_BASE_PATH,
@@ -240,6 +244,14 @@ export function reportBrowserMutationError(error: unknown): void {
     return;
   }
   captureException(error);
+}
+
+/** Count login redirects as events, so redirect loops stay visible without exceptions. */
+export function trackLoginRedirect(requestUrl: string): void {
+  if (!isInitialized()) return;
+  pushEvent("login_redirect", {
+    endpoint: normalizeTelemetryEndpoint(requestUrl),
+  });
 }
 
 export function trackBrowserRoute(toRoute: string, fromRoute?: string): void {

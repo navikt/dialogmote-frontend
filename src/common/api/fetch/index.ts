@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { HttpError } from "@/common/utils/errors/HttpError";
 import { loginUser } from "@/common/utils/urlUtils";
+import { trackLoginRedirect } from "@/observability/browser";
 import { normalizeTelemetryEndpoint } from "@/observability/routes";
 import {
   FetchNetworkError,
@@ -122,6 +123,7 @@ const throwHttpError = async (
   method: "GET" | "POST",
 ): Promise<never> => {
   if (response.status === 401 && typeof window !== "undefined") {
+    trackLoginRedirect(requestUrl);
     loginUser();
     // The page is leaving for login. Stay pending so callers keep their loading
     // state instead of showing an error page or reporting an expected failure.

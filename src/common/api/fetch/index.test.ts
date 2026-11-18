@@ -1,10 +1,12 @@
 import { inspect } from "node:util";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { loginUser } from "@/common/utils/urlUtils";
+import { trackLoginRedirect } from "@/observability/browser";
 import { FetchNetworkError, FetchResponseParseError } from "./errors";
 import { get } from "./index";
 
 vi.mock("@/common/utils/urlUtils", () => ({ loginUser: vi.fn() }));
+vi.mock("@/observability/browser", () => ({ trackLoginRedirect: vi.fn() }));
 
 const leaderId = "leader_ref_9KLMNOP";
 const endpoint = `/syk/dialogmoter/api/arbeidsgiver/${leaderId}?fnr=01017012345`;
@@ -162,5 +164,6 @@ describe("safe fetch errors", () => {
 
     expect(outcome).toBe("pending");
     expect(loginUser).toHaveBeenCalledOnce();
+    expect(trackLoginRedirect).toHaveBeenCalledWith(endpoint);
   });
 });
