@@ -123,6 +123,9 @@ const throwHttpError = async (
 ): Promise<never> => {
   if (response.status === 401 && typeof window !== "undefined") {
     loginUser();
+    // The page is leaving for login. Stay pending so callers keep their loading
+    // state instead of showing an error page or reporting an expected failure.
+    return new Promise<never>(() => {});
   }
 
   // Only this code is part of the reviewed API contract; never retain a body.

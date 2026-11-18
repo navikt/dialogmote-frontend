@@ -1,7 +1,10 @@
 import { inspect } from "node:util";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { loginUser } from "@/common/utils/urlUtils";
 import { FetchNetworkError, FetchResponseParseError } from "./errors";
 import { get } from "./index";
+
+vi.mock("@/common/utils/urlUtils", () => ({ loginUser: vi.fn() }));
 
 const leaderId = "leader_ref_9KLMNOP";
 const endpoint = `/syk/dialogmoter/api/arbeidsgiver/${leaderId}?fnr=01017012345`;
@@ -141,5 +144,23 @@ describe("safe fetch errors", () => {
     const error = await get(endpoint).catch((caught) => caught);
 
     expect(error).toBe(abortError);
+  });
+
+  it("sender til innlogging og holder forespørselen ventende ved 401", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response(undefined, { status: 401 })),
+    );
+
+    const outcome = await Promise.race([
+      get(endpoint).then(
+        () => "resolved",
+        () => "rejected",
+      ),
+      new Promise((resolve) => setTimeout(() => resolve("pending"), 0)),
+    ]);
+
+    expect(outcome).toBe("pending");
+    expect(loginUser).toHaveBeenCalledOnce();
   });
 });
