@@ -246,6 +246,19 @@ describe("browser telemetry contract", () => {
     );
   });
 
+  it.each([
+    'console.error: [ERROR] Failed to renew session. {"error":"TypeError: Load failed"}',
+    'console.error: [ERROR] Failed to fetch session. {"error":"TypeError: Failed to fetch"}',
+  ])("dropper Dekoratørens sesjonsfeil: %s", (value) => {
+    expect(sanitizeBrowserTelemetry(exception(value))).toBeNull();
+  });
+
+  it("beholder appens egne nettverksfeil", () => {
+    const raw = exception("TypeError: Load failed");
+
+    expect(sanitizeBrowserTelemetry(raw)?.payload).toEqual(raw.payload);
+  });
+
   it("skjuler rute-ID-er i feil og beholder trygge Next-chunks", () => {
     const chunkUrl =
       "https://cdn.nav.no/team-esyfo/dialogmote-frontend/_next/static/chunks/pages/app-abc123.js";
@@ -354,3 +367,15 @@ describe("browser telemetry contract", () => {
     expect(browserApmOptions).not.toHaveProperty("screenshotOnError");
   });
 });
+
+function exception(value: string) {
+  return {
+    type: "exception",
+    payload: {
+      timestamp: "2026-11-18T11:25:13.353Z",
+      type: "Error",
+      value,
+    },
+    meta: {},
+  } as Parameters<typeof sanitizeBrowserTelemetry>[0];
+}
