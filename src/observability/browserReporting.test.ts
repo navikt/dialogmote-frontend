@@ -27,6 +27,7 @@ import {
   initBrowserObservability,
   reportBrowserMutationError,
   trackBrowserRoute,
+  trackLoginRedirect,
 } from "./browser";
 
 describe("browser reporting ownership", () => {
@@ -93,9 +94,20 @@ describe("browser reporting ownership", () => {
 
     reportBrowserMutationError(new Error("Request failed"));
     trackBrowserRoute("/syk/dialogmoter/sykmeldt");
+    trackLoginRedirect("/syk/dialogmoter/api/sykmeldt");
 
     expect(captureException).not.toHaveBeenCalled();
     expect(pushEvent).not.toHaveBeenCalled();
+  });
+
+  it("sender login_redirect med bare normalisert endepunkt", () => {
+    trackLoginRedirect(
+      "/syk/dialogmoter/api/arbeidsgiver/leader_ref_9KLMNOP?fnr=01017012345",
+    );
+
+    expect(pushEvent).toHaveBeenCalledWith("login_redirect", {
+      endpoint: "/syk/dialogmoter/api/arbeidsgiver/{narmestelederid}",
+    });
   });
 
   it("sender kanoniske ruter", () => {

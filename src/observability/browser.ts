@@ -9,7 +9,11 @@ import {
 import { getFetchFailureReason, isAbortError } from "@/common/api/fetch/errors";
 import { isDemoOrLocal } from "@/common/publicEnv";
 import { HttpError } from "@/common/utils/errors/HttpError";
-import { BROWSER_BASE_PATH, getCurrentBrowserPage } from "./routes";
+import {
+  BROWSER_BASE_PATH,
+  getCurrentBrowserPage,
+  normalizeTelemetryEndpoint,
+} from "./routes";
 
 export {
   BROWSER_BASE_PATH,
@@ -52,6 +56,10 @@ const CSP_DIRECTIVE = /^[a-z][a-z0-9-]{0,63}$/;
 const CSP_DISPOSITIONS = new Set(["enforce", "report"]);
 const CSP_STATUS_CODE = /^(?:0|[1-5]\d{2})$/;
 const UNKNOWN_CSP_VALUE = "unknown";
+// Dekoratøren logs these when its request to the login session API throws,
+// for example after network loss or in a suspended tab. They are not app errors.
+const DECORATOR_SESSION_FAILURE =
+  /^console\.error: \[ERROR\] Failed to (?:fetch|renew) session\./;
 
 type Payload = {
   name?: string;
@@ -156,6 +164,9 @@ export const sanitizeBrowserTelemetry: BeforeSend = (item) => {
       };
     }
   } else if (item.type === "exception") {
+    if (payload.value && DECORATOR_SESSION_FAILURE.test(payload.value)) {
+      return null;
+    }
     payload = {
       ...payload,
       ...(payload.value === undefined
@@ -233,6 +244,14 @@ export function reportBrowserMutationError(error: unknown): void {
     return;
   }
   captureException(error);
+}
+
+/** Count login redirects as events, so redirect loops stay visible without exceptions. */
+export function trackLoginRedirect(requestUrl: string): void {
+  if (!isInitialized()) return;
+  pushEvent("login_redirect", {
+    endpoint: normalizeTelemetryEndpoint(requestUrl),
+  });
 }
 
 export function trackBrowserRoute(toRoute: string, fromRoute?: string): void {
